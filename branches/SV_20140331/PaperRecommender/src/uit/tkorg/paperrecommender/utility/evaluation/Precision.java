@@ -34,6 +34,31 @@ public class Precision {
             }
         }
         prec = (double) prec / retList.size();
+
         return prec;
+    }
+
+    /**
+     * This method computes precision with threshold k based on relevant documents retrieved and k retrieved documents
+     * @param relList
+     * @param retList
+     * @param k
+     * @return preck
+     */
+    public static double computePrecisionK(List relList, List retList, int k) {
+        double preck = 0;
+        
+        if (k > retList.size()) {
+            k = retList.size();
+        }
+        
+        for (int i = 0; i < k; i++) {
+            if (relList.contains(retList.get(i))) {
+                preck++;
+            }
+        }
+        preck = (double) preck / k;
+
+        return preck;
     }
 }
