@@ -25,6 +25,7 @@ public class Author implements Serializable {
     private double ndcg5;
     private double ndcg10;
     private double rr;
+    private double map;
 
     /**
      * Default constructor used for serializable.
@@ -165,5 +166,18 @@ public class Author implements Serializable {
      */
     public void setRr(double rr) {
         this.rr = rr;
+    }
+    /**
+     * @return the map
+     */
+    public double getMap() {
+        return map;
+    }
+
+    /**
+     * @param map the map to set
+     */
+    public void setMap(double map) {
+        this.map = map;
     }
 }

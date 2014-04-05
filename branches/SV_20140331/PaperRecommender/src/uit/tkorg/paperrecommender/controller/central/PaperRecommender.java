@@ -3,6 +3,7 @@
  * and open the template in the editor.
  */
 package uit.tkorg.paperrecommender.controller.central;
+
 import java.util.HashMap;
 import uit.tkorg.paperrecommender.constant.PaperRecommenerConstant;
 import uit.tkorg.paperrecommender.controller.datapreparation.AuthorFV;
@@ -13,7 +14,6 @@ import uit.tkorg.paperrecommender.model.Author;
 import uit.tkorg.paperrecommender.model.Paper;
 import uit.tkorg.paperrecommender.utility.Serializer;
 import uit.tkorg.paperrecommender.utility.dataimport.flatfile.ImportDataset1;
-
 
 /**
  *
@@ -36,7 +36,15 @@ public class PaperRecommender {
      * This method is used as a entry point for testing.
      * @param args the command line arguments
      */
-    public static void main(String[] args) { 
+    public static void main(String[] args) throws Exception { 
+        PaperRecommender prec=new PaperRecommender();
+        String Dataset1Folder=PaperRecommenerConstant.DATASETFOLDER;
+        prec.papers = ImportDataset1.buildListOfPapers(Dataset1Folder);
+        prec.authors = ImportDataset1.buildListOfAuthors(Dataset1Folder);
+        prec.papers = PaperFV.computeAllPapersFeatureVector(prec.papers, 0);
+        prec.authors = AuthorFV.computeAllAuthorsFeatureVector(prec.authors, 0);
+        prec.authors = ContentBasedRecommender.buildAllRecommendationLists(prec.authors, prec.papers);
+        System.out.println(String.valueOf(Evaluator.MAP(prec.authors)));
     }
     
     /**

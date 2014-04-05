@@ -34,6 +34,7 @@ public class Recall {
             }
         }
         rec = (double) rec / relList.size();
+        
         return rec;
     }
 }
