@@ -11,7 +11,9 @@ import uit.tkorg.paperrecommender.utility.Weighting;
 import uit.tkorg.paperrecommender.utility.dataimport.flatfile.ImportDataset1;
 import uit.tkorg.paperrecommender.constant.PaperRecommenerConstant;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
 /**
  *
  * @author Minh
@@ -45,10 +47,11 @@ public class PearsonCorrelation {
     * @param paperTarget
     * @return 
     */
-   public static double [] pearsonPapertarget(List <Paper> paperInput, double[][] matrixCit,int paperTarget)
+   public static List<Double> pearsonPapertarget(List <Paper> paperInput,int paperTarget) throws Exception
    {
-      double [] PCC = null;
+      List PCC = new ArrayList();
       double [] average= null;
+      double[][] matrixCit= writeCosinReal(paperInput);
       int matrixSize= paperInput.size();
     
       for (int i=0;i< matrixSize;i++)
@@ -62,16 +65,28 @@ public class PearsonCorrelation {
 		   double sttdevPaperTarget =+ Math.pow((matrixCit[paperTarget][j]- average[i]),2);
 		   double sttdevPaperCit =+ Math.pow((matrixCit[i][j]- average[i+1]),2);
 		   double pccTemp = covar/Math.sqrt(sttdevPaperTarget*sttdevPaperCit);
-		   PCC[i]=pccTemp;
+		   PCC.add(pccTemp);
           }
       return PCC;
    }
-
-   public static double [][] builMatrixPaperCit(List<Paper> paperInput)
+   //moi paper recommend se la  mot bai bao muc tieu, tìm bài báo muc tieu cua moi paper luu vao author
+// viet ham chon so lang gieng  cho mỗi paper ung vien co trong dataset
+   //compute gia tri dien vao ma tran
+   // kiem tra neu nhung paper trong tap hang xom co trong cit cua paper target thi bo qua
+   //
+   public static double [][] builMatrixPaperCit(List<Paper> paperInput, int neighborhood) throws Exception
    {
        int matrixSize = paperInput.size();
        double [][] matrixBuild= new double [matrixSize][matrixSize];
+       List arrayPearson= new ArrayList();
        while(matrixSize !=0){
+           for(int i=0;i<matrixSize;i++)
+               for (int j=0; j< matrixSize; j++)
+           {
+             arrayPearson = pearsonPapertarget(paperInput,i);
+             Collections.sort(arrayPearson);
+               
+           }
       }
       
        return matrixBuild;
