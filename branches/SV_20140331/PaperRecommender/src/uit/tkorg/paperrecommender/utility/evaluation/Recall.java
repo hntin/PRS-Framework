@@ -8,7 +8,12 @@ package uit.tkorg.paperrecommender.utility.evaluation;
 import java.util.List;
 
 /**
- *
+ * This class content methods for computing metric related to Recall. 
+ * Ref:
+ * 1. http://en.wikipedia.org/wiki/Precision_and_recall
+ * 2. http://www.stanford.edu/class/cs276/handouts/EvaluationNew-handout-6-per.pdf
+ * Method: 
+ * - computeRecall
  * @author Vinh-PC
  */
 public class Recall {
@@ -21,20 +26,19 @@ public class Recall {
      * This method computes recall based on relevant documents retrieved and
      * total relevant documents
      *
-     * @param relList
-     * @param retList
+     * @param rankList
+     * @param idealList
      * @return rec
      */
-    public static double computeRecall(List relList, List retList) {
+    public static double computeRecall(List rankList, List idealList) {
         double rec = 0;
 
-        for (int i = 0; i < relList.size(); i++) {
-            if (retList.contains(relList.get(i))) {
+        for (int i = 0; i < rankList.size(); i++) {
+            if (idealList.contains(rankList.get(i))) {
                 rec++;
             }
         }
-        rec = (double) rec / relList.size();
         
-        return rec;
+        return (double) rec / idealList.size();
     }
 }

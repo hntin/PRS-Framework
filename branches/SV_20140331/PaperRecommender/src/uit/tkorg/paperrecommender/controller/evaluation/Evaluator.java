@@ -6,15 +6,21 @@ package uit.tkorg.paperrecommender.controller.evaluation;
 
 import java.util.HashMap;
 import uit.tkorg.paperrecommender.model.Author;
+import uit.tkorg.paperrecommender.utility.evaluation.AveragePrecision;
 import uit.tkorg.paperrecommender.utility.evaluation.NDCG;
 import uit.tkorg.paperrecommender.utility.evaluation.Precision;
+import uit.tkorg.paperrecommender.utility.evaluation.Recall;
 import uit.tkorg.paperrecommender.utility.evaluation.ReciprocalRank;
 
 /**
  * This class handles all logics for evaluation of recommendation results.
- * Method: - NDCG: + input: authors' ground truth list and recommendation list,
- * n where NDCG computed at. + output: NDCG. - MRR: + input: authors' ground
- * truth list and recommendation list. + output: MRR.
+ * Method: 
+ * - NDCG: 
+ * + input: authors' ground truth list and recommendation list, n where NDCG computed at. 
+ * + output: NDCG. 
+ * - MRR: 
+ * + input: authors' ground truth list and recommendation list. 
+ * + output: MRR.
  *
  * @author THNghiep
  */
@@ -29,9 +35,10 @@ public class Evaluator {
      * to author list. Note: this method return the ndcg value and change the
      * author hashmap input directly.
      *
-     * @param authors
+     * @param authorsInput
      * @param n
      * @return ndcg
+     * @throws java.lang.Exception
      */
     public static double NDCG(HashMap<String, Author> authorsInput, int n) throws Exception {
         double ndcg = 0;
@@ -83,18 +90,66 @@ public class Evaluator {
         return mrr;
     }
 
-    public static double MAP(HashMap<String, Author> authorsInput) {
-        double map=0;
-        
-        double currentMAP=0;
-        
-        for(String authorId:authorsInput.keySet()){
-            currentMAP=Precision.computePrecision(authorsInput.get(authorId).getGroundTruth(), authorsInput.get(authorId).getRecommendation());
-            authorsInput.get(authorId).setMap(currentMAP);
-            map+=currentMAP;
+    /**
+     * This method computes Precision. Note: this method return the precision
+     * value and change the author hashmap input directly.
+     *
+     * @param authorsInput
+     * @return
+     */
+    public static double Precision(HashMap<String, Author> authorsInput) {
+        double prec = 0;
+
+        double currentPREC = 0;
+
+        for (String authorId : authorsInput.keySet()) {
+            currentPREC = Precision.computePrecision(authorsInput.get(authorId).getRecommendation(), authorsInput.get(authorId).getGroundTruth());
+            authorsInput.get(authorId).setPrecision(currentPREC);
+            prec += currentPREC;
         }
-        map=map/authorsInput.size();
-        
-        return map;
+
+        return prec / authorsInput.size();
+    }
+
+    /**
+     * This method computes Recall. Note: this method return the recall value
+     * and change the author hashmap input directly.
+     *
+     * @param authorsInput
+     * @return
+     */
+    public static double Recall(HashMap<String, Author> authorsInput) {
+        double rec = 0;
+
+        double currentREC = 0;
+
+        for (String authorId : authorsInput.keySet()) {
+            currentREC = Recall.computeRecall(authorsInput.get(authorId).getRecommendation(), authorsInput.get(authorId).getGroundTruth());
+            authorsInput.get(authorId).setRecall(currentREC);
+            rec += currentREC;
+        }
+
+        return rec / authorsInput.size();
+    }
+
+    /**
+     * This method computes Map. Note: this method return the map value and
+     * change the author hashmap input directly.
+     *
+     * @param authorsInput
+     * @return
+     */
+    public static double MAP(HashMap<String, Author> authorsInput, int k) {
+        double map = 0;
+
+        double currentMAP = 0;
+
+        for (String authorId : authorsInput.keySet()) {
+            currentMAP = AveragePrecision.computeAP(authorsInput.get(authorId).getRecommendation(), authorsInput.get(authorId).getGroundTruth(), k);
+            authorsInput.get(authorId).setMAP(currentMAP);
+            map += currentMAP;
+        }
+
+        return map / authorsInput.size();
     }
 }

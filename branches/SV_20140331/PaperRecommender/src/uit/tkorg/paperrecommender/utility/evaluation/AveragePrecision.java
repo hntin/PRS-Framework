@@ -10,13 +10,16 @@ import java.util.List;
 import uit.tkorg.paperrecommender.model.Author;
 
 /**
+ * This class content methods for computing metric related to AveragePrecision. Ref: 1.
+ * http://www.stanford.edu/class/cs276/handouts/EvaluationNew-handout-6-per.pdf
+ * 2. http://essay.utwente.nl/59711/1/MA_thesis_J_de_Wit.pdf Method: - computeAP
  *
  * @author Vinh-PC
  */
-public class MAP {
+public class AveragePrecision {
 
     // Prevent instantiation.
-    private MAP() {
+    private AveragePrecision() {
     }
 
     /**
@@ -25,7 +28,7 @@ public class MAP {
      * @param rankList
      * @param idealList
      * @param k
-     * @return ap
+     * @return
      */
     public static double computeAP(List rankList, List idealList, int k) {
         double ap = 0;
@@ -37,8 +40,7 @@ public class MAP {
         for (int i = 0; i < k; i++) {
             ap += Precision.computePrecisionK(rankList, idealList, i + 1);
         }
-        ap = (double) ap / k;
 
-        return ap;
+        return (double) ap / k;
     }
 }

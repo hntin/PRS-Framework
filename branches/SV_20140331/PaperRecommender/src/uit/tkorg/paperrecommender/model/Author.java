@@ -25,6 +25,8 @@ public class Author implements Serializable {
     private double ndcg5;
     private double ndcg10;
     private double rr;
+    private double precision;
+    private double recall;
     private double map;
 
     /**
@@ -168,16 +170,42 @@ public class Author implements Serializable {
         this.rr = rr;
     }
     /**
+     * @return the precision
+     */
+    public double getPrecision() {
+        return precision;
+    }
+
+    /**
+     * @param precision the precision to set
+     */
+    public void setPrecision(double precision) {
+        this.precision = precision;
+    }
+    /**
+     * @return the recall
+     */
+    public double getRecall() {
+        return recall;
+    }
+
+    /**
+     * @param recall the recall to set
+     */
+    public void setRecall(double recall) {
+        this.recall = recall;
+    }
+    /**
      * @return the map
      */
-    public double getMap() {
+    public double getMAP() {
         return map;
     }
 
     /**
      * @param map the map to set
      */
-    public void setMap(double map) {
+    public void setMAP(double map) {
         this.map = map;
     }
 }
