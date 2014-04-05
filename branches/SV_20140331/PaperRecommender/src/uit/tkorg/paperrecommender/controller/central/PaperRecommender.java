@@ -37,14 +37,7 @@ public class PaperRecommender {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception { 
-        PaperRecommender prec=new PaperRecommender();
-        String Dataset1Folder=PaperRecommenerConstant.DATASETFOLDER;
-        prec.papers = ImportDataset1.buildListOfPapers(Dataset1Folder);
-        prec.authors = ImportDataset1.buildListOfAuthors(Dataset1Folder);
-        prec.papers = PaperFV.computeAllPapersFeatureVector(prec.papers, 0);
-        prec.authors = AuthorFV.computeAllAuthorsFeatureVector(prec.authors, 0);
-        prec.authors = ContentBasedRecommender.buildAllRecommendationLists(prec.authors, prec.papers);
-        System.out.println(String.valueOf(Evaluator.MAP(prec.authors)));
+       
     }
     
     /**
