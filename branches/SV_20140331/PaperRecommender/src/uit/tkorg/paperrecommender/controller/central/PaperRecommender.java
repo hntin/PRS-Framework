@@ -17,13 +17,11 @@ import uit.tkorg.paperrecommender.utility.dataimport.flatfile.ImportDataset1;
 
 /**
  *
- * @author THNghiep
- * Central controller.
- * Main entry class used for testing.
- * Also control all traffic from gui.
+ * @author THNghiep Central controller. Main entry class used for testing. Also
+ * control all traffic from gui.
  */
 public class PaperRecommender {
-    
+
     // Key of this hash map is paper id.
     // Value of this hash map is the relevant paper object.
     private HashMap<String, Author> authors;
@@ -34,11 +32,12 @@ public class PaperRecommender {
 
     /**
      * This method is used as a entry point for testing.
+     *
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws Exception { 
-        PaperRecommender prec=new PaperRecommender();
-        String Dataset1Folder=PaperRecommenerConstant.DATASETFOLDER;
+    public static void main(String[] args) throws Exception {
+        PaperRecommender prec = new PaperRecommender();
+        String Dataset1Folder = PaperRecommenerConstant.DATASETFOLDER;
         prec.papers = ImportDataset1.buildListOfPapers(Dataset1Folder);
         prec.authors = ImportDataset1.buildListOfAuthors(Dataset1Folder);
         prec.papers = PaperFV.computeAllPapersFeatureVector(prec.papers, 0);
@@ -46,22 +45,23 @@ public class PaperRecommender {
         prec.authors = ContentBasedRecommender.buildAllRecommendationLists(prec.authors, prec.papers);
         System.out.println(String.valueOf(Evaluator.Precision(prec.authors)));
     }
-    
+
     /**
      * This method handles all request from gui.
+     *
      * @param request
-     * @param param 
+     * @param param
      * @return response: result of request after processing.
-     */    
+     */
     public String[] centralController(String request, String param) {
         String[] response = new String[2];
-        
+
         String Dataset1Folder;
         String SaveDataFolder;
-        
+
         try {
             switch (request) {
-                
+
                 // Dataset 1: data import.
                 case "Read paper":
                     // Read param to get dataset 1 folder.
@@ -123,7 +123,7 @@ public class PaperRecommender {
                     authors = (HashMap<String, Author>) Serializer.loadObjectFromFile(SaveDataFolder + "\\Authors.dat");
                     response[0] = "Success.";
                     break;
-                    
+
                 // Dataset 1: data preparation.
                 case "Paper FV linear":
                     papers = PaperFV.computeAllPapersFeatureVector(papers, 0);
@@ -165,7 +165,19 @@ public class PaperRecommender {
                     response[1] = String.valueOf(Evaluator.MRR(authors));
                     response[0] = "Success.";
                     break;
-                default: 
+                case "Precision":
+                    response[1] = String.valueOf(Evaluator.Precision(authors));
+                    response[0] = "Success.";
+                    break;
+                case "Recall":
+                    response[1] = String.valueOf(Evaluator.Recall(authors));
+                    response[0] = "Success.";
+                    break;
+                case "MAP":
+                    response[1] = String.valueOf(Evaluator.MAP(authors,10));
+                    response[0] = "Success.";
+                    break;
+                default:
                     response[0] = "Unknown.";
             }
         } catch (Exception e) {
@@ -174,7 +186,7 @@ public class PaperRecommender {
             response[0] = "Fail.";
             return response;
         }
-        
+
         return response;
     }
 }

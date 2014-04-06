@@ -5,15 +5,13 @@
  */
 
 package uit.tkorg.paperrecommender.utility.alogirthm;
+
 import uit.tkorg.paperrecommender.model.Paper;
-import uit.tkorg.paperrecommender.controller.datapreparation.PaperFV;
-import uit.tkorg.paperrecommender.utility.Weighting;
-import uit.tkorg.paperrecommender.utility.dataimport.flatfile.ImportDataset1;
-import uit.tkorg.paperrecommender.constant.PaperRecommenerConstant;
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
+import uit.tkorg.paperrecommender.utility.Weighting;
+
 /**
  *
  * @author Minh
