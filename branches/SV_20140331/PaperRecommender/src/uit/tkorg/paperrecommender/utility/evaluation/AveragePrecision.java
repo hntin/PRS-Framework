@@ -5,14 +5,15 @@
  */
 package uit.tkorg.paperrecommender.utility.evaluation;
 
-import java.util.HashMap;
 import java.util.List;
-import uit.tkorg.paperrecommender.model.Author;
 
 /**
- * This class content methods for computing metric related to AveragePrecision. Ref: 1.
- * http://www.stanford.edu/class/cs276/handouts/EvaluationNew-handout-6-per.pdf
- * 2. http://essay.utwente.nl/59711/1/MA_thesis_J_de_Wit.pdf Method: - computeAP
+ * This class content methods for computing metric related to AveragePrecision. 
+ * Ref: 
+ * 1. http://www.stanford.edu/class/cs276/handouts/EvaluationNew-handout-6-per.pdf
+ * 2. http://essay.utwente.nl/59711/1/MA_thesis_J_de_Wit.pdf 
+ * Method: 
+ * - computeAP
  *
  * @author Vinh-PC
  */

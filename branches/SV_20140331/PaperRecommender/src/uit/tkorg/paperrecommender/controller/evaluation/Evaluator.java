@@ -137,6 +137,7 @@ public class Evaluator {
      * change the author hashmap input directly.
      *
      * @param authorsInput
+     * @param k
      * @return
      */
     public static double MAP(HashMap<String, Author> authorsInput, int k) {
