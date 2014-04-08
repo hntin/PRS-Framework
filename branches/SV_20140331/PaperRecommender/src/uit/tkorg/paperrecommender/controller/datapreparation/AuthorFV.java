@@ -30,7 +30,10 @@ public class AuthorFV {
      * This method computes and set value for all authors' full feature vector
      * (after combining citation and reference papers).
      *
+     * @param authorsInput
      * @param weightingScheme 0: linear; 1: cosine; 2: rpy
+     * @return 
+     * @throws java.lang.Exception
      */
     public static HashMap<String, Author> computeAllAuthorsFeatureVector(HashMap<String, Author> authorsInput, int weightingScheme) throws Exception {
         // Reuse authorsInput, not constructing new hash map.

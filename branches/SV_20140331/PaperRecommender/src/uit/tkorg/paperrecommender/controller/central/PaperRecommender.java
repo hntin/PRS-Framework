@@ -10,6 +10,7 @@ import uit.tkorg.paperrecommender.controller.datapreparation.AuthorFV;
 import uit.tkorg.paperrecommender.controller.datapreparation.PaperFV;
 import uit.tkorg.paperrecommender.controller.evaluation.Evaluator;
 import uit.tkorg.paperrecommender.controller.recommendation.ContentBasedRecommender;
+import uit.tkorg.paperrecommender.controller.recommendation.KnnClassifierRecommender;
 import uit.tkorg.paperrecommender.model.Author;
 import uit.tkorg.paperrecommender.model.Paper;
 import uit.tkorg.paperrecommender.utility.Serializer;
@@ -151,6 +152,11 @@ public class PaperRecommender {
                     break;
                 case "Recommend":
                     authors = ContentBasedRecommender.buildAllRecommendationLists(authors, papers);
+                    /*authors = KnnClassifierRecommender.buildAllRecommendationLists(authors, 5);
+                    for(String authorId:authors.keySet()){
+                        System.out.println("Author: "+authorId);
+                        System.out.println(authors.get(authorId).getRecommendation());
+                    }*/
                     response[0] = "Success.";
                     break;
                 case "NDCG5":

@@ -27,6 +27,7 @@ public class GeneralUtility {
      *
      * @param hashMap
      * @return sortMap
+     * @throws java.lang.Exception
      */
     public static LinkedHashMap sortHashMap(HashMap<String, Double> hashMap) throws Exception {
         List list = new LinkedList(hashMap.entrySet());

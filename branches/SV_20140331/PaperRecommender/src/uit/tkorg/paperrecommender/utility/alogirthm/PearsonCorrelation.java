@@ -41,7 +41,6 @@ public class PearsonCorrelation {
    /**
     * This is method compute PCC between paperTarget and paperCit
     * @param paperInput
-    * @param matrixCit
     * @param paperTarget
     * @return 
     */
