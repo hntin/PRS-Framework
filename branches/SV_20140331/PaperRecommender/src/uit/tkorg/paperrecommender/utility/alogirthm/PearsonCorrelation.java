@@ -5,7 +5,6 @@
  */
 package uit.tkorg.paperrecommender.utility.alogirthm;
 
-
 import uit.tkorg.paperrecommender.model.Paper;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +12,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import uit.tkorg.paperrecommender.utility.Weighting;
+
 /**
  *
  * @author Minh
  */
 public class PearsonCorrelation {
- //   public static double [] average;
 
     /**
      * This is method write cosine between paper and paper's cit
@@ -41,21 +40,22 @@ public class PearsonCorrelation {
         }
         return matrixCit;
     }
-public static double [] averageCit(List<Paper> paperInput) throws Exception
-{
-       double[][] matrixCit = writeCosinReal(paperInput);
+
+    public static double[] averageCit(List<Paper> paperInput) throws Exception {
+        double[][] matrixCit = writeCosinReal(paperInput);
         int matrixSize = paperInput.size();
-        double [] average = new double[matrixSize];
+        double[] average = new double[matrixSize];
         // average = new double[matrixSize];
         for (int i = 0; i < matrixSize; i++) {
             for (int j = 0; j < matrixSize; j++) {
                 int n = paperInput.get(i).getCitation().size();
                 double sum = +matrixCit[i][j];
-                average[i]=sum/n;
+                average[i] = sum / n;
             }
         }
-         return average;
-}
+        return average;
+    }
+
     /**
      * This is method compute PCC between paperTarget and paperCit
      *
@@ -68,16 +68,16 @@ public static double [] averageCit(List<Paper> paperInput) throws Exception
         List PCC = new ArrayList();
         double[][] matrixCit = writeCosinReal(paperInput);
         int matrixSize = paperInput.size();
-        double [] average = averageCit(paperInput);
+        double[] average = averageCit(paperInput);
         for (int i = 0; i < matrixSize; i++) {
             for (int j = 0; j < matrixSize; j++) {
-             
+
                 // compute PCC paper target and cit
                 double covar = +(matrixCit[paperTarget][j] - average[paperTarget]) * (matrixCit[i][j] - average[i]);
                 double sttdevPaperTarget = +Math.pow((matrixCit[paperTarget][j] - average[i]), 2);
                 double sttdevPaperCit = +Math.pow((matrixCit[i][j] - average[i + 1]), 2);
                 double pccTemp = covar / Math.sqrt(sttdevPaperTarget * sttdevPaperCit);
-              
+
                 PCC.add(pccTemp);
             }
         }
@@ -91,40 +91,47 @@ public static double [] averageCit(List<Paper> paperInput) throws Exception
     //
     public static double[][] builMatrixPaperCit(List<Paper> paperInput, int neighborhood) throws Exception {
         int matrixSize = paperInput.size();
-        double[][] matrixBuild = new double[matrixSize][matrixSize];
+        double[][] matrixBuild = writeCosinReal(paperInput);
         List arrayPearson = new ArrayList();
-        List tempSort =new ArrayList();
-        HashMap neighbor = new HashMap();
+        List tempSort = new ArrayList();
+        double sumNeighbor = 0;
+        double[] average = averageCit(paperInput);
         while (matrixSize != 0) {
-                    arrayPearson = pearsonPapertarget(paperInput, matrixSize);
-                    tempSort=arrayPearson;
-                    Collections.sort(tempSort, new Comparator() {
-                        @Override
-                        public int compare(Object o1, Object o2) {
-                            if (o1.hashCode() < o2.hashCode()) {
-                                return 1;
-                            } else if (o1 == o2) {
-                                return 0;
-                            } else {
-                                return -1;
+            arrayPearson = pearsonPapertarget(paperInput, matrixSize);
+            tempSort = arrayPearson;
+            Collections.sort(tempSort, new Comparator() {
+                @Override
+                public int compare(Object o1, Object o2) {
+                    if (o1.hashCode() < o2.hashCode()) {
+                        return 1;
+                    } else if (o1 == o2) {
+                        return 0;
+                    } else {
+                        return -1;
+                    }
+                }
+            });
+            for (int k = 0; k < neighborhood; k++) {
+                sumNeighbor = +(double) tempSort.get(k);
+            }
+            for (int i = 0; i < matrixSize; i++) {
+                for (int j = 0; j < matrixSize; j++) {
+                    if (matrixSize == j) {
+                        matrixBuild[matrixSize][j] = 1.00;
+                    } else {
+                        for (int k = 0; k < neighborhood; k++) {
+
+                            if (tempSort.get(k) == arrayPearson.get(i)) {
+                                matrixBuild[matrixSize][j] = average[i];
+                                matrixBuild[matrixSize][j] += ((double) tempSort.get(k) * (matrixBuild[i][j] - average[i])) / sumNeighbor;
+
                             }
                         }
-                    });
-                    // lay so hang xom
-                    for (int i=0;i<arrayPearson.size();i++)
-                        for(int k=0;k< neighborhood;k++)
-                            if(tempSort.get(k)==arrayPearson.get(i))
-                                neighbor.put(i, tempSort.get(k));
-                    for(int i=0;i<matrixSize;i++)
-                        for(int j=0;j<matrixSize;j++)
-                        {
-//                            if (i==j)
-//                                matrixBuild[i][j]=1.00;
-//                            else matrixBuild[i][j]=0;
-                        }
-                                
-                   
-          matrixSize--;
+                    }
+                }
+            }
+
+            matrixSize--;
         }
 
         return matrixBuild;
