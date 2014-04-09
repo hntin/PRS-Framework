@@ -36,6 +36,7 @@ public class PearsonCorrelation {
                     matrixCit[i][j] = Weighting.computeCosine(paperInput.get(i).getContent(),
                             paperInput.get(j).getContent());
                 }
+                else matrixCit[i][j]=0.00;
             }
         }
         return matrixCit;
@@ -119,12 +120,14 @@ public class PearsonCorrelation {
                     if (matrixSize == j) {
                         matrixBuild[matrixSize][j] = 1.00;
                     } else {
+                        if(matrixBuild[matrixSize][j]== 0.00)
                         for (int k = 0; k < neighborhood; k++) {
 
                             if (tempSort.get(k) == arrayPearson.get(i)) {
                                 matrixBuild[matrixSize][j] = average[i];
-                                matrixBuild[matrixSize][j] += ((double) tempSort.get(k) * (matrixBuild[i][j] - average[i])) / sumNeighbor;
-
+                                double numerator =+ ((double) tempSort.get(k) * (matrixBuild[i][j] - average[i]));
+                                matrixBuild[matrixSize][j]=numerator/sumNeighbor;
+                                matrixBuild[j][matrixSize]=matrixBuild[matrixSize][j];
                             }
                         }
                     }
@@ -133,8 +136,22 @@ public class PearsonCorrelation {
 
             matrixSize--;
         }
-
         return matrixBuild;
-
+    }
+    // tim paper Potential
+    public static List <Paper> findPotentialCitPaper(List<Paper> paperInput, int neighbor, int k) throws Exception
+    {
+        List  potentialPaper= new ArrayList();
+        double [][] matrixPaper= builMatrixPaperCit (paperInput, neighbor);
+        for (int i=0;i<paperInput.size();i++)
+          for (int j=0; j< paperInput.size();j++)
+          {
+              
+          }
+            
+        return potentialPaper;
+        
+       
+        
     }
 }
