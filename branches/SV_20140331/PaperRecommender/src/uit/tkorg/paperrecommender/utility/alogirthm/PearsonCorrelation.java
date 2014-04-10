@@ -7,6 +7,7 @@ package uit.tkorg.paperrecommender.utility.alogirthm;
 
 import uit.tkorg.paperrecommender.model.Paper;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Collections;
 import java.util.Comparator;
@@ -35,8 +36,9 @@ public class PearsonCorrelation {
                 if (paperInput.get(i).getCitation().contains(paperInput.get(j).getPaperId())) {
                     matrixCit[i][j] = Weighting.computeCosine(paperInput.get(i).getContent(),
                             paperInput.get(j).getContent());
+                } else {
+                    matrixCit[i][j] = 0.00;
                 }
-                else matrixCit[i][j]=0.00;
             }
         }
         return matrixCit;
@@ -120,14 +122,15 @@ public class PearsonCorrelation {
                     if (matrixSize == j) {
                         matrixBuild[matrixSize][j] = 1.00;
                     } else {
-                        if(matrixBuild[matrixSize][j]== 0.00)
-                        for (int k = 0; k < neighborhood; k++) {
+                        if (matrixBuild[matrixSize][j] == 0.00) {
+                            for (int k = 0; k < neighborhood; k++) {
 
-                            if (tempSort.get(k) == arrayPearson.get(i)) {
-                                matrixBuild[matrixSize][j] = average[i];
-                                double numerator =+ ((double) tempSort.get(k) * (matrixBuild[i][j] - average[i]));
-                                matrixBuild[matrixSize][j]=numerator/sumNeighbor;
-                                matrixBuild[j][matrixSize]=matrixBuild[matrixSize][j];
+                                if (tempSort.get(k) == arrayPearson.get(i)) {
+                                    matrixBuild[matrixSize][j] = average[i];
+                                    double numerator = +((double) tempSort.get(k) * (matrixBuild[i][j] - average[i]));
+                                    matrixBuild[matrixSize][j] = numerator / sumNeighbor;
+                                    matrixBuild[j][matrixSize] = matrixBuild[matrixSize][j];
+                                }
                             }
                         }
                     }
@@ -138,20 +141,79 @@ public class PearsonCorrelation {
         }
         return matrixBuild;
     }
-    // tim paper Potential
-    public static List <Paper> findPotentialCitPaper(List<Paper> paperInput, int neighbor, int k) throws Exception
-    {
-        List  potentialPaper= new ArrayList();
-        double [][] matrixPaper= builMatrixPaperCit (paperInput, neighbor);
-        for (int i=0;i<paperInput.size();i++)
-          for (int j=0; j< paperInput.size();j++)
-          {
-              
-          }
-            
-        return potentialPaper;
-        
-       
-        
+
+    /**
+     * This is method find k max element of the row in matrix
+     *
+     * @param a
+     * @param k
+     * @return
+     */
+    public static ArrayList<ArrayList<Double>> solveFindK(double a[][], int k) {
+        ArrayList<ArrayList<Double>> ans = new ArrayList<ArrayList<Double>>();
+        for (int i = 0; i < a.length; i++) {
+            Arrays.sort(a[i]);
+            ArrayList<Double> tmp = new ArrayList<>();
+            for (int j = a[i].length - 1; j > a[i].length - 1 - k; j--) {
+                tmp.add(a[i][j]);
+            }
+            ans.add(tmp);
+        }
+        return ans;
+    }
+
+    public static ArrayList<ArrayList<Double>> solveFindK(
+            ArrayList<ArrayList<Double>> a, int k) {
+        ArrayList<ArrayList<Double>> ans = new ArrayList<ArrayList<Double>>();
+        for (int i = 0; i < a.get(i).size(); i++) {
+            Collections.sort(a.get(i));
+            ArrayList<Double> tmp = new ArrayList<>();
+            for (int j = a.get(i).size() - 1; j > a.get(i).size() - 1 - k; j--) {
+                tmp.add(a.get(i).get(j));
+            }
+            ans.add(tmp);
+        }
+        return ans;
+    }
+
+    public static double[][] findKMax(double a[][], int k) {
+        double[][] ans = new double[a.length][k];
+        for (int i = 0; i < a.length; i++) {
+            Arrays.sort(a[i]);
+            double[] tmp = new double[k];
+            for (int j = a[i].length - 1; j > a[i].length - 1 - k; j--) {
+                tmp[a[i].length - 1 - j] = a[i][j];
+            }
+            ans[i] = tmp;
+        }
+        return ans;
+    }
+
+    /**
+     * This is method find all potential citation of all paper
+     *
+     * @param paperInput
+     * @param neighbor
+     * @param k
+     * @throws Exception
+     */
+    public static void findPotentialCitPaper(List<Paper> paperInput, int neighbor, int k) throws Exception {
+        //  List totalPotential = new ArrayList();
+        double[][] matrixPaper = builMatrixPaperCit(paperInput, neighbor);
+        double[][] tempMatrix = findKMax(matrixPaper, k);
+        for (int i = 0; i < paperInput.size(); i++) {
+            List potentialPaper = new ArrayList();
+            for (int j = 0; j < paperInput.size(); j++) {
+                for (int l = 0; l < k; l++) {
+                    if (matrixPaper[i][j] == tempMatrix[i][k]) {
+                        potentialPaper.add(paperInput.get(j).getPaperId());
+                    }
+                }
+            }
+            //  totalPotential.add(potentialPaper);
+            paperInput.get(i).setCitationPotential(potentialPaper);
+        }
+
+      //  return totalPotential;
     }
 }
