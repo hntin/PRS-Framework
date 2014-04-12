@@ -41,8 +41,7 @@ public class PearsonCorrelation {
         return matrixCit;
     }
 
-    public static double[] averageCit(List<Paper> paperInput) throws Exception {
-        double[][] matrixCit = writeCosinReal(paperInput);
+    public static double[] averageCit(List<Paper> paperInput,double [][] matrixCit) throws Exception {
         int matrixSize = paperInput.size();
         double[] average = new double[matrixSize];
         for (int i = 0; i < matrixSize; i++) {
@@ -66,20 +65,20 @@ public class PearsonCorrelation {
      * @return
      * @throws java.lang.Exception
      */
-    public static List<Double> pearsonPapertarget(List<Paper> paperInput, int paperTarget) throws Exception {
+    public static List<Double> pearsonPapertarget(List<Paper> paperInput,double [][] matrixCit, double [] average,int paperTarget) throws Exception {
         List PCC = new ArrayList();
-        double[][] matrixCit = null ;//= writeCosinReal(paperInput);
         int matrixSize = paperInput.size();
-        double[] average = averageCit(paperInput);
+        double pccTemp = 0.0;
         for (int i = 0; i < matrixSize; i++) {
             for (int j = 0; j < matrixSize; j++) {
-
                 // compute PCC paper target and cit
+                
                 double covar = +((matrixCit[paperTarget][j] - average[paperTarget]) * (matrixCit[i][j] - average[i]));
                 double sttdevPaperTarget = +Math.pow((matrixCit[paperTarget][j] - average[paperTarget]), 2);
                 double sttdevPaperCit = +Math.pow((matrixCit[i][j] - average[i]), 2);
-                double pccTemp = covar / Math.sqrt(sttdevPaperTarget * sttdevPaperCit);
-
+                if((sttdevPaperTarget !=0) &&(sttdevPaperCit!=0))
+                //double pccTemp = covar / Math.sqrt(sttdevPaperTarget * sttdevPaperCit);
+                pccTemp = covar / Math.sqrt(sttdevPaperTarget * sttdevPaperCit);
                 PCC.add(pccTemp);
             }
         }
@@ -91,15 +90,13 @@ public class PearsonCorrelation {
     //compute gia tri dien vao ma tran
     // kiem tra neu nhung paper trong tap hang xom co trong cit cua paper target thi bo qua
     //
-    public static double[][] builMatrixPaperCit(List<Paper> paperInput, int neighborhood) throws Exception {
+    public static double[][] builMatrixPaperCit(List<Paper> paperInput,double [][] matrixBuild,double[] average, int neighborhood) throws Exception {
         int matrixSize = paperInput.size();
-        double[][] matrixBuild  = writeCosinReal(paperInput);
         List arrayPearson = new ArrayList();
         List tempSort = new ArrayList();
         double sumNeighbor = 0;
-        double[] average =  averageCit(paperInput);
         while (matrixSize != 0) {
-            arrayPearson = pearsonPapertarget(paperInput, matrixSize - 1);
+            arrayPearson = pearsonPapertarget(paperInput,matrixBuild,average, matrixSize - 1);
             tempSort = arrayPearson;
             Collections.sort(tempSort, new Comparator() {
                 @Override
@@ -127,7 +124,7 @@ public class PearsonCorrelation {
 
                                 if (tempSort.get(k) == arrayPearson.get(i)) {
                                     matrixBuild[matrixSize-1][j] = average[i];
-                                    double numerator = +((double) tempSort.get(k) * (matrixBuild[i][j] - average[i]));
+                                    double numerator = +((double) tempSort.get(k) * (matrixBuild[j][i] - average[i]));
                                     matrixBuild[matrixSize-1][j] = numerator / sumNeighbor;
                                     matrixBuild[j][matrixSize-1] = matrixBuild[matrixSize-1][j];
                                 }
@@ -197,9 +194,9 @@ public class PearsonCorrelation {
      * @param k
      * @throws Exception
      */
-    public static void findPotentialCitPaper(List<Paper> paperInput, int neighbor, int k) throws Exception {
+    public static void findPotentialCitPaper(List<Paper> paperInput,double [][] matrixBuild, double[] average, int neighbor, int k) throws Exception {
      
-        double[][] matrixPaper = builMatrixPaperCit(paperInput, neighbor);
+        double[][] matrixPaper = builMatrixPaperCit(paperInput, matrixBuild,average,neighbor);
         double[][] tempMatrix = findKMax(matrixPaper, k);
         for (int i = 0; i < paperInput.size(); i++) {
             List potentialPaper = new ArrayList();

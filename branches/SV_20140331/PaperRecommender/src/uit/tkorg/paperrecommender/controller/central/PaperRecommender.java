@@ -4,7 +4,9 @@
  */
 package uit.tkorg.paperrecommender.controller.central;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import uit.tkorg.paperrecommender.constant.PaperRecommenerConstant;
 import uit.tkorg.paperrecommender.controller.datapreparation.AuthorFV;
 import uit.tkorg.paperrecommender.controller.datapreparation.PaperFV;
@@ -15,6 +17,7 @@ import uit.tkorg.paperrecommender.model.Author;
 import uit.tkorg.paperrecommender.model.Paper;
 import uit.tkorg.paperrecommender.utility.Serializer;
 import uit.tkorg.paperrecommender.utility.dataimport.flatfile.ImportDataset1;
+import uit.tkorg.paperrecommender.utility.alogirthm.PearsonCorrelation;
 
 /**
  *
@@ -40,11 +43,16 @@ public class PaperRecommender {
         PaperRecommender prec = new PaperRecommender();
         String Dataset1Folder = PaperRecommenerConstant.DATASETFOLDER;
         prec.papers = ImportDataset1.buildListOfPapers(Dataset1Folder);
-        prec.authors = ImportDataset1.buildListOfAuthors(Dataset1Folder);
-        prec.papers = PaperFV.computeAllPapersFeatureVector(prec.papers, 0);
-        prec.authors = AuthorFV.computeAllAuthorsFeatureVector(prec.authors, 0);
-        prec.authors = ContentBasedRecommender.buildAllRecommendationLists(prec.authors, prec.papers);
-        System.out.println(String.valueOf(Evaluator.Precision(prec.authors)));
+        List<Paper> paperInput= new ArrayList(prec.papers.values());
+        double [][] matrixBuil = PearsonCorrelation.writeCosinReal(paperInput);
+        double [] average =PearsonCorrelation.averageCit(paperInput,matrixBuil);
+//        prec.authors = ImportDataset1.buildListOfAuthors(Dataset1Folder);
+//        prec.papers = PaperFV.computeAllPapersFeatureVector(prec.papers, 0);
+//        prec.authors = AuthorFV.computeAllAuthorsFeatureVector(prec.authors, 0);
+//        prec.authors = ContentBasedRecommender.buildAllRecommendationLists(prec.authors, prec.papers);
+//        System.out.println(String.valueOf(Evaluator.Precision(prec.authors)));
+         PearsonCorrelation.findPotentialCitPaper(paperInput,matrixBuil,average,5,2);
+       System.out.println(prec.papers.get("P00-1007").getCitationPotential().get(2));  
     }
 
     /**
