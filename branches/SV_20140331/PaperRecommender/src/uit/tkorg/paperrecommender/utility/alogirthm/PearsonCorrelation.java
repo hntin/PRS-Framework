@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Collections;
 import java.util.Comparator;
 import uit.tkorg.paperrecommender.utility.Weighting;
+import uit.tkorg.paperrecommender.utility.GeneralUtility;
 
 /**
  *
@@ -33,8 +34,8 @@ public class PearsonCorrelation {
             for (int j = 0; j < sizeMatrix; j++) {
                 //  kiem tra xem paper j co phai la cit cua paper i hay k neu co tinh cosin dien vao matrix
                 if (paperInput.get(i).getCitation().contains(paperInput.get(j).getPaperId())) {
-                    matrixCit[i][j] = Weighting.computeCosine(paperInput.get(i).getContent(),
-                            paperInput.get(j).getContent());
+                    matrixCit[i][j] = GeneralUtility.standardizeSimilarityValue(Weighting.computeCosine(paperInput.get(i).getContent(),
+                            paperInput.get(j).getContent()));
                 }
             }
         }
@@ -68,75 +69,23 @@ public class PearsonCorrelation {
     public static List<Double> pearsonPapertarget(List<Paper> paperInput,double [][] matrixCit, double [] average,int paperTarget) throws Exception {
         List PCC = new ArrayList();
         int matrixSize = paperInput.size();
-        double pccTemp = 0.0;
+        double pccTemp = 0.0 ;
+        double covar = 0.0 ;
+        double sttdevPaperTarget = 0.0;
+        double sttdevPaperCit = 0.0;
         for (int i = 0; i < matrixSize; i++) {
             for (int j = 0; j < matrixSize; j++) {
                 // compute PCC paper target and cit
-                
-                double covar = +((matrixCit[paperTarget][j] - average[paperTarget]) * (matrixCit[i][j] - average[i]));
-                double sttdevPaperTarget = +Math.pow((matrixCit[paperTarget][j] - average[paperTarget]), 2);
-                double sttdevPaperCit = +Math.pow((matrixCit[i][j] - average[i]), 2);
-                if((sttdevPaperTarget !=0) &&(sttdevPaperCit!=0))
+                 covar+=((matrixCit[paperTarget][j] - average[paperTarget]) * (matrixCit[i][j] - average[i]));
+                 sttdevPaperTarget +=Math.pow((matrixCit[paperTarget][j] - average[paperTarget]), 2);
+                 sttdevPaperCit+=Math.pow((matrixCit[i][j] - average[i]), 2);
+            }
+             if((sttdevPaperTarget !=0) &&(sttdevPaperCit!=0))
                 //double pccTemp = covar / Math.sqrt(sttdevPaperTarget * sttdevPaperCit);
                 pccTemp = covar / Math.sqrt(sttdevPaperTarget * sttdevPaperCit);
                 PCC.add(pccTemp);
-            }
         }
         return PCC;
-    }
-
-    //moi paper recommend se la  mot bai bao muc tieu, tìm bài báo muc tieu cua moi paper luu vao author
-    // viet ham chon so lang gieng  cho mỗi paper ung vien co trong dataset
-    //compute gia tri dien vao ma tran
-    // kiem tra neu nhung paper trong tap hang xom co trong cit cua paper target thi bo qua
-    //
-    public static double[][] builMatrixPaperCit(List<Paper> paperInput,double [][] matrixBuild,double[] average, int neighborhood) throws Exception {
-        int matrixSize = paperInput.size();
-        List arrayPearson = new ArrayList();
-        List tempSort = new ArrayList();
-        double sumNeighbor = 0;
-        while (matrixSize != 0) {
-            arrayPearson = pearsonPapertarget(paperInput,matrixBuild,average, matrixSize - 1);
-            tempSort = arrayPearson;
-            Collections.sort(tempSort, new Comparator() {
-                @Override
-                public int compare(Object o1, Object o2) {
-                    if (o1.hashCode() < o2.hashCode()) {
-                        return 1;
-                    } else if (o1 == o2) {
-                        return 0;
-                    } else {
-                        return -1;
-                    }
-                }
-            });
-            for (int k = 0; k < neighborhood; k++) {
-                sumNeighbor = +(double) tempSort.get(k);
-            }
-            for (int i = 0; i < matrixSize; i++) {
-               
-                for (int j = 0; j < matrixSize; j++) {
-                    if (matrixSize == j) {
-                        matrixBuild[matrixSize-1][j] = 1.00;
-                    } else {
-                        if (matrixBuild[matrixSize-1][j] == 0.00) {
-                            for (int k = 0; k < neighborhood; k++) {
-
-                                if (tempSort.get(k) == arrayPearson.get(i)) {
-                                    matrixBuild[matrixSize-1][j] = average[i];
-                                    double numerator = +((double) tempSort.get(k) * (matrixBuild[j][i] - average[i]));
-                                    matrixBuild[matrixSize-1][j] = numerator / sumNeighbor;
-                                    matrixBuild[j][matrixSize-1] = matrixBuild[matrixSize-1][j];
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            matrixSize--;
-        }
-        return matrixBuild;
     }
 
     /**
@@ -172,7 +121,17 @@ public class PearsonCorrelation {
         }
         return ans;
     }
-
+    public static double solveFindSumK( List a, int k)
+    {
+        double sum;
+        Collections.sort(a);
+        List temp = new ArrayList();
+        for(int i=a.size()-1;i> a.size()-1-k;i--)
+            temp.add(a.get(i));
+        for(int i=0;i<temp.size();i++)
+             sum =+ (double)temp.get(i);
+        return 0;
+    }
     public static double[][] findKMax(double a[][], int k) {
         double[][] ans = new double[a.length][k];
         for (int i = 0; i < a.length; i++) {
@@ -185,6 +144,47 @@ public class PearsonCorrelation {
         }
         return ans;
     }
+    //moi paper recommend se la  mot bai bao muc tieu, tìm bài báo muc tieu cua moi paper luu vao author
+    // viet ham chon so lang gieng  cho mỗi paper ung vien co trong dataset
+    //compute gia tri dien vao ma tran
+    // kiem tra neu nhung paper trong tap hang xom co trong cit cua paper target thi bo qua
+    //
+    public static double[][] builMatrixPaperCit(List<Paper> paperInput,double [][] matrixBuild,double[] average, int neighborhood) throws Exception {
+        int matrixSize = paperInput.size();
+        List arrayPearson = new ArrayList();
+        List <Double>  tempSort = new ArrayList();
+        double sumNeighbor = 0;
+        while (matrixSize != 0) {
+          arrayPearson = pearsonPapertarget(paperInput,matrixBuild,average, matrixSize - 1);
+          sumNeighbor= solveFindSumK(arrayPearson,neighborhood);
+          Collections.sort(arrayPearson);
+          for(int i= arrayPearson.size()-1;i>arrayPearson.size()-1-neighborhood;i--)
+             tempSort.add((Double) arrayPearson.get(i));
+          for (int i = 0; i < matrixSize; i++) {
+                for (int j = 0; j < matrixSize; j++) {
+                    if (matrixSize == j) {
+                        matrixBuild[matrixSize-1][j] = 1.00;
+                    } else {
+                        if (matrixBuild[matrixSize-1][j] == 0.00) {
+                            for (int k = 0; k < neighborhood; k++) {
+
+                                if (tempSort.get(k) == arrayPearson.get(i)) {
+                                    matrixBuild[matrixSize-1][j] = average[i];
+                                    double numerator = +((double) tempSort.get(k) * (matrixBuild[j][i] - average[i]));
+                                    matrixBuild[matrixSize-1][j] = numerator / sumNeighbor;
+                                    matrixBuild[j][matrixSize-1] = matrixBuild[matrixSize-1][j];
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            matrixSize--;
+        }
+        return matrixBuild;
+    }
+
 
     /**
      * This is method find all potential citation of all paper
@@ -202,7 +202,7 @@ public class PearsonCorrelation {
             List potentialPaper = new ArrayList();
             for (int j = 0; j < paperInput.size(); j++) {
                 for (int l = 0; l < k; l++) {
-                    if (matrixPaper[i][j] == tempMatrix[i][k]) {
+                    if (matrixPaper[i][j] == tempMatrix[i][l]) {
                         potentialPaper.add(paperInput.get(j).getPaperId());
                     }
                 }
