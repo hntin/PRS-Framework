@@ -11,7 +11,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import uit.tkorg.paperrecommender.utility.Weighting;
 
 /**
@@ -31,13 +30,11 @@ public class PearsonCorrelation {
         int sizeMatrix = paperInput.size();// kich thuoc matran paper- cit
         double[][] matrixCit = new double[sizeMatrix][sizeMatrix];
         for (int i = 0; i < sizeMatrix; i++) {
-            for (int j = 0; j < paperInput.size(); j++) {
+            for (int j = 0; j < sizeMatrix; j++) {
                 //  kiem tra xem paper j co phai la cit cua paper i hay k neu co tinh cosin dien vao matrix
                 if (paperInput.get(i).getCitation().contains(paperInput.get(j).getPaperId())) {
                     matrixCit[i][j] = Weighting.computeCosine(paperInput.get(i).getContent(),
                             paperInput.get(j).getContent());
-                } else {
-                    matrixCit[i][j] = 0.00;
                 }
             }
         }
@@ -48,12 +45,14 @@ public class PearsonCorrelation {
         double[][] matrixCit = writeCosinReal(paperInput);
         int matrixSize = paperInput.size();
         double[] average = new double[matrixSize];
-        // average = new double[matrixSize];
         for (int i = 0; i < matrixSize; i++) {
+            int n = paperInput.get(i).getCitation().size();
             for (int j = 0; j < matrixSize; j++) {
-                int n = paperInput.get(i).getCitation().size();
                 double sum = +matrixCit[i][j];
-                average[i] = sum / n;
+                if(n!=0)
+                average[i] = (double) sum / n;
+                else 
+                    average[i]=0.0;
             }
         }
         return average;
@@ -63,22 +62,22 @@ public class PearsonCorrelation {
      * This is method compute PCC between paperTarget and paperCit
      *
      * @param paperInput
-     * @param matrixCit
      * @param paperTarget
      * @return
+     * @throws java.lang.Exception
      */
     public static List<Double> pearsonPapertarget(List<Paper> paperInput, int paperTarget) throws Exception {
         List PCC = new ArrayList();
-        double[][] matrixCit = writeCosinReal(paperInput);
+        double[][] matrixCit = null ;//= writeCosinReal(paperInput);
         int matrixSize = paperInput.size();
         double[] average = averageCit(paperInput);
         for (int i = 0; i < matrixSize; i++) {
             for (int j = 0; j < matrixSize; j++) {
 
                 // compute PCC paper target and cit
-                double covar = +(matrixCit[paperTarget][j] - average[paperTarget]) * (matrixCit[i][j] - average[i]);
-                double sttdevPaperTarget = +Math.pow((matrixCit[paperTarget][j] - average[i]), 2);
-                double sttdevPaperCit = +Math.pow((matrixCit[i][j] - average[i + 1]), 2);
+                double covar = +((matrixCit[paperTarget][j] - average[paperTarget]) * (matrixCit[i][j] - average[i]));
+                double sttdevPaperTarget = +Math.pow((matrixCit[paperTarget][j] - average[paperTarget]), 2);
+                double sttdevPaperCit = +Math.pow((matrixCit[i][j] - average[i]), 2);
                 double pccTemp = covar / Math.sqrt(sttdevPaperTarget * sttdevPaperCit);
 
                 PCC.add(pccTemp);
@@ -94,13 +93,13 @@ public class PearsonCorrelation {
     //
     public static double[][] builMatrixPaperCit(List<Paper> paperInput, int neighborhood) throws Exception {
         int matrixSize = paperInput.size();
-        double[][] matrixBuild = writeCosinReal(paperInput);
+        double[][] matrixBuild  = writeCosinReal(paperInput);
         List arrayPearson = new ArrayList();
         List tempSort = new ArrayList();
         double sumNeighbor = 0;
-        double[] average = averageCit(paperInput);
+        double[] average =  averageCit(paperInput);
         while (matrixSize != 0) {
-            arrayPearson = pearsonPapertarget(paperInput, matrixSize);
+            arrayPearson = pearsonPapertarget(paperInput, matrixSize - 1);
             tempSort = arrayPearson;
             Collections.sort(tempSort, new Comparator() {
                 @Override
@@ -118,18 +117,19 @@ public class PearsonCorrelation {
                 sumNeighbor = +(double) tempSort.get(k);
             }
             for (int i = 0; i < matrixSize; i++) {
+               
                 for (int j = 0; j < matrixSize; j++) {
                     if (matrixSize == j) {
-                        matrixBuild[matrixSize][j] = 1.00;
+                        matrixBuild[matrixSize-1][j] = 1.00;
                     } else {
-                        if (matrixBuild[matrixSize][j] == 0.00) {
+                        if (matrixBuild[matrixSize-1][j] == 0.00) {
                             for (int k = 0; k < neighborhood; k++) {
 
                                 if (tempSort.get(k) == arrayPearson.get(i)) {
-                                    matrixBuild[matrixSize][j] = average[i];
+                                    matrixBuild[matrixSize-1][j] = average[i];
                                     double numerator = +((double) tempSort.get(k) * (matrixBuild[i][j] - average[i]));
-                                    matrixBuild[matrixSize][j] = numerator / sumNeighbor;
-                                    matrixBuild[j][matrixSize] = matrixBuild[matrixSize][j];
+                                    matrixBuild[matrixSize-1][j] = numerator / sumNeighbor;
+                                    matrixBuild[j][matrixSize-1] = matrixBuild[matrixSize-1][j];
                                 }
                             }
                         }
@@ -150,7 +150,7 @@ public class PearsonCorrelation {
      * @return
      */
     public static ArrayList<ArrayList<Double>> solveFindK(double a[][], int k) {
-        ArrayList<ArrayList<Double>> ans = new ArrayList<ArrayList<Double>>();
+        ArrayList<ArrayList<Double>> ans = new ArrayList<>();
         for (int i = 0; i < a.length; i++) {
             Arrays.sort(a[i]);
             ArrayList<Double> tmp = new ArrayList<>();
@@ -198,7 +198,7 @@ public class PearsonCorrelation {
      * @throws Exception
      */
     public static void findPotentialCitPaper(List<Paper> paperInput, int neighbor, int k) throws Exception {
-        //  List totalPotential = new ArrayList();
+     
         double[][] matrixPaper = builMatrixPaperCit(paperInput, neighbor);
         double[][] tempMatrix = findKMax(matrixPaper, k);
         for (int i = 0; i < paperInput.size(); i++) {
@@ -210,10 +210,7 @@ public class PearsonCorrelation {
                     }
                 }
             }
-            //  totalPotential.add(potentialPaper);
             paperInput.get(i).setCitationPotential(potentialPaper);
         }
-
-      //  return totalPotential;
     }
 }
