@@ -4,20 +4,19 @@
  */
 package uit.tkorg.paperrecommender.controller.central;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import uit.tkorg.paperrecommender.constant.PaperRecommenerConstant;
 import uit.tkorg.paperrecommender.controller.datapreparation.AuthorFV;
 import uit.tkorg.paperrecommender.controller.datapreparation.PaperFV;
 import uit.tkorg.paperrecommender.controller.evaluation.Evaluator;
 import uit.tkorg.paperrecommender.controller.recommendation.ContentBasedRecommender;
-import uit.tkorg.paperrecommender.controller.recommendation.KnnClassifierRecommender;
+import uit.tkorg.paperrecommender.controller.recommendation.NaiveBayesRecommender;
 import uit.tkorg.paperrecommender.model.Author;
 import uit.tkorg.paperrecommender.model.Paper;
+import uit.tkorg.paperrecommender.model.Vocabulary;
+import uit.tkorg.paperrecommender.utility.GeneralUtility;
 import uit.tkorg.paperrecommender.utility.Serializer;
 import uit.tkorg.paperrecommender.utility.dataimport.flatfile.ImportDataset1;
-import uit.tkorg.paperrecommender.utility.alogirthm.PearsonCorrelation;
 
 /**
  *
@@ -38,21 +37,18 @@ public class PaperRecommender {
      * This method is used as a entry point for testing.
      *
      * @param args the command line arguments
+     * @throws java.lang.Exception
      */
     public static void main(String[] args) throws Exception {
-        PaperRecommender prec = new PaperRecommender();
-        String Dataset1Folder = PaperRecommenerConstant.DATASETFOLDER;
-        prec.papers = ImportDataset1.buildListOfPapers(Dataset1Folder);
-        List<Paper> paperInput= new ArrayList(prec.papers.values());
-        double [][] matrixBuil = PearsonCorrelation.writeCosinReal(paperInput);
-        double [] average =PearsonCorrelation.averageCit(paperInput,matrixBuil);
-//        prec.authors = ImportDataset1.buildListOfAuthors(Dataset1Folder);
-//        prec.papers = PaperFV.computeAllPapersFeatureVector(prec.papers, 0);
-//        prec.authors = AuthorFV.computeAllAuthorsFeatureVector(prec.authors, 0);
-//        prec.authors = ContentBasedRecommender.buildAllRecommendationLists(prec.authors, prec.papers);
-//        System.out.println(String.valueOf(Evaluator.Precision(prec.authors)));
-         PearsonCorrelation.findPotentialCitPaper(paperInput,matrixBuil,average,5,2);
-       System.out.println(prec.papers.get("P00-1007").getCitationPotential().get(2));  
+        
+       /*Vocabulary voc = new Vocabulary();
+        voc.buildVocabulary();
+
+        HashMap<String, Author> authors1 = ImportDataset1.buildListOfAuthors("D:\\New folder\\Tailieuluanvan\\20100825-SchPaperRecData\\20100825-SchPaperRecData");
+        HashMap<String, Paper> papers = ImportDataset1.buildListOfPapers("D:\\New folder\\Tailieuluanvan\\20100825-SchPaperRecData\\20100825-SchPaperRecData");
+
+        HashMap<String, Author> authorsa = NaiveBayesRecommender.buildAllRecommendationLists(authors1, papers, voc);
+      */  
     }
 
     /**
@@ -159,12 +155,10 @@ public class PaperRecommender {
                     response[0] = "Success.";
                     break;
                 case "Recommend":
-                    authors = ContentBasedRecommender.buildAllRecommendationLists(authors, papers);
-                    /*authors = KnnClassifierRecommender.buildAllRecommendationLists(authors, 5);
-                    for(String authorId:authors.keySet()){
-                        System.out.println("Author: "+authorId);
-                        System.out.println(authors.get(authorId).getRecommendation());
-                    }*/
+                    //authors = ContentBasedRecommender.buildAllRecommendationLists(authors, papers);
+                    Vocabulary voc = new Vocabulary();
+                    voc.buildVocabulary();
+                    authors = NaiveBayesRecommender.buildAllRecommendationLists(authors, papers, voc);
                     response[0] = "Success.";
                     break;
                 case "NDCG5":
@@ -188,7 +182,7 @@ public class PaperRecommender {
                     response[0] = "Success.";
                     break;
                 case "MAP":
-                    response[1] = String.valueOf(Evaluator.MAP(authors,10));
+                    response[1] = String.valueOf(Evaluator.MAP(authors, 10));
                     response[0] = "Success.";
                     break;
                 default:

@@ -4,13 +4,10 @@
  */
 package uit.tkorg.paperrecommender.model;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import uit.tkorg.paperrecommender.utility.dataimport.flatfile.ImportDataset1;
 
 /**
@@ -47,6 +44,7 @@ public class Vocabulary implements Serializable{
     
     /**
      * Fill in data for vocabulary list.
+     * @throws java.lang.Exception
      */
     public void buildVocabulary() throws Exception {
         vocabulary = ImportDataset1.readAllKeywords();

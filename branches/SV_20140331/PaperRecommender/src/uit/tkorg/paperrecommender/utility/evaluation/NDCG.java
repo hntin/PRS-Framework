@@ -52,6 +52,7 @@ public class NDCG {
      * @param idealList
      * @param k
      * @return dcg
+     * @throws java.lang.Exception
      */
     public static double computeDCG(List rankList, List idealList, int k) throws Exception {
         double dcg = 0;
@@ -77,6 +78,7 @@ public class NDCG {
      * The assumption here is: the result list could content all items, so it could content k relevant items.
      * @param k
      * @return idcg
+     * @throws java.lang.Exception
      */
     public static double computeIDCG(int k) throws Exception {
         double idcg = 0;

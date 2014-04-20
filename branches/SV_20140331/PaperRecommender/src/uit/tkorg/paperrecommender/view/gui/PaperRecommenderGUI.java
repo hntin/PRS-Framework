@@ -6,16 +6,17 @@ package uit.tkorg.paperrecommender.view.gui;
 
 import javax.swing.JFileChooser;
 import uit.tkorg.paperrecommender.controller.central.PaperRecommender;
+import uit.tkorg.paperrecommender.model.Vocabulary;
 
 /**
  *
  * @author THNghiep
  */
 public class PaperRecommenderGUI extends javax.swing.JFrame {
-    
+
     // Controller handles all request from gui:
     private PaperRecommender paperRecommender;
-    
+
     private String[] response;
 
     /**
@@ -477,7 +478,7 @@ public class PaperRecommenderGUI extends javax.swing.JFrame {
 
     private void jButtonRecommendAllAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRecommendAllAuthorActionPerformed
         // TODO add your handling code here:
-        
+
         // Recommend (content-based):
         jTextFieldStatus.setText("Generating recommendation list for all authors... ");
         response = paperRecommender.centralController("Recommend", null);
@@ -498,17 +499,17 @@ public class PaperRecommenderGUI extends javax.swing.JFrame {
         response = paperRecommender.centralController("MRR", null);
         jTextFieldMRR.setText(response[1]);
         jTextFieldStatus.setText(jTextFieldStatus.getText() + response[0]);
-        
+
         jTextFieldStatus.setText("Computing Precision... ");
         response = paperRecommender.centralController("Precision", null);
         jTextFieldPrecision.setText(response[1]);
         jTextFieldStatus.setText(jTextFieldStatus.getText() + response[0]);
-        
+
         jTextFieldStatus.setText("Computing Recall... ");
         response = paperRecommender.centralController("Recall", null);
         jTextFieldRecall.setText(response[1]);
         jTextFieldStatus.setText(jTextFieldStatus.getText() + response[0]);
-        
+
         jTextFieldStatus.setText("Computing MAP... ");
         response = paperRecommender.centralController("MAP", null);
         jTextFieldMAP.setText(response[1]);
@@ -592,7 +593,7 @@ public class PaperRecommenderGUI extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws Exception {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -615,7 +616,7 @@ public class PaperRecommenderGUI extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(PaperRecommenderGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+       
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

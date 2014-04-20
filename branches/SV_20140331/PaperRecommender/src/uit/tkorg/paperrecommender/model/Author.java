@@ -6,6 +6,7 @@ package uit.tkorg.paperrecommender.model;
 
 import ir.vsr.HashMapVector;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,6 +23,7 @@ public class Author implements Serializable {
     private HashMapVector featureVector;
     private List groundTruth; // List string.
     private List Recommendation; // List string.
+    
     private double ndcg5;
     private double ndcg10;
     private double rr;

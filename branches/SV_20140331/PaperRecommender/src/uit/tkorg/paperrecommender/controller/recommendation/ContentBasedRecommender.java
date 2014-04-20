@@ -39,6 +39,8 @@ public class ContentBasedRecommender {
      * + Take top ten papers with highest similarity for the recommendation list.
      * + Save recommendation list into current author.
      * - Finish all authors, finish the hashmap of authors with all input data plus recommendation list.
+     * @return 
+     * @throws java.lang.Exception 
      */
     public static HashMap<String, Author> buildAllRecommendationLists(HashMap<String, Author> authorsInput, HashMap<String, Paper> papers) throws Exception {
         HashMap<String, Author> authors = authorsInput;
