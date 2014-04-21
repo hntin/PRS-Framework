@@ -86,7 +86,6 @@ public class NaiveBayesRecommender {
 
         for (String labelpci : computePCi.keySet()) {
             double prob = computePCi.get(labelpci);
-            double sum = 0;
             for (int j = 0; j < cols; j++) {
                 if (paper.getContent().hashMap.containsKey((String) vocabulary.getVocabulary().get(j))) {
                     prob *= bayesModel[i][j].getProb_1();
@@ -94,7 +93,7 @@ public class NaiveBayesRecommender {
                     prob *= bayesModel[i][j].getProb_0();
                 }
             }
-            probabilities.put(labelpci, prob * sum);
+            probabilities.put(labelpci, prob);
             i++;
         }
 

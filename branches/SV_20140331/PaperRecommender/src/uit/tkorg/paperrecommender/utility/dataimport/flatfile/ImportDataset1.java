@@ -14,6 +14,7 @@ import java.util.*;
 import uit.tkorg.paperrecommender.constant.PaperRecommenerConstant;
 import uit.tkorg.paperrecommender.model.Author;
 import uit.tkorg.paperrecommender.model.Paper;
+import uit.tkorg.paperrecommender.utility.GeneralUtility;
 
 /**
  *
@@ -37,6 +38,7 @@ public class ImportDataset1 {
      */
     public static List readAllKeywords() throws Exception {
         List allKeywords = new ArrayList();
+        HashMap<String, Double> voc = new HashMap<>();
 
         List<String> files = getPathFiles(new File("D:\\New folder\\Tailieuluanvan\\20100825-SchPaperRecData\\20100825-SchPaperRecData"));
 
@@ -47,8 +49,23 @@ public class ImportDataset1 {
             while ((line = br.readLine()) != null) {
                 tokens = line.split("\\s+");
                 if (tokens.length == 2 && tokens[0].length() < 30 && !allKeywords.contains(tokens[0])) {
-                    allKeywords.add(tokens[0]);
+                    //allKeywords.add(tokens[0]);
+                    if (!voc.containsKey(tokens[0])) {
+                        voc.put(tokens[0], new Double(1));
+                    } else {
+                        voc.put(tokens[0], voc.get(tokens[0]).doubleValue() + 1);
+                    }
                 }
+            }
+        }
+        voc = GeneralUtility.sortHashMap(voc);
+        // Take top five papers.
+        int counter = 0;
+        for (String authorId : voc.keySet()) {
+            allKeywords.add(authorId);
+            counter++;
+            if (counter >= 300) {
+                break;
             }
         }
         return allKeywords;
@@ -62,9 +79,9 @@ public class ImportDataset1 {
     private static List<String> getPathFiles(File dir) throws Exception {
         File[] files = dir.listFiles();
         List<String> listfile = new ArrayList<>();
-        
+
         for (File file : files) {
-            if (file.isDirectory()) {
+            if (file.isDirectory() && "RecCandidatePapersFV".equals(file.getName())) {
                 listfile.addAll(getPathFiles(file));
             } else if (file.isFile()) {
                 if (file.getName().contains(".txt")) {
@@ -368,26 +385,28 @@ public class ImportDataset1 {
                         File[] juniors = file.listFiles();
                         for (File junior : juniors) {
                             Author author = new Author();
-                            
+
                             author.setAuthorId(junior.getName());
                             author.setAuthorType("Junior");
                             author.setGroundTruth(findGroundTruth(junior));
                             author.setPaper(findPaperOfAuthor(junior));
-                            
+
                             authors.put(junior.getName(), author);
-                        }   break;
+                        }
+                        break;
                     case "SeniorR":
                         File[] seniors = file.listFiles();
                         for (File senior : seniors) {
                             Author author = new Author();
-                            
+
                             author.setAuthorId(senior.getName());
                             author.setAuthorType("Senior");
                             author.setGroundTruth(findGroundTruth(senior));
                             author.setPaper(findPaperOfAuthor(senior));
-                            
+
                             authors.put(senior.getName(), author);
-                        }   break;
+                        }
+                        break;
                 }
             }
         }

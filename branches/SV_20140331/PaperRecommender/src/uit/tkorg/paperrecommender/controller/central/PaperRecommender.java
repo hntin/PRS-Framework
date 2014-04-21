@@ -5,6 +5,7 @@
 package uit.tkorg.paperrecommender.controller.central;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import uit.tkorg.paperrecommender.constant.PaperRecommenerConstant;
 import uit.tkorg.paperrecommender.controller.datapreparation.AuthorFV;
 import uit.tkorg.paperrecommender.controller.datapreparation.PaperFV;
@@ -41,14 +42,18 @@ public class PaperRecommender {
      */
     public static void main(String[] args) throws Exception {
         
-       /*Vocabulary voc = new Vocabulary();
+      /* Vocabulary voc = new Vocabulary();
         voc.buildVocabulary();
+       /* for(Iterator it = voc.getVocabulary().iterator(); it.hasNext();){
+            String word = (String) it.next();
+            System.out.println(word);
+        }
 
         HashMap<String, Author> authors1 = ImportDataset1.buildListOfAuthors("D:\\New folder\\Tailieuluanvan\\20100825-SchPaperRecData\\20100825-SchPaperRecData");
         HashMap<String, Paper> papers = ImportDataset1.buildListOfPapers("D:\\New folder\\Tailieuluanvan\\20100825-SchPaperRecData\\20100825-SchPaperRecData");
 
         HashMap<String, Author> authorsa = NaiveBayesRecommender.buildAllRecommendationLists(authors1, papers, voc);
-      */  
+       */
     }
 
     /**
@@ -159,6 +164,11 @@ public class PaperRecommender {
                     Vocabulary voc = new Vocabulary();
                     voc.buildVocabulary();
                     authors = NaiveBayesRecommender.buildAllRecommendationLists(authors, papers, voc);
+                    for(String author:authors.keySet()){
+                        if(authors.get(author).getRecommendation()!=null){
+                            System.out.println(author+"===="+authors.get(author).getRecommendation());
+                        }else System.out.println("tac gia "+author+" khong co khuyen nghi");
+                    }
                     response[0] = "Success.";
                     break;
                 case "NDCG5":
