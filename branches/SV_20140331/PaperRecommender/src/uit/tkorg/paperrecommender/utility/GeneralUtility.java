@@ -72,4 +72,19 @@ public class GeneralUtility {
         
         return d;
     }
+       /**
+     * This is method standardize the value of Pearson. Value range would be between -1 and 1
+     * @param d
+     * @return 
+     */
+    public static double standardizePearson(double d) {
+        if (d < -1.0) {
+            d = -1.0;
+        } else if (d > 1) {
+            d = 1.0;
+        } else if (Double.isNaN(d)) {
+            d = 0.0;
+        }
+        return d;
+    }
 }

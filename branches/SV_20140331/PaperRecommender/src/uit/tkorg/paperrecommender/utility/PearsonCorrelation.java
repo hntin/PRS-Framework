@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package uit.tkorg.paperrecommender.utility;
-
+import java.util.List;
+import uit.tkorg.paperrecommender.utility.alogirthm.TopNNeighbor;
 /**
  *
  * @author Vinh-PC
@@ -32,25 +33,51 @@ public class PearsonCorrelation {
      * @param values
      * @return 
      */
-    public static double standardDeviation(double[] values) {
-        double sum = 0;
-        
-        double mean = mean(values);
-        
-        for (double value : values) {
-            sum = sum + Math.pow(value - mean, 2);
-        }
-        
-        return Math.sqrt(sum / values.length);
-    }
+//    public static double standardDeviation(double[] values) {
+//        double sum = 0;
+//        
+//        double mean = mean(values);
+//        
+//        for (double value : values) {
+//            sum = sum + Math.pow(value - mean, 2);
+//        }
+//         
+//        return Math.sqrt(sum / values.length);
+//    }
+     public static double standardDeviation(double[] values) {
+            double sum = 0;
 
+            double mean = mean(values);
+
+            for (double value : values) {
+                sum = sum + Math.pow(value - mean, 2);
+            }
+
+            return Math.sqrt(sum);
+        }
     /**
      * Return the covariance between the vectors x and y.
      * @param x
      * @param y
      * @return 
      */
-    public static double covariance(double[] x, double[] y) {
+//    public static double covariance(double[] x, double[] y) {
+//        if (x.length != y.length) {
+//            throw new IllegalArgumentException("Covariance error: Vectors not of the same length");
+//        }
+//        
+//        double sum = 0;
+//        
+//        double xMean = mean(x);
+//        double yMean = mean(y);
+//        
+//        for (int i = 0; i < x.length; i++) {
+//            sum = sum + (x[i] - xMean) * (y[i] - yMean);
+//        }
+//        
+//        return sum / x.length;
+//    }
+       public static double covariance(double[] x, double[] y) {
         if (x.length != y.length) {
             throw new IllegalArgumentException("Covariance error: Vectors not of the same length");
         }
@@ -64,7 +91,7 @@ public class PearsonCorrelation {
             sum = sum + (x[i] - xMean) * (y[i] - yMean);
         }
         
-        return sum / x.length;
+        return sum ;
     }
 
     /**
@@ -76,4 +103,5 @@ public class PearsonCorrelation {
     public static double pearsonCorrelation(double[] x, double[] y) {
         return covariance(x, y) / (standardDeviation(x) * standardDeviation(y));
     }
+     
 }
