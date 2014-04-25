@@ -22,56 +22,36 @@ public class TopNNeighbor {
      * @param k
      * @return
      */
-    public static ArrayList<ArrayList<Double>> solveFindTopN(double a[][], int k) {
-        ArrayList<ArrayList<Double>> ans = new ArrayList<>();
-        for (int i = 0; i < a.length; i++) {
-            Arrays.sort(a[i]);
-            ArrayList<Double> tmp = new ArrayList<>();
-            for (int j = a[i].length - 1; j > a[i].length - 1 - k; j--) {
-                tmp.add(a[i][j]);
-            }
-            ans.add(tmp);
-        }
-        return ans;
-    }
+    
 
-    public static ArrayList<ArrayList<Double>> solveFindTopN(
-            ArrayList<ArrayList<Double>> a, int k) {
-        ArrayList<ArrayList<Double>> ans = new ArrayList<ArrayList<Double>>();
-        for (int i = 0; i < a.get(i).size(); i++) {
-            Collections.sort(a.get(i));
-            ArrayList<Double> tmp = new ArrayList<>();
-            for (int j = a.get(i).size() - 1; j > a.get(i).size() - 1 - k; j--) {
-                tmp.add(a.get(i).get(j));
-            }
-            ans.add(tmp);
-        }
-        return ans;
+    public static List solveFindTopN(double [] a, int k) {
+         Arrays.sort(a);
+         List tmp = new ArrayList();
+                for (int j = a.length - 2; j > a.length - 2 - k; j--) 
+                     tmp.add(a[j]); 
+            return tmp ;
     }
-
-    public static double[][] solefindTopN(double a[][], int k) {
-        double[][] ans = new double[a.length][k];
-        for (int i = 0; i < a.length; i++) {
-            Arrays.sort(a[i]);
-            double[] tmp = new double[k];
-            for (int j = a[i].length - 1; j > a[i].length - 1 - k; j--) {
-                tmp[a[i].length - 1 - j] = a[i][j];
-            }
-            ans[i] = tmp;
-        }
-        return ans;
+   
+   public static List solveFindTopN(List a, int k) {
+        List ans = new ArrayList();
+            Collections.sort(a);
+            for (int j = a.size() - 2; j > a.size() - 2 - k; j--) {
+                 ans.add(a.get(j));    
     }
-    public static double solveFindSumTopN(List a, int k) {
-        double sum;
-        Collections.sort(a);
-        List temp = new ArrayList();
-        for (int i = a.size() - 1; i > a.size() - 1 - k; i--) {
-            temp.add(a.get(i));
+       return ans;
+   }
+    public static double solveFindSumTopN(double [] sumK) {
+        double sum=0.0;
+        for (int i = 0; i < sumK.length; i++) {
+            sum = + sumK[i];
         }
-        for (int i = 0; i < temp.size(); i++) {
-            sum = +(double) temp.get(i);
-        }
-        return 0;
+        return sum;
     }
-
+ public static double solveFindSumTopN(List<Double> sumK) {
+        double sum=0.0;
+        for (int i = 0; i < sumK.size(); i++) {
+            sum = + sumK.get(i);
+        }
+        return sum;
+    }
 }

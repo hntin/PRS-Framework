@@ -20,6 +20,7 @@ import uit.tkorg.paperrecommender.model.Vocabulary;
 import uit.tkorg.paperrecommender.utility.GeneralUtility;
 import uit.tkorg.paperrecommender.utility.Serializer;
 import uit.tkorg.paperrecommender.utility.alogirthm.BuildMatrixCF;
+import uit.tkorg.paperrecommender.controller.datapreparation.FindPotentialPaper;
 import uit.tkorg.paperrecommender.utility.dataimport.flatfile.ImportDataset1;
 
 /**
@@ -48,14 +49,20 @@ public class PaperRecommender {
         String Dataset1Folder = PaperRecommenerConstant.DATASETFOLDER;
         prec.papers = ImportDataset1.buildListOfPapers(Dataset1Folder);
         List<Paper> paperInput= new ArrayList(prec.papers.values());
-//        double [][] matrixBuil = BuildMatrixCF.writeCosinReal(paperInput);
-//        double [] average =BuildMatrixCF.averageCit(paperInput,matrixBuil);
-////        prec.authors = ImportDataset1.buildListOfAuthors(Dataset1Folder);
-//        prec.papers = PaperFV.computeAllPapersFeatureVector(prec.papers, 0);
+        double [][] matrixBuil = BuildMatrixCF.buildMatrixInput(paperInput);
+//        prec.authors = ImportDataset1.buildListOfAuthors(Dataset1Folder);
+        prec.papers = PaperFV.computeAllPapersFeatureVector(prec.papers, 0);
 //        prec.authors = AuthorFV.computeAllAuthorsFeatureVector(prec.authors, 0);
 //        prec.authors = ContentBasedRecommender.buildAllRecommendationLists(prec.authors, prec.papers);
 //        System.out.println(String.valueOf(Evaluator.Precision(prec.authors)));
-    //   BuildMatrixCF.findPotentialCitPaper(paperInput,matrixBuil,average,5,3);
+//        for (int i= 0; i< matrixBuil.length;i++)
+//            for(int j =0; j< matrixBuil.length;j++)
+//                System.out.print( matrixBuil[i][j]);
+////        List pearson = BuildMatrixCF.pearsonPaperTarget(matrixBuil,5);
+////        for (int i=0;i< pearson.size();i++)
+////            System.out.println(pearson.get(i));
+////        System.out.println(pearson.size());
+       FindPotentialPaper.findPotentialCitPaper(paperInput,matrixBuil,5,3);
        System.out.println(prec.papers.get("P00-1060").getCitationPotential());  
        System.out.println(prec.papers.get("P00-1060").getCitationPotential().size());
         

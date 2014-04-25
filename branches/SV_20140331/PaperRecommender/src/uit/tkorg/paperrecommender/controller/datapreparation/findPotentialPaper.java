@@ -16,38 +16,38 @@ import uit.tkorg.paperrecommender.model.Author;
 import uit.tkorg.paperrecommender.model.Paper;
 import uit.tkorg.paperrecommender.utility.GeneralUtility;
 import uit.tkorg.paperrecommender.utility.alogirthm.BuildMatrixCF;
+import static uit.tkorg.paperrecommender.utility.alogirthm.BuildMatrixCF.imputeFullMatrix;
+import uit.tkorg.paperrecommender.utility.alogirthm.TopNNeighbor;
+import static uit.tkorg.paperrecommender.utility.alogirthm.TopNNeighbor.*;
 
 
 /**
  *
  * @author NhocZoe
  */
-public class findPotentialPaper {
+public class FindPotentialPaper {
      /**
-     * This is method find all potential citation of all paper
-     *
-     * @param paperInput
-     * @param matrixBuild
-     * @param average
-     * @param neighbor
-     * @param k
-     * @throws Exception
-     */
+      * This is method find potential paper for recommend paper
+      * @param matrixBuild
+      * @param neighbor
+      * @param k
+      * @throws Exception 
+      */
 
-//    public static void findPotentialCitPaper(List<Paper> paperInput, double[][] matrixBuild, double[] average, int neighbor, int k) throws Exception {
-//
-//        double[][] matrixPaper = builMatrixPaperCit(paperInput, matrixBuild, average, neighbor);
-//        double[][] tempMatrix = findKMax(matrixPaper, k);
-//        for (int i = 0; i < paperInput.size(); i++) {
-//            List potentialPaper = new ArrayList();
-//            for (int j = 0; j < paperInput.size(); j++) {
-//                for (int l = 0; l < k; l++) {
-//                    if (matrixPaper[i][j] == tempMatrix[i][l]) {
-//                        potentialPaper.add(paperInput.get(j).getPaperId());
-//                        paperInput.get(i).setCitationPotential(potentialPaper);
-//                    }
-//                }
-//            }
-//        }
-//    }
+    public static void findPotentialCitPaper(List <Paper> items,double[][] matrixBuild, int neighbor, int k) throws Exception {
+            List potentialPaper = new ArrayList();
+        double[][] matrixPaper =imputeFullMatrix(matrixBuild,neighbor);
+        for (int i = 0; i < matrixBuild.length; i++) {
+           // List potentialPaper = new ArrayList();
+            List <Double> tmp= TopNNeighbor.solveFindTopN(matrixPaper[i], k);
+            for (int j = 0; j < matrixBuild.length; j++) {
+                for (int l = 0; l < k; l++) {
+                    if (tmp.get(l) == matrixPaper[i][j]) {
+                        potentialPaper.add(items.get(j).getPaperId());
+                    }
+                }
+            }
+            items.get(i).setCitationPotential(potentialPaper);
+        }
+    }
 }
