@@ -58,13 +58,13 @@ public class PaperRecommender {
 //        for (int i= 0; i< matrixBuil.length;i++)
 //            for(int j =0; j< matrixBuil.length;j++)
 //                System.out.print( matrixBuil[i][j]);
-////        List pearson = BuildMatrixCF.pearsonPaperTarget(matrixBuil,5);
-////        for (int i=0;i< pearson.size();i++)
-////            System.out.println(pearson.get(i));
-////        System.out.println(pearson.size());
-       FindPotentialPaper.findPotentialCitPaper(paperInput,matrixBuil,5,3);
-       System.out.println(prec.papers.get("P00-1060").getCitationPotential());  
-       System.out.println(prec.papers.get("P00-1060").getCitationPotential().size());
+//        List pearson = BuildMatrixCF.pearsonPaperTarget(matrixBuil,5);
+//        for (int i=0;i< pearson.size();i++)
+//            System.out.println(pearson.get(i));
+//        System.out.println(pearson.size());
+//       FindPotentialPaper.findPotentialCitPaper(paperInput,matrixBuil,5,3);
+//       System.out.println(prec.papers.get("P00-1060").getCitationPotential());  
+//       System.out.println(prec.papers.get("P00-1060").getCitationPotential().size());
         
       /* Vocabulary voc = new Vocabulary();
         voc.buildVocabulary();

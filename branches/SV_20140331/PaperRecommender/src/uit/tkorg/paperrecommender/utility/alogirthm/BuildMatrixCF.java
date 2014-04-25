@@ -35,6 +35,8 @@ public class BuildMatrixCF {
         double[][] matrixInput = new double[items.size()][items.size()];
         for (int i = 0; i < items.size(); i++) {
             for (int j = 0; j < items.size(); j++) {
+                   if (i==j)
+                    matrixInput[i][j]=1.00;
                 // checked paper j is paper cit of paper i compute cosine to write to the matrix
                 if (items.get(i).getCitation().contains(items.get(j).getPaperId())) {
                     matrixInput[i][j] = GeneralUtility.standardizeSimilarityValue(Weighting.computeCosine(items.get(i).getContent(),
@@ -56,8 +58,8 @@ public class BuildMatrixCF {
         double[][] matrixInput = new double[users.size()][items.size()];
         for (int i = 0; i < users.size(); i++) {
             for (int j = 0; j < items.size(); j++) {
-                if (users.get(i).getGroundTruth().contains(items.get(j).getPaperId())) {
-                    matrixInput[i][j] = GeneralUtility.standardizeSimilarityValue(Weighting.computeCosine(users.get(i).getFeatureVector(),
+                    if (users.get(i).getGroundTruth().contains(items.get(j).getPaperId())) {
+                     matrixInput[i][j] = GeneralUtility.standardizeSimilarityValue(Weighting.computeCosine(users.get(i).getFeatureVector(),
                             items.get(j).getContent()));
                 }
             }
