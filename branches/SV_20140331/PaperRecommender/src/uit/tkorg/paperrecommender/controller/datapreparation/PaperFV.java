@@ -79,8 +79,9 @@ public class PaperFV {
         featureVector.add(sumFeatureVectorWithLinear(papersInput, citation));//add featureVector with featureVector of citation papers
 
         List<String> reference = paper.getReference();//get list of reference paper
-        featureVector.add(sumFeatureVectorWithLinear(papersInput, reference));//add featureVector with featureVector of reference papers
-        
+        featureVector.add(sumFeatureVectorWithLinear(papersInput, reference));//add featureVector with featureVector of reference papers 
+//        List <String> potential = paper.getCitationPotential();
+//        featureVector.add(sumFeatureVectorWithLinear(papersInput, potential));
         return featureVector;
     }
 
@@ -102,7 +103,8 @@ public class PaperFV {
 
         List<String> reference = paper.getReference();//get list of reference paper
         featureVector.add(sumFeatureVectorWithCosine(papersInput, paper, reference));//add featureVector with featureVector of reference papers
-        
+//        List <String> potential = paper.getCitationPotential();
+//        featureVector.add(sumFeatureVectorWithCosine(papersInput, paper, potential));//add featureVector with featureVector of potential papers
         return featureVector;
     }
 
@@ -124,7 +126,8 @@ public class PaperFV {
 
         List<String> reference = paper.getReference();//get list of reference paper
         featureVector.add(sumFeatureVectorWithRPY(papersInput, paper, reference));//add featureVector with featureVector of reference papers
-        
+//        List <String> potential = paper.getCitationPotential();
+//        featureVector.add(sumFeatureVectorWithRPY(papersInput, paper, potential));//add featureVector with featureVector of potential papers
         return featureVector;
     }
 

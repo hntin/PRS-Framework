@@ -22,12 +22,17 @@ public class PearsonCorrelation {
      */
     public static double mean(double[] values) {
         double sum = 0;
-
+        int count=0;
         for (double value : values) {
-            sum = sum + value;
+            if (value!=0){
+                 sum = sum + value;
+                 count++;
+            }  
         }
-
-        return sum / values.length;
+        if (count==0)
+            return 0;
+        else
+        return sum / count;
     }
 
     /**
@@ -38,14 +43,17 @@ public class PearsonCorrelation {
      */
     public static double standardDeviation(double[] values) {
         double sum = 0;
-        
+        int count=0;
         double mean = mean(values);
-        
-        for (double value : values) {
-            sum = sum + Math.pow(value - mean, 2);
-        }
-         
-        return Math.sqrt(sum / values.length);
+        if (mean==0)
+            return 0;
+        else{
+             for (double value : values) {
+                sum = sum + Math.pow(value - mean, 2);
+                count++;
+            }
+            return Math.sqrt(sum / count);
+        }    
     }
     
     /**
@@ -61,15 +69,19 @@ public class PearsonCorrelation {
         }
         
         double sum = 0;
-        
+        int count=0;
         double xMean = mean(x);
         double yMean = mean(y);
-        
-        for (int i = 0; i < x.length; i++) {
-            sum = sum + (x[i] - xMean) * (y[i] - yMean);
+        if (xMean ==0 || yMean==0)
+            return 0;
+        else{
+                for (int i = 0; i < x.length; i++) {
+                sum = sum + (x[i] - xMean) * (y[i] - yMean);
+                count++;
+            }
+        return sum / count;
         }
-        
-        return sum / x.length;
+     
     }
    
     /**
@@ -80,6 +92,8 @@ public class PearsonCorrelation {
      * @return
      */
     public static double pearsonCorrelation(double[] x, double[] y) {
+        if (standardDeviation(x)==0 ||standardDeviation(y)==0) return 0;
+        else
         return covariance(x, y) / (standardDeviation(x) * standardDeviation(y));
     }
 /**

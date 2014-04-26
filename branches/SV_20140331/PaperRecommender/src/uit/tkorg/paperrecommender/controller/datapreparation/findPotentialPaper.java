@@ -35,10 +35,9 @@ public class FindPotentialPaper {
       */
 
     public static void findPotentialCitPaper(List <Paper> items,double[][] matrixBuild, int neighbor, int k) throws Exception {
-            List potentialPaper = new ArrayList();
         double[][] matrixPaper =imputeFullMatrix(matrixBuild,neighbor);
         for (int i = 0; i < matrixBuild.length; i++) {
-           // List potentialPaper = new ArrayList();
+            List potentialPaper = new ArrayList();
             List <Double> tmp= TopNNeighbor.solveFindTopN(matrixPaper[i], k);
             for (int j = 0; j < matrixBuild.length; j++) {
                 for (int l = 0; l < k; l++) {

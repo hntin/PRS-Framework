@@ -48,36 +48,41 @@ public class PaperRecommender {
         PaperRecommender prec = new PaperRecommender();
         String Dataset1Folder = PaperRecommenerConstant.DATASETFOLDER;
         prec.papers = ImportDataset1.buildListOfPapers(Dataset1Folder);
-        List<Paper> paperInput= new ArrayList(prec.papers.values());
-        double [][] matrixBuil = BuildMatrixCF.buildMatrixInput(paperInput);
+        List<Paper> paperInput = new ArrayList(prec.papers.values());
+        double[][] matrixBuil = BuildMatrixCF.buildMatrixInput(paperInput);
 //        prec.authors = ImportDataset1.buildListOfAuthors(Dataset1Folder);
         prec.papers = PaperFV.computeAllPapersFeatureVector(prec.papers, 0);
 //        prec.authors = AuthorFV.computeAllAuthorsFeatureVector(prec.authors, 0);
 //        prec.authors = ContentBasedRecommender.buildAllRecommendationLists(prec.authors, prec.papers);
 //        System.out.println(String.valueOf(Evaluator.Precision(prec.authors)));
-//        for (int i= 0; i< matrixBuil.length;i++)
-//            for(int j =0; j< matrixBuil.length;j++)
-//                System.out.print( matrixBuil[i][j]);
-//        List pearson = BuildMatrixCF.pearsonPaperTarget(matrixBuil,5);
-//        for (int i=0;i< pearson.size();i++)
-//            System.out.println(pearson.get(i));
-//        System.out.println(pearson.size());
-//       FindPotentialPaper.findPotentialCitPaper(paperInput,matrixBuil,5,3);
-//       System.out.println(prec.papers.get("P00-1060").getCitationPotential());  
-//       System.out.println(prec.papers.get("P00-1060").getCitationPotential().size());
-        
-      /* Vocabulary voc = new Vocabulary();
-        voc.buildVocabulary();
-       /* for(Iterator it = voc.getVocabulary().iterator(); it.hasNext();){
-            String word = (String) it.next();
-            System.out.println(word);
+        for (int i = 0; i < matrixBuil.length; i++) {
+            for (int j = 0; j < matrixBuil.length; j++) {
+                if (i == j) {
+                    System.out.print(matrixBuil[i][j]);
+                }
+            }
         }
+        List pearson = BuildMatrixCF.pearsonPaperTarget(matrixBuil, 5);
+        for (int i = 0; i < pearson.size(); i++) {
+            System.out.println(pearson.get(i));
+        }
+        System.out.println(pearson.size());
+        FindPotentialPaper.findPotentialCitPaper(paperInput, matrixBuil, 5, 3);
+        System.out.println(prec.papers.get("P00-1060").getCitationPotential());
+        System.out.println(prec.papers.get("P00-1060").getCitationPotential().size());
 
-        HashMap<String, Author> authors1 = ImportDataset1.buildListOfAuthors("D:\\New folder\\Tailieuluanvan\\20100825-SchPaperRecData\\20100825-SchPaperRecData");
-        HashMap<String, Paper> papers = ImportDataset1.buildListOfPapers("D:\\New folder\\Tailieuluanvan\\20100825-SchPaperRecData\\20100825-SchPaperRecData");
+        /* Vocabulary voc = new Vocabulary();
+         voc.buildVocabulary();
+         /* for(Iterator it = voc.getVocabulary().iterator(); it.hasNext();){
+         String word = (String) it.next();
+         System.out.println(word);
+         }
 
-        HashMap<String, Author> authorsa = NaiveBayesRecommender.buildAllRecommendationLists(authors1, papers, voc);
-       */
+         HashMap<String, Author> authors1 = ImportDataset1.buildListOfAuthors("D:\\New folder\\Tailieuluanvan\\20100825-SchPaperRecData\\20100825-SchPaperRecData");
+         HashMap<String, Paper> papers = ImportDataset1.buildListOfPapers("D:\\New folder\\Tailieuluanvan\\20100825-SchPaperRecData\\20100825-SchPaperRecData");
+
+         HashMap<String, Author> authorsa = NaiveBayesRecommender.buildAllRecommendationLists(authors1, papers, voc);
+         */
     }
 
     /**
@@ -188,10 +193,12 @@ public class PaperRecommender {
                     Vocabulary voc = new Vocabulary();
                     voc.buildVocabulary();
                     authors = NaiveBayesRecommender.buildAllRecommendationLists(authors, papers, voc);
-                    for(String author:authors.keySet()){
-                        if(authors.get(author).getRecommendation()!=null){
-                            System.out.println(author+"===="+authors.get(author).getRecommendation());
-                        }else System.out.println("tac gia "+author+" khong co khuyen nghi");
+                    for (String author : authors.keySet()) {
+                        if (authors.get(author).getRecommendation() != null) {
+                            System.out.println(author + "====" + authors.get(author).getRecommendation());
+                        } else {
+                            System.out.println("tac gia " + author + " khong co khuyen nghi");
+                        }
                     }
                     response[0] = "Success.";
                     break;
