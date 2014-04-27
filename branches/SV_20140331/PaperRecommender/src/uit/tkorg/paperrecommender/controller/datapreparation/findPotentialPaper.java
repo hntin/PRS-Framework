@@ -5,18 +5,11 @@
  */
 
 package uit.tkorg.paperrecommender.controller.datapreparation;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Collections;
-import java.util.Comparator;
-
-import uit.tkorg.paperrecommender.model.Author;
 import uit.tkorg.paperrecommender.model.Paper;
-import uit.tkorg.paperrecommender.utility.GeneralUtility;
-import uit.tkorg.paperrecommender.utility.alogirthm.BuildMatrixCF;
-import uit.tkorg.paperrecommender.utility.alogirthm.Knn;
+import uit.tkorg.paperrecommender.utility.algorithm.BuildMatrixCF;
+import uit.tkorg.paperrecommender.utility.algorithm.Knn;
 
 
 /**

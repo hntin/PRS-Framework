@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import uit.tkorg.paperrecommender.model.Author;
-import uit.tkorg.paperrecommender.utility.algorithm.Knn;
 
 /**
  * This class handles logic for recommending papers to each author.

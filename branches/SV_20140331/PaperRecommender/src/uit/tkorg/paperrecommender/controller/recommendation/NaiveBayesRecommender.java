@@ -79,7 +79,7 @@ public class NaiveBayesRecommender {
 
         NaiveBayes bayes = new NaiveBayes();
         HashMap<String, Double> labelProbs = bayes.labelProbs(examples, favoritePapers);
-        HashMap<String, HashMap<String, Vector>> conditionalProbs = bayes.conditionalProbs(examples, favoritePapers, papers);
+        HashMap<String, HashMap<String, Vector>> conditionalProbs=bayes.conditionalProbs(examples, favoritePapers, papers);
 
         for (String paperId : papers.keySet()) {
             if (bayes.predict(papers.get(paperId), conditionalProbs, labelProbs).equals("yes")) {

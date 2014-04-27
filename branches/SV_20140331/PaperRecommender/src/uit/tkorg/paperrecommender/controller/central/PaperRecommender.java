@@ -16,7 +16,7 @@ import uit.tkorg.paperrecommender.controller.recommendation.ContentBasedRecommen
 import uit.tkorg.paperrecommender.model.Author;
 import uit.tkorg.paperrecommender.model.Paper;
 import uit.tkorg.paperrecommender.utility.Serializer;
-import uit.tkorg.paperrecommender.utility.alogirthm.BuildMatrixCF;
+import uit.tkorg.paperrecommender.utility.algorithm.BuildMatrixCF;
 import uit.tkorg.paperrecommender.utility.dataimport.flatfile.ImportDataset1;
 
 /**

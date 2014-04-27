@@ -5,9 +5,6 @@
  */
 package uit.tkorg.paperrecommender.utility;
 
-import java.util.List;
-import uit.tkorg.paperrecommender.utility.GeneralUtility;
-
 /**
  *
  * @author Vinh-PC
