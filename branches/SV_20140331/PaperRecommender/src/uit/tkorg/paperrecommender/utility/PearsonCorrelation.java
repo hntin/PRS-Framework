@@ -6,7 +6,7 @@
 package uit.tkorg.paperrecommender.utility;
 
 import java.util.List;
-import uit.tkorg.paperrecommender.utility.alogirthm.TopNNeighbor;
+import uit.tkorg.paperrecommender.utility.GeneralUtility;
 
 /**
  *
@@ -109,7 +109,7 @@ public class PearsonCorrelation {
         for (int i = 0; i < covarNeighbor.length; i++) {
             temp = +((cosine[i] - meanNeighbor[i]) * covarNeighbor[i]);   
         }
-    return ( averageTarget + temp/ TopNNeighbor.solveFindSumTopN(covarNeighbor));
+    return ( averageTarget + temp/ GeneralUtility.solveFindSumTopN(covarNeighbor));
 
     }
 }

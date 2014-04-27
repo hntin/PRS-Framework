@@ -14,7 +14,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import uit.tkorg.paperrecommender.utility.Weighting;
 import uit.tkorg.paperrecommender.utility.GeneralUtility;
-import uit.tkorg.paperrecommender.utility.alogirthm.TopNNeighbor;
 import uit.tkorg.paperrecommender.utility.PearsonCorrelation;
 
 /**
@@ -99,7 +98,7 @@ public class BuildMatrixCF {
         List<Double> neighbor = new ArrayList();
         for (int i = 0; i < matrixInput.length; i++) {
             arrayPearson = pearsonPaperTarget(matrixInput, i);
-            neighbor = TopNNeighbor.solveFindTopN(arrayPearson, neighborhood);
+          //  neighbor = TopNNeighbor.solveFindTopN(arrayPearson, neighborhood);
             double numerator = 0;
             for (int j = 0; j < matrixInput[i].length; j++) {
                 if (i == j) {
@@ -112,7 +111,7 @@ public class BuildMatrixCF {
                             }
                         }
                     }
-                     matrixInput[i][j] = PearsonCorrelation.mean(matrixInput[i]) + numerator / TopNNeighbor.solveFindSumTopN(neighbor);
+                  //   matrixInput[i][j] = PearsonCorrelation.mean(matrixInput[i]) + numerator / TopNNeighbor.solveFindSumTopN(neighbor);
                      matrixInput[j][i] = matrixInput[i][j];
                 }
             }

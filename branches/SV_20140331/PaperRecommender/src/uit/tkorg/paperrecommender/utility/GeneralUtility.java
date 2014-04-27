@@ -87,4 +87,11 @@ public class GeneralUtility {
         }
         return d;
     }
+     public static double solveFindSumTopN(double [] sumK) {
+        double sum=0.0;
+        for (int i = 0; i < sumK.length; i++) {
+            sum = + sumK[i];
+        }
+        return sum;
+    }
 }
