@@ -26,11 +26,10 @@ public class NaiveBayesRecommender {
      *
      * @param authorsInput
      * @param papers
-     * @param vocabulary
      * @return
      * @throws Exception
      */
-    public static HashMap<String, Author> buildALLRecommendationLists(HashMap<String, Author> authorsInput, HashMap<String, Paper> papers, Vocabulary vocabulary) throws Exception {
+    public static HashMap<String, Author> buildALLRecommendationLists(HashMap<String, Author> authorsInput, HashMap<String, Paper> papers) throws Exception {
         HashMap<String, Author> authors = authorsInput;
         for (String authorId : authors.keySet()) {
             authors.get(authorId).setRecommendation(buildRecommendationList(authors, authors.get(authorId), papers));
@@ -77,12 +76,12 @@ public class NaiveBayesRecommender {
             }
         }
 
-        NaiveBayes bayes = new NaiveBayes();
-        HashMap<String, Double> labelProbs = bayes.labelProbs(examples, favoritePapers);
-        HashMap<String, HashMap<String, Vector>> conditionalProbs=bayes.conditionalProbs(examples, favoritePapers, papers);
+        NaiveBayes naiveBayes = new NaiveBayes();
+        HashMap<String, Double> labelProbs = naiveBayes.labelProbs(examples, favoritePapers);
+        HashMap<String, HashMap<String, Vector>> conditionalProbs=naiveBayes.conditionalProbs(examples, favoritePapers, papers);
 
         for (String paperId : papers.keySet()) {
-            if (bayes.predict(papers.get(paperId), conditionalProbs, labelProbs).equals("yes")) {
+            if (naiveBayes.predict(papers.get(paperId), conditionalProbs, labelProbs).equals("yes")) {
                 recommendList.add(paperId);
             }
         }

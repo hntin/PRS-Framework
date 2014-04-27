@@ -4,7 +4,7 @@ import java.util.logging.Level;
 
 public class PaperRecommenerConstant {
 
-    public static final String DATASETFOLDER = "E:\\Luan_van\\20100825-SchPaperRecData\\";
+    public static final String DATASETFOLDER = "D:\\New folder\\Tailieuluanvan\\20100825-SchPaperRecData\\20100825-SchPaperRecData";
     public static final String SAVEDATAFOLDER = "E:\\";
     
     public static final String DB = "MYSQL";

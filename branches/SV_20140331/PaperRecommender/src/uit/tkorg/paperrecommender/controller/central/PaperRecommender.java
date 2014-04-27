@@ -13,6 +13,7 @@ import uit.tkorg.paperrecommender.controller.datapreparation.FindPotentialPaper;
 import uit.tkorg.paperrecommender.controller.datapreparation.PaperFV;
 import uit.tkorg.paperrecommender.controller.evaluation.Evaluator;
 import uit.tkorg.paperrecommender.controller.recommendation.ContentBasedRecommender;
+import uit.tkorg.paperrecommender.controller.recommendation.NaiveBayesRecommender;
 import uit.tkorg.paperrecommender.model.Author;
 import uit.tkorg.paperrecommender.model.Paper;
 import uit.tkorg.paperrecommender.utility.Serializer;
@@ -41,39 +42,10 @@ public class PaperRecommender {
      * @throws java.lang.Exception
      */
     public static void main(String[] args) throws Exception {
-        PaperRecommender prec = new PaperRecommender();
-        String Dataset1Folder = PaperRecommenerConstant.DATASETFOLDER;
-        prec.papers = ImportDataset1.buildListOfPapers(Dataset1Folder);
-        List<Paper> paperInput= new ArrayList(prec.papers.values());
-        double [][] matrixBuil = BuildMatrixCF.buildMatrixInput(paperInput);
-//        prec.authors = ImportDataset1.buildListOfAuthors(Dataset1Folder);
-        prec.papers = PaperFV.computeAllPapersFeatureVector(prec.papers, 0);
-//        prec.authors = AuthorFV.computeAllAuthorsFeatureVector(prec.authors, 0);
-//        prec.authors = ContentBasedRecommender.buildAllRecommendationLists(prec.authors, prec.papers);
-//        System.out.println(String.valueOf(Evaluator.Precision(prec.authors)));
-//        for (int i= 0; i< matrixBuil.length;i++)
-//            for(int j =0; j< matrixBuil.length;j++)
-//                System.out.print( matrixBuil[i][j]);
-////        List pearson = BuildMatrixCF.pearsonPaperTarget(matrixBuil,5);
-////        for (int i=0;i< pearson.size();i++)
-////            System.out.println(pearson.get(i));
-////        System.out.println(pearson.size());
-       FindPotentialPaper.findPotentialCitPaper(paperInput,matrixBuil,5,3);
-       System.out.println(prec.papers.get("P00-1060").getCitationPotential());  //[P00-1060, P02-1061, P05-1049]
-       System.out.println(prec.papers.get("P00-1060").getCitationPotential().size());
-        
-      /* Vocabulary voc = new Vocabulary();
-        voc.buildVocabulary();
-       /* for(Iterator it = voc.getVocabulary().iterator(); it.hasNext();){
-            String word = (String) it.next();
-            System.out.println(word);
-        }
-
-        HashMap<String, Author> authors1 = ImportDataset1.buildListOfAuthors("D:\\New folder\\Tailieuluanvan\\20100825-SchPaperRecData\\20100825-SchPaperRecData");
+       /* HashMap<String, Author> authors1 = ImportDataset1.buildListOfAuthors("D:\\New folder\\Tailieuluanvan\\20100825-SchPaperRecData\\20100825-SchPaperRecData");
         HashMap<String, Paper> papers = ImportDataset1.buildListOfPapers("D:\\New folder\\Tailieuluanvan\\20100825-SchPaperRecData\\20100825-SchPaperRecData");
-
-        HashMap<String, Author> authorsa = NaiveBayesRecommender.buildAllRecommendationLists(authors1, papers, voc);
-       */
+        List<String> recommenList=NaiveBayesRecommender.buildRecommendationList(authors1, authors1.get("m4"), papers);
+        System.out.println(recommenList.toString());*/
     }
 
     /**
@@ -180,7 +152,8 @@ public class PaperRecommender {
                     response[0] = "Success.";
                     break;
                 case "Recommend":
-                    authors = ContentBasedRecommender.buildAllRecommendationLists(authors, papers);
+                    //authors = ContentBasedRecommender.buildAllRecommendationLists(authors, papers);
+                    authors = NaiveBayesRecommender.buildALLRecommendationLists(authors, papers);
                     response[0] = "Success.";
                     break;
                 case "NDCG5":
