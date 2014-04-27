@@ -13,7 +13,7 @@ import java.util.Vector;
 import uit.tkorg.paperrecommender.model.Author;
 import uit.tkorg.paperrecommender.model.Paper;
 import uit.tkorg.paperrecommender.model.Vocabulary;
-import uit.tkorg.paperrecommender.utility.alogirthm.NaiveBayes;
+import uit.tkorg.paperrecommender.utility.algorithm.NaiveBayes;
 
 /**
  *
@@ -48,7 +48,7 @@ public class NaiveBayesRecommender {
      */
     public static List<String> buildRecommendationList(HashMap<String, Author> authors, Author author, HashMap<String, Paper> papers) throws Exception {
         List<Paper> examples = new ArrayList<>();
-        List<String> favPapers = new ArrayList<>();
+        List<Paper> favoritePapers = new ArrayList<>();
         List<String> recommendList = new ArrayList<>();
 
         for (String authorId : authors.keySet()) {
@@ -56,12 +56,12 @@ public class NaiveBayesRecommender {
                 for (Iterator it = authors.get(authorId).getPaper().iterator(); it.hasNext();) {
                     Paper paper = (Paper) it.next();
                     examples.add(paper);
-                    favPapers.add(paper.getPaperId());
+                    favoritePapers.add(paper);
 
                     for (Iterator ite = paper.getReference().iterator(); ite.hasNext();) {
                         Paper paperRef = (Paper) ite.next();
                         examples.add(paperRef);
-                        favPapers.add(paperRef.getPaperId());
+                        favoritePapers.add(paperRef);
                     }
                 }
             } else {
@@ -78,8 +78,8 @@ public class NaiveBayesRecommender {
         }
 
         NaiveBayes bayes = new NaiveBayes();
-        HashMap<String, Double> labelProbs = bayes.labelProbs(examples, favPapers);
-        HashMap<String, HashMap<String, Vector>> conditionalProbs = bayes.conditionalProbs(examples, favPapers, papers);
+        HashMap<String, Double> labelProbs = bayes.labelProbs(examples, favoritePapers);
+        HashMap<String, HashMap<String, Vector>> conditionalProbs = bayes.conditionalProbs(examples, favoritePapers, papers);
 
         for (String paperId : papers.keySet()) {
             if (bayes.predict(papers.get(paperId), conditionalProbs, labelProbs).equals("yes")) {
