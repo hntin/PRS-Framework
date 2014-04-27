@@ -16,14 +16,22 @@ import uit.tkorg.paperrecommender.model.Author;
 import uit.tkorg.paperrecommender.model.Paper;
 import uit.tkorg.paperrecommender.utility.GeneralUtility;
 import uit.tkorg.paperrecommender.utility.alogirthm.BuildMatrixCF;
-import static uit.tkorg.paperrecommender.utility.alogirthm.BuildMatrixCF.imputeFullMatrix;
+import uit.tkorg.paperrecommender.utility.alogirthm.Knn;
 
 
 /**
  *
- * @author NhocZoe
+ * @author Minh
  */
 public class FindPotentialPaper {
+    public static HashMap solveToFindTopN (List<Paper> items, double[][] matrixInput,int paper){
+        HashMap tmp =new HashMap();
+        for (int i=0;i< items.size();i++)
+                if(!items.get(paper).getCitation().contains(items.get(i).getPaperId())){
+                    tmp.put(items.get(i).getPaperId(),matrixInput[paper][i]);
+                }
+        return tmp;    
+    }
      /**
       * This is method find potential paper for recommend paper
       * @param matrixBuild
@@ -33,18 +41,11 @@ public class FindPotentialPaper {
       */
 
     public static void findPotentialCitPaper(List <Paper> items,double[][] matrixBuild, int neighbor, int k) throws Exception {
-//        double[][] matrixPaper =imputeFullMatrix(matrixBuild,neighbor);
-//        for (int i = 0; i < matrixBuild.length; i++) {
-//            List potentialPaper = new ArrayList();
-//            List <Double> tmp= TopNNeighbor.solveFindTopN(matrixPaper[i], k);
-//            for (int j = 0; j < matrixBuild.length; j++) {
-//                for (int l = 0; l < k; l++) {
-//                    if (tmp.get(l) == matrixPaper[i][j]) {
-//                        potentialPaper.add(items.get(j).getPaperId());
-//                    }
-//                }
-//            }
-//            items.get(i).setCitationPotential(potentialPaper);
-//        }
+        double[][] matrixPaper =BuildMatrixCF.imputeFullMatrix(items,matrixBuild,neighbor);
+        for (int i = 0; i < matrixBuild.length; i++) {
+            HashMap tmp = solveToFindTopN(items, matrixBuild,i);
+            List <String> listPotentialPaper= Knn.nearestPapers(tmp, k);
+            items.get(i).setCitationPotential(listPotentialPaper);
+        }
     }
 }

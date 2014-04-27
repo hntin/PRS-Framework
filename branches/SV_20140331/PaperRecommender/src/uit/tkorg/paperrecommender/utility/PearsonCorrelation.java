@@ -104,12 +104,19 @@ public class PearsonCorrelation {
  * @param cosine
  * @return 
  */
+      public static double solveFindSumTopN(double [] sumK) {
+        double sum=0.0;
+        for (int i = 0; i < sumK.length; i++) {
+            sum = + sumK[i];
+        }
+        return sum;
+    }
     public static double predictionRating(double averageTarget, double[] covarNeighbor, double[] meanNeighbor, double[] cosine) {
         double temp = 0.0;
         for (int i = 0; i < covarNeighbor.length; i++) {
             temp = +((cosine[i] - meanNeighbor[i]) * covarNeighbor[i]);   
         }
-    return ( averageTarget + temp/ GeneralUtility.solveFindSumTopN(covarNeighbor));
+    return ( averageTarget + temp/ solveFindSumTopN(covarNeighbor));
 
     }
 }

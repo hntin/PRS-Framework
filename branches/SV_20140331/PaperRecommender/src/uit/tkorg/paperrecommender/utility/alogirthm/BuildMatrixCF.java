@@ -12,9 +12,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import uit.tkorg.paperrecommender.utility.Weighting;
 import uit.tkorg.paperrecommender.utility.GeneralUtility;
 import uit.tkorg.paperrecommender.utility.PearsonCorrelation;
+import uit.tkorg.paperrecommender.utility.alogirthm.Knn;
 
 /**
  *
@@ -74,13 +76,12 @@ public class BuildMatrixCF {
      * @return
      * @throws Exception
      */
-    public static List<Double> pearsonPaperTarget(double[][] matrixInput, int paperTarget) throws Exception {
-        List PCC = new ArrayList();
+    public static HashMap pearsonPaperTarget(List<Paper> items,double[][] matrixInput, int paperTarget) throws Exception {
+        HashMap PCC = new HashMap();
         for (int i = 0; i < matrixInput.length; i++) {
-                // compute PCC paper target and cit
-            // if (i !=paperTarget) {
-            PCC.add(GeneralUtility.standardizePearson(PearsonCorrelation.pearsonCorrelation(matrixInput[paperTarget], matrixInput[i])));
-            //  }
+            // compute PCC paper target and cit
+            if (i !=paperTarget) 
+            PCC.put(items.get(i).getPaperId(),GeneralUtility.standardizePearson(PearsonCorrelation.pearsonCorrelation(matrixInput[paperTarget], matrixInput[i])));
         }
         return PCC;
     }
@@ -93,26 +94,28 @@ public class BuildMatrixCF {
      * @return full matrix
      * @throws Exception
      */
-    public static double[][] imputeFullMatrix(double[][] matrixInput, int neighborhood) throws Exception {
-        List arrayPearson = new ArrayList();
-        List<Double> neighbor = new ArrayList();
+    public static double[][] imputeFullMatrix(List <Paper> items,double[][] matrixInput, int neighbor) throws Exception {
+        HashMap arrayPearson = new HashMap();
+        List<String> listNeighbor = new ArrayList();
         for (int i = 0; i < matrixInput.length; i++) {
-            arrayPearson = pearsonPaperTarget(matrixInput, i);
-          //  neighbor = TopNNeighbor.solveFindTopN(arrayPearson, neighborhood);
+            arrayPearson = pearsonPaperTarget(items,matrixInput, i);
+            listNeighbor = Knn.nearestPapers(arrayPearson,neighbor );
             double numerator = 0;
+            double  sumPCCNeighbor =0;
             for (int j = 0; j < matrixInput[i].length; j++) {
                 if (i == j) {
                     matrixInput[i][j] = 1.00;
                 } else {
                     for (int l = 0; l < matrixInput.length; l++) {
-                        for (int k = 0; k < neighborhood; k++) {
-                            if (neighbor.get(k) == arrayPearson.get(l)) {
-                                numerator = +((double) neighbor.get(k) * (matrixInput[l][j] - PearsonCorrelation.mean(matrixInput[l])));
+                        for (int k = 0; k < neighbor; k++) {
+                            if (listNeighbor.get(k) == items.get(l).getPaperId()) {
+                                numerator +=((double) arrayPearson.get(listNeighbor.get(k)) * (matrixInput[l][j] - PearsonCorrelation.mean(matrixInput[l])));
+                                sumPCCNeighbor += (double)arrayPearson.get(listNeighbor.get(k));
                             }
                         }
                     }
-                  //   matrixInput[i][j] = PearsonCorrelation.mean(matrixInput[i]) + numerator / TopNNeighbor.solveFindSumTopN(neighbor);
-                     matrixInput[j][i] = matrixInput[i][j];
+                   matrixInput[i][j] = PearsonCorrelation.mean(matrixInput[i]) + numerator / sumPCCNeighbor;
+                   matrixInput[j][i] = matrixInput[i][j];
                 }
             }
         }

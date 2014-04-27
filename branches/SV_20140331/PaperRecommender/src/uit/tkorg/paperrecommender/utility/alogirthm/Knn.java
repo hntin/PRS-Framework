@@ -55,7 +55,7 @@ public class Knn {
         return distances;
     }
 
-    public List<String> nearestPapers(HashMap<String, Double> hashMapDistance, int k) throws Exception {
+    public static List<String> nearestPapers(HashMap<String, Double> hashMapDistance, int k) throws Exception {
         HashMap<String, Double> sortDistance = new HashMap<>();
         List<String> topPapers = new ArrayList<>();
 
