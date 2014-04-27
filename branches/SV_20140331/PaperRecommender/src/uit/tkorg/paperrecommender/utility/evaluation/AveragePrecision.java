@@ -8,12 +8,10 @@ package uit.tkorg.paperrecommender.utility.evaluation;
 import java.util.List;
 
 /**
- * This class content methods for computing metric related to AveragePrecision. 
- * Ref: 
- * 1. http://www.stanford.edu/class/cs276/handouts/EvaluationNew-handout-6-per.pdf
- * 2. http://essay.utwente.nl/59711/1/MA_thesis_J_de_Wit.pdf 
- * Method: 
- * - computeAP
+ * This class content methods for computing metric related to AveragePrecision.
+ * Ref:
+ * 1.http://www.stanford.edu/class/cs276/handouts/EvaluationNew-handout-6-per.pdf
+ * 2.http://essay.utwente.nl/59711/1/MA_thesis_J_de_Wit.pdf Method: - computeAP
  *
  * @author Vinh-PC
  */
@@ -24,7 +22,7 @@ public class AveragePrecision {
     }
 
     /**
-     * This method computes average precision with threshold k
+     * This method computes average precision with threshold k.
      *
      * @param rankList
      * @param idealList
@@ -38,10 +36,10 @@ public class AveragePrecision {
             k = rankList.size();
         }
 
-        for (int i = 0; i < k; i++) {
+        for (int i = 0; i < k; i += 2) {
             ap += Precision.computePrecisionK(rankList, idealList, i + 1);
         }
 
-        return (double) ap / k;
+        return (double) ap / (int) k / 2;
     }
 }

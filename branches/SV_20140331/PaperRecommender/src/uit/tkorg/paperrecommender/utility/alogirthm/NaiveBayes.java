@@ -5,11 +5,15 @@
  */
 package uit.tkorg.paperrecommender.utility.alogirthm;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
-import uit.tkorg.paperrecommender.model.Author;
+import java.util.List;
+import java.util.Vector;
 import uit.tkorg.paperrecommender.model.Paper;
 import uit.tkorg.paperrecommender.model.Vocabulary;
+import uit.tkorg.paperrecommender.utility.GeneralUtility;
 
 /**
  *
@@ -17,178 +21,177 @@ import uit.tkorg.paperrecommender.model.Vocabulary;
  */
 public class NaiveBayes {
 
-    private int[][] matrixcells;
-    private int rows;
-    private int cols;
-    private String label[][];
+    private HashMap<String, int[]> trainingExamples;
+    private final String[] labels = {"yes", "no"};
 
     /**
      * This method initializes for NaiveBayes class.
      *
      */
     public NaiveBayes() {
+        trainingExamples = new HashMap<>();
     }
 
     /**
      * This method builds training matrix.
      *
-     * @param vocabulary
-     * @param authors
+     * @param examples
+     * @param favPapers
+     * @return
      */
-    public void buildTrainingMatrix(HashMap<String, Author> authors, Vocabulary vocabulary) {
+    public HashMap<String, HashMap<String, Vector>> conditionalProbs(List<Paper> examples, List<String> favPapers, HashMap<String, Paper> papers) throws IOException {
+        int numExamples = examples.size();
+        int currentExample = 0;
+        List<String> labelList = new ArrayList<>();
 
-        this.rows = trainingMatrixRows(authors);
-        this.cols = vocabulary.getVocabulary().size();
-        this.matrixcells = new int[rows][cols];
-        this.label = new String[rows][1];
-
-        int i = 0;
-        for (String author : authors.keySet()) {
-            for (Iterator it = authors.get(author).getPaper().iterator(); it.hasNext();) {
-                Paper paper = (Paper) it.next();
-                addSample(vocabulary, author, paper, i);
-                i++;
-                if (paper.getCitation() != null) {
-                    for (Iterator ite = paper.getCitation().iterator(); ite.hasNext();) {
-                        Paper paperCit = (Paper) ite.next();
-                        addSample(vocabulary, author, (Paper) paperCit, i);
-                        i++;
+        for (Paper paper : examples) {
+            for (String word : paper.getContent().hashMap.keySet()) {
+                if (!trainingExamples.containsKey(word)) {
+                    int[] words = new int[numExamples];
+                    for (int i = 0; i < numExamples; i++) {
+                        words[i] = 0;
                     }
+                    words[currentExample] = 1;
+                    trainingExamples.put(word, words);
+                } else {
+                    trainingExamples.get(word)[currentExample] = 1;
                 }
-                if (paper.getReference() != null) {
-                    for (Iterator ite = paper.getReference().iterator(); ite.hasNext();) {
-                        Paper paperRef = (Paper) ite.next();
-                        addSample(vocabulary, author, (Paper) paperRef, i);
-                        i++;
-                    }
-                }
-
             }
-        }
-    }
 
-    /**
-     * This method adds a training sample into training matrix.
-     *
-     * @param vocabulary
-     * @param authorId
-     * @param paper
-     * @param i
-     */
-    public void addSample(Vocabulary vocabulary, String authorId, Paper paper, int i) {
-
-        for (int j = 0; j < cols; j++) {
-            if (paper.getContent().hashMap.keySet().contains((String) vocabulary.getVocabulary().get(j))) {
-                matrixcells[i][j] = 1;
+            if (favPapers.contains(paper.getPaperId())) {
+                labelList.add("yes");
             } else {
-                matrixcells[i][j] = 0;
+                labelList.add("no");
             }
+
+            currentExample++;
         }
+        HashMap<String, HashMap<String, Vector>> modelBayes = new HashMap<>();
 
-        label[i][0] = authorId;
-    }
+        for (String label : labels) {
+            List<Integer> labelPositions = new ArrayList<>();
 
-    /**
-     * This method computes computePCi for PCi
-     *
-     * @param authors
-     * @return prob
-     */
-    public HashMap<String, Double> computePCi(HashMap<String, Author> authors) {
-        HashMap<String, Double> prob = new HashMap<>();
-
-        int k = 0;
-
-        for (String author : authors.keySet()) {
-            int num = 0;
-            for (int i = 0; i < rows; i++) {
-                if (label[i][0].equals(author)) {
-                    num++;
+            for (int i = 0; i < labelList.size(); i++) {
+                if (labelList.get(i).equals(label)) {
+                    labelPositions.add(i);
                 }
             }
-            prob.put(author, computeProbability(num, rows, authors.keySet().size()));
-            k++;
-        }
 
-        return prob;
-    }
+            HashMap<String, Vector> vectorLables = new HashMap<>();
 
-    /**
-     * This method computes computePCi for paper.
-     *
-     * @param authors
-     * @param vocabulary
-     * @return model
-     */
-    public NaiveBayesModel[][] bayesModel(HashMap<String, Author> authors, Vocabulary vocabulary) {
+            for (String word : trainingExamples.keySet()) {
+                int labelCounts = 0;
 
-        NaiveBayesModel model[][] = new NaiveBayesModel[authors.keySet().size()][cols];
-
-        int num_author = 0;
-
-        for (String author : authors.keySet()) {
-            int num = 0;
-            for (int k = 0; k < rows; k++) {
-                if (label[k][0].equals(author)) {
-                    num++;
-                }
-            }
-            for (int j = 0; j < cols; j++) {
-                int numkey = 0;
-                for (int k = 0; k < rows; k++) {
-                    if (label[k][0].equals(author) && matrixcells[k][j] == 0) {
-                        numkey++;
+                for (int i = 0; i < labelPositions.size(); i++) {
+                    if (trainingExamples.get(word)[labelPositions.get(i)] == 0) {
+                        labelCounts++;
                     }
                 }
-                NaiveBayesModel bayesmodel = new NaiveBayesModel();
-                bayesmodel.setAuthor(author);
-                bayesmodel.setKeyword((String) vocabulary.getVocabulary().get(j));
-                bayesmodel.setProb_0(computeProbability(numkey, num, 2));
-                bayesmodel.setProb_1(1 - bayesmodel.getProb_0());
-                model[num_author][j] = bayesmodel;
+
+                Vector probs = new Vector();
+                probs.add(computeProb(labelCounts, labelPositions.size(), 2));
+                probs.add(computeProb(labelPositions.size() - labelCounts, numExamples, 2));
+                vectorLables.put(word, probs);
             }
-            num_author++;
+
+            modelBayes.put(label, vectorLables);
         }
 
-        return model;
+        return modelBayes;
     }
 
     /**
-     * This method computes probability.
      *
-     * @param numLabel
-     * @param rows
-     * @param i
+     * @param paper
+     * @param conditionalProbs
+     * @param labelProbs
+     * @return
+     * @throws Exception
+     */
+    public String predict(Paper paper, HashMap<String, HashMap<String, Vector>> conditionalProbs, HashMap<String, Double> labelProbs) throws Exception {
+        HashMap<String, Double> probs = new HashMap<>();
+
+        for (String label : labels) {
+            System.out.println(label);
+            double prob = labelProbs.get(label);
+            System.out.println(prob);
+            for (String word : conditionalProbs.get(label).keySet()) {
+                if (trainingExamples.containsKey(word)) {
+                    System.out.println(word + "  " + (double) conditionalProbs.get(label).get(word).get(1));
+                    prob *= (double) conditionalProbs.get(label).get(word).get(1);
+                } else {
+                    System.out.println(word + "  " + (double) conditionalProbs.get(label).get(word).get(0));
+                    prob *= (double) conditionalProbs.get(label).get(word).get(0);
+                }
+                probs.put(label, prob);
+            }
+
+            probs = GeneralUtility.sortHashMap(probs);
+        }
+
+        return (String) probs.keySet().toArray()[0];
+    }
+
+    /**
+     * This method builds vocabulary set of training examples.
+     *
+     * @param examples
+     * @return
+     */
+    public Vocabulary buildVocabulary(List<Paper> examples) {
+        Vocabulary vocabulary = new Vocabulary();
+        List words = new ArrayList();
+
+        for (Paper paper : examples) {
+            for (String word : paper.getFeatureVector().hashMap.keySet()) {
+                if (!words.contains(word)) {
+                    words.add(word);
+                }
+            }
+        }
+
+        Collections.sort(words);
+        vocabulary.setVocabulary(words);
+
+        return vocabulary;
+    }
+
+    /**
+     * This method computes probability for labels.
+     *
+     * @param examples
+     * @param favPapers
+     * @return probs
+     */
+    public HashMap<String, Double> labelProbs(List<Paper> examples, List<String> favPapers) {
+        HashMap<String, Double> probs = new HashMap<>();
+
+        int lableCounts = 0;
+        for (Paper paper : examples) {
+            if (favPapers.contains(paper.getPaperId())) {
+                lableCounts++;
+            }
+        }
+
+        probs.put(labels[0], computeProb(lableCounts, examples.size(), labels.length));
+        probs.put(labels[1], computeProb(examples.size() - lableCounts, examples.size(), labels.length));
+
+        return probs;
+    }
+
+    /**
+     * This method computes a probability.
+     *
+     * @param lableCounts
+     * @param numExamples
+     * @param numvalues
      * @return prob
      */
-    public double computeProbability(int numLabel, int rows, int i) {
+    public double computeProb(int lableCounts, int numExamples, int numvalues) {
         double prob = 0;
 
-        prob = (double) (numLabel + 1) / (rows + i);
+        prob = (double) (lableCounts + 1) / (numExamples + numvalues);
 
         return prob;
-    }
-
-    /**
-     * This method returns number rows of training matrix.
-     *
-     * @param authors
-     * @return matrixRows
-     */
-    public int trainingMatrixRows(HashMap<String, Author> authors) {
-        int matrixRows = 0;
-        for (String authorId : authors.keySet()) {
-            matrixRows += authors.get(authorId).getPaper().size();
-            for (Iterator it = authors.get(authorId).getPaper().iterator(); it.hasNext();) {
-                Paper paper = (Paper) it.next();
-                if (paper.getCitation() != null) {
-                    matrixRows += paper.getCitation().size();
-                }
-                if (paper.getReference() != null) {
-                    matrixRows += paper.getReference().size();
-                }
-            }
-        }
-        return matrixRows;
     }
 }

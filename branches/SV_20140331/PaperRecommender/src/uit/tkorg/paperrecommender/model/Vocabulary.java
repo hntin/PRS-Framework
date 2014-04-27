@@ -12,13 +12,11 @@ import uit.tkorg.paperrecommender.utility.dataimport.flatfile.ImportDataset1;
 
 /**
  *
- * @author THNghiep
- * This class represents the vocabulary with all keywords.
- * Data: list of all keywords.
- * Method: 
- * - Build vocabulary list.
+ * @author THNghiep This class represents the vocabulary with all keywords.
+ * Data: list of all keywords. Method: - Build vocabulary list.
  */
-public class Vocabulary implements Serializable{
+public class Vocabulary implements Serializable {
+
     private List vocabulary;
 
     /**
@@ -27,7 +25,7 @@ public class Vocabulary implements Serializable{
     public void Vocabulary() {
         vocabulary = new ArrayList();
     }
-    
+
     /**
      * @return the vocabulary
      */
@@ -40,14 +38,6 @@ public class Vocabulary implements Serializable{
      */
     public void setVocabulary(List vocabulary) {
         this.vocabulary = vocabulary;
-    }
-    
-    /**
-     * Fill in data for vocabulary list.
-     * @throws java.lang.Exception
-     */
-    public void buildVocabulary() throws Exception {
-        vocabulary = ImportDataset1.readAllKeywords();
-        Collections.sort(vocabulary);
+        Collections.sort(this.vocabulary);
     }
 }
