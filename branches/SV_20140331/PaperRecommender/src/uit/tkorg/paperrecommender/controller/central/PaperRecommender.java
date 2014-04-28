@@ -42,7 +42,6 @@ public class PaperRecommender {
      * @throws java.lang.Exception
      */
     public static void main(String[] args) throws Exception {
-<<<<<<< .mine
         PaperRecommender prec = new PaperRecommender();
         String Dataset1Folder = PaperRecommenerConstant.DATASETFOLDER;
         prec.papers = ImportDataset1.buildListOfPapers(Dataset1Folder);
