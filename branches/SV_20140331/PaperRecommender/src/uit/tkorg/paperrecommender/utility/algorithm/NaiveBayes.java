@@ -82,23 +82,23 @@ public class NaiveBayes {
             HashMap<String, Vector> vectorLabels = new HashMap<>();
 
             for (String word : trainingExamples.keySet()) {
-                int labelCounts = 0;
+                int valueCounts = 0;
 
                 for (int i = 0; i < labelPositions.size(); i++) {
                     if (trainingExamples.get(word)[labelPositions.get(i)] == 1) {
-                        labelCounts++;
+                        valueCounts++;
                     }
                 }
 
                 Vector probs = new Vector();
-                probs.add(computeProb(labelCounts, labelPositions.size(), 2));
-                probs.add(computeProb(labelPositions.size() - labelCounts, numExamples, 2));
+                probs.add(computeProb(valueCounts, labelPositions.size(), 2));
+                probs.add(computeProb(labelPositions.size() - valueCounts, labelPositions.size(), 2));
                 vectorLabels.put(word, probs);
             }
 
             modelBayes.put(label, vectorLabels);
         }
-
+        
         return modelBayes;
     }
 
@@ -116,7 +116,7 @@ public class NaiveBayes {
         for (String label : labels) {
             double prob = labelProbs.get(label);
             for (String word : paper.getContent().hashMap.keySet()) {
-                if (trainingExamples.containsKey(word)) {
+                if (conditionalProbs.get(label).containsKey(word)) {
                     prob *= (double) conditionalProbs.get(label).get(word).get(0);
                 }
             }

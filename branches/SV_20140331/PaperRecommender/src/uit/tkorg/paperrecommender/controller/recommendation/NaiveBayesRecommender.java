@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Vector;
 import uit.tkorg.paperrecommender.model.Author;
 import uit.tkorg.paperrecommender.model.Paper;
-import uit.tkorg.paperrecommender.model.Vocabulary;
 import uit.tkorg.paperrecommender.utility.algorithm.NaiveBayes;
 
 /**
@@ -21,7 +20,7 @@ import uit.tkorg.paperrecommender.utility.algorithm.NaiveBayes;
  */
 public class NaiveBayesRecommender {
 
-   /**
+    /**
      * This method builds recommendation list for all authors.
      *
      * @param authorsInput
@@ -78,8 +77,8 @@ public class NaiveBayesRecommender {
 
         NaiveBayes naiveBayes = new NaiveBayes();
         HashMap<String, Double> labelProbs = naiveBayes.labelProbs(examples, favoritePapers);
-        HashMap<String, HashMap<String, Vector>> conditionalProbs=naiveBayes.conditionalProbs(examples, favoritePapers, papers);
-
+        HashMap<String, HashMap<String, Vector>> conditionalProbs = naiveBayes.conditionalProbs(examples, favoritePapers, papers);
+       
         for (String paperId : papers.keySet()) {
             if (naiveBayes.predict(papers.get(paperId), conditionalProbs, labelProbs).equals("yes")) {
                 recommendList.add(paperId);
