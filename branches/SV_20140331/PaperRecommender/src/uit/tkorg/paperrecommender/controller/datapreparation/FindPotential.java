@@ -12,7 +12,7 @@ import uit.tkorg.paperrecommender.utility.algorithm.BuildMatrixCF;
 import uit.tkorg.paperrecommender.utility.algorithm.Knn;
 /**
  *
- * @author NhocZoe
+ * @author Minh
  */
 public class FindPotential {
       public static HashMap solveToFindTopN (List<Paper> items, double[][] matrixInput,int paper){

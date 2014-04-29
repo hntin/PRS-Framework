@@ -39,9 +39,7 @@ public class ImportDataset1 {
     public static List readAllKeywords() throws Exception {
         List allKeywords = new ArrayList();
         HashMap<String, Double> voc = new HashMap<>();
-
-        List<String> files = getPathFiles(new File("D:\\New folder\\Tailieuluanvan\\20100825-SchPaperRecData\\20100825-SchPaperRecData"));
-
+        List<String> files = getPathFiles(new File(PaperRecommenerConstant.DATASETFOLDER));
         for (int i = 0; i < files.size(); i++) {
             BufferedReader br = new BufferedReader(new FileReader(files.get(i)));
             String line;
@@ -49,7 +47,6 @@ public class ImportDataset1 {
             while ((line = br.readLine()) != null) {
                 tokens = line.split("\\s+");
                 if (tokens.length == 2 && tokens[0].length() < 30 && !allKeywords.contains(tokens[0])) {
-                    //allKeywords.add(tokens[0]);
                     if (!voc.containsKey(tokens[0])) {
                         voc.put(tokens[0], new Double(1));
                     } else {
@@ -154,7 +151,6 @@ public class ImportDataset1 {
     private static HashMapVector readFilePaper(File file) throws Exception {
         HashMapVector content = new HashMapVector();
         String path = file.getAbsolutePath();
-
         // try-with-resources Statement.
         // A resource is an object that must be closed after the program is finished with it. 
         // The try-with-resources statement ensures that each resource is closed at the end of the statement.
@@ -174,7 +170,6 @@ public class ImportDataset1 {
         }
         return content;
     }
-
     /**
      * Check String is Numeric or String
      *
@@ -216,7 +211,6 @@ public class ImportDataset1 {
         }
         return citation;
     }
-
     /**
      * This method add Reference for paper
      *
@@ -240,7 +234,6 @@ public class ImportDataset1 {
         }
         return reference;
     }
-
     /**
      * This method find list paper ground truth of Author
      *
@@ -263,7 +256,6 @@ public class ImportDataset1 {
         }
         return fileTruth;
     }
-
     /**
      * This is method find list paper citation of author
      *

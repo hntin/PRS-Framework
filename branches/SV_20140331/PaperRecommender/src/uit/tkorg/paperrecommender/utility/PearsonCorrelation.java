@@ -6,7 +6,7 @@
 package uit.tkorg.paperrecommender.utility;
 
 /**
- *
+ * @author Minh
  * @author Vinh-PC
  */
 public class PearsonCorrelation {
@@ -101,7 +101,7 @@ public class PearsonCorrelation {
  * @param cosine
  * @return 
  */
-      public static double solveFindSumTopN(double [] sumK) {
+     public static double solveFindSumTopN(double [] sumK) {
         double sum=0.0;
         for (int i = 0; i < sumK.length; i++) {
             sum = + sumK[i];
