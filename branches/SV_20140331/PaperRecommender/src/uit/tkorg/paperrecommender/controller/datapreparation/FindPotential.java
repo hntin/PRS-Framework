@@ -31,6 +31,14 @@ public class FindPotential {
       * @throws Exception 
       */
 
+    /**
+     * This is method find potential paper for recommend paper
+     * @param items
+     * @param matrixBuild
+     * @param neighbor
+     * @param k
+     * @throws Exception
+     */
     public static void findPotentialCitPaper(List <Paper> items,double[][] matrixBuild, int neighbor, int k) throws Exception {
         double[][] matrixPaper =BuildMatrixCF.imputeFullMatrix(items,matrixBuild,neighbor);
         for (int i = 0; i < matrixBuild.length; i++) {

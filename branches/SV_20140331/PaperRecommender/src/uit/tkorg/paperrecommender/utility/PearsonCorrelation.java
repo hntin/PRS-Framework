@@ -47,9 +47,10 @@ public class PearsonCorrelation {
         else{
              for (double value : values) {
                 sum = sum + Math.pow(value - mean, 2);
-                count++;
+              //  count++;
             }
-            return Math.sqrt(sum / count);
+          //  return Math.sqrt(sum / count);
+             return Math.sqrt(sum);
         }    
     }
     
@@ -66,7 +67,7 @@ public class PearsonCorrelation {
         }
         
         double sum = 0;
-        int count=0;
+      //  int count=0;
         double xMean = mean(x);
         double yMean = mean(y);
         if (xMean ==0 || yMean==0)
@@ -74,9 +75,9 @@ public class PearsonCorrelation {
         else{
                 for (int i = 0; i < x.length; i++) {
                 sum = sum + (x[i] - xMean) * (y[i] - yMean);
-                count++;
+             //   count++;
             }
-        return sum / count;
+        return sum ;/// count;
         }
      
     }
@@ -108,12 +109,12 @@ public class PearsonCorrelation {
         }
         return sum;
     }
-    public static double predictionRating(double averageTarget, double[] covarNeighbor, double[] meanNeighbor, double[] cosine) {
+    public static double predictionRating(double meanTarget, double[] covarNeighbor, double[] meanNeighbor, double [] rating) {
         double temp = 0.0;
         for (int i = 0; i < covarNeighbor.length; i++) {
-            temp = +((cosine[i] - meanNeighbor[i]) * covarNeighbor[i]);   
+            temp = +((rating[i] - meanNeighbor[i]) * covarNeighbor[i]);   
         }
-    return ( averageTarget + temp/ solveFindSumTopN(covarNeighbor));
+    return ( meanTarget + temp/ solveFindSumTopN(covarNeighbor));
 
     }
 }

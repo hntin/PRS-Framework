@@ -4,15 +4,23 @@
  */
 package uit.tkorg.paperrecommender.controller.central;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import uit.tkorg.paperrecommender.constant.PaperRecommenerConstant;
 import uit.tkorg.paperrecommender.controller.datapreparation.AuthorFV;
+import uit.tkorg.paperrecommender.controller.datapreparation.FindPotential;
 import uit.tkorg.paperrecommender.controller.datapreparation.PaperFV;
+import uit.tkorg.paperrecommender.controller.datapreparation.PPaperFV;
 import uit.tkorg.paperrecommender.controller.evaluation.Evaluator;
+import uit.tkorg.paperrecommender.controller.recommendation.ContentBasedRecommender;
 import uit.tkorg.paperrecommender.controller.recommendation.NaiveBayesRecommender;
 import uit.tkorg.paperrecommender.model.Author;
 import uit.tkorg.paperrecommender.model.Paper;
 import uit.tkorg.paperrecommender.utility.Serializer;
+import uit.tkorg.paperrecommender.utility.algorithm.BuildMatrixCF;
+import uit.tkorg.paperrecommender.utility.algorithm.Distance;
+import uit.tkorg.paperrecommender.utility.algorithm.InputMatrix;
 import uit.tkorg.paperrecommender.utility.dataimport.flatfile.ImportDataset1;
 
 /**
@@ -29,7 +37,8 @@ public class PaperRecommender {
     // Key of this hash map is paper id.
     // Value of this hash map is the relevant paper object.
     private HashMap<String, Paper> papers;
-
+    double [][] matrixBuild;
+    List<Paper> paperInput;
     /**
      * This method is used as a entry point for testing.
      *
@@ -37,7 +46,49 @@ public class PaperRecommender {
      * @throws java.lang.Exception
      */
     public static void main(String[] args) throws Exception {
-      
+//        PaperRecommender prec = new PaperRecommender();
+//        String Dataset1Folder = PaperRecommenerConstant.DATASETFOLDER;
+//        prec.papers = ImportDataset1.buildListOfPapers(Dataset1Folder);
+//        List<Paper> paperInput= new ArrayList(prec.papers.values());
+//        double [][] matrixBuil = InputMatrix.buildMatrixInput(paperInput);
+//        FindPotential.findPotentialCitPaper(paperInput,matrixBuil,5,3);
+//        prec.authors = ImportDataset1.buildListOfAuthors(Dataset1Folder);
+//        prec.papers = PPaperFV.computeAllPapersFeatureVector(prec.papers,0.5);
+//        prec.authors = AuthorFV.computeAllAuthorsFeatureVector(prec.authors, 0);
+//        prec.authors = ContentBasedRecommender.buildAllRecommendationLists(prec.authors, prec.papers);
+//        System.out.println(prec.authors.get("y1").getRecommendation());
+//        System.out.println(prec.authors.get("y2").getRecommendation());
+//        System.out.println(prec.authors.get("y3").getRecommendation());
+//        System.out.println(prec.authors.get("y4").getRecommendation());
+//        System.out.println(prec.authors.get("m1").getRecommendation());
+//[P06-1074, P04-1028, P01-1026, P06-1128, P05-1055, P06-1046, P00-1002, P05-1077, P05-1062, P01-1009]
+//[P06-1074, P06-1039, P01-1009, P06-1075, P01-1070, P06-1129, P05-1055, P06-1128, P00-1070, P03-1018]
+//[P04-1055, P04-1054, P05-1053, P05-1061, P04-1043, P04-1074, P05-1019, P05-1052, P05-1018, P06-1017]
+//[P05-1036, P04-1061, P00-1037, P05-1042, P05-1044, P06-1072, P02-1002, P06-1126, P03-1011, P04-1007]
+//[P06-1074, P03-1033, P01-1070, P05-1077, P01-1026, P06-1046, P02-1048, P04-1012, P01-1009, P04-1027]
+////        System.out.println(String.valueOf(Evaluator.Precision(prec.authors)));
+//        for (int i= 0; i< matrixBuil.length;i++)
+//            for(int j =0; j< matrixBuil.length;j++)
+//                if(i==j) System.out.print( matrixBuil[i][j]);
+//        List<HashMap> listPearson= new ArrayList();
+//        for (int i=0;i< paperInput.size();i++){
+//            HashMap pearson = Distance.distanceCosinePaper(paperInput, matrixBuil, i);
+//            listPearson.add(pearson);
+//        }
+//      for(int i=0;i< paperInput.size();i++){
+//         System.out.println(listPearson.get(i).toString());
+//      }
+//      double [][] tmp= BuildMatrixCF.imputeFullMatrix(paperInput, matrixBuil,5);
+//        System.out.println(pearson.toString());
+//        System.out.println(pearson.values());
+//        System.out.println(pearson.size());
+//        for (int i=0;i< pearson.size();i++)
+//            System.out.println(pearson.get(i));
+//        System.out.println(pearson.size());
+//       FindPotential.findPotentialCitPaper(paperInput,matrixBuil,5,3);
+    //   System.out.println(prec.papers.get("P03-1058").getCitationPotential()); //[P01-1030, P01-1010, P01-1006]
+//       System.out.println(prec.papers.get("P00-1060").getCitationPotential().size());
+        // P06-1010 [P02-1061, P05-1054, P02-1059]
     }
 
     /**
@@ -65,6 +116,9 @@ public class PaperRecommender {
                         Dataset1Folder = PaperRecommenerConstant.DATASETFOLDER;
                     }
                     papers = ImportDataset1.buildListOfPapers(Dataset1Folder);
+                    paperInput =new ArrayList(papers.values());
+                    matrixBuild = InputMatrix.buildMatrixInput(paperInput);
+                    FindPotential.findPotentialCitPaper(paperInput, matrixBuild,5,3);
                     response[0] = "Success.";
                     break;
                 case "Read author":
@@ -125,6 +179,7 @@ public class PaperRecommender {
                     break;
                 case "Paper FV cosine":
                     papers = PaperFV.computeAllPapersFeatureVector(papers, 1);
+                 //   papers= PPaperFV.computeAllPapersFeatureVector(papers,0.5);
                     response[0] = "Success.";
                     break;
                 case "Paper FV RPY":
