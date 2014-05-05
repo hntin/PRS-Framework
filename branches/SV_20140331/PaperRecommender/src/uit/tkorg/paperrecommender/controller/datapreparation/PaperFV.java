@@ -94,8 +94,8 @@ public class PaperFV {
         featureVector.add(sumFeatureVectorWithCosine(papersInput, paper, citation));//add featureVector with featureVector of citation papers
         List<String> reference = paper.getReference();//get list of reference paper
         featureVector.add(sumFeatureVectorWithCosine(papersInput, paper, reference));//add featureVector with featureVector of reference papers
-        List <String> potential = paper.getCitationPotential();
-        featureVector.add(sumFeatureVectorWithCosine(papersInput, paper, potential));//add featureVector with featureVector of potential papers
+//        List <String> potential = paper.getCitationPotential();
+//        featureVector.add(sumFeatureVectorWithCosine(papersInput, paper, potential));//add featureVector with featureVector of potential papers
         return featureVector;
     }
 

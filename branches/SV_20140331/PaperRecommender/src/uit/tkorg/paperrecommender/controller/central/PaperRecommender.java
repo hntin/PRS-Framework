@@ -178,8 +178,8 @@ public class PaperRecommender {
                     response[0] = "Success.";
                     break;
                 case "Paper FV cosine":
-                    papers = PaperFV.computeAllPapersFeatureVector(papers, 1);
-                 //   papers= PPaperFV.computeAllPapersFeatureVector(papers,0.5);
+                   // papers = PaperFV.computeAllPapersFeatureVector(papers, 1);
+                   papers= PPaperFV.computeAllPapersFeatureVector(papers,0.5);
                     response[0] = "Success.";
                     break;
                 case "Paper FV RPY":
@@ -199,11 +199,11 @@ public class PaperRecommender {
                     response[0] = "Success.";
                     break;
                 case "Recommend":
-                    //authors = ContentBasedRecommender.buildAllRecommendationLists(authors, papers);
-                    authors = NaiveBayesRecommender.buildALLRecommendationLists(authors, papers);
-                    for(String authorId:authors.keySet()){
-                        System.out.println(authors.get(authorId).getRecommendation().toString());
-                    }
+                    authors = ContentBasedRecommender.buildAllRecommendationLists(authors, papers);
+//                    authors = NaiveBayesRecommender.buildALLRecommendationLists(authors, papers);
+//                    for(String authorId:authors.keySet()){
+//                        System.out.println(authors.get(authorId).getRecommendation().toString());
+//                    }
                     response[0] = "Success.";
                     break;
                 case "NDCG5":
