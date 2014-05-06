@@ -96,10 +96,7 @@ public class PearsonCorrelation {
     }
 /**
  * 
- * @param averageTarget
- * @param covarNeighbor
- * @param meanNeighbor
- * @param cosine
+     * @param sumK
  * @return 
  */
      public static double solveFindSumTopN(double [] sumK) {

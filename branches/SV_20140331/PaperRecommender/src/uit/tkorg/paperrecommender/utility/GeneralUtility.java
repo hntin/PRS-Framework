@@ -15,12 +15,14 @@ import java.util.Map;
 
 /**
  * This class contents all general utilities.
+ *
  * @author THNghiep
  */
 public class GeneralUtility {
 
     // Prevent instantiation.
-    private GeneralUtility() {}
+    private GeneralUtility() {
+    }
 
     /**
      * This method sort similarities descending
@@ -31,7 +33,7 @@ public class GeneralUtility {
      */
     public static LinkedHashMap sortHashMap(HashMap<String, Double> hashMap) throws Exception {
         List list = new LinkedList(hashMap.entrySet());
-        
+
         //sort list based on comparator
         Collections.sort(list, new Comparator() {
             @Override
@@ -39,29 +41,29 @@ public class GeneralUtility {
                 return ((Comparable) ((Map.Entry) (o1)).getValue()).compareTo(((Map.Entry) (o2)).getValue());
             }
         });
-        
+
         // Reverse order to be descending.
         Collections.reverse(list);
-        
+
         //put sorted list into map again
         LinkedHashMap sortedMap = new LinkedHashMap();
         for (Iterator it = list.iterator(); it.hasNext();) {
             Map.Entry entry = (Map.Entry) it.next();
             sortedMap.put(entry.getKey(), entry.getValue());
         }
-        
+
         return sortedMap;
     }
-    
+
     /**
-     * This method standardizes the similarity value of cosine.
-     * Value range would be between 0 and 1.
-     * 
+     * This method standardizes the similarity value of cosine. Value range
+     * would be between 0 and 1.
+     *
      * @param d
      * @return standardized value of d.
      */
     public static double standardizeSimilarityValue(double d) {
-        
+
         if (d < 0) {
             d = 0.0;
         } else if (d > 1) {
@@ -69,15 +71,19 @@ public class GeneralUtility {
         } else if (Double.isNaN(d)) {
             d = 0.0;
         }
-        
+
         return d;
     }
-       /**
-     * This is method standardize the value of Pearson. Value range would be between -1 and 1
+
+    /**
+     * This is method standardize the value of Pearson. Value range would be
+     * between -1 and 1
+     *
      * @param d
-     * @return 
+     * @return standardized value of d.
      */
-    public static double standardizePearson(double d) {
+    public static double standardizePearsonValue(double d) {
+        
         if (d < -1.0) {
             d = -1.0;
         } else if (d > 1) {
@@ -85,7 +91,7 @@ public class GeneralUtility {
         } else if (Double.isNaN(d)) {
             d = 0.0;
         }
+        
         return d;
     }
-   
 }

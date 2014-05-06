@@ -28,7 +28,7 @@ public class Paper implements Serializable {
     private String paperType;
     private HashMapVector content;
     private List citation;
-    private List citationPotential;
+    private List potentialCitation;
     private List reference;
     private HashMapVector featureVector;
 
@@ -42,7 +42,7 @@ public class Paper implements Serializable {
         this.paperType = null;
         this.content = null;
         this.citation = null;
-        this.citationPotential=null;
+        this.potentialCitation=null;
         this.reference = null;
         this.featureVector = null;
     }
@@ -118,17 +118,17 @@ public class Paper implements Serializable {
     }
     /**
      * 
-     * @return citationPotential
+     * @return potentialCitation
      */
      public List getCitationPotential() {
-            return citationPotential;
+            return potentialCitation;
         }
    /**
     * 
     * @param citationPotential 
     */
       public void setCitationPotential(List citationPotential) {
-        this.citationPotential = citationPotential;
+        this.potentialCitation = citationPotential;
     }
     /**
      * @return the reference

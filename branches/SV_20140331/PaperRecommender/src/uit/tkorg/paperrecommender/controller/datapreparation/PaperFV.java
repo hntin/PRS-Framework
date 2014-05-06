@@ -27,7 +27,10 @@ public class PaperFV {
      * This method computes and set value for all papers' full feature vector
      * (after combining citation and reference papers).
      *
+     * @param papersInput
      * @param weightingScheme 0: linear; 1: cosine; 2: rpy
+     * @return 
+     * @throws java.lang.Exception
      */
     public static HashMap<String, Paper> computeAllPapersFeatureVector(HashMap<String, Paper> papersInput, int weightingScheme) throws Exception {
         // Reuse papersInput, not constructing new hash map.
@@ -44,9 +47,11 @@ public class PaperFV {
      * This method compute final feature vector by combining citation and
      * reference.
      *
+     * @param papersInput
      * @param paperId
      * @param weightingScheme 0: linear; 1: cosine; 2: rpy
      * @return list represents feature vector.
+     * @throws java.lang.Exception
      */
     public static HashMapVector computePaperFeatureVector(HashMap<String, Paper> papersInput, String paperId, int weightingScheme) throws Exception {
         HashMapVector featureVector;
@@ -64,8 +69,10 @@ public class PaperFV {
     /**
      * This method compute Paper Feature Vector with linear weight
      *
+     * @param papersInput
      * @param paperId
      * @return featureVector
+     * @throws java.lang.Exception
      */
     public static HashMapVector computePaperFeatureVectorWithLinear(HashMap<String, Paper> papersInput, String paperId) throws Exception {
         HashMapVector featureVector = new HashMapVector();
@@ -83,8 +90,10 @@ public class PaperFV {
     /**
      * This method compute Paper Feature Vector with cosine weight
      *
+     * @param papersInput
      * @param paperId
      * @return featureVector
+     * @throws java.lang.Exception
      */
     public static HashMapVector computePaperFeatureVectorWithCosine(HashMap<String, Paper> papersInput, String paperId) throws Exception {
         HashMapVector featureVector = new HashMapVector();
@@ -102,8 +111,10 @@ public class PaperFV {
     /**
      * This method compute Paper Feature Vector with RPY weight
      *
+     * @param papersInput
      * @param paperId
      * @return featureVector
+     * @throws java.lang.Exception
      */
     public static HashMapVector computePaperFeatureVectorWithRPY(HashMap<String, Paper> papersInput, String paperId) throws Exception {
         HashMapVector featureVector = new HashMapVector();
