@@ -120,14 +120,14 @@ public class Paper implements Serializable {
      * 
      * @return potentialCitation
      */
-     public List getCitationPotential() {
+     public List getPotentialCitation() {
             return potentialCitation;
         }
    /**
     * 
     * @param citationPotential 
     */
-      public void setCitationPotential(List citationPotential) {
+      public void setPotentialCitation(List citationPotential) {
         this.potentialCitation = citationPotential;
     }
     /**

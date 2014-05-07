@@ -72,7 +72,7 @@ public class PaperRecommender {
                     papers = ImportDataset1.buildListOfPapers(Dataset1Folder);
                     paperInput =new ArrayList(papers.values());
                     matrixBuild = InputMatrix.buildInputMatrix(paperInput);
-                    FindPotential.findPotentialCitPaper(paperInput, matrixBuild,5,3);
+                    FindPotential.findPotentialCitationPaper(paperInput, matrixBuild,5,3);
                     response[0] = "Success.";
                     break;
                 case "Read author":

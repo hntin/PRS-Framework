@@ -33,7 +33,6 @@ public class PaperFV {
      * @throws java.lang.Exception
      */
     public static HashMap<String, Paper> computeAllPapersFeatureVector(HashMap<String, Paper> papersInput, int weightingScheme) throws Exception {
-        // Reuse papersInput, not constructing new hash map.
         HashMap<String, Paper> papers = papersInput;
         
         for (String key : papersInput.keySet()) {
@@ -63,6 +62,7 @@ public class PaperFV {
         } else {
             featureVector = computePaperFeatureVectorWithRPY(papersInput, paperId);
         }
+        
         return featureVector;
     }
 
@@ -82,8 +82,6 @@ public class PaperFV {
         featureVector.add(sumFeatureVectorWithLinear(papersInput, citation));//add featureVector with featureVector of citation papers
         List<String> reference = paper.getReference();//get list of reference paper
         featureVector.add(sumFeatureVectorWithLinear(papersInput, reference));//add featureVector with featureVector of reference papers 
-//        List <String> potential = paper.getCitationPotential();
-//        featureVector.add(sumFeatureVectorWithLinear(papersInput, potential));
         return featureVector;
     }
 
@@ -103,8 +101,6 @@ public class PaperFV {
         featureVector.add(sumFeatureVectorWithCosine(papersInput, paper, citation));//add featureVector with featureVector of citation papers
         List<String> reference = paper.getReference();//get list of reference paper
         featureVector.add(sumFeatureVectorWithCosine(papersInput, paper, reference));//add featureVector with featureVector of reference papers
-//        List <String> potential = paper.getCitationPotential();
-//        featureVector.add(sumFeatureVectorWithCosine(papersInput, paper, potential));//add featureVector with featureVector of potential papers
         return featureVector;
     }
 
@@ -124,8 +120,6 @@ public class PaperFV {
         featureVector.add(sumFeatureVectorWithRPY(papersInput, paper, citation));//add featureVector with featureVector of citation papers
         List<String> reference = paper.getReference();//get list of reference paper
         featureVector.add(sumFeatureVectorWithRPY(papersInput, paper, reference));//add featureVector with featureVector of reference papers
-//        List <String> potential = paper.getCitationPotential();
-//        featureVector.add(sumFeatureVectorWithRPY(papersInput, paper, potential));//add featureVector with featureVector of potential papers
         return featureVector;
     }
 
@@ -133,8 +127,10 @@ public class PaperFV {
      * This method compute sum of Papers(Citation or Reference Paper) with
      * linear weight
      *
+     * @param papersInput
      * @param paperIds
      * @return featureVector
+     * @throws java.lang.Exception
      */
     public static HashMapVector sumFeatureVectorWithLinear(HashMap<String, Paper> papersInput, List<String> paperIds) throws Exception {
         HashMapVector featureVector = new HashMapVector();
@@ -150,9 +146,11 @@ public class PaperFV {
      * This method compute sum of Papers(Citation or Reference Paper) with
      * cosine weight
      *
+     * @param papersInput
      * @param cpaper
      * @param paperIds
      * @return featureVector
+     * @throws java.lang.Exception
      */
     public static HashMapVector sumFeatureVectorWithCosine(HashMap<String, Paper> papersInput, Paper cpaper, List<String> paperIds) throws Exception {
         HashMapVector featureVector = new HashMapVector();
@@ -170,9 +168,11 @@ public class PaperFV {
      * This method compute sum of Papers(Citation or Reference Paper) with rpy
      * weight
      *
+     * @param papersInput
      * @param cpaper
      * @param paperIds
      * @return featureVector
+     * @throws java.lang.Exception
      */
     public static HashMapVector sumFeatureVectorWithRPY(HashMap<String, Paper> papersInput, Paper cpaper, List<String> paperIds) throws Exception {
         HashMapVector featureVector = new HashMapVector();
