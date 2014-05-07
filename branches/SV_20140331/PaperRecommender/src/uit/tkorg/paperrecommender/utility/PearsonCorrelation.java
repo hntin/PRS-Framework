@@ -40,17 +40,18 @@ public class PearsonCorrelation {
      */
     public static double standardDeviation(double[] values) {
         double sum = 0;
-        int count=0;
+//        int count=0;
         double mean = mean(values);
         if (mean==0)
             return 0;
         else{
              for (double value : values) {
+                if(value !=0)
                 sum = sum + Math.pow(value - mean, 2);
-              //  count++;
+//                count++;
             }
-          //  return Math.sqrt(sum / count);
-             return Math.sqrt(sum);
+            return Math.sqrt(sum);
+//            return Math.sqrt(sum / count);
         }    
     }
     
@@ -65,19 +66,17 @@ public class PearsonCorrelation {
         if (x.length != y.length) {
             throw new IllegalArgumentException("Covariance error: Vectors not of the same length");
         }
-        
         double sum = 0;
-      //  int count=0;
         double xMean = mean(x);
         double yMean = mean(y);
         if (xMean ==0 || yMean==0)
             return 0;
-        else{
+        else{ 
                 for (int i = 0; i < x.length; i++) {
+                if (x[i]!=0 && y[i]!=0)
                 sum = sum + (x[i] - xMean) * (y[i] - yMean);
-             //   count++;
             }
-        return sum ;/// count;
+        return sum ;// x.length;
         }
      
     }
@@ -95,11 +94,11 @@ public class PearsonCorrelation {
         return covariance(x, y) / (standardDeviation(x) * standardDeviation(y));
     }
 /**
- * 
      * @param sumK
+=======
  * @return 
  */
-     public static double solveFindSumTopN(double [] sumK) {
+    public static double solveFindSumTopN(double [] sumK) {
         double sum=0.0;
         for (int i = 0; i < sumK.length; i++) {
             sum = + sumK[i];
@@ -112,6 +111,5 @@ public class PearsonCorrelation {
             temp = +((rating[i] - meanNeighbor[i]) * covarNeighbor[i]);   
         }
     return ( meanTarget + temp/ solveFindSumTopN(covarNeighbor));
-
     }
 }
