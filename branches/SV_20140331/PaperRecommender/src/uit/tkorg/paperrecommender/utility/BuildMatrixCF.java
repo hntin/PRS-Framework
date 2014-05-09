@@ -5,6 +5,7 @@
  */
 package uit.tkorg.paperrecommender.utility;
 
+import ir.utilities.Stats;
 import uit.tkorg.paperrecommender.model.Paper;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,12 +45,12 @@ public class BuildMatrixCF {
                     for (int k = 0; k < numNeighbour; k++) {
                         for (int l = 0; l < inputMatrix.length; l++) {
                             if (neighbourList.get(k).equals(papers.get(l).getPaperId())) {
-                                numerator += ((double) pearsonMatrix.get(i).get(neighbourList.get(k)) * (inputMatrix[l][j] - PearsonCorrelation.mean(inputMatrix[l])));
+                                numerator += ((double) pearsonMatrix.get(i).get(neighbourList.get(k)) * (inputMatrix[l][j] - Stats.mean(inputMatrix[l])));
                                 denominator += (double) pearsonMatrix.get(i).get(neighbourList.get(k));
                             }
                         }
                     }
-                    inputMatrix[i][j] = GeneralUtility.standardizeSimilarityValue(PearsonCorrelation.mean(inputMatrix[i]) + numerator / denominator);
+                    inputMatrix[i][j] = GeneralUtility.standardizeSimilarityValue(Stats.mean(inputMatrix[i]) + numerator / denominator);
                     inputMatrix[j][i] = inputMatrix[i][j];
                 }
             }
@@ -83,12 +84,12 @@ public class BuildMatrixCF {
                     for (int k = 0; k < numNeighbour; k++) {
                         for (int l = 0; l < inputMatrix.length; l++) {
                             if (neighbourList.get(k).equals(papers.get(l).getPaperId())) {
-                                numerator += ((double) cosineMatrix.get(i).get(neighbourList.get(k)) * (inputMatrix[l][j] - PearsonCorrelation.mean(inputMatrix[l])));
+                                numerator += ((double) cosineMatrix.get(i).get(neighbourList.get(k)) * (inputMatrix[l][j] - Stats.mean(inputMatrix[l])));
                                 denominator += (double) cosineMatrix.get(i).get(neighbourList.get(k));
                             }
                         }
                     }
-                    inputMatrix[i][j] = PearsonCorrelation.mean(inputMatrix[i]) + numerator / denominator;
+                    inputMatrix[i][j] = Stats.mean(inputMatrix[i]) + numerator / denominator;
                     inputMatrix[j][i] = inputMatrix[i][j];
                 }
             }

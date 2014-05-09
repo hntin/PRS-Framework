@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import uit.tkorg.paperrecommender.model.Paper;
 import uit.tkorg.paperrecommender.model.Author;
+import ir.utilities.Stats;
 
 /**
  *
@@ -31,7 +32,7 @@ public class Distance {
 
         for (int i = 0; i < papers.size(); i++) {
             if (i != targetPaper) {
-                double pearson = PearsonCorrelation.pearsonCorrelation(inputMatrix[targetPaper], inputMatrix[i]);
+                double pearson = Stats.pearsonCorrelation(inputMatrix[targetPaper], inputMatrix[i]);
                 PCC.put(papers.get(i).getPaperId(), GeneralUtility.standardizePearsonValue(pearson));
             }
         }
@@ -54,7 +55,7 @@ public class Distance {
 
         for (int i = 0; i < users.size(); i++) {
             if (i != targetUser) {
-                double pearson = PearsonCorrelation.pearsonCorrelation(inputMatrix[targetUser], inputMatrix[i]);
+                double pearson = Stats.pearsonCorrelation(inputMatrix[targetUser], inputMatrix[i]);
                 PCC.put(users.get(i).getAuthorId(), GeneralUtility.standardizePearsonValue(pearson));
             }
         }
