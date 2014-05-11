@@ -24,8 +24,8 @@ public class InputMatrix {
      * @throws Exception
      */
     public static double[][] buildInputMatrix(List<Paper> papers) throws Exception {
-
         double[][] inputMatrix = new double[papers.size()][papers.size()];
+        
         for (int i = 0; i < papers.size(); i++) {
             for (int j = 0; j < papers.size(); j++) {
                 if (papers.get(i).getCitation().contains(papers.get(j).getPaperId())) {

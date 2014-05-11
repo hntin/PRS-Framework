@@ -6,6 +6,7 @@ package uit.tkorg.paperrecommender.controller.central;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import uit.tkorg.paperrecommender.constant.PaperRecommenerConstant;
 import uit.tkorg.paperrecommender.controller.datapreparation.AuthorFV;
@@ -16,6 +17,7 @@ import uit.tkorg.paperrecommender.controller.evaluation.Evaluator;
 import uit.tkorg.paperrecommender.controller.recommendation.ContentBasedRecommender;
 import uit.tkorg.paperrecommender.model.Author;
 import uit.tkorg.paperrecommender.model.Paper;
+import uit.tkorg.paperrecommender.utility.CollaborativeFiltering;
 import uit.tkorg.paperrecommender.utility.Serializer;
 import uit.tkorg.paperrecommender.utility.InputMatrix;
 import uit.tkorg.paperrecommender.utility.dataimport.flatfile.ImportDataset1;
@@ -34,8 +36,9 @@ public class PaperRecommender {
     // Key of this hash map is paper id.
     // Value of this hash map is the relevant paper object.
     private HashMap<String, Paper> papers;
-    double [][] matrixBuild;
+    double[][] matrixBuild;
     List<Paper> paperInput;
+
     /**
      * This method is used as a entry point for testing.
      *
@@ -43,6 +46,25 @@ public class PaperRecommender {
      * @throws java.lang.Exception
      */
     public static void main(String[] args) throws Exception {
+        double[][] a = {
+            {0, 0.2, 0.3, 0.4, 0.5},
+            {0.1, 0.35, 0.7, 0, 0.6},
+            {0, 0.75, 0, 0.25, 0.26},
+            {0.53, 0.42, 0, 0.31, 0.49},
+            {0.23, 0.45, 0.6, 0, 0.9}
+        };
+        HashMap b = CollaborativeFiltering.computePCC(a, 0);
+        for (Iterator it = b.keySet().iterator(); it.hasNext();) {
+            String item = (String) it.next();
+            System.out.println(item+" = "+b.get(item));
+        }
+        double[][] c=CollaborativeFiltering.fillFullMatrix(a, 3);
+        for(int i=0;i<c.length;i++){
+            for(int j=0;j<c[i].length;j++){
+                System.out.print(c[i][j]+ " ");
+            }
+            System.out.println();
+        }
     }
 
     /**
@@ -70,9 +92,9 @@ public class PaperRecommender {
                         Dataset1Folder = PaperRecommenerConstant.DATASETFOLDER;
                     }
                     papers = ImportDataset1.buildListOfPapers(Dataset1Folder);
-                    paperInput =new ArrayList(papers.values());
+                    paperInput = new ArrayList(papers.values());
                     matrixBuild = InputMatrix.buildInputMatrix(paperInput);
-                    FindPotential.findPotentialCitationPaper(paperInput, matrixBuild,5,3);
+                    FindPotential.findPotentialCitationPaper(paperInput, matrixBuild, 5, 3);
                     response[0] = "Success.";
                     break;
                 case "Read author":
@@ -132,8 +154,8 @@ public class PaperRecommender {
                     response[0] = "Success.";
                     break;
                 case "Paper FV cosine":
-                   // papers = PaperFV.computeAllPapersFeatureVector(papers, 1);
-                   papers= PPaperFV.computeAllPapersFeatureVector(papers,0.5);
+                    // papers = PaperFV.computeAllPapersFeatureVector(papers, 1);
+                    papers = PPaperFV.computeAllPapersFeatureVector(papers, 0.5);
                     response[0] = "Success.";
                     break;
                 case "Paper FV RPY":
