@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package uit.tkorg.paperrecommender.controller.datapreparation;
+package uit.tkorg.paperrecommender.datapreparation;
 
 import java.util.HashMap;
 import java.util.List;
 import uit.tkorg.paperrecommender.model.Paper;
-import uit.tkorg.paperrecommender.utility.BuildMatrixCF;
+import uit.tkorg.paperrecommender.utility.general.BuildMatrixCF;
 import uit.tkorg.paperrecommender.utility.algorithm.Knn;
 
 /**

@@ -11,8 +11,8 @@ import java.util.Iterator;
 import java.util.List;
 import uit.tkorg.paperrecommender.model.Author;
 import uit.tkorg.paperrecommender.model.Paper;
-import uit.tkorg.paperrecommender.utility.GeneralUtility;
-import uit.tkorg.paperrecommender.utility.Weighting;
+import uit.tkorg.paperrecommender.utility.general.GeneralUtility;
+import uit.tkorg.paperrecommender.utility.general.Weighting;
 
 /**
  *

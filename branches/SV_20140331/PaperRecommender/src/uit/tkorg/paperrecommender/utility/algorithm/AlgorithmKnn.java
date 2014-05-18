@@ -7,8 +7,8 @@ package uit.tkorg.paperrecommender.utility.algorithm;
 
 import java.util.HashMap;
 import uit.tkorg.paperrecommender.model.Author;
-import uit.tkorg.paperrecommender.utility.GeneralUtility;
-import uit.tkorg.paperrecommender.utility.Weighting;
+import uit.tkorg.paperrecommender.utility.general.GeneralUtility;
+import uit.tkorg.paperrecommender.utility.general.Weighting;
 
 /**
  *

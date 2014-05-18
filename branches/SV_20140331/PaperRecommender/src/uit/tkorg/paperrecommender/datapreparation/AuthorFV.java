@@ -2,14 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package uit.tkorg.paperrecommender.controller.datapreparation;
+package uit.tkorg.paperrecommender.datapreparation;
 
 import ir.vsr.HashMapVector;
 import java.util.HashMap;
 import java.util.List;
 import uit.tkorg.paperrecommender.model.Author;
 import uit.tkorg.paperrecommender.model.Paper;
-import uit.tkorg.paperrecommender.utility.Weighting;
+import uit.tkorg.paperrecommender.utility.general.Weighting;
 
 /**
  * This class handles all logics for author object. 

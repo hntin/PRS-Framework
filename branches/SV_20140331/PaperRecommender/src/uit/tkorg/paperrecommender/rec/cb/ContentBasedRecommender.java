@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package uit.tkorg.paperrecommender.controller.recommendation;
+package uit.tkorg.paperrecommender.rec.cb;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,8 +10,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import uit.tkorg.paperrecommender.model.Author;
 import uit.tkorg.paperrecommender.model.Paper;
-import uit.tkorg.paperrecommender.utility.GeneralUtility;
-import uit.tkorg.paperrecommender.utility.Weighting;
+import uit.tkorg.paperrecommender.utility.general.GeneralUtility;
+import uit.tkorg.paperrecommender.utility.general.Weighting;
 
 /**
  * This class handles logic for recommending papers to each author.

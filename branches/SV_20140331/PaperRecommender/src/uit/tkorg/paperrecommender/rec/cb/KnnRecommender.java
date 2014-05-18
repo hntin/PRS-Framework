@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package uit.tkorg.paperrecommender.controller.recommendation;
+package uit.tkorg.paperrecommender.rec.cb;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 import uit.tkorg.paperrecommender.model.Paper;
-import uit.tkorg.paperrecommender.utility.GeneralUtility;
+import uit.tkorg.paperrecommender.utility.general.GeneralUtility;
 
 /**
  *

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package uit.tkorg.paperrecommender.utility.dataimport.flatfile;
+package uit.tkorg.paperrecommender.dataimport;
 
 import ir.vsr.HashMapVector;
 import java.io.BufferedReader;
@@ -14,7 +14,7 @@ import java.util.*;
 import uit.tkorg.paperrecommender.constant.PaperRecommenerConstant;
 import uit.tkorg.paperrecommender.model.Author;
 import uit.tkorg.paperrecommender.model.Paper;
-import uit.tkorg.paperrecommender.utility.GeneralUtility;
+import uit.tkorg.paperrecommender.utility.general.GeneralUtility;
 
 /**
  *
@@ -22,10 +22,10 @@ import uit.tkorg.paperrecommender.utility.GeneralUtility;
  * Import process needs to filter out noisy data such as keywords longer than 50
  * characters.
  */
-public class ImportDataset1 {
+public class NUSDataset1 {
 
     // Prevent instantiation.
-    private ImportDataset1() {
+    private NUSDataset1() {
 
     }
 
