@@ -417,7 +417,7 @@ public class PaperRecommenderGUI extends javax.swing.JFrame {
         jMenu2.setText("Method");
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setText("CF");
+        jMenuItem1.setText("Collaborative Filtering");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);

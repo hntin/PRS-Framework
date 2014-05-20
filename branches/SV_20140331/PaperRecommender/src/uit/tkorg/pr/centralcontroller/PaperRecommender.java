@@ -9,16 +9,14 @@ import java.util.HashMap;
 import java.util.List;
 import uit.tkorg.pr.constant.PaperRecommenerConstant;
 import uit.tkorg.pr.datapreparation.ComputeAuthorFV;
-import uit.tkorg.pr.datapreparation.FindPotential;
-import uit.tkorg.pr.datapreparation.PPaperFV;
 import uit.tkorg.pr.datapreparation.ComputePaperFV;
 import uit.tkorg.pr.evaluation.Evaluator;
 import uit.tkorg.pr.method.cb.ContentBasedRecommender;
 import uit.tkorg.pr.model.Author;
 import uit.tkorg.pr.model.Paper;
 import uit.tkorg.pr.utility.general.Serializer;
-import uit.tkorg.pr.utility.general.InputMatrix;
 import uit.tkorg.pr.dataimport.NUSDataset1;
+import uit.tkorg.pr.method.cf.memorybased.KNNCF;
 
 /**
  *
@@ -42,7 +40,7 @@ public class PaperRecommender {
      * @throws java.lang.Exception
      */
     public static void main(String[] args) throws Exception {
-       
+        KNNCF.CoPearsonRecommend("D:\\movies.csv", 2, 5, "D:\\result.txt");
     }
 
     /**
@@ -129,8 +127,7 @@ public class PaperRecommender {
                     response[0] = "Success.";
                     break;
                 case "Paper FV cosine":
-                    // papers = ComputePaperFV.computeAllPapersFeatureVector(papers, 1);
-                    papers = PPaperFV.computeAllPapersFeatureVector(papers, 0.5);
+                    papers = ComputePaperFV.computeAllPapersFeatureVector(papers, 1);
                     response[0] = "Success.";
                     break;
                 case "Paper FV RPY":

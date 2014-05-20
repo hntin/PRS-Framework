@@ -40,72 +40,61 @@ public class KNNCF {
      * @throws TasteException
      */
     public static void CoPearsonRecommend(String inputFile, int k, int n, String outputFile) throws IOException, TasteException {
+        File userPreferencesFile = new File(inputFile);
+        DataModel dataModel = new FileDataModel(userPreferencesFile);
 
-        try {
-            File userPreferencesFile = new File(inputFile);
-            DataModel dataModel = new FileDataModel(userPreferencesFile);
+        UserSimilarity userSimilarity = new PearsonCorrelationSimilarity(dataModel);
+        UserNeighborhood userNeighborhood = new NearestNUserNeighborhood(k, userSimilarity, dataModel);
 
-            UserSimilarity userSimilarity = new PearsonCorrelationSimilarity(dataModel);
-            UserNeighborhood userNeighborhood = new NearestNUserNeighborhood(k, userSimilarity, dataModel);
+        // Create a generic user based recommender with the dataModel, the userNeighborhood and the userSimilarity
+        Recommender genericRecommender = new GenericUserBasedRecommender(dataModel, userNeighborhood, userSimilarity);
+        BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile));
 
-            // Create a generic user based recommender with the dataModel, the userNeighborhood and the userSimilarity
-            Recommender genericRecommender = new GenericUserBasedRecommender(dataModel, userNeighborhood, userSimilarity);
-            BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile));
+        // Recommend 5 items for each user
+        for (LongPrimitiveIterator iterator = dataModel.getUserIDs(); iterator.hasNext();) {
+            long userId = iterator.nextLong();
 
-            // Recommend 5 items for each user
-            for (LongPrimitiveIterator iterator = dataModel.getUserIDs(); iterator.hasNext();) {
-                long userId = iterator.nextLong();
-
-                // Generate a list of 5 recommendations for the user
-                List<RecommendedItem> itemRecommendations = genericRecommender.recommend(userId, n);
-
-                if (itemRecommendations.isEmpty()) {
-                    bw.write(userId + "\t" + " No recommendations for this user." + "\n");
-                } else {
-                    // Display the list of recommendations
-                    for (RecommendedItem recommendedItem : itemRecommendations) {
-                        bw.write(userId + "\t" + recommendedItem.getItemID() + "\t" + recommendedItem.getValue() + "\n");
-                    }
+            // Generate a list of 5 recommendations for the user
+            List<RecommendedItem> itemRecommendations = genericRecommender.recommend(userId, n);
+            if (itemRecommendations.isEmpty()) {
+                bw.write(userId + "\t" + "No recommendations for this user." + "\n");
+            } else {
+                // Display the list of recommendations
+                for (RecommendedItem recommendedItem : itemRecommendations) {
+                    bw.write(userId + "\t" + recommendedItem.getItemID() + "\t" + recommendedItem.getValue() + "\n");
                 }
             }
-            bw.close();
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
         }
+        bw.close();
     }
 
     public static void CosineRecommend(String inputFile, int k, int n, String outputFile) throws IOException, TasteException {
-        try {
-            File userPreferencesFile = new File(inputFile);
-            DataModel dataModel = new FileDataModel(userPreferencesFile);
+        File userPreferencesFile = new File(inputFile);
+        DataModel dataModel = new FileDataModel(userPreferencesFile);
 
-            UserSimilarity userSimilarity = new UncenteredCosineSimilarity(dataModel);
+        UserSimilarity userSimilarity = new UncenteredCosineSimilarity(dataModel);
+        UserNeighborhood userNeighborhood = new NearestNUserNeighborhood(k, userSimilarity, dataModel);
 
-            UserNeighborhood userNeighborhood = new NearestNUserNeighborhood(k, userSimilarity, dataModel);
+        // Create a generic user based recommender with the dataModel, the userNeighborhood and the userSimilarity
+        Recommender genericRecommender = new GenericUserBasedRecommender(dataModel, userNeighborhood, userSimilarity);
+        BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile));
 
-            // Create a generic user based recommender with the dataModel, the userNeighborhood and the userSimilarity
-            Recommender genericRecommender = new GenericUserBasedRecommender(dataModel, userNeighborhood, userSimilarity);
-            BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile));
+        // Recommend 5 items for each user
+        for (LongPrimitiveIterator iterator = dataModel.getUserIDs(); iterator.hasNext();) {
+            long userId = iterator.nextLong();
 
-            // Recommend 5 items for each user
-            for (LongPrimitiveIterator iterator = dataModel.getUserIDs(); iterator.hasNext();) {
-                long userId = iterator.nextLong();
+            // Generate a list of 5 recommendations for the user
+            List<RecommendedItem> itemRecommendations = genericRecommender.recommend(userId, n);
 
-                // Generate a list of 5 recommendations for the user
-                List<RecommendedItem> itemRecommendations = genericRecommender.recommend(userId, n);
-
-                if (itemRecommendations.isEmpty()) {
-                    bw.write(userId + "\t" + " No recommendations for this user." + "\n");
-                } else {
-                    // Display the list of recommendations
-                    for (RecommendedItem recommendedItem : itemRecommendations) {
-                        bw.write(userId + "\t" + recommendedItem.getItemID() + "\t" + recommendedItem.getValue() + "\n");
-                    }
+            if (itemRecommendations.isEmpty()) {
+                bw.write(userId + "\t" + "No recommendations for this user." + "\n");
+            } else {
+                // Display the list of recommendations
+                for (RecommendedItem recommendedItem : itemRecommendations) {
+                    bw.write(userId + "\t" + recommendedItem.getItemID() + "\t" + recommendedItem.getValue() + "\n");
                 }
             }
-            bw.close();
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
         }
+        bw.close();
     }
 }
