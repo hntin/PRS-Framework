@@ -17,10 +17,10 @@ import uit.tkorg.pr.utility.general.Weighting;
  * Method: 
  * - Compute papers' full vector: linear, cosine, rpy.
  */
-public class PaperFV {
+public class ComputePaperFV {
 
     // Prevent instantiation.
-    private PaperFV() {
+    private ComputePaperFV() {
     }
 
     /**

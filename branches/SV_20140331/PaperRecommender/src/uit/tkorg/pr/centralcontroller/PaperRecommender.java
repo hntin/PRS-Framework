@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import uit.tkorg.pr.constant.PaperRecommenerConstant;
-import uit.tkorg.pr.datapreparation.AuthorFV;
+import uit.tkorg.pr.datapreparation.ComputeAuthorFV;
 import uit.tkorg.pr.datapreparation.FindPotential;
 import uit.tkorg.pr.datapreparation.PPaperFV;
-import uit.tkorg.pr.datapreparation.PaperFV;
+import uit.tkorg.pr.datapreparation.ComputePaperFV;
 import uit.tkorg.pr.evaluation.Evaluator;
 import uit.tkorg.pr.method.cb.ContentBasedRecommender;
 import uit.tkorg.pr.model.Author;
@@ -34,8 +34,6 @@ public class PaperRecommender {
     // Key of this hash map is paper id.
     // Value of this hash map is the relevant paper object.
     private HashMap<String, Paper> papers;
-    double[][] matrixBuild;
-    List<Paper> paperInput;
 
     /**
      * This method is used as a entry point for testing.
@@ -72,9 +70,6 @@ public class PaperRecommender {
                         Dataset1Folder = PaperRecommenerConstant.DATASETFOLDER;
                     }
                     papers = NUSDataset1.buildListOfPapers(Dataset1Folder);
-                    paperInput = new ArrayList(papers.values());
-                    matrixBuild = InputMatrix.buildInputMatrix(paperInput);
-                    FindPotential.findPotentialCitationPaper(paperInput, matrixBuild, 5, 3);
                     response[0] = "Success.";
                     break;
                 case "Read author":
@@ -130,36 +125,32 @@ public class PaperRecommender {
 
                 // Dataset 1: data preparation.
                 case "Paper FV linear":
-                    papers = PaperFV.computeAllPapersFeatureVector(papers, 0);
+                    papers = ComputePaperFV.computeAllPapersFeatureVector(papers, 0);
                     response[0] = "Success.";
                     break;
                 case "Paper FV cosine":
-                    // papers = PaperFV.computeAllPapersFeatureVector(papers, 1);
+                    // papers = ComputePaperFV.computeAllPapersFeatureVector(papers, 1);
                     papers = PPaperFV.computeAllPapersFeatureVector(papers, 0.5);
                     response[0] = "Success.";
                     break;
                 case "Paper FV RPY":
-                    papers = PaperFV.computeAllPapersFeatureVector(papers, 2);
+                    papers = ComputePaperFV.computeAllPapersFeatureVector(papers, 2);
                     response[0] = "Success.";
                     break;
                 case "Author FV linear":
-                    authors = AuthorFV.computeAllAuthorsFeatureVector(authors, 0);
+                    authors = ComputeAuthorFV.computeAllAuthorsFeatureVector(authors, 0);
                     response[0] = "Success.";
                     break;
                 case "Author FV cosine":
-                    authors = AuthorFV.computeAllAuthorsFeatureVector(authors, 1);
+                    authors = ComputeAuthorFV.computeAllAuthorsFeatureVector(authors, 1);
                     response[0] = "Success.";
                     break;
                 case "Author FV RPY":
-                    authors = AuthorFV.computeAllAuthorsFeatureVector(authors, 2);
+                    authors = ComputeAuthorFV.computeAllAuthorsFeatureVector(authors, 2);
                     response[0] = "Success.";
                     break;
                 case "Recommend":
                     authors = ContentBasedRecommender.buildAllRecommendationLists(authors, papers);
-//                    authors = NaiveBayesRecommender.buildALLRecommendationLists(authors, papers);
-//                    for(String authorId:authors.keySet()){
-//                        System.out.println(authors.get(authorId).getRecommendation().toString());
-//                    }
                     response[0] = "Success.";
                     break;
                 case "NDCG5":

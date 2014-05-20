@@ -20,10 +20,10 @@ import uit.tkorg.pr.utility.general.Weighting;
  *
  * @author THNghiep
  */
-public class AuthorFV {
+public class ComputeAuthorFV {
 
     // Prevent instantiation.
-    private AuthorFV() {
+    private ComputeAuthorFV() {
     }
 
     /**

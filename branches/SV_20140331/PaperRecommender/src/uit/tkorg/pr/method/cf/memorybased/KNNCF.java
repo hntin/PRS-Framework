@@ -59,15 +59,11 @@ public class KNNCF {
                 // Generate a list of 5 recommendations for the user
                 List<RecommendedItem> itemRecommendations = genericRecommender.recommend(userId, n);
 
-                System.out.format("User Id: %d%n", userId);
-
                 if (itemRecommendations.isEmpty()) {
-                    System.out.println("No recommendations for this user.");
                     bw.write(userId + "\t" + " No recommendations for this user." + "\n");
                 } else {
                     // Display the list of recommendations
                     for (RecommendedItem recommendedItem : itemRecommendations) {
-                        System.out.format("Recommened Item Id %d. Strength of the preference: %f%n", recommendedItem.getItemID(), recommendedItem.getValue());
                         bw.write(userId + "\t" + recommendedItem.getItemID() + "\t" + recommendedItem.getValue() + "\n");
                     }
                 }
@@ -98,15 +94,11 @@ public class KNNCF {
                 // Generate a list of 5 recommendations for the user
                 List<RecommendedItem> itemRecommendations = genericRecommender.recommend(userId, n);
 
-                System.out.format("User Id: %d%n", userId);
-
                 if (itemRecommendations.isEmpty()) {
-                    System.out.println("No recommendations for this user.");
                     bw.write(userId + "\t" + " No recommendations for this user." + "\n");
                 } else {
                     // Display the list of recommendations
                     for (RecommendedItem recommendedItem : itemRecommendations) {
-                        System.out.format("Recommened Item Id %d. Strength of the preference: %f%n", recommendedItem.getItemID(), recommendedItem.getValue());
                         bw.write(userId + "\t" + recommendedItem.getItemID() + "\t" + recommendedItem.getValue() + "\n");
                     }
                 }
