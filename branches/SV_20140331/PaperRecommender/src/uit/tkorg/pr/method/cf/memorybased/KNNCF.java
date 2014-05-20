@@ -73,7 +73,7 @@ public class KNNCF {
                 }
             }
             bw.close();
-        } catch (IOException | TasteException ex) {
+        } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
     }
@@ -112,7 +112,7 @@ public class KNNCF {
                 }
             }
             bw.close();
-        } catch (IOException | TasteException ex) {
+        } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
     }
