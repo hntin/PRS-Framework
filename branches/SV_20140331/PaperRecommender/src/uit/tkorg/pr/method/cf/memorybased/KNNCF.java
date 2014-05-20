@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package uit.tkorg.pr.method.cf;
+package uit.tkorg.pr.method.cf.memorybased;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -27,7 +27,7 @@ import org.apache.mahout.cf.taste.similarity.UserSimilarity;
  *
  * @author Vinh
  */
-public class kNNCF {
+public class KNNCF {
 
     /**
      * This method write recommend list into output file.
@@ -72,44 +72,48 @@ public class kNNCF {
                     }
                 }
             }
-           bw.close();
+            bw.close();
         } catch (IOException | TasteException ex) {
             System.out.println(ex.getMessage());
         }
     }
 
     public static void CosineRecommend(String inputFile, int k, int n, String outputFile) throws IOException, TasteException {
-        File userPreferencesFile = new File(inputFile);
-        DataModel dataModel = new FileDataModel(userPreferencesFile);
+        try {
+            File userPreferencesFile = new File(inputFile);
+            DataModel dataModel = new FileDataModel(userPreferencesFile);
 
-        UserSimilarity userSimilarity = new UncenteredCosineSimilarity(dataModel);
+            UserSimilarity userSimilarity = new UncenteredCosineSimilarity(dataModel);
 
-        UserNeighborhood userNeighborhood = new NearestNUserNeighborhood(k, userSimilarity, dataModel);
+            UserNeighborhood userNeighborhood = new NearestNUserNeighborhood(k, userSimilarity, dataModel);
 
-        // Create a generic user based recommender with the dataModel, the userNeighborhood and the userSimilarity
-        Recommender genericRecommender = new GenericUserBasedRecommender(dataModel, userNeighborhood, userSimilarity);
-        BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile));
+            // Create a generic user based recommender with the dataModel, the userNeighborhood and the userSimilarity
+            Recommender genericRecommender = new GenericUserBasedRecommender(dataModel, userNeighborhood, userSimilarity);
+            BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile));
 
-        // Recommend 5 items for each user
-        for (LongPrimitiveIterator iterator = dataModel.getUserIDs(); iterator.hasNext();) {
-            long userId = iterator.nextLong();
+            // Recommend 5 items for each user
+            for (LongPrimitiveIterator iterator = dataModel.getUserIDs(); iterator.hasNext();) {
+                long userId = iterator.nextLong();
 
-            // Generate a list of 5 recommendations for the user
-            List<RecommendedItem> itemRecommendations = genericRecommender.recommend(userId, n);
+                // Generate a list of 5 recommendations for the user
+                List<RecommendedItem> itemRecommendations = genericRecommender.recommend(userId, n);
 
-            System.out.format("User Id: %d%n", userId);
+                System.out.format("User Id: %d%n", userId);
 
-            if (itemRecommendations.isEmpty()) {
-                System.out.println("No recommendations for this user.");
-                bw.write(userId + "\t" + " No recommendations for this user." + "\n");
-            } else {
-                // Display the list of recommendations
-                for (RecommendedItem recommendedItem : itemRecommendations) {
-                    System.out.format("Recommened Item Id %d. Strength of the preference: %f%n", recommendedItem.getItemID(), recommendedItem.getValue());
-                    bw.write(userId + "\t" + recommendedItem.getItemID() + "\t" + recommendedItem.getValue() + "\n");
+                if (itemRecommendations.isEmpty()) {
+                    System.out.println("No recommendations for this user.");
+                    bw.write(userId + "\t" + " No recommendations for this user." + "\n");
+                } else {
+                    // Display the list of recommendations
+                    for (RecommendedItem recommendedItem : itemRecommendations) {
+                        System.out.format("Recommened Item Id %d. Strength of the preference: %f%n", recommendedItem.getItemID(), recommendedItem.getValue());
+                        bw.write(userId + "\t" + recommendedItem.getItemID() + "\t" + recommendedItem.getValue() + "\n");
+                    }
                 }
             }
+            bw.close();
+        } catch (IOException | TasteException ex) {
+            System.out.println(ex.getMessage());
         }
-        //bw.close();
     }
 }

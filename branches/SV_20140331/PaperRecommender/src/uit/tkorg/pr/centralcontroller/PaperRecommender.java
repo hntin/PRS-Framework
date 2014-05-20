@@ -13,7 +13,7 @@ import uit.tkorg.pr.datapreparation.FindPotential;
 import uit.tkorg.pr.datapreparation.PPaperFV;
 import uit.tkorg.pr.datapreparation.PaperFV;
 import uit.tkorg.pr.evaluation.Evaluator;
-import uit.tkorg.pr.method.cbf.ContentBasedRecommender;
+import uit.tkorg.pr.method.cb.ContentBasedRecommender;
 import uit.tkorg.pr.model.Author;
 import uit.tkorg.pr.model.Paper;
 import uit.tkorg.pr.utility.general.Serializer;

@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.UIManager;
 import org.apache.mahout.cf.taste.common.TasteException;
-import uit.tkorg.pr.method.cf.kNNCF;
+import uit.tkorg.pr.method.cf.memorybased.KNNCF;
 import uit.tkorg.pr.utility.general.CF;
 
 /**
@@ -178,8 +178,8 @@ public class CollaborativeFiltering extends javax.swing.JFrame {
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            kNNCF.CosineRecommend(jTextFieldDataset.getText(), 2, 5, "D:\\resultCosine.txt");
-            kNNCF.CoPearsonRecommend(jTextFieldDataset.getText(), 2, 5, "D:\\resultPearson.txt");
+            KNNCF.CosineRecommend(jTextFieldDataset.getText(), 2, 5, "D:\\resultCosine.txt");
+            KNNCF.CoPearsonRecommend(jTextFieldDataset.getText(), 2, 5, "D:\\resultPearson.txt");
             
             Runtime rt = Runtime.getRuntime();
             String path1 = "D:\\resultPearson.txt";
