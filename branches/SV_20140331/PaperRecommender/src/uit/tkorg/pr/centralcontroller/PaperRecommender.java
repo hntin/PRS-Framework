@@ -17,6 +17,7 @@ import uit.tkorg.pr.model.Paper;
 import uit.tkorg.pr.utility.general.Serializer;
 import uit.tkorg.pr.dataimport.NUSDataset1;
 import uit.tkorg.pr.method.cf.memorybased.KNNCF;
+import uit.tkorg.pr.method.cf.memorybased.SVD;
 
 /**
  *
@@ -40,7 +41,8 @@ public class PaperRecommender {
      * @throws java.lang.Exception
      */
     public static void main(String[] args) throws Exception {
-        KNNCF.CoPearsonRecommend("D:\\movies.csv", 2, 5, "D:\\result.txt");
+        //KNNCF.CoPearsonRecommend("E:\\movies.csv", 2, 5, "E:\\result.txt");
+        SVD.SVDRecommendation("E:\\test1.csv",3, 5,0.3,3,"E:\\ output4.txt");
     }
 
     /**

@@ -34,7 +34,9 @@ public class SVD {
      * @throws TasteException 
      */
     public static void SVDRecommendation(String inputFile,int n, int numFeatures, double lamda, int numIterations, String outputFile) throws IOException, TasteException{
+   // File userPreferencesFile = new File(inputFile);
     DataModel dataModel = new FileDataModel( new File(inputFile));
+   // DataModel dataModel = new FileDataModel(userPreferencesFile );
     Factorizer factorizer = new ALSWRFactorizer(dataModel,numFeatures,lamda,numIterations);
     Recommender svdRecommender = new SVDRecommender(dataModel,factorizer);
       BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile));
