@@ -11,6 +11,7 @@ import uit.tkorg.pr.constant.PRConstant;
 import uit.tkorg.pr.dataimex.MASDataset1;
 import uit.tkorg.pr.dataimex.MahoutFile;
 import uit.tkorg.pr.dataimex.NUSDataset1;
+import uit.tkorg.pr.dataimex.NUSDataset2;
 import uit.tkorg.pr.dataimex.PRGeneralFile;
 import uit.tkorg.pr.datapreparation.cbf.AuthorFVComputation;
 import uit.tkorg.pr.datapreparation.cbf.PaperFVComputation;
@@ -31,7 +32,15 @@ import uit.tkorg.utility.textvectorization.TextVectorizationByMahoutTerminalUtil
  * control all traffic from gui.
  */
 public class PaperRecommender {
-
+        public double gama;
+        public int weighting;
+        public int combiningAuthor;
+        public int combiningPaper;
+        public int topN;
+        public String resultEvaluation;
+        HashMap<String, Paper> papers = new HashMap<>();
+        HashMap<String, Author> authors = new HashMap<>();
+        HashMap<String, Paper> papersOfAuthors = new HashMap<>();
     public static void main(String[] args) {
         try {
             recommendationFlowController(PRConstant.FOLDER_MAS_DATASET1 + "[Training] Paper_Before_2006.csv",
@@ -296,7 +305,6 @@ public class PaperRecommender {
         //</editor-fold>
 
     }
-
     /**
      * This method handles all request from gui.
      *
@@ -305,40 +313,95 @@ public class PaperRecommender {
      * @return response: result of request after processing.
      */
     public String[] guiRequestHandler(String request, String param) {
-
-        HashMap<String, Paper> papers = new HashMap<>();
-        HashMap<String, Author> authors = new HashMap<>();
-        HashMap<String, Paper> papersOfAuthors = new HashMap<>();
-
         String[] response = new String[2];
-
-        String Dataset1Folder;
+        String DatasetFolder;
         String SaveDataFolder;
-
+        String fileNamePapers; 
+        String fileNamePaperCitePaper;
+        String fileNameAuthorTestSet; 
+        String fileNameGroundTruth;
+        String fileNameAuthorship;
+        String fileNameAuthorCitePaper;
+        String dirPapers;
+        String dirPreProcessedPaper;
+        String sequenceDir;
+        String vectorDir;
+        String MahoutCFDir;
+        String fileNameEvaluationResult;
         try {
             switch (request) {
 
                 // Dataset 1: data import.
-                case "Read paper":
+                case "Read paper from NUS_DATASET1":
                     // Read param to get dataset 1 folder.
                     if ((param != null) && !(param.isEmpty())) {
-                        Dataset1Folder = param;
+                        DatasetFolder = param;
                     } else {
-                        Dataset1Folder = PRConstant.FOLDER_NUS_DATASET1;
+                        DatasetFolder = PRConstant.FOLDER_NUS_DATASET1;
                     }
-                    papers = NUSDataset1.buildListOfPapers(Dataset1Folder);
+                    papers = NUSDataset1.buildListOfPapers(DatasetFolder);
                     response[0] = "Success.";
                     break;
-                case "Read author":
+                case"Read paper from NUS_DATASET2":
                     // Read param to get dataset 1 folder.
                     if ((param != null) && !(param.isEmpty())) {
-                        Dataset1Folder = param;
+                        DatasetFolder = param;
                     } else {
-                        Dataset1Folder = PRConstant.FOLDER_NUS_DATASET1;
+                        DatasetFolder = PRConstant.FOLDER_NUS_DATASET2;
                     }
-                    authors = NUSDataset1.buildListOfAuthors(Dataset1Folder);
+                    papers = NUSDataset2.buildListOfPapers(DatasetFolder);
+                    response[0] = "Success.";
+                    break;
+                case"Read paper from MAS_DATASET1":
+                     // Read param to get dataset 1 folder.
+                    if ((param != null) && !(param.isEmpty())) {
+                        DatasetFolder = param;
+                    } else {
+                        DatasetFolder = PRConstant.FOLDER_NUS_DATASET1;
+                    }
+                    fileNamePapers = DatasetFolder+ "[Training] Paper_Before_2006.csv";
+                    fileNamePaperCitePaper = DatasetFolder + "[Training] Paper_Cite_Paper_Before_2006.csv"; 
+                    vectorDir =DatasetFolder + "Vector";
+                    papers = MASDataset1.readPaperList(fileNamePapers,fileNamePaperCitePaper);
+                    PaperFVComputation.clearPaperAbstract(papers);
+                  //  TextPreprocessUtility.parallelProcess(dirPapers, dirPreProcessedPaper, true, true);
+                   // TextVectorizationByMahoutTerminalUtility.textVectorizeFiles(dirPreProcessedPaper, sequenceDir, vectorDir);
+                    HashMap<String, HashMapVector> vectorizedDocuments = MahoutFile.readMahoutVectorFiles(vectorDir);
+                    PaperFVComputation.setTFIDFVectorForAllPapers(papers, vectorizedDocuments);
+                    response[0] = "Success.";
+                    break;
+                case "Read author from NUS_DATASET1":
+                    // Read param to get dataset 1 folder.
+                    if ((param != null) && !(param.isEmpty())) {
+                        DatasetFolder = param;
+                    } else {
+                        DatasetFolder = PRConstant.FOLDER_NUS_DATASET1;
+                    }
+                    authors = NUSDataset1.buildListOfAuthors(DatasetFolder);
                     papersOfAuthors = AuthorFVComputation.getPapersFromAuthors(authors);
                     response[0] = "Success.";
+                    break;
+                case "Read author from NUS_DATASET2":
+                    // Read param to get dataset 1 folder.
+                    if ((param != null) && !(param.isEmpty())) {
+                        DatasetFolder = param;
+                    } else {
+                        DatasetFolder = PRConstant.FOLDER_NUS_DATASET1;
+                    }
+                    authors = NUSDataset2.buildListOfAuthors(DatasetFolder);
+                    papersOfAuthors = AuthorFVComputation.getPapersFromAuthors(authors);
+                    response[0] = "Success.";
+                    break;
+                case "Read author from MAS_DATASET1":
+                       // Read param to get dataset 1 folder.
+                    if ((param != null) && !(param.isEmpty())) {
+                        DatasetFolder = param;
+                    } else {
+                        DatasetFolder = PRConstant.FOLDER_NUS_DATASET1;
+                    }
+                    fileNameAuthorTestSet = DatasetFolder + "[Training] 1000Authors.csv"; 
+                    fileNameGroundTruth = DatasetFolder+ "[Validation] Ground_Truth_2006_2008.csv";
+                    fileNameAuthorship = DatasetFolder + "[Training] Author_Paper_Before_2006.csv";
                     break;
                 case "Save paper":
                     // Read param to get save data folder.
@@ -383,47 +446,72 @@ public class PaperRecommender {
                     break;
 
                 // Dataset 1: data preparation.
-                case "Paper FV linear":
-                    PaperFVComputation.computeFeatureVectorForAllPapers(papers, null, 3, 0);
-                    response[0] = "Success.";
-                    break;
-                case "Paper FV cosine":
-                    PaperFVComputation.computeFeatureVectorForAllPapers(papers, null, 3, 1);
-                    response[0] = "Success.";
-                    break;
-                case "Paper FV RPY":
-                    PaperFVComputation.computeFeatureVectorForAllPapers(papers, null, 3, 2);
-                    response[0] = "Success.";
-                    break;
-                case "Author FV linear":
-                    PaperFVComputation.computeFeatureVectorForAllPapers(papersOfAuthors, null, 3, 0);
-                    AuthorFVComputation.computeFVForAllAuthors(authors, papersOfAuthors, 0, 0);
-                    response[0] = "Success.";
-                    break;
-                case "Author FV cosine":
-                    PaperFVComputation.computeFeatureVectorForAllPapers(papersOfAuthors, null, 3, 1);
-                    AuthorFVComputation.computeFVForAllAuthors(authors, papersOfAuthors, 0, 0);
-                    response[0] = "Success.";
-                    break;
-                case "Author FV RPY":
-                    PaperFVComputation.computeFeatureVectorForAllPapers(papersOfAuthors, null, 3, 2);
-                    AuthorFVComputation.computeFVForAllAuthors(authors, papersOfAuthors, 0, 0);
-                    response[0] = "Success.";
+                case "Build profile paper":
+                    
+                    PaperFVComputation.computeFeatureVectorForAllPapers(papers,null,combiningPaper,1);
+
+                   break;
+                case "Build profile user":
+                    PaperFVComputation.computeFeatureVectorForAllPapers(papersOfAuthors,null,combiningAuthor,1);
+                    AuthorFVComputation.computeFVForAllAuthors(authors, papersOfAuthors, weighting,gama);
                     break;
                 case "Recommend":
-                    FeatureVectorSimilarity.generateRecommendationForAllAuthors(authors, papers, 0, 10);
+//                    StringBuilder recommendList = new StringBuilder();
+                    FeatureVectorSimilarity.generateRecommendationForAllAuthors(authors, papers, 0,topN);
+//                    for(String authorId: authors.keySet())
+//                        recommendList.append(authorId +"\n").append(authors.get(authorId).getRecommendationList().toString()+"\n");
+//                    response[1]=recommendList.toString();
+                    break;
+                case"Precision":
+                    StringBuilder evaluationResultPrecision = new StringBuilder();
+                    evaluationResultPrecision.append("Precision\t").append("P@10: ").append(Evaluator.computeMeanPrecisionTopN(authors,10))
+                    .append("\t").append("P@20: ").append(Evaluator.computeMeanPrecisionTopN(authors, 20))
+                    .append("\t").append("P@30:  ").append(Evaluator.computeMeanPrecisionTopN(authors, 30))
+                    .append("\t").append("P@40: ").append(Evaluator.computeMeanPrecisionTopN(authors, 40))
+                    .append("\t").append("P@50: ").append(Evaluator.computeMeanPrecisionTopN(authors, 50)).append("\r\n");
+                    response[1]=evaluationResultPrecision.toString();
+                case"Recall":
+                     StringBuilder evaluationResultRecall = new StringBuilder();
+                     evaluationResultRecall.append("Recall\t").append("R@50: ")
+                     .append(Evaluator.computeMeanRecallTopN(authors, 50)).append("\t")
+                     .append("R@100: ").append(Evaluator.computeMeanRecallTopN(authors, 100)).append("\r\n");
+                     response[1]=evaluationResultRecall.toString();
+                     response[0] = "Success.";
+                    break;
+                case"F1":
+                    StringBuilder evaluationResultF1= new StringBuilder();
+                    evaluationResultF1.append("F1\t").append("F1: ").append(Evaluator.computeMeanFMeasure(authors, 1)).append("\r\n");
+                    response[1]= evaluationResultF1.toString();
+                case"MAP":
+                    StringBuilder evaluationResultMAP = new StringBuilder();
+                    evaluationResultMAP.append("MAP\t").append("MAP@10: ").append(Evaluator.computeMAP(authors, 10))
+                    .append("\t").append("MAP@20: ").append( Evaluator.computeMAP(authors, 20))
+                    .append("\t").append("MAP@30: ").append( Evaluator.computeMAP(authors, 30))
+                    .append("\t").append("MAP@40: ").append( Evaluator.computeMAP(authors, 40))
+                    .append("\t").append("MAP@50: ").append( Evaluator.computeMAP(authors, 50)).append("\r\n");
+                    response[1]= evaluationResultMAP.toString();
                     response[0] = "Success.";
                     break;
-                case "NDCG5":
-                    response[1] = String.valueOf(Evaluator.computeMeanNDCG(authors, 5));
+                case"NDCG":
+                    StringBuilder evaluationResultNDCG = new StringBuilder();
+                    evaluationResultNDCG.append("NDCG\t").append("NDCG@5: ").append(Evaluator.computeMeanNDCG(authors,5))
+                    .append("\t").append("NDCG@10: ").append(Evaluator.computeMeanNDCG(authors,10)).append("\r\n");
+                    response[1]= evaluationResultNDCG.toString();
                     response[0] = "Success.";
                     break;
-                case "NDCG10":
-                    response[1] = String.valueOf(Evaluator.computeMeanNDCG(authors, 10));
+                case"MRR":
+                    StringBuilder evaluationResultMRR = new StringBuilder();
+                    evaluationResultMRR.append("MRR\t").append(Evaluator.computeMRR(authors));
+                    response[1] = evaluationResultMRR.toString();
                     response[0] = "Success.";
                     break;
-                case "MRR":
-                    response[1] = String.valueOf(Evaluator.computeMRR(authors));
+                case"Save result evaluation":
+                    if ((param != null) && !(param.isEmpty())) {
+                        SaveDataFolder = param;
+                    } else {
+                        SaveDataFolder = "E:\\ResultEvaluation.xls";
+                    }
+                    FileUtils.writeStringToFile(new File(SaveDataFolder),resultEvaluation);
                     response[0] = "Success.";
                     break;
                 default:
