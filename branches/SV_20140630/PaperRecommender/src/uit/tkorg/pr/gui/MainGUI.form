@@ -251,7 +251,7 @@
             <Component class="javax.swing.JButton" name="jButtonDataset">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="E:\Luan_van\Code\Demo2010\ demo10\JavaApplication3\Database.png"/>
+                  <Image iconType="3" name="/uit/tkorg/pr/gui/Database.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Dataset "/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -268,7 +268,7 @@
             <Component class="javax.swing.JButton" name="jButtonReadPaper">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="E:\Luan_van\Code\Demo2010\ demo10\JavaApplication3\Document-icon.png"/>
+                  <Image iconType="3" name="/uit/tkorg/pr/gui/Document-icon.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Papers"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -282,7 +282,7 @@
             <Component class="javax.swing.JButton" name="jButtonReadAuthor">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="E:\Luan_van\Code\Demo2010\ demo10\JavaApplication3\User-Coat-Red-icon.png"/>
+                  <Image iconType="3" name="/uit/tkorg/pr/gui/User-Coat-Red-icon.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Users"/>
                 <Property name="focusable" type="boolean" value="false"/>

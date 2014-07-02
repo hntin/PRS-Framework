@@ -186,7 +186,7 @@ public class MainGUI extends javax.swing.JFrame {
 
         jToolBar1.setRollover(true);
 
-        jButtonDataset.setIcon(new javax.swing.ImageIcon("E:\\Luan_van\\Code\\Demo2010\\ demo10\\JavaApplication3\\Database.png")); // NOI18N
+        jButtonDataset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Database.png"))); // NOI18N
         jButtonDataset.setText("Dataset ");
         jButtonDataset.setFocusable(false);
         jButtonDataset.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -204,7 +204,7 @@ public class MainGUI extends javax.swing.JFrame {
         jToolBar1.add(jButtonDataset);
         jToolBar1.add(jSeparator2);
 
-        jButtonReadPaper.setIcon(new javax.swing.ImageIcon("E:\\Luan_van\\Code\\Demo2010\\ demo10\\JavaApplication3\\Document-icon.png")); // NOI18N
+        jButtonReadPaper.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Document-icon.png"))); // NOI18N
         jButtonReadPaper.setText("Papers");
         jButtonReadPaper.setFocusable(false);
         jButtonReadPaper.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -216,7 +216,7 @@ public class MainGUI extends javax.swing.JFrame {
         });
         jToolBar1.add(jButtonReadPaper);
 
-        jButtonReadAuthor.setIcon(new javax.swing.ImageIcon("E:\\Luan_van\\Code\\Demo2010\\ demo10\\JavaApplication3\\User-Coat-Red-icon.png")); // NOI18N
+        jButtonReadAuthor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/User-Coat-Red-icon.png"))); // NOI18N
         jButtonReadAuthor.setText("Users");
         jButtonReadAuthor.setFocusable(false);
         jButtonReadAuthor.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
