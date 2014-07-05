@@ -195,12 +195,8 @@
                       <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                       <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="jPanel2" min="-2" pref="218" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="jPanel2" alignment="1" min="-2" pref="218" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -245,20 +241,18 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jButtonHelp" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButtonSave" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButtonReadAuthor" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButtonDataset" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButtonReadPaper" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                          <Component id="jTextFieldStatus" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="jLabel2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="jButtonRefresh" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jTextFieldStatus" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="jLabel2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="32" max="32767" attributes="0"/>
               </Group>
+              <Component id="jButtonDataset" alignment="1" max="32767" attributes="0"/>
+              <Component id="jButtonReadPaper" alignment="0" max="32767" attributes="0"/>
+              <Component id="jButtonReadAuthor" alignment="1" max="32767" attributes="0"/>
+              <Component id="jButtonSave" alignment="1" max="32767" attributes="0"/>
+              <Component id="jButtonHelp" alignment="1" max="32767" attributes="0"/>
+              <Component id="jButtonRefresh" alignment="1" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -283,6 +277,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonDataset">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/Database-Active-icon.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Dataset "/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -297,6 +294,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonReadPaper">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/Document-icon.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Papers"/>
             <Property name="enabled" type="boolean" value="false"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -312,6 +312,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonReadAuthor">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/User-Coat-Red-icon.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Users"/>
             <Property name="enabled" type="boolean" value="false"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -327,6 +330,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonSave">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/Save.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Save..."/>
             <Property name="enabled" type="boolean" value="false"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -342,6 +348,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonRefresh">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/n.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Refesh"/>
             <Property name="enabled" type="boolean" value="false"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -357,6 +366,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonHelp">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/Button-Help-icon.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Help"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -443,7 +455,7 @@
                                   <Component id="jPanel11" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
                                   <Component id="jPanel12" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="150" max="32767" attributes="0"/>
+                                  <EmptySpace pref="148" max="32767" attributes="0"/>
                                   <Component id="jPanel25" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                                   <Component id="jPanel23" min="-2" max="-2" attributes="0"/>
@@ -928,7 +940,7 @@
                             <Property name="text" type="java.lang.String" value="LC"/>
                           </Properties>
                           <Events>
-                            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jCheckBoxAuthorWeightingLCMouseClicked"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxAuthorWeightingLCActionPerformed"/>
                           </Events>
                         </Component>
                         <Component class="javax.swing.JCheckBox" name="jCheckBoxAuthorWeightingSIM">

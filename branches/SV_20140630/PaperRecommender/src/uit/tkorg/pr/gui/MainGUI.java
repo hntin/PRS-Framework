@@ -167,6 +167,7 @@ public class MainGUI extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Status");
 
+        jButtonDataset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Database-Active-icon.png"))); // NOI18N
         jButtonDataset.setText("Dataset ");
         jButtonDataset.setFocusable(false);
         jButtonDataset.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -178,6 +179,7 @@ public class MainGUI extends javax.swing.JFrame {
             }
         });
 
+        jButtonReadPaper.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Document-icon.png"))); // NOI18N
         jButtonReadPaper.setText("Papers");
         jButtonReadPaper.setEnabled(false);
         jButtonReadPaper.setFocusable(false);
@@ -190,6 +192,7 @@ public class MainGUI extends javax.swing.JFrame {
             }
         });
 
+        jButtonReadAuthor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/User-Coat-Red-icon.png"))); // NOI18N
         jButtonReadAuthor.setText("Users");
         jButtonReadAuthor.setEnabled(false);
         jButtonReadAuthor.setFocusable(false);
@@ -202,6 +205,7 @@ public class MainGUI extends javax.swing.JFrame {
             }
         });
 
+        jButtonSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Save.png"))); // NOI18N
         jButtonSave.setText("Save...");
         jButtonSave.setEnabled(false);
         jButtonSave.setFocusable(false);
@@ -214,6 +218,7 @@ public class MainGUI extends javax.swing.JFrame {
             }
         });
 
+        jButtonRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/n.png"))); // NOI18N
         jButtonRefresh.setText("Refesh");
         jButtonRefresh.setEnabled(false);
         jButtonRefresh.setFocusable(false);
@@ -226,6 +231,7 @@ public class MainGUI extends javax.swing.JFrame {
             }
         });
 
+        jButtonHelp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Button-Help-icon.png"))); // NOI18N
         jButtonHelp.setText("Help");
         jButtonHelp.setFocusable(false);
         jButtonHelp.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -258,17 +264,16 @@ public class MainGUI extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonHelp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonReadAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonDataset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonReadPaper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextFieldStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButtonRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(32, Short.MAX_VALUE))
+            .addComponent(jButtonDataset, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButtonReadPaper, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButtonReadAuthor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButtonSave, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButtonHelp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButtonRefresh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jTextFieldStatus.getAccessibleContext().setAccessibleName("");
@@ -507,9 +512,9 @@ public class MainGUI extends javax.swing.JFrame {
 
         buttonGroupWeightingAuthor.add(jCheckBoxAuthorWeightingLC);
         jCheckBoxAuthorWeightingLC.setText("LC");
-        jCheckBoxAuthorWeightingLC.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jCheckBoxAuthorWeightingLCMouseClicked(evt);
+        jCheckBoxAuthorWeightingLC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxAuthorWeightingLCActionPerformed(evt);
             }
         });
 
@@ -609,7 +614,7 @@ public class MainGUI extends javax.swing.JFrame {
                         .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
                         .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)
                         .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -918,10 +923,7 @@ public class MainGUI extends javax.swing.JFrame {
                         .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(2, 2, 2)
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -1118,12 +1120,6 @@ public class MainGUI extends javax.swing.JFrame {
         jTextFieldStatus.setText(jTextFieldStatus.getText() + response[0]);
     }//GEN-LAST:event_jCheckBoxAuthorWeightingSIMActionPerformed
 
-    private void jCheckBoxAuthorWeightingLCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBoxAuthorWeightingLCMouseClicked
-        // TODO add your handling code here:
-        //        if(jCheckBoxAuthorWeightingLC.isSelected())
-        //            jCheckBoxAuthorWeightingLC.setSelected(false);
-    }//GEN-LAST:event_jCheckBoxAuthorWeightingLCMouseClicked
-
     private void jCheckBoxPaperWeightingRPYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxPaperWeightingRPYActionPerformed
         // TODO add your handling code here:
         jTextFieldWeightingCombiningPaper = "with RPY weighting\n";
@@ -1197,6 +1193,11 @@ public class MainGUI extends javax.swing.JFrame {
         }
         jTextFieldMethodCombiningAuthor = "Combining profile author by Paper";
     }//GEN-LAST:event_jCheckBoxAuthorPaperActionPerformed
+
+    private void jCheckBoxAuthorWeightingLCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxAuthorWeightingLCActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jCheckBoxAuthorWeightingLCActionPerformed
     /**
      * @param args the command line arguments
      */
