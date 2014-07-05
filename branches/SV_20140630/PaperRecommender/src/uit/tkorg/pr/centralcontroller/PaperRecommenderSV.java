@@ -31,16 +31,16 @@ import uit.tkorg.utility.textvectorization.TextVectorizationByMahoutTerminalUtil
  * @author THNghiep Central controller. Main entry class used for testing. Also
  * control all traffic from gui.
  */
-public class PaperRecommender {
+public class PaperRecommenderSV {
         public double gama;
         public int weighting;
         public int combiningAuthor;
         public int combiningPaper;
         public int topN;
         public String resultEvaluation;
-        HashMap<String, Paper> papers = new HashMap<>();
-        HashMap<String, Author> authors = new HashMap<>();
-        HashMap<String, Paper> papersOfAuthors = new HashMap<>();
+        public HashMap<String, Paper> papers = new HashMap<>();
+        public HashMap<String, Author> authors = new HashMap<>();
+        public HashMap<String, Paper> papersOfAuthors = new HashMap<>();
     public static void main(String[] args) {
         try {
             recommendationFlowController(PRConstant.FOLDER_MAS_DATASET1 + "[Training] Paper_Before_2006.csv",

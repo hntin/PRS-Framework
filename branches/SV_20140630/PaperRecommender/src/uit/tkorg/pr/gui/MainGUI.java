@@ -3,27 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package uit.tkorg.pr.gui;
 
-import java.awt.Menu;
-import java.awt.event.MouseListener;
+import java.awt.*;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
-import org.apache.mahout.cf.taste.impl.common.LongPrimitiveIterator;
-import uit.tkorg.pr.centralcontroller.PaperRecommender;
+import javax.swing.UIManager;
+import uit.tkorg.pr.centralcontroller.PaperRecommenderSV;
 import uit.tkorg.pr.constant.PRConstant;
-import uit.tkorg.pr.datapreparation.cbf.AuthorFVComputation;
-import uit.tkorg.pr.datapreparation.cbf.PaperFVComputation;
 import uit.tkorg.pr.model.Author;
 import uit.tkorg.pr.model.Paper;
-import uit.tkorg.utility.general.BinaryFileUtility;
 
 /**
  *
@@ -35,22 +24,21 @@ public class MainGUI extends javax.swing.JFrame {
      * Creates new form NewJFrame
      */
     // Controller handles all request from gui:
-    private PaperRecommender paperRecommender;
+    private PaperRecommenderSV paperRecommender;
     private String[] response;
-    private static String path=null;
-    private static int check =0;// paper
-    private static int chooseDataset= 0;
-      public MainGUI() {
-       initComponents();
-       paperRecommender= new PaperRecommender();
-       jTextFieldMethodCombiningAuthor.setVisible(false);
-       jTextFieldMethodCombiningPaper.setVisible(false);
-       jTextFieldWeightingCombiningAuthor.setVisible(false);
-       jTextFieldWeightingCombiningPaper.setVisible(false);
-     
-       
+    private String path_Dataset = null;// path of dataset folder
+    private int check = 0;// paper
+    private int chooseDataset = 0;//0: NUS Dataset1, 1: NUS Dataset2, 2:MAS Dataset1
+    private String jTextFieldMethodCombiningAuthor = null;
+    private String jTextFieldMethodCombiningPaper = null;
+    private String jTextFieldWeightingCombiningAuthor = null;
+    private String jTextFieldWeightingCombiningPaper = null;
+
+    public MainGUI() {
+        initComponents();
+        paperRecommender = new PaperRecommenderSV();
     }
- 
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -69,19 +57,14 @@ public class MainGUI extends javax.swing.JFrame {
         buttonGroupCombiningPaper = new javax.swing.ButtonGroup();
         buttonGroupWeightingPaper = new javax.swing.ButtonGroup();
         jPanel3 = new javax.swing.JPanel();
-        jToolBar1 = new javax.swing.JToolBar();
+        jTextFieldStatus = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
         jButtonDataset = new javax.swing.JButton();
-        jSeparator2 = new javax.swing.JToolBar.Separator();
         jButtonReadPaper = new javax.swing.JButton();
         jButtonReadAuthor = new javax.swing.JButton();
-        jSeparator3 = new javax.swing.JToolBar.Separator();
         jButtonSave = new javax.swing.JButton();
         jButtonRefresh = new javax.swing.JButton();
         jButtonHelp = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JToolBar.Separator();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
-        jTextFieldStatus = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel4 = new javax.swing.JPanel();
@@ -112,13 +95,9 @@ public class MainGUI extends javax.swing.JFrame {
         jCheckBoxAuthorWeightingRPY = new javax.swing.JCheckBox();
         jLabelGama = new javax.swing.JLabel();
         jTextFieldGama = new javax.swing.JTextField();
-        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextFieldMethodCombiningAuthor = new javax.swing.JTextField();
-        jTextFieldMethodCombiningPaper = new javax.swing.JTextField();
-        jTextFieldWeightingCombiningAuthor = new javax.swing.JTextField();
-        jTextFieldWeightingCombiningPaper = new javax.swing.JTextField();
+        filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 32), new java.awt.Dimension(0, 32), new java.awt.Dimension(32767, 32));
         jPanel5 = new javax.swing.JPanel();
         jPanel18 = new javax.swing.JPanel();
         jCheckBox9 = new javax.swing.JCheckBox();
@@ -128,7 +107,6 @@ public class MainGUI extends javax.swing.JFrame {
         jCheckBox1 = new javax.swing.JCheckBox();
         jPanel16 = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
-        jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextResult = new javax.swing.JTextArea();
@@ -139,11 +117,11 @@ public class MainGUI extends javax.swing.JFrame {
         jTextFieldTopNRecommend = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        jMenuFile = new javax.swing.JMenu();
         jMenuItemOpen = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jMenuItemSave = new javax.swing.JMenuItem();
+        jMenuItemExit = new javax.swing.JMenuItem();
+        jMenuEdit = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
@@ -184,114 +162,113 @@ public class MainGUI extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Import Data", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
 
-        jToolBar1.setRollover(true);
+        jTextFieldStatus.setPreferredSize(new java.awt.Dimension(100, 25));
 
-        jButtonDataset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Database.png"))); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setText("Status");
+
         jButtonDataset.setText("Dataset ");
         jButtonDataset.setFocusable(false);
         jButtonDataset.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonDataset.setPreferredSize(new java.awt.Dimension(100, 25));
         jButtonDataset.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonDataset.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 jButtonDatasetMouseReleased(evt);
             }
         });
-        jButtonDataset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDatasetActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(jButtonDataset);
-        jToolBar1.add(jSeparator2);
 
-        jButtonReadPaper.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Document-icon.png"))); // NOI18N
         jButtonReadPaper.setText("Papers");
+        jButtonReadPaper.setEnabled(false);
         jButtonReadPaper.setFocusable(false);
         jButtonReadPaper.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonReadPaper.setPreferredSize(new java.awt.Dimension(100, 25));
         jButtonReadPaper.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonReadPaper.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonReadPaperActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButtonReadPaper);
 
-        jButtonReadAuthor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/User-Coat-Red-icon.png"))); // NOI18N
         jButtonReadAuthor.setText("Users");
+        jButtonReadAuthor.setEnabled(false);
         jButtonReadAuthor.setFocusable(false);
         jButtonReadAuthor.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonReadAuthor.setPreferredSize(new java.awt.Dimension(100, 25));
         jButtonReadAuthor.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonReadAuthor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonReadAuthorActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButtonReadAuthor);
-        jToolBar1.add(jSeparator3);
 
-        jButtonSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Save-icon.png"))); // NOI18N
-        jButtonSave.setText("Save");
+        jButtonSave.setText("Save...");
+        jButtonSave.setEnabled(false);
         jButtonSave.setFocusable(false);
         jButtonSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonSave.setPreferredSize(new java.awt.Dimension(100, 25));
         jButtonSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSaveActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButtonSave);
 
-        jButtonRefresh.setIcon(new javax.swing.ImageIcon("E:\\Luan_van\\Code\\Demo2010\\ demo10\\JavaApplication3\\Button-Refresh-icon.png")); // NOI18N
         jButtonRefresh.setText("Refesh");
+        jButtonRefresh.setEnabled(false);
         jButtonRefresh.setFocusable(false);
         jButtonRefresh.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonRefresh.setPreferredSize(new java.awt.Dimension(100, 25));
         jButtonRefresh.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonRefreshActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButtonRefresh);
 
-        jButtonHelp.setIcon(new javax.swing.ImageIcon("E:\\Luan_van\\Code\\Demo2010\\ demo10\\JavaApplication3\\Button-Help-icon.png")); // NOI18N
         jButtonHelp.setText("Help");
         jButtonHelp.setFocusable(false);
         jButtonHelp.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonHelp.setPreferredSize(new java.awt.Dimension(100, 25));
         jButtonHelp.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButtonHelp);
-        jToolBar1.add(jSeparator1);
-        jToolBar1.add(filler1);
-
-        jTextFieldStatus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldStatusActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setText("Status");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonDataset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonReadPaper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonReadAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonHelp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addGap(30, 30, 30)
-                .addComponent(jTextFieldStatus))
+                .addGap(18, 18, 18)
+                .addComponent(jTextFieldStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonHelp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonReadAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonDataset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonReadPaper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTextFieldStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jButtonRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTextFieldStatus.getAccessibleContext().setAccessibleName("");
@@ -370,7 +347,9 @@ public class MainGUI extends javax.swing.JFrame {
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Method Combining PaperFV", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
@@ -443,7 +422,7 @@ public class MainGUI extends javax.swing.JFrame {
         );
         jPanel25Layout.setVerticalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Weighting", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
@@ -495,7 +474,7 @@ public class MainGUI extends javax.swing.JFrame {
                     .addComponent(jCheckBoxPaperWeightingSIM)
                     .addComponent(jCheckBoxPaperWeightingFF)
                     .addComponent(jCheckBoxPaperWeightingRPY))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -508,7 +487,7 @@ public class MainGUI extends javax.swing.JFrame {
                 .addComponent(jCheckBoxPaperWeightingRPY)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxPaperWeightingFF)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
@@ -519,7 +498,7 @@ public class MainGUI extends javax.swing.JFrame {
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Weighting", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
@@ -566,22 +545,18 @@ public class MainGUI extends javax.swing.JFrame {
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBoxAuthorWeightingSIM)
-                            .addComponent(jCheckBoxAuthorWeightingRPY))
+                        .addComponent(jCheckBoxAuthorWeightingSIM)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldGama))
+                    .addComponent(jCheckBoxAuthorWeightingRPY)
+                    .addComponent(jCheckBoxAuthorWeightingFF)
                     .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBoxAuthorWeightingFF)
-                            .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addComponent(jCheckBoxAuthorWeightingLC)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabelGama)))
-                        .addGap(0, 8, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jCheckBoxAuthorWeightingLC)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelGama)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -604,14 +579,12 @@ public class MainGUI extends javax.swing.JFrame {
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
-
-        filler3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("BUILD PROFILE PAPER");
@@ -626,69 +599,45 @@ public class MainGUI extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextFieldMethodCombiningAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(126, 126, 126)
-                        .addComponent(jLabel3))
-                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextFieldWeightingCombiningAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)))
-                .addComponent(filler3, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jTextFieldMethodCombiningPaper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(156, 156, 156)
+                        .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1)
-                        .addGap(16, 16, 16)))
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(152, 152, 152))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextFieldWeightingCombiningPaper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(4, 4, 4)
+                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
+                        .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)
+                        .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addComponent(filler4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 24, Short.MAX_VALUE)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldMethodCombiningAuthor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldMethodCombiningPaper, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldWeightingCombiningAuthor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldWeightingCombiningPaper, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(filler4, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13))
+                        .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jPanel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(filler3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Content based", jPanel4);
@@ -713,7 +662,7 @@ public class MainGUI extends javax.swing.JFrame {
                     .addComponent(jCheckBox9)
                     .addComponent(jCheckBox10)
                     .addComponent(jCheckBox15))
-                .addGap(0, 416, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -723,7 +672,7 @@ public class MainGUI extends javax.swing.JFrame {
                 .addComponent(jCheckBox10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jCheckBox15)
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Data Preparation", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
@@ -781,43 +730,30 @@ public class MainGUI extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
                 .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jTabbedPane1.addTab("Collaborative filtering", jPanel5);
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 836, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 219, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Hybrid", jPanel6);
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jTabbedPane1)
-                .addContainerGap())
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jTabbedPane1)
-                .addContainerGap())
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Result", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
 
+        jTextResult.setEditable(false);
         jTextResult.setColumns(20);
         jTextResult.setRows(5);
         jScrollPane1.setViewportView(jTextResult);
@@ -848,12 +784,12 @@ public class MainGUI extends javax.swing.JFrame {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButtonEvaluate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonEvaluate, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButtonEvaluate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButtonEvaluate, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
         );
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Recommendation ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
@@ -875,7 +811,7 @@ public class MainGUI extends javax.swing.JFrame {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonRecommendation, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                    .addComponent(jButtonRecommendation, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
                     .addComponent(jTextFieldTopNRecommend)
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addComponent(jLabel4)
@@ -889,11 +825,11 @@ public class MainGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldTopNRecommend, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonRecommendation, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+                .addComponent(jButtonRecommendation, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
                 .addGap(5, 5, 5))
         );
 
-        jMenu1.setText("File");
+        jMenuFile.setText("File");
 
         jMenuItemOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemOpen.setText("Open");
@@ -902,24 +838,24 @@ public class MainGUI extends javax.swing.JFrame {
                 jMenuItemOpenActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItemOpen);
+        jMenuFile.add(jMenuItemOpen);
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem2.setText("Save");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemSave.setText("Save");
+        jMenuItemSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jMenuItemSaveActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        jMenuFile.add(jMenuItemSave);
 
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem3.setText("Exit");
-        jMenu1.add(jMenuItem3);
+        jMenuItemExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItemExit.setText("Exit");
+        jMenuFile.add(jMenuItemExit);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(jMenuFile);
 
-        jMenu2.setText("Edit");
+        jMenuEdit.setText("Edit");
 
         jMenu3.setText("Load Dataset");
 
@@ -929,30 +865,30 @@ public class MainGUI extends javax.swing.JFrame {
         jMenuItem11.setText("MAS Dataset1");
         jMenu3.add(jMenuItem11);
 
-        jMenu2.add(jMenu3);
+        jMenuEdit.add(jMenu3);
 
         jMenuItem5.setText("ReadAllListPaper");
-        jMenu2.add(jMenuItem5);
+        jMenuEdit.add(jMenuItem5);
 
         jMenuItem4.setText("ReadAllList Author");
-        jMenu2.add(jMenuItem4);
+        jMenuEdit.add(jMenuItem4);
 
         jMenuItem6.setText("AuthorFVComputation");
-        jMenu2.add(jMenuItem6);
+        jMenuEdit.add(jMenuItem6);
 
         jMenuItem7.setText("PaperFVComputation");
-        jMenu2.add(jMenuItem7);
+        jMenuEdit.add(jMenuItem7);
 
         jMenuItem8.setText("BuildMatrixInputCF");
-        jMenu2.add(jMenuItem8);
+        jMenuEdit.add(jMenuItem8);
 
         jMenuItem9.setText("Recommendation");
-        jMenu2.add(jMenuItem9);
+        jMenuEdit.add(jMenuItem9);
 
         jMenuItem10.setText("Evaluation");
-        jMenu2.add(jMenuItem10);
+        jMenuEdit.add(jMenuItem10);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(jMenuEdit);
 
         setJMenuBar(jMenuBar1);
 
@@ -961,13 +897,16 @@ public class MainGUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -977,78 +916,49 @@ public class MainGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(1, 1, 1))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(1, 1, 1)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                        .addGap(2, 2, 2)
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonReadPaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReadPaperActionPerformed
-        // TODO add your handling code here:
-        jTextFieldStatus.setText("Reading papers... ");
-        if(chooseDataset==0)
-        response = paperRecommender.guiRequestHandler("Read paper from NUS_DATASET1",path);
-        else if(chooseDataset == 1)
-        response = paperRecommender.guiRequestHandler("Read paper from NUS_DATASET2",path);  
-             else 
-            response = paperRecommender.guiRequestHandler("Read paper from MAS_DATASET1", path);
-            jTextFieldStatus.setText(jTextFieldStatus.getText() + response[0]);
-        check =0;
-    }//GEN-LAST:event_jButtonReadPaperActionPerformed
-
-    private void jButtonReadAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReadAuthorActionPerformed
-        // TODO add your handling code here:
-        jTextFieldStatus.setText("Reading authors... ");
-        if(chooseDataset==0)
-        response = paperRecommender.guiRequestHandler("Read author from NUS_DATASET1",path);
-        else if(chooseDataset == 1)
-             response = paperRecommender.guiRequestHandler("Read author from NUS_DATASET2",path);
-        else 
-             response = paperRecommender.guiRequestHandler("Read paper from MAS_DATASET1", path);
-        jTextFieldStatus.setText(jTextFieldStatus.getText() + response[0]);
-        check=1;
-    }//GEN-LAST:event_jButtonReadAuthorActionPerformed
-
-    private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
-        // TODO add your handling code here:
-        JFileChooser fc = new JFileChooser();
-        fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        fc.showSaveDialog(this);
-        if (check==0){
-            response = paperRecommender.guiRequestHandler("Save paper",fc.getSelectedFile().getAbsolutePath());
-        }else if(check==1){
-            response = paperRecommender.guiRequestHandler("Save author",fc.getSelectedFile().getAbsolutePath());
-                 }else{
-                 paperRecommender.resultEvaluation= jTextResult.getText();
-                 response = paperRecommender.guiRequestHandler("Save result evaluation",fc.getSelectedFile().getAbsolutePath());
-        }
-    }//GEN-LAST:event_jButtonSaveActionPerformed
-
     private void jButtonRecommendationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRecommendationActionPerformed
         // TODO add your handling code here:
         jTextFieldStatus.setText("Recommendation... ");
-        paperRecommender.topN= Integer.parseInt(jTextFieldTopNRecommend.getText().toString());
+        paperRecommender.topN = Integer.parseInt(jTextFieldTopNRecommend.getText().toString());
         response = paperRecommender.guiRequestHandler("Recommend", null);
-      //  jTextResult.setText(response[1]);
+        //  jTextResult.setText(response[1]);
         jTextFieldStatus.setText(jTextFieldStatus.getText() + response[0]);
+
+        jTextResult.setText("");
+        HashMap<String, Author> authorsGUI = new HashMap<>();
+
+        authorsGUI = paperRecommender.authors;
+        for (String author : authorsGUI.keySet()) {
+            for (Object paperId : authorsGUI.get(author).getRecommendationList()) {
+                jTextResult.append((String)paperId+",");
+            }
+            jTextResult.append("\n");
+        }
+        jTextResult.remove(jTextResult.getText().length()-2);
     }//GEN-LAST:event_jButtonRecommendationActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jMenuItemSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSaveActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_jMenuItemSaveActionPerformed
 
     private void jButtonEvaluateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEvaluateActionPerformed
         // TODO add your handling code here:
-        check=3;
+        check = 3;
         jTextFieldStatus.setText("Evaluating... ");
-        jTextResult.append(jTextFieldMethodCombiningAuthor.getText()+" "+jTextFieldWeightingCombiningAuthor.getText()+" "+
-        jTextFieldMethodCombiningPaper.getText()+" "+jTextFieldWeightingCombiningPaper.getText()+"\r\n");
+        jTextResult.append(jTextFieldMethodCombiningAuthor + " " + jTextFieldWeightingCombiningAuthor + " "
+                + jTextFieldMethodCombiningPaper + " " + jTextFieldWeightingCombiningPaper + "\r\n");
         response = paperRecommender.guiRequestHandler("Precision", null);
         jTextResult.append(response[1]);
         response = paperRecommender.guiRequestHandler("Recall", null);
@@ -1060,41 +970,132 @@ public class MainGUI extends javax.swing.JFrame {
         response = paperRecommender.guiRequestHandler("NDCG", null);
         jTextResult.append(response[1]);
         response = paperRecommender.guiRequestHandler("MRR", null);
-        jTextResult.append(response[1]+"\n");
+        jTextResult.append(response[1] + "\n");
         jTextFieldStatus.setText(jTextFieldStatus.getText() + response[0]);
     }//GEN-LAST:event_jButtonEvaluateActionPerformed
-
-    private void jTextFieldStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldStatusActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldStatusActionPerformed
-    
-    private void jButtonDatasetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatasetActionPerformed
-        // TODO add your handling code here
-          
-    }//GEN-LAST:event_jButtonDatasetActionPerformed
 
     private void jMenuItemOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemOpenActionPerformed
         // TODO add your handling code here:
         JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         fc.showOpenDialog(this);
-        path= fc.getSelectedFile().getAbsolutePath();
+        path_Dataset = fc.getSelectedFile().getAbsolutePath();
     }//GEN-LAST:event_jMenuItemOpenActionPerformed
+
+    private void jMenuItemNUSDataset1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNUSDataset1ActionPerformed
+        // TODO add your handling code here:
+        path_Dataset = PRConstant.FOLDER_NUS_DATASET1;
+        chooseDataset = 0;
+        jTextFieldStatus.setText(path_Dataset);
+        jButtonReadPaper.setEnabled(true);
+        jButtonReadAuthor.setEnabled(true);
+        jButtonSave.setEnabled(true);
+        jButtonRefresh.setEnabled(true);
+    }//GEN-LAST:event_jMenuItemNUSDataset1ActionPerformed
+
+    private void jMenuItemMASDataset1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMASDataset1ActionPerformed
+        // TODO add your handling code here:
+        path_Dataset = PRConstant.FOLDER_MAS_DATASET1;
+        chooseDataset = 2;
+        jTextFieldStatus.setText(path_Dataset);
+        jButtonReadPaper.setEnabled(true);
+        jButtonReadAuthor.setEnabled(true);
+        jButtonSave.setEnabled(true);
+        jButtonRefresh.setEnabled(true);
+    }//GEN-LAST:event_jMenuItemMASDataset1ActionPerformed
+
+    private void jMenuItemNUSDataset2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNUSDataset2ActionPerformed
+        // TODO add your handling code here:
+        path_Dataset = PRConstant.FOLDER_NUS_DATASET2;
+        chooseDataset = 1;
+        jTextFieldStatus.setText(path_Dataset);
+        jButtonReadPaper.setEnabled(true);
+        jButtonReadAuthor.setEnabled(true);
+        jButtonSave.setEnabled(true);
+        jButtonRefresh.setEnabled(true);
+    }//GEN-LAST:event_jMenuItemNUSDataset2ActionPerformed
 
     private void jButtonRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefreshActionPerformed
         // TODO add your handling code here:
-       buttonGroupWeightingAuthor.clearSelection();
-       buttonGroupCombiningAuthor.clearSelection();
-       buttonGroupWeightingPaper.clearSelection();
-       buttonGroupCombiningPaper.clearSelection();
+        buttonGroupWeightingAuthor.clearSelection();
+        buttonGroupCombiningAuthor.clearSelection();
+        buttonGroupWeightingPaper.clearSelection();
+        buttonGroupCombiningPaper.clearSelection();
+        path_Dataset = null;// path of dataset folder
+        check = 0;// paper
+        chooseDataset = 0;//0: NUS Dataset1, 1: NUS Dataset2, 2:MAS Dataset1
+        jTextFieldMethodCombiningAuthor = null;
+        jTextFieldMethodCombiningPaper = null;
+        jTextFieldWeightingCombiningAuthor = null;
+        jTextFieldWeightingCombiningPaper = null;
     }//GEN-LAST:event_jButtonRefreshActionPerformed
+
+    private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
+        // TODO add your handling code here:
+        JFileChooser fc = new JFileChooser();
+        fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        fc.showSaveDialog(this);
+        if (check == 0) {
+            response = paperRecommender.guiRequestHandler("Save paper", fc.getSelectedFile().getAbsolutePath());
+        } else if (check == 1) {
+            response = paperRecommender.guiRequestHandler("Save author", fc.getSelectedFile().getAbsolutePath());
+        } else if (check == 2) {
+            paperRecommender.resultEvaluation = jTextResult.getText();
+            response = paperRecommender.guiRequestHandler("Save result evaluation", fc.getSelectedFile().getAbsolutePath());
+        }
+    }//GEN-LAST:event_jButtonSaveActionPerformed
+
+    private void jButtonReadAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReadAuthorActionPerformed
+        // TODO add your handling code here:
+        jTextFieldStatus.setText("Reading authors... ");
+        long startTime = System.currentTimeMillis();
+        if (chooseDataset == 0) {
+            response = paperRecommender.guiRequestHandler("Read author from NUS_DATASET1", path_Dataset);
+        } else if (chooseDataset == 1) {
+            response = paperRecommender.guiRequestHandler("Read author from NUS_DATASET2", path_Dataset);
+        } else if (chooseDataset == 2) {
+            response = paperRecommender.guiRequestHandler("Read paper from MAS_DATASET1", path_Dataset);
+        }
+        long estimateTime = System.currentTimeMillis() - startTime;
+        jTextFieldStatus.setText(jTextFieldStatus.getText() + response[0]);
+        check = 1;
+
+        String result = "\n" + "Time: " + estimateTime / 1000 + " seconds - " + "Number of authors are " + paperRecommender.authors.keySet().size();
+        jTextResult.append(result);
+    }//GEN-LAST:event_jButtonReadAuthorActionPerformed
+
+    private void jButtonReadPaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReadPaperActionPerformed
+        // TODO add your handling code here:
+        jTextFieldStatus.setText("Reading papers... ");
+        long startTime = System.currentTimeMillis();
+        long estimateTime = 0;
+        if (chooseDataset == 0) {
+            response = paperRecommender.guiRequestHandler("Read paper from NUS_DATASET1", path_Dataset);
+        } else if (chooseDataset == 1) {
+            response = paperRecommender.guiRequestHandler("Read paper from NUS_DATASET2", path_Dataset);
+        } else {
+            response = paperRecommender.guiRequestHandler("Read paper from MAS_DATASET1", path_Dataset);
+        }
+        estimateTime = System.currentTimeMillis() - startTime;
+        jTextFieldStatus.setText(jTextFieldStatus.getText() + response[0]);
+
+        jTextResult.setText("");
+        String result = "Time: " + estimateTime / 1000 + " seconds - " + "Number of papers are " + paperRecommender.papers.keySet().size();
+        jTextResult.append(result);
+        check = 0;
+    }//GEN-LAST:event_jButtonReadPaperActionPerformed
+
+    private void jButtonDatasetMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonDatasetMouseReleased
+        // TODO add your handling code here:
+        jPopupMenu.show(this, evt.getX(), evt.getY() + 1);
+    }//GEN-LAST:event_jButtonDatasetMouseReleased
 
     private void jCheckBoxAuthorWeightingRPYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxAuthorWeightingRPYActionPerformed
         // TODO add your handling code here:
         jTextFieldStatus.setText("Computing author feature vector with RPY weight... ");
         paperRecommender.weighting = 2;
         response = paperRecommender.guiRequestHandler("Build profile user", null);
-        jTextFieldWeightingCombiningAuthor.setText("with RPY weighting\n");
+        jTextFieldWeightingCombiningAuthor = "with RPY weighting\n";
         jTextFieldStatus.setText(jTextFieldStatus.getText() + response[0]);
     }//GEN-LAST:event_jCheckBoxAuthorWeightingRPYActionPerformed
 
@@ -1102,9 +1103,9 @@ public class MainGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         jTextFieldStatus.setText("Computing author feature vector with Forgetting Factor weight... ");
         paperRecommender.weighting = 3;
-        paperRecommender.gama= Double.parseDouble(jTextFieldGama.getText());
+        paperRecommender.gama = Double.parseDouble(jTextFieldGama.getText());
         response = paperRecommender.guiRequestHandler("Build profile user", null);
-        jTextFieldWeightingCombiningAuthor.setText("withFF weighting\n");
+        jTextFieldWeightingCombiningAuthor = "withFF weighting\n";
         jTextFieldStatus.setText(jTextFieldStatus.getText() + response[0]);
     }//GEN-LAST:event_jCheckBoxAuthorWeightingFFActionPerformed
 
@@ -1113,18 +1114,24 @@ public class MainGUI extends javax.swing.JFrame {
         jTextFieldStatus.setText("Computing author feature vector with cosine weight... ");
         paperRecommender.weighting = 1;
         response = paperRecommender.guiRequestHandler("Build profile user", null);
-        jTextFieldWeightingCombiningAuthor.setText("with SIM weighting\n");
+        jTextFieldWeightingCombiningAuthor = "with SIM weighting\n";
         jTextFieldStatus.setText(jTextFieldStatus.getText() + response[0]);
     }//GEN-LAST:event_jCheckBoxAuthorWeightingSIMActionPerformed
 
+    private void jCheckBoxAuthorWeightingLCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBoxAuthorWeightingLCMouseClicked
+        // TODO add your handling code here:
+        //        if(jCheckBoxAuthorWeightingLC.isSelected())
+        //            jCheckBoxAuthorWeightingLC.setSelected(false);
+    }//GEN-LAST:event_jCheckBoxAuthorWeightingLCMouseClicked
+
     private void jCheckBoxPaperWeightingRPYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxPaperWeightingRPYActionPerformed
         // TODO add your handling code here:
-         jTextFieldWeightingCombiningPaper.setText("with RPY weighting\n");
+        jTextFieldWeightingCombiningPaper = "with RPY weighting\n";
     }//GEN-LAST:event_jCheckBoxPaperWeightingRPYActionPerformed
 
     private void jCheckBoxPaperWeightingFFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxPaperWeightingFFActionPerformed
         // TODO add your handling code here:
-         jTextFieldWeightingCombiningPaper.setText("with FF weighting\n");
+        jTextFieldWeightingCombiningPaper = "with FF weighting\n";
     }//GEN-LAST:event_jCheckBoxPaperWeightingFFActionPerformed
 
     private void jCheckBoxPaperWeightingSIMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxPaperWeightingSIMActionPerformed
@@ -1132,97 +1139,64 @@ public class MainGUI extends javax.swing.JFrame {
         jTextFieldStatus.setText("Computing paper feature vector with SIM weight... ");
         //   paperRecommender.weighting = 2;
         response = paperRecommender.guiRequestHandler("Build profile paper", null);
-        jTextFieldWeightingCombiningPaper.setText("with SIM weighting\n");
+        jTextFieldWeightingCombiningPaper = "with SIM weighting\n";
         jTextFieldStatus.setText(jTextFieldStatus.getText() + response[0]);
-
     }//GEN-LAST:event_jCheckBoxPaperWeightingSIMActionPerformed
 
     private void jCheckBoxPaperWeightingLCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxPaperWeightingLCActionPerformed
         // TODO add your handling code here:
-         jTextFieldWeightingCombiningPaper.setText("with LC weighting\n");
+        jTextFieldWeightingCombiningPaper = "with LC weighting\n";
     }//GEN-LAST:event_jCheckBoxPaperWeightingLCActionPerformed
 
     private void jCheckBoxPaperCitRefActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxPaperCitRefActionPerformed
         // TODO add your handling code here:
-        paperRecommender.combiningPaper=3;
-        jTextFieldMethodCombiningPaper.setText("Combining profile paper by Paper+Cit+Ref");
+        paperRecommender.combiningPaper = 3;
+        jTextFieldMethodCombiningPaper = "Combining profile paper by Paper+Cit+Ref";
     }//GEN-LAST:event_jCheckBoxPaperCitRefActionPerformed
 
     private void jCheckBoxPaperRefActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxPaperRefActionPerformed
         // TODO add your handling code here:
-        paperRecommender.combiningPaper=2;
-        jTextFieldMethodCombiningPaper.setText("Combining profile paper by Paper+Ref");
+        paperRecommender.combiningPaper = 2;
+        jTextFieldMethodCombiningPaper = "Combining profile paper by Paper+Ref";
     }//GEN-LAST:event_jCheckBoxPaperRefActionPerformed
 
     private void jCheckBoxPaperCitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxPaperCitActionPerformed
         // TODO add your handling code here:
-        paperRecommender.combiningPaper=1;
-        jTextFieldMethodCombiningPaper.setText("Combining profile paper by Paper+Cit");
+        paperRecommender.combiningPaper = 1;
+        jTextFieldMethodCombiningPaper = "Combining profile paper by Paper+Cit";
     }//GEN-LAST:event_jCheckBoxPaperCitActionPerformed
 
     private void jCheckBoxPaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxPaperActionPerformed
         // TODO add your handling code here:
-        paperRecommender.combiningPaper=0;
-        jTextFieldMethodCombiningPaper.setText("Combining profile paper by Paper");
+        paperRecommender.combiningPaper = 0;
+        jTextFieldMethodCombiningPaper = "Combining profile paper by Paper";
     }//GEN-LAST:event_jCheckBoxPaperActionPerformed
 
     private void jCheckBoxAuthorPaperCitRefActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxAuthorPaperCitRefActionPerformed
         // TODO add your handling code here:
-        paperRecommender.combiningAuthor=3;
-        jTextFieldMethodCombiningAuthor.setText("Combining profile author by Paper+Cit+Ref");
+        paperRecommender.combiningAuthor = 3;
+        jTextFieldMethodCombiningAuthor = "Combining profile author by Paper+Cit+Ref";
     }//GEN-LAST:event_jCheckBoxAuthorPaperCitRefActionPerformed
 
     private void jCheckBoxAuthorPaperRefActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxAuthorPaperRefActionPerformed
         // TODO add your handling code here:
-        paperRecommender.combiningAuthor=2;
-        jTextFieldMethodCombiningAuthor.setText("Combining profile author by Paper+Ref");
- 
+        paperRecommender.combiningAuthor = 2;
+        jTextFieldMethodCombiningAuthor = "Combining profile author by Paper+Ref";
     }//GEN-LAST:event_jCheckBoxAuthorPaperRefActionPerformed
 
     private void jCheckBoxAuthorPaperCitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxAuthorPaperCitActionPerformed
         // TODO add your handling code here:
-        paperRecommender.combiningAuthor=1;
-        jTextFieldMethodCombiningAuthor.setText("Combining profile author by Paper+ Cit");
+        paperRecommender.combiningAuthor = 1;
+        jTextFieldMethodCombiningAuthor = "Combining profile author by Paper+ Cit";
     }//GEN-LAST:event_jCheckBoxAuthorPaperCitActionPerformed
 
     private void jCheckBoxAuthorPaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxAuthorPaperActionPerformed
         // TODO add your handling code here:
-       if(jCheckBoxAuthorPaper.isSelected())
-        paperRecommender.combiningAuthor=0;
-        jTextFieldMethodCombiningAuthor.setText("Combining profile author by Paper");
-             
+        if (jCheckBoxAuthorPaper.isSelected()) {
+            paperRecommender.combiningAuthor = 0;
+        }
+        jTextFieldMethodCombiningAuthor = "Combining profile author by Paper";
     }//GEN-LAST:event_jCheckBoxAuthorPaperActionPerformed
-
-    private void jButtonDatasetMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonDatasetMouseReleased
-        // TODO add your handling code here:
-        jPopupMenu.show(this,evt.getX(),evt.getY()+1);
-    }//GEN-LAST:event_jButtonDatasetMouseReleased
-
-    private void jMenuItemNUSDataset1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNUSDataset1ActionPerformed
-        // TODO add your handling code here:
-        path = PRConstant.FOLDER_NUS_DATASET1;
-        chooseDataset = 0;
-        jTextFieldStatus.setText(path);
-    }//GEN-LAST:event_jMenuItemNUSDataset1ActionPerformed
-
-    private void jMenuItemMASDataset1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMASDataset1ActionPerformed
-        // TODO add your handling code here:
-        path = PRConstant.FOLDER_MAS_DATASET1;
-        chooseDataset = 2;
-    }//GEN-LAST:event_jMenuItemMASDataset1ActionPerformed
-
-    private void jCheckBoxAuthorWeightingLCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBoxAuthorWeightingLCMouseClicked
-        // TODO add your handling code here:
-//        if(jCheckBoxAuthorWeightingLC.isSelected())
-//            jCheckBoxAuthorWeightingLC.setSelected(false);
-    }//GEN-LAST:event_jCheckBoxAuthorWeightingLCMouseClicked
-
-    private void jMenuItemNUSDataset2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNUSDataset2ActionPerformed
-        // TODO add your handling code here:
-        path = PRConstant.FOLDER_NUS_DATASET2;
-        chooseDataset = 1;
-        jTextFieldStatus.setText(path); 
-    }//GEN-LAST:event_jMenuItemNUSDataset2ActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -1233,20 +1207,9 @@ public class MainGUI extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (Exception e) {
+            System.out.println("Unable to load Windows look and feel");
         }
         //</editor-fold>
 
@@ -1263,9 +1226,8 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroupCombiningPaper;
     private javax.swing.ButtonGroup buttonGroupWeightingAuthor;
     private javax.swing.ButtonGroup buttonGroupWeightingPaper;
-    private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
-    private javax.swing.Box.Filler filler3;
+    private javax.swing.Box.Filler filler4;
     private javax.swing.JButton jButtonDataset;
     private javax.swing.JButton jButtonEvaluate;
     private javax.swing.JButton jButtonHelp;
@@ -1299,25 +1261,25 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelGama;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuEdit;
+    private javax.swing.JMenu jMenuFile;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JMenuItem jMenuItemExit;
     private javax.swing.JMenuItem jMenuItemMASDataset1;
     private javax.swing.JMenuItem jMenuItemNUSDataset1;
     private javax.swing.JMenuItem jMenuItemNUSDataset2;
     private javax.swing.JMenuItem jMenuItemOpen;
+    private javax.swing.JMenuItem jMenuItemSave;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
@@ -1333,25 +1295,16 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JPopupMenu jPopupMenu;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JToolBar.Separator jSeparator1;
-    private javax.swing.JToolBar.Separator jSeparator2;
-    private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextFieldGama;
-    private javax.swing.JTextField jTextFieldMethodCombiningAuthor;
-    private javax.swing.JTextField jTextFieldMethodCombiningPaper;
     private javax.swing.JTextField jTextFieldStatus;
     private javax.swing.JTextField jTextFieldTopNRecommend;
-    private javax.swing.JTextField jTextFieldWeightingCombiningAuthor;
-    private javax.swing.JTextField jTextFieldWeightingCombiningPaper;
     private javax.swing.JTextArea jTextResult;
-    private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
 }

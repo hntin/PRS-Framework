@@ -5,7 +5,7 @@
 package uit.tkorg.pr.gui;
 
 import javax.swing.JFileChooser;
-import uit.tkorg.pr.centralcontroller.PaperRecommender;
+import uit.tkorg.pr.centralcontroller.PaperRecommenderSV;
 
 /**
  *
@@ -14,7 +14,7 @@ import uit.tkorg.pr.centralcontroller.PaperRecommender;
 public class PaperRecommenderGUI extends javax.swing.JFrame {
     
     // Controller handles all request from gui:
-    private PaperRecommender paperRecommender;
+    private PaperRecommenderSV paperRecommender;
     
     private String[] response;
 
@@ -23,7 +23,7 @@ public class PaperRecommenderGUI extends javax.swing.JFrame {
      */
     public PaperRecommenderGUI() {
         initComponents();
-        paperRecommender = new PaperRecommender();
+        paperRecommender = new PaperRecommenderSV();
         jTextFieldStatus.setText("Ready.");
     }
 
