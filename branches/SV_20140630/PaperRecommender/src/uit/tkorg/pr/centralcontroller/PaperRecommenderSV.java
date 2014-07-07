@@ -5,26 +5,19 @@ import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import org.apache.commons.io.FileUtils;
 import uit.tkorg.pr.constant.PRConstant;
 import uit.tkorg.pr.dataimex.MASDataset1;
 import uit.tkorg.pr.dataimex.MahoutFile;
 import uit.tkorg.pr.dataimex.NUSDataset1;
 import uit.tkorg.pr.dataimex.NUSDataset2;
-import uit.tkorg.pr.dataimex.PRGeneralFile;
 import uit.tkorg.pr.datapreparation.cbf.AuthorFVComputation;
 import uit.tkorg.pr.datapreparation.cbf.PaperFVComputation;
-import uit.tkorg.pr.datapreparation.cf.CFRatingMatrixComputation;
 import uit.tkorg.pr.evaluation.Evaluator;
 import uit.tkorg.pr.method.cbf.FeatureVectorSimilarity;
-import uit.tkorg.pr.method.cf.KNNCF;
-import uit.tkorg.pr.method.cf.SVDCF;
 import uit.tkorg.pr.model.Author;
 import uit.tkorg.pr.model.Paper;
 import uit.tkorg.utility.general.BinaryFileUtility;
-import uit.tkorg.utility.textvectorization.TextPreprocessUtility;
-import uit.tkorg.utility.textvectorization.TextVectorizationByMahoutTerminalUtility;
 
 /**
  *

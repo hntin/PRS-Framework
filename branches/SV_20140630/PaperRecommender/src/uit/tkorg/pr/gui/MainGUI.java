@@ -8,8 +8,10 @@ package uit.tkorg.pr.gui;
 import java.awt.*;
 import java.util.HashMap;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import uit.tkorg.pr.centralcontroller.PaperRecommenderSV;
+import uit.tkorg.pr.constant.DatasetType;
 import uit.tkorg.pr.constant.PRConstant;
 import uit.tkorg.pr.model.Author;
 import uit.tkorg.pr.model.Paper;
@@ -56,6 +58,7 @@ public class MainGUI extends javax.swing.JFrame {
         buttonGroupCombiningAuthor = new javax.swing.ButtonGroup();
         buttonGroupCombiningPaper = new javax.swing.ButtonGroup();
         buttonGroupWeightingPaper = new javax.swing.ButtonGroup();
+        buttonGroupCFAlgorithm = new javax.swing.ButtonGroup();
         jPanel3 = new javax.swing.JPanel();
         jTextFieldStatus = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -162,6 +165,8 @@ public class MainGUI extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Import Data", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
 
+        jTextFieldStatus.setEditable(false);
+        jTextFieldStatus.setBackground(javax.swing.UIManager.getDefaults().getColor("window"));
         jTextFieldStatus.setPreferredSize(new java.awt.Dimension(100, 25));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -255,25 +260,25 @@ public class MainGUI extends javax.swing.JFrame {
                 .addComponent(jButtonRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonHelp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addComponent(jTextFieldStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jTextFieldStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(32, Short.MAX_VALUE))
             .addComponent(jButtonDataset, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jButtonReadPaper, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jButtonReadAuthor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jButtonSave, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jButtonHelp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jButtonRefresh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         jTextFieldStatus.getAccessibleContext().setAccessibleName("");
@@ -352,9 +357,7 @@ public class MainGUI extends javax.swing.JFrame {
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel11Layout.createSequentialGroup()
-                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Method Combining PaperFV", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
@@ -492,7 +495,7 @@ public class MainGUI extends javax.swing.JFrame {
                 .addComponent(jCheckBoxPaperWeightingRPY)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxPaperWeightingFF)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
@@ -550,34 +553,37 @@ public class MainGUI extends javax.swing.JFrame {
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addComponent(jCheckBoxAuthorWeightingSIM)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldGama))
-                    .addComponent(jCheckBoxAuthorWeightingRPY)
-                    .addComponent(jCheckBoxAuthorWeightingFF)
+                        .addComponent(jCheckBoxAuthorWeightingFF)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                        .addComponent(jTextFieldGama, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addComponent(jCheckBoxAuthorWeightingLC)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabelGama)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCheckBoxAuthorWeightingSIM)
+                            .addComponent(jCheckBoxAuthorWeightingLC)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(jCheckBoxAuthorWeightingRPY)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabelGama)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBoxAuthorWeightingLC)
-                    .addComponent(jLabelGama))
+                .addComponent(jCheckBoxAuthorWeightingLC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(2, 2, 2)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBoxAuthorWeightingSIM)
-                    .addComponent(jTextFieldGama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jCheckBoxAuthorWeightingSIM, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBoxAuthorWeightingRPY)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
-                .addComponent(jCheckBoxAuthorWeightingFF)
-                .addContainerGap())
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelGama)
+                    .addComponent(jCheckBoxAuthorWeightingRPY, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(6, 6, 6)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCheckBoxAuthorWeightingFF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextFieldGama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8))
         );
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
@@ -588,7 +594,7 @@ public class MainGUI extends javax.swing.JFrame {
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -604,57 +610,61 @@ public class MainGUI extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(156, 156, 156)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addGap(152, 152, 152))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
                         .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
+                        .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel3)))
+                .addGap(27, 141, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(filler4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addComponent(filler4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(222, 222, 222))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(filler4, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jPanel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(filler4, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Content based", jPanel4);
 
         jPanel18.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Recommendation algorithm ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
 
+        buttonGroupCFAlgorithm.add(jCheckBox9);
         jCheckBox9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jCheckBox9.setText("Pearson Correlation");
 
+        buttonGroupCFAlgorithm.add(jCheckBox10);
         jCheckBox10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jCheckBox10.setText("Cosine similarity");
 
+        buttonGroupCFAlgorithm.add(jCheckBox15);
         jCheckBox15.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jCheckBox15.setText("SVD algorithm");
 
@@ -684,6 +694,11 @@ public class MainGUI extends javax.swing.JFrame {
 
         jCheckBox1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jCheckBox1.setText("Build Matrix Input");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
@@ -752,7 +767,7 @@ public class MainGUI extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -777,6 +792,7 @@ public class MainGUI extends javax.swing.JFrame {
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Evaluation", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
 
         jButtonEvaluate.setText("EVALUATION");
+        jButtonEvaluate.setPreferredSize(new java.awt.Dimension(100, 25));
         jButtonEvaluate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEvaluateActionPerformed(evt);
@@ -787,19 +803,19 @@ public class MainGUI extends javax.swing.JFrame {
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButtonEvaluate, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jButtonEvaluate, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButtonEvaluate, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addComponent(jButtonEvaluate, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Recommendation ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
 
         jButtonRecommendation.setText("RECOMMENDATION");
+        jButtonRecommendation.setPreferredSize(new java.awt.Dimension(100, 25));
         jButtonRecommendation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonRecommendationActionPerformed(evt);
@@ -815,13 +831,10 @@ public class MainGUI extends javax.swing.JFrame {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonRecommendation, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                    .addComponent(jTextFieldTopNRecommend)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addComponent(jLabel4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jButtonRecommendation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jTextFieldTopNRecommend)
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -829,9 +842,8 @@ public class MainGUI extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldTopNRecommend, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonRecommendation, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
-                .addGap(5, 5, 5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addComponent(jButtonRecommendation, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jMenuFile.setText("File");
@@ -902,16 +914,16 @@ public class MainGUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -921,9 +933,10 @@ public class MainGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2)
+                        .addGap(18, 18, 18)
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -944,11 +957,11 @@ public class MainGUI extends javax.swing.JFrame {
         authorsGUI = paperRecommender.authors;
         for (String author : authorsGUI.keySet()) {
             for (Object paperId : authorsGUI.get(author).getRecommendationList()) {
-                jTextResult.append((String)paperId+",");
+                jTextResult.append((String) paperId + ",");
             }
             jTextResult.append("\n");
         }
-        jTextResult.remove(jTextResult.getText().length()-2);
+        jTextResult.remove(jTextResult.getText().length() - 2);
     }//GEN-LAST:event_jButtonRecommendationActionPerformed
 
     private void jMenuItemSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSaveActionPerformed
@@ -1023,6 +1036,7 @@ public class MainGUI extends javax.swing.JFrame {
         buttonGroupCombiningAuthor.clearSelection();
         buttonGroupWeightingPaper.clearSelection();
         buttonGroupCombiningPaper.clearSelection();
+        buttonGroupCFAlgorithm.clearSelection();
         path_Dataset = null;// path of dataset folder
         check = 0;// paper
         chooseDataset = 0;//0: NUS Dataset1, 1: NUS Dataset2, 2:MAS Dataset1
@@ -1061,8 +1075,8 @@ public class MainGUI extends javax.swing.JFrame {
         long estimateTime = System.currentTimeMillis() - startTime;
         jTextFieldStatus.setText(jTextFieldStatus.getText() + response[0]);
         check = 1;
-
-        String result = "\n" + "Time: " + estimateTime / 1000 + " seconds - " + "Number of authors are " + paperRecommender.authors.keySet().size();
+        jTextResult.setText("");
+        String result = "Time: " + estimateTime / 1000 + " seconds - " + "Number of authors are " + paperRecommender.authors.keySet().size();
         jTextResult.append(result);
     }//GEN-LAST:event_jButtonReadAuthorActionPerformed
 
@@ -1094,30 +1108,45 @@ public class MainGUI extends javax.swing.JFrame {
 
     private void jCheckBoxAuthorWeightingRPYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxAuthorWeightingRPYActionPerformed
         // TODO add your handling code here:
-        jTextFieldStatus.setText("Computing author feature vector with RPY weight... ");
-        paperRecommender.weighting = 2;
-        response = paperRecommender.guiRequestHandler("Build profile user", null);
-        jTextFieldWeightingCombiningAuthor = "with RPY weighting\n";
-        jTextFieldStatus.setText(jTextFieldStatus.getText() + response[0]);
+        if (buttonGroupCombiningAuthor.getSelection() != null) {
+            jTextFieldStatus.setText("Computing author feature vector with RPY weight... ");
+            paperRecommender.weighting = 2;
+            response = paperRecommender.guiRequestHandler("Build profile user", null);
+            jTextFieldWeightingCombiningAuthor = "with RPY weighting\n";
+            jTextFieldStatus.setText(jTextFieldStatus.getText() + response[0]);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Please choose Method Combining AuthorFV", "Warning", JOptionPane.WARNING_MESSAGE);
+            buttonGroupWeightingAuthor.clearSelection();
+        }
     }//GEN-LAST:event_jCheckBoxAuthorWeightingRPYActionPerformed
 
     private void jCheckBoxAuthorWeightingFFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxAuthorWeightingFFActionPerformed
         // TODO add your handling code here:
-        jTextFieldStatus.setText("Computing author feature vector with Forgetting Factor weight... ");
-        paperRecommender.weighting = 3;
-        paperRecommender.gama = Double.parseDouble(jTextFieldGama.getText());
-        response = paperRecommender.guiRequestHandler("Build profile user", null);
-        jTextFieldWeightingCombiningAuthor = "withFF weighting\n";
-        jTextFieldStatus.setText(jTextFieldStatus.getText() + response[0]);
+        if (buttonGroupCombiningAuthor.getSelection() != null) {
+            jTextFieldStatus.setText("Computing author feature vector with Forgetting Factor weight... ");
+            paperRecommender.weighting = 3;
+            paperRecommender.gama = Double.parseDouble(jTextFieldGama.getText());
+            response = paperRecommender.guiRequestHandler("Build profile user", null);
+            jTextFieldWeightingCombiningAuthor = "withFF weighting\n";
+            jTextFieldStatus.setText(jTextFieldStatus.getText() + response[0]);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Please choose Method Combining AuthorFV", "Warning", JOptionPane.WARNING_MESSAGE);
+            buttonGroupWeightingAuthor.clearSelection();
+        }
     }//GEN-LAST:event_jCheckBoxAuthorWeightingFFActionPerformed
 
     private void jCheckBoxAuthorWeightingSIMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxAuthorWeightingSIMActionPerformed
         // TODO add your handling code here:
-        jTextFieldStatus.setText("Computing author feature vector with cosine weight... ");
-        paperRecommender.weighting = 1;
-        response = paperRecommender.guiRequestHandler("Build profile user", null);
-        jTextFieldWeightingCombiningAuthor = "with SIM weighting\n";
-        jTextFieldStatus.setText(jTextFieldStatus.getText() + response[0]);
+        if (buttonGroupCombiningAuthor.getSelection() != null) {
+            jTextFieldStatus.setText("Computing author feature vector with cosine weight... ");
+            paperRecommender.weighting = 1;
+            response = paperRecommender.guiRequestHandler("Build profile user", null);
+            jTextFieldWeightingCombiningAuthor = "with SIM weighting\n";
+            jTextFieldStatus.setText(jTextFieldStatus.getText() + response[0]);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Please choose Method Combining AuthorFV", "Warning", JOptionPane.WARNING_MESSAGE);
+            buttonGroupWeightingAuthor.clearSelection();
+        }
     }//GEN-LAST:event_jCheckBoxAuthorWeightingSIMActionPerformed
 
     private void jCheckBoxPaperWeightingRPYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxPaperWeightingRPYActionPerformed
@@ -1132,11 +1161,16 @@ public class MainGUI extends javax.swing.JFrame {
 
     private void jCheckBoxPaperWeightingSIMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxPaperWeightingSIMActionPerformed
         // TODO add your handling code here:
-        jTextFieldStatus.setText("Computing paper feature vector with SIM weight... ");
-        //   paperRecommender.weighting = 2;
-        response = paperRecommender.guiRequestHandler("Build profile paper", null);
-        jTextFieldWeightingCombiningPaper = "with SIM weighting\n";
-        jTextFieldStatus.setText(jTextFieldStatus.getText() + response[0]);
+        if (buttonGroupCombiningPaper.getSelection() != null) {
+            jTextFieldStatus.setText("Computing paper feature vector with SIM weight... ");
+            //   paperRecommender.weighting = 2;
+            response = paperRecommender.guiRequestHandler("Build profile paper", null);
+            jTextFieldWeightingCombiningPaper = "with SIM weighting\n";
+            jTextFieldStatus.setText(jTextFieldStatus.getText() + response[0]);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Please choose Method Combining PaperFV", "Warning", JOptionPane.WARNING_MESSAGE);
+            buttonGroupWeightingPaper.clearSelection();
+        }
     }//GEN-LAST:event_jCheckBoxPaperWeightingSIMActionPerformed
 
     private void jCheckBoxPaperWeightingLCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxPaperWeightingLCActionPerformed
@@ -1196,8 +1230,24 @@ public class MainGUI extends javax.swing.JFrame {
 
     private void jCheckBoxAuthorWeightingLCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxAuthorWeightingLCActionPerformed
         // TODO add your handling code here:
-        
+        if (buttonGroupCombiningAuthor.getSelection() != null) {
+            jTextFieldStatus.setText("Computing author feature vector with cosine weight... ");
+            paperRecommender.weighting = 0;
+            response = paperRecommender.guiRequestHandler("Build profile user", null);
+            jTextFieldWeightingCombiningAuthor = "with SIM weighting\n";
+            jTextFieldStatus.setText(jTextFieldStatus.getText() + response[0]);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Please choose Method Combining AuthorFV", "Warning", JOptionPane.WARNING_MESSAGE);
+            buttonGroupWeightingAuthor.clearSelection();
+        }
     }//GEN-LAST:event_jCheckBoxAuthorWeightingLCActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        // TODO add your handling code here:
+        if (chooseDataset == 2) {
+          uit.tkorg.pr.constant.PRConstant.currentDatasetType=DatasetType.MYSQL;
+        }
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -1223,6 +1273,7 @@ public class MainGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroupCFAlgorithm;
     private javax.swing.ButtonGroup buttonGroupCombiningAuthor;
     private javax.swing.ButtonGroup buttonGroupCombiningPaper;
     private javax.swing.ButtonGroup buttonGroupWeightingAuthor;
