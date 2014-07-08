@@ -433,7 +433,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="281" width="793" height="-1"/>
+                  <AbsoluteConstraints x="0" y="326" width="793" height="220"/>
                 </Constraint>
               </Constraints>
 
@@ -447,7 +447,7 @@
                   </AuxValues>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="6" y="16" width="771" height="175"/>
+                      <AbsoluteConstraints x="6" y="16" width="780" height="190"/>
                     </Constraint>
                   </Constraints>
 
@@ -707,6 +707,16 @@
                 </Container>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JButton" name="jButton18">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Apply"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="10" y="290" width="140" height="-1"/>
+                </Constraint>
+              </Constraints>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel3">
@@ -1064,7 +1074,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane5" alignment="1" pref="385" max="32767" attributes="0"/>
+                      <Component id="jScrollPane5" alignment="1" pref="386" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -1138,7 +1148,7 @@
                           <Component id="Recommendation" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                           <Component id="jButton19" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="25" max="32767" attributes="0"/>
+                      <EmptySpace pref="26" max="32767" attributes="0"/>
                       <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>

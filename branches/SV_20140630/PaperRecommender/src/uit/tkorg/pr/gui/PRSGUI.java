@@ -92,6 +92,7 @@ public class PRSGUI extends javax.swing.JFrame {
         jTextField8 = new javax.swing.JTextField();
         jPanel27 = new javax.swing.JPanel();
         jCheckBox1 = new javax.swing.JCheckBox();
+        jButton18 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel16 = new javax.swing.JPanel();
         jButton10 = new javax.swing.JButton();
@@ -343,9 +344,9 @@ public class PRSGUI extends javax.swing.JFrame {
         jTextArea2.setRows(5);
         jScrollPane2.setViewportView(jTextArea2);
 
-        jPanel13.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 16, 771, 175));
+        jPanel13.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 16, 780, 190));
 
-        jPanel2.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 281, 793, -1));
+        jPanel2.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 326, 793, 220));
 
         jPanel26.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -439,6 +440,9 @@ public class PRSGUI extends javax.swing.JFrame {
         jTabbedPane2.addTab("Colloborative filtering Option", jPanel27);
 
         jPanel2.add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 63, -1, 207));
+
+        jButton18.setText("Apply");
+        jPanel2.add(jButton18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 140, -1));
 
         jTabbedPane1.addTab("Data Preparation", jPanel2);
 
@@ -579,7 +583,7 @@ public class PRSGUI extends javax.swing.JFrame {
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
         );
 
         jButton14.setText("Start");
@@ -678,7 +682,7 @@ public class PRSGUI extends javax.swing.JFrame {
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Recommendation, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -806,6 +810,7 @@ public class PRSGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton17;
+    private javax.swing.JButton jButton18;
     private javax.swing.JButton jButton19;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
