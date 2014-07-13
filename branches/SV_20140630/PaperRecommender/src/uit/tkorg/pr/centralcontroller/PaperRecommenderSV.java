@@ -25,32 +25,33 @@ import uit.tkorg.utility.general.BinaryFileUtility;
  * control all traffic from gui.
  */
 public class PaperRecommenderSV {
-        public double gama;
-        public int weighting;
-        public int combiningAuthor;
-        public int combiningPaper;
+        public double gama;// tham so gama cho 
+        public int weighting;// trong so ket hop
+        public int combiningAuthor;// phuong thuc combining author
+        public int combiningPaper; // phuong thuc combining paper
         public int topN;
         public String resultEvaluation;
         public HashMap<String, Paper> papers = new HashMap<>();
         public HashMap<String, Author> authors = new HashMap<>();
         public HashMap<String, Paper> papersOfAuthors = new HashMap<>();
     public static void main(String[] args) {
-        try {
-            recommendationFlowController(PRConstant.FOLDER_MAS_DATASET1 + "[Training] Paper_Before_2006.csv",
-                    PRConstant.FOLDER_MAS_DATASET1 + "[Training] Paper_Cite_Paper_Before_2006.csv",
-                    PRConstant.FOLDER_MAS_DATASET1 + "[Testing] 1000Authors.csv",
-                    PRConstant.FOLDER_MAS_DATASET1 + "[Testing] Ground_Truth_2006_2008_New_Citation.csv",
-                    PRConstant.FOLDER_MAS_DATASET1 + "[Training] Author_Paper_Before_2006.csv",
-                    PRConstant.FOLDER_MAS_DATASET1 + "[Training] Author_Cite_Paper_Before_2006.csv",
-                    PRConstant.FOLDER_MAS_DATASET1 + "Text",
-                    PRConstant.FOLDER_MAS_DATASET1 + "PreProcessedPaper",
-                    PRConstant.FOLDER_MAS_DATASET1 + "Sequence",
-                    PRConstant.FOLDER_MAS_DATASET1 + "Vector",
-                    PRConstant.FOLDER_MAS_DATASET1 + "MahoutCF",
-                    PRConstant.FOLDER_MAS_DATASET1 + "EvaluationResult\\EvaluationResult.xls");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        System.out.print("hehe");
+//        try {
+//            recommendationFlowController(PRConstant.FOLDER_MAS_DATASET1 + "[Training] Paper_Before_2006.csv",
+//                    PRConstant.FOLDER_MAS_DATASET1 + "[Training] Paper_Cite_Paper_Before_2006.csv",
+//                    PRConstant.FOLDER_MAS_DATASET1 + "[Testing] 1000Authors.csv",
+//                    PRConstant.FOLDER_MAS_DATASET1 + "[Testing] Ground_Truth_2006_2008_New_Citation.csv",
+//                    PRConstant.FOLDER_MAS_DATASET1 + "[Training] Author_Paper_Before_2006.csv",
+//                    PRConstant.FOLDER_MAS_DATASET1 + "[Training] Author_Cite_Paper_Before_2006.csv",
+//                    PRConstant.FOLDER_MAS_DATASET1 + "Text",
+//                    PRConstant.FOLDER_MAS_DATASET1 + "PreProcessedPaper",
+//                    PRConstant.FOLDER_MAS_DATASET1 + "Sequence",
+//                    PRConstant.FOLDER_MAS_DATASET1 + "Vector",
+//                    PRConstant.FOLDER_MAS_DATASET1 + "MahoutCF",
+//                    PRConstant.FOLDER_MAS_DATASET1 + "EvaluationResult\\EvaluationResult.xls");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     public static void recommendationFlowController(String fileNamePapers,
