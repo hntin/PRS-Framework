@@ -86,4 +86,8 @@ public class SVDCF {
         }
         bw.close();
     }
+
+    public static void SVDRecommendationToAuthorList(String MahoutCFFileOriginalFile, String n, int f, double l, int i, HashMap<String, Author> authorTestSet, String MahoutCFRatingMatrixPredictionFile) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

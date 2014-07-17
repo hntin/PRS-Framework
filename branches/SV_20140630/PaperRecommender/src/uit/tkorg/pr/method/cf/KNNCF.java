@@ -173,4 +173,8 @@ public class KNNCF {
         }
         bw.close();
     }
+
+    public static void CoPearsonRecommend(String MahoutCFFileOriginalFile, int k, String n, String MahoutCFRatingMatrixPredictionFile) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

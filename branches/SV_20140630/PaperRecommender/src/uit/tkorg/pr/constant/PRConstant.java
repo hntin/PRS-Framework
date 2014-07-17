@@ -6,7 +6,7 @@ public class PRConstant {
 
     public static final String FOLDER_NUS_DATASET1 = "D:\\LUAN VAN DAI HOC\\Tailieuluanvan\\DATASET\\20100825-SchPaperRecData\\20100825-SchPaperRecData";
     public static final String FOLDER_NUS_DATASET2= "E:\\Luan_van\\20131106-SchPaperRecData\\20131106-SchPaperRecData\\ScholarlyPaperRecData";
-    public static final String FOLDER_MAS_DATASET1 = "C:\\Users\\Zoe\\Dropbox\\De tai Paper Recommendation\\Experiment\\Data\\NUS Data\\Dataset 1\\20100825-SchPaperRecData";
+    public static final String FOLDER_MAS_DATASET1 = "C:\\Users\\Zoe\\Dropbox\\De tai Paper Recommendation\\Experiment\\Data\\Sample Data\\CSV\\Sample 2- Simple\\";
     public static final String SAVEDATAFOLDER = "E:\\ResE\\Paper recommendation\\Save Object Dataset 1";
     
     public static final String DB = "MYSQL";

@@ -11,13 +11,19 @@ import uit.tkorg.pr.dataimex.MASDataset1;
 import uit.tkorg.pr.dataimex.MahoutFile;
 import uit.tkorg.pr.dataimex.NUSDataset1;
 import uit.tkorg.pr.dataimex.NUSDataset2;
+import uit.tkorg.pr.dataimex.PRGeneralFile;
 import uit.tkorg.pr.datapreparation.cbf.AuthorFVComputation;
 import uit.tkorg.pr.datapreparation.cbf.PaperFVComputation;
+import uit.tkorg.pr.datapreparation.cf.CFRatingMatrixComputation;
 import uit.tkorg.pr.evaluation.Evaluator;
 import uit.tkorg.pr.method.cbf.FeatureVectorSimilarity;
+import uit.tkorg.pr.method.cf.KNNCF;
+import uit.tkorg.pr.method.cf.SVDCF;
 import uit.tkorg.pr.model.Author;
 import uit.tkorg.pr.model.Paper;
 import uit.tkorg.utility.general.BinaryFileUtility;
+import uit.tkorg.utility.textvectorization.TextPreprocessUtility;
+import uit.tkorg.utility.textvectorization.TextVectorizationByMahoutTerminalUtility;
 
 /**
  *
@@ -25,6 +31,7 @@ import uit.tkorg.utility.general.BinaryFileUtility;
  * control all traffic from gui.
  */
 public class PaperRecommenderSV {
+        private static String n;
         public double gama;// tham so gama cho 
         public int weighting;// trong so ket hop
         public int combiningAuthor;// phuong thuc combining author
@@ -36,22 +43,22 @@ public class PaperRecommenderSV {
         public HashMap<String, Paper> papersOfAuthors = new HashMap<>();
     public static void main(String[] args) {
         System.out.print("hehe");
-//        try {
-//            recommendationFlowController(PRConstant.FOLDER_MAS_DATASET1 + "[Training] Paper_Before_2006.csv",
-//                    PRConstant.FOLDER_MAS_DATASET1 + "[Training] Paper_Cite_Paper_Before_2006.csv",
-//                    PRConstant.FOLDER_MAS_DATASET1 + "[Testing] 1000Authors.csv",
-//                    PRConstant.FOLDER_MAS_DATASET1 + "[Testing] Ground_Truth_2006_2008_New_Citation.csv",
-//                    PRConstant.FOLDER_MAS_DATASET1 + "[Training] Author_Paper_Before_2006.csv",
-//                    PRConstant.FOLDER_MAS_DATASET1 + "[Training] Author_Cite_Paper_Before_2006.csv",
-//                    PRConstant.FOLDER_MAS_DATASET1 + "Text",
-//                    PRConstant.FOLDER_MAS_DATASET1 + "PreProcessedPaper",
-//                    PRConstant.FOLDER_MAS_DATASET1 + "Sequence",
-//                    PRConstant.FOLDER_MAS_DATASET1 + "Vector",
-//                    PRConstant.FOLDER_MAS_DATASET1 + "MahoutCF",
-//                    PRConstant.FOLDER_MAS_DATASET1 + "EvaluationResult\\EvaluationResult.xls");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            recommendationFlowController(PRConstant.FOLDER_MAS_DATASET1 + "[Training] Paper_Before_2006.csv",
+                    PRConstant.FOLDER_MAS_DATASET1 + "[Training] Paper_Cite_Paper_Before_2006.csv",
+                    PRConstant.FOLDER_MAS_DATASET1 + "[Testing] 1000Authors.csv",
+                    PRConstant.FOLDER_MAS_DATASET1 + "[Testing] Ground_Truth_2006_2008.csv",
+                    PRConstant.FOLDER_MAS_DATASET1 + "[Training] Author_Paper_Before_2006.csv",
+                    PRConstant.FOLDER_MAS_DATASET1 + "[Training] Author_Cite_Paper_Before_2006.csv",
+                    PRConstant.FOLDER_MAS_DATASET1 + "Text",
+                    PRConstant.FOLDER_MAS_DATASET1 + "PreProcessedPaper",
+                    PRConstant.FOLDER_MAS_DATASET1 + "Sequence",
+                    PRConstant.FOLDER_MAS_DATASET1 + "Vector",
+                    PRConstant.FOLDER_MAS_DATASET1 + "MahoutCF",
+                    PRConstant.FOLDER_MAS_DATASET1 + "EvaluationResult\\EvaluationResult.xls");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void recommendationFlowController(String fileNamePapers,
@@ -87,10 +94,10 @@ public class PaperRecommenderSV {
         // - Clear abstract of all papers.
         System.out.println("Begin writing abstract to file...");
         startTime = System.nanoTime();
-//        PRGeneralFile.writePaperAbstractToTextFile(papers, dirPapers);
+        PRGeneralFile.writePaperAbstractToTextFile(papers, dirPapers);
         // Clear no longer in use objects.
         // Always clear abstract.
-        PaperFVComputation.clearPaperAbstract(papers);
+   //     PaperFVComputation.clearPaperAbstract(papers);
         estimatedTime = System.nanoTime() - startTime;
         System.out.println("Writing abstract to file elapsed time: " + estimatedTime / 1000000000 + " seconds");
         System.out.println("End writing abstract to file.");
@@ -98,7 +105,7 @@ public class PaperRecommenderSV {
         // Step 3: Preprocessing content of all papers. Remove stop words and stemming
         System.out.println("Begin removing stopword and stemming...");
         startTime = System.nanoTime();
-//        TextPreprocessUtility.parallelProcess(dirPapers, dirPreProcessedPaper, true, true);
+     //   TextPreprocessUtility.parallelProcess(dirPapers, dirPreProcessedPaper, true, true);
         estimatedTime = System.nanoTime() - startTime;
         System.out.println("Removing stopword and stemming elapsed time: " + estimatedTime / 1000000000 + " seconds");
         System.out.println("End removing stopword and stemming.");
@@ -106,7 +113,7 @@ public class PaperRecommenderSV {
         // Step 4: tf-idf. Output of this process is vectors of papers stored in a Mahout's binary file
         System.out.println("Begin vectorizing...");
         startTime = System.nanoTime();
-//        TextVectorizationByMahoutTerminalUtility.textVectorizeFiles(dirPreProcessedPaper, sequenceDir, vectorDir);
+        TextVectorizationByMahoutTerminalUtility.textVectorizeFiles(dirPreProcessedPaper, sequenceDir, vectorDir);
         estimatedTime = System.nanoTime() - startTime;
         System.out.println("Vectorizing elapsed time: " + estimatedTime / 1000000000 + " seconds");
         System.out.println("End vectorizing.");
@@ -171,56 +178,56 @@ public class PaperRecommenderSV {
         //</editor-fold>
 
         //<editor-fold defaultstate="collapsed" desc="CF METHODS">
-        /*
-//        String MahoutCFFileOriginalFile = MahoutCFDir + "\\CFRatingMatrixOriginal.txt";
-//        String MahoutCFRatingMatrixPredictionFile = null;
+        
+        String MahoutCFFileOriginalFile = MahoutCFDir + "\\CFRatingMatrixOriginal.txt";
+        String MahoutCFRatingMatrixPredictionFile = null;
 
         // Read Raw rating matrix
-//        HashMap<String, HashMap<String, Double>> authorPaperRating = MASDataset1.readAuthorCitePaperMatrix(fileNameAuthorCitePaper);
+        HashMap<String, HashMap<String, Double>> authorPaperRating = MASDataset1.readAuthorCitePaperMatrix(fileNameAuthorCitePaper);
 
         // Normalize
-//        System.out.println("Begin Normalize reating values in Citation Matrix");
-//        CFRatingMatrixComputation.normalizeAuthorRatingVector(authorPaperRating);
-//        System.out.println("End Normalize reating values in Citation Matrix");
+        System.out.println("Begin Normalize reating values in Citation Matrix");
+        CFRatingMatrixComputation.normalizeAuthorRatingVector(authorPaperRating);
+        System.out.println("End Normalize reating values in Citation Matrix");
 
         // Write to Mahout file
-//        System.out.println("Begin writeCFRatingToMahoutFormatFile");
-//        CFRatingMatrixComputation.writeCFRatingToMahoutFormatFile(authorPaperRating, MahoutCFFileOriginalFile);
-//        System.out.println("End writeCFRatingToMahoutFormatFile");
-        */
+        System.out.println("Begin writeCFRatingToMahoutFormatFile");
+        CFRatingMatrixComputation.writeCFRatingToMahoutFormatFile(authorPaperRating, MahoutCFFileOriginalFile);
+        System.out.println("End writeCFRatingToMahoutFormatFile");
+        
 
-        /*
+       // /*
         // Predict ratings by kNNCF co-pearson.
         // k neighbors, get top n.
-//        System.out.println("Begin CoPearsonRecommend");
-//        int k = 8;
+        System.out.println("Begin CoPearsonRecommend");
+        int k = 8;
 
         // Recommend for all author in matrix.
-//        MahoutCFRatingMatrixPredictionFile = MahoutCFDir + "\\CFRatingMatrixPredictionByCoPearson" + "k" + k + "n" + n + ".txt";
-//        KNNCF.CoPearsonRecommend(MahoutCFFileOriginalFile, k, n, MahoutCFRatingMatrixPredictionFile);
+        MahoutCFRatingMatrixPredictionFile = MahoutCFDir + "\\CFRatingMatrixPredictionByCoPearson" + "k" + k + "n" + "1" + ".txt";
+        KNNCF.CoPearsonRecommend(MahoutCFFileOriginalFile, k, "1", MahoutCFRatingMatrixPredictionFile);
 
         // Recommend for authors in author test set.
-//        MahoutCFRatingMatrixPredictionFile = MahoutCFDir + "\\CFRatingMatrixPredictionByCoPearson" + "ForAuthorTestSet" + "k" + k + "n" + topNRecommend + ".txt";
-//        KNNCF.CoPearsonRecommendToAuthorList(MahoutCFFileOriginalFile, k, topNRecommend, authorTestSet, MahoutCFRatingMatrixPredictionFile);
-//        System.out.println("End CoPearsonRecommend");
-        */
+        MahoutCFRatingMatrixPredictionFile = MahoutCFDir + "\\CFRatingMatrixPredictionByCoPearson" + "ForAuthorTestSet" + "k" + k + "n" + topNRecommend + ".txt";
+        KNNCF.CoPearsonRecommendToAuthorList(MahoutCFFileOriginalFile, k, topNRecommend, authorTestSet, MahoutCFRatingMatrixPredictionFile);
+        System.out.println("End CoPearsonRecommend");
+      //  */
 
-        /*
+      //  /*
         // Predict ratings by SVD.
         // get top n, f features, normalize by l, i iterations.
-//        System.out.println("Begin SVD Recommend");
-//        int f = 50;
-//        double l = 0.01;
-//        int i = 1000;
+        System.out.println("Begin SVD Recommend");
+        int f = 50;
+        double l = 0.01;
+        int i = 1000;
         // Recommend for authors in author test set.
-//        MahoutCFRatingMatrixPredictionFile = MahoutCFDir + "\\CFRatingMatrixPredictionBySVD" + "ForAuthorTestSet" + "n" + n + "f" + f + "l" + l + "i" + i + ".txt";
-//        SVDCF.SVDRecommendationToAuthorList(MahoutCFFileOriginalFile, n, f, l, i, authorTestSet, MahoutCFRatingMatrixPredictionFile);
-//        System.out.println("End SVD Recommend");
-        */
+        MahoutCFRatingMatrixPredictionFile = MahoutCFDir + "\\CFRatingMatrixPredictionBySVD" + "ForAuthorTestSet" + "n" + "1" + "f" + f + "l" + l + "i" + i + ".txt";
+        SVDCF.SVDRecommendationToAuthorList(MahoutCFFileOriginalFile, "1", f, l, i, authorTestSet, MahoutCFRatingMatrixPredictionFile);
+        System.out.println("End SVD Recommend");
+     //   */
 
 
         // Read Recommendation for 1000 authors, put it into authorTestSetList.
-//        MahoutFile.readMahoutCFRating(MahoutCFRatingMatrixPredictionFile, authorTestSet);
+        MahoutFile.readMahoutCFRating(MahoutCFRatingMatrixPredictionFile, authorTestSet);
         //</editor-fold>
 
         //<editor-fold defaultstate="collapsed" desc="EVALUATION">
