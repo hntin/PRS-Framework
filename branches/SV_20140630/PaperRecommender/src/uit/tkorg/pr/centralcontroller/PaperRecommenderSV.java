@@ -31,7 +31,6 @@ import uit.tkorg.utility.textvectorization.TextVectorizationByMahoutTerminalUtil
  * control all traffic from gui.
  */
 public class PaperRecommenderSV {
-        private static String n;
         public double gama;// tham so gama cho 
         public int weighting;// trong so ket hop
         public int combiningAuthor;// phuong thuc combining author
