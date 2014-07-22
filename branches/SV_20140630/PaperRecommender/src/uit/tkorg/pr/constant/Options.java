@@ -11,7 +11,7 @@ package uit.tkorg.pr.constant;
  * @author Vinh
  */
 public enum Options {
-    chooseDatasetSample, chooseDatasetFromScource,importData, stopImportData,
+    importDatasetSample, importDatasetFromScource,importData, stopImportData,
     dataPreparationCB, dataPreparationCF,contructUserProfile, contructPaperFV,
     saveModel,saveRecommendList,saveResultEvaluate,loadModel, recommendationCB, 
     recommendationCF,recommendation,stopRecommendation,
