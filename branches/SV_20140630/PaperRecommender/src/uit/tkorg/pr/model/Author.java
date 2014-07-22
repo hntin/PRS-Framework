@@ -21,7 +21,7 @@ public class Author implements Serializable {
     private String authorName;
     private String authorType;
     private List paper;
-    private HashMapVector featureVector;
+    private transient HashMapVector featureVector;
     private List groundTruth; // List string.
     private List RecommendationList; // List string.
     private double precision;
