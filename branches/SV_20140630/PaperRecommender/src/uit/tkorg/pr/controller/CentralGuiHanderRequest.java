@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package uit.tkorg.pr.centralcontroller;
+package uit.tkorg.pr.controller;
 import ir.vsr.HashMapVector;
 import java.io.File;
 import java.util.Date;
@@ -16,11 +16,10 @@ import uit.tkorg.pr.constant.Options;
 import uit.tkorg.pr.dataimex.MASDataset1;
 import uit.tkorg.pr.dataimex.MahoutFile;
 import uit.tkorg.pr.dataimex.NUSDataset1;
-import uit.tkorg.pr.dataimex.NUSDataset2;
 import uit.tkorg.pr.dataimex.PRGeneralFile;
-import uit.tkorg.pr.datapreparation.cbf.AuthorFVComputation;
-import uit.tkorg.pr.datapreparation.cbf.PaperFVComputation;
-import uit.tkorg.pr.datapreparation.cf.CFRatingMatrixComputation;
+import uit.tkorg.pr.datapreparation.CBFAuthorFVComputation;
+import uit.tkorg.pr.datapreparation.CBFPaperFVComputation;
+import uit.tkorg.pr.datapreparation.CFRatingMatrixComputation;
 import uit.tkorg.pr.evaluation.Evaluator;
 import uit.tkorg.pr.method.cbf.FeatureVectorSimilarity;
 import uit.tkorg.pr.method.cf.KNNCF;
@@ -35,23 +34,22 @@ import uit.tkorg.utility.textvectorization.TextVectorizationByMahoutTerminalUtil
  *
  * @author Zoe
  */
-public class CentralPaperRecommendation {
+public class CentralGuiHanderRequest {
         public double gama;// tham so gama cho 
+        public double pruning;//tham so deu chinh cho pruning cho paper
         public int weightingAuthor;// trong so author
         public int weightingPaper;// trong so paper
         public int combiningAuthor;// phuong thuc combining author
         public int combiningPaper; // phuong thuc combining paper
         public int topN;// topN recommend
         public int rank;// rank K evaluation
-        public String resultEvaluation;// giu ket qua danh gia
-        public String DatasetFolder;
-        public String SaveDataFolder;
-        public String fileNamePapers; 
-        public String fileNamePaperCitePaper;
-        public String fileNameAuthorTestSet; 
-        public String fileNameGroundTruth;
-        public String fileNameAuthorship;
-        public String fileNameAuthorCitePaper;
+        public String SaveDataFolder;//
+        public String fileNamePapers; //File 1
+        public String fileNamePaperCitePaper;// File 2
+        public String fileNameAuthors;// File 3
+        public String fileNameAuthorPaper;// File 4
+        public String fileNameAuthorCitePaper;// File 5
+        public String fileNameGroundTruth;// File 6
         public String dirPapers;
         public String dirPreProcessedPaper;
         public String sequenceDir;
@@ -67,50 +65,41 @@ public class CentralPaperRecommendation {
            
              try {
                 switch (request) {
-                    // neu gui chon la dataset sample thi goi lenh nay load Data set len form
-//                    case importDatasetSample:// luc dau tab import data training va testing se bi vo hieu hoa chuc nang
-////                          DatasetFolder = "SampleData\\";
-////                          fileNameAuthorTestSet = DatasetFolder + "Authors.csv";
-//                          fileNameGroundTruth = DatasetFolder + "GroundTruth.csv";
-//                          fileNameAuthorship = DatasetFolder + "Paper_Cite_Author.csv";
-//                          fileNamePapers = DatasetFolder + "Papers.csv";
-////                          fileNamePaperCitePaper = DatasetFolder +"Paper_Cite_Paper.csv";
-//                        break;
-////                    case importDa                    case importDatasetSample:// luc dau tab import data training va testing se bi vo hieu hoa chuc nang
-                        
-////                        break;
-                    case importData:
-                        authors = MASDataset1.readAuthorListTestSet(fileNameAuthorTestSet, fileNameGroundTruth, fileNameAuthorship);
+                    case importData: // import du lieu cac filename se dc truyen tu giao dien
+                        authors = MASDataset1.readAuthorListTestSet(fileNameAuthors, fileNameGroundTruth, fileNameAuthorPaper);
                         papers = MASDataset1.readPaperList(fileNamePapers,fileNamePaperCitePaper);
                         PRGeneralFile.writePaperAbstractToTextFile(papers, dirPapers);
-                        PaperFVComputation.clearPaperAbstract(papers);
+                        CBFPaperFVComputation.clearPaperAbstract(papers);
                         TextPreprocessUtility.parallelProcess(dirPapers, dirPreProcessedPaper, true, true);
                         TextVectorizationByMahoutTerminalUtility.textVectorizeFiles(dirPreProcessedPaper, sequenceDir, vectorDir);
                         HashMap<String, HashMapVector> vectorizedDocuments = MahoutFile.readMahoutVectorFiles(vectorDir);
-                        PaperFVComputation.setTFIDFVectorForAllPapers(papers, vectorizedDocuments);
+                        CBFPaperFVComputation.setTFIDFVectorForAllPapers(papers, vectorizedDocuments);
                         break;
                     case stopImportData:
                         break;
-                    case contructUserProfile:
-                        HashSet<String> paperIdsOfAuthorTestSet = AuthorFVComputation.getPaperIdsOfAuthors(authors);
-                        PaperFVComputation.computeFeatureVectorForAllPapers(papers, paperIdsOfAuthorTestSet,combiningAuthor,1);
-                        AuthorFVComputation.computeFVForAllAuthors(authors,papers,weightingAuthor,gama);
+                    case contructUserProfile: // xay dung profile nguoi dung
+                        HashSet<String> paperIdsOfAuthorTestSet = CBFAuthorFVComputation.getPaperIdsOfAuthors(authors);
+                        CBFPaperFVComputation.computeFeatureVectorForAllPapers(papers, paperIdsOfAuthorTestSet, combiningPaper, weightingPaper,pruning);
+                        CBFAuthorFVComputation.computeFVForAllAuthors(authors,papers,weightingAuthor,gama);
                         break;
-                    case contructPaperFV:
-                        PaperFVComputation.computeFeatureVectorForAllPapers(papers,null,combiningPaper,weightingPaper);
+                    case contructPaperFV:// xay dung vector dac trung cho bai bao
+                        CBFPaperFVComputation.computeFeatureVectorForAllPapers(papers,null,combiningPaper,weightingPaper,pruning);
                         break;
-                    case saveModel:
+                    case saveModel:// save model
                         break;
-                    case contructMatrixInput:
-                        
+                    case contructMatrixInput: // build matrix input
+                        CFController.cfPrepareMatrix(fileNameAuthorCitePaper, MahoutCFDir);
                         break;
-                    case loadExistentMatrix:
-                        break;
-                    case saveMatrixToFile:
+                    case loadExistentMatrix:// load mot matrix da co san
+                        MahoutFile.readMahoutCFRating(MahoutCFDir, authors);
                         break;
                     case loadModel:
                         break;
-                    case recommendation:
+                    case recommendationCB:
+                          FeatureVectorSimilarity.computeCBFSimAndPutIntoModelForAuthorList(authors, papers,0);
+                          FeatureVectorSimilarity.generateRecommendationForAuthorList(authors, topN);
+                        break;
+                    case recommendationCF:
                         break;
                     case precision:
                         StringBuilder evaluationResultPrecision = new StringBuilder();
@@ -147,6 +136,8 @@ public class CentralPaperRecommendation {
                         evaluationResultMRR.append("MRR\t").append(Evaluator.computeMRR(authors)).append("\r\n");
                         response[1] = evaluationResultMRR.toString();
                         response[0] = "Success.";
+                        break;
+                    case errorAnalysis:
                         break;
                     case help:
                         break;

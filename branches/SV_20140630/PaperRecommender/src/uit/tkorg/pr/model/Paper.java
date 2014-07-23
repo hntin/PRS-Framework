@@ -14,40 +14,76 @@ import java.util.List;
  * @author THNghiep
  This class represents a paper.
  Data: 
- paper id, title, year, paper type,
+ paper id, paperTitle, year, paper type,
  tfidfVector in keywords' tf-idf list (ir's hashmapvector: cần xem kĩ lại class này, dùng như thế nào cho đúng),
  and the full feature vector of the paper (hashmapvector computed by combining other paper with weighting scheme linear or cosine or rpy).
- - if the paper is paper to recommend: list<String> of citation, reference (paper id).
- * - if the paper is paper of author: List<Paper> of citation, reference (Paper object, this class).
- * - if the paper is citation or reference paper of author: no list of citation, reference.
+ - if the paper is paper to recommend: list<String> of citationList, referenceList (paper id).
+ * - if the paper is paper of author: List<Paper> of citationList, referenceList (Paper object, this class).
+ * - if the paper is citationList or referenceList paper of author: no list of citationList, referenceList.
  * Note: For a specific paper type, some data are absent.
  */
 public class Paper implements Serializable {
     private String paperId;
-    private String title;
+    private String paperTitle;
     private String paperAbstract;
     private int year;
     private String paperType;
     private HashMapVector tfidfVector;
-    private List citation; // cited by those papers.
-    private List reference; // citing those papers.
+    private List citationList; // cited by those papers.
+    private List referenceList; // citing those papers.
     private HashMapVector featureVector;
+    private Float qualityValue;
 
     /**
      * Default constructor used for serializable.
      */
     public Paper() {
         this.paperId = null;
-        this.title = null;
+        this.paperTitle = null;
         this.paperAbstract = null;
         this.year = 0;
         this.paperType = null;
         this.tfidfVector = new HashMapVector();
-        this.citation = new ArrayList();
-        this.reference = new ArrayList();
+        this.citationList = new ArrayList();
+        this.referenceList = new ArrayList();
         this.featureVector = new HashMapVector();
+        this.qualityValue = 0f;
     }
 
+    public Float getTemporalCitationTrendValue() {
+        int present = 2005;
+        if (year == 0) {
+            return 0f;
+        } else {
+            int deltaTime = present - year;
+            if (deltaTime == 0) {
+                return 0.2f;
+            } else if (deltaTime == 1) {
+                return 0.3f;
+            } else if (deltaTime == 2) {
+                return 0.5f;
+            } else if (deltaTime == 3) {
+                return 0.7f;
+            } else if (deltaTime == 4) {
+                return 0.9f;
+            } else if (deltaTime == 5) {
+                return 0.9f;
+            } else if (deltaTime == 6) {
+                return 0.7f;
+            } else if (deltaTime == 7) {
+                return 0.5f;
+            } else if (deltaTime == 8) {
+                return 0.3f;
+            } else if (deltaTime == 9) {
+                return 0.2f;
+            } else if (deltaTime > 9) {
+                return 0.1f;
+            }
+        }
+        
+        return 0f;
+    }
+    
     /**
      * @return the paperId
      */
@@ -63,17 +99,17 @@ public class Paper implements Serializable {
     }
 
     /**
-     * @return the title
+     * @return the paperTitle
      */
-    public String getTitle() {
-        return title;
+    public String getPaperTitle() {
+        return paperTitle;
     }
 
     /**
-     * @param title the title to set
+     * @param paperTitle the paperTitle to set
      */
-    public void setTitle(String title) {
-        this.title = title;
+    public void setPaperTitle(String paperTitle) {
+        this.paperTitle = paperTitle;
     }
 
     /**
@@ -108,31 +144,31 @@ public class Paper implements Serializable {
     }
 
     /**
-     * @return the citation
+     * @return the citationList
      */
-    public List getCitation() {
-        return citation;
+    public List getCitationList() {
+        return citationList;
     }
 
     /**
-     * @param citation the citation to set
+     * @param citationList the citationList to set
      */
-    public void setCitation(List citation) {
-        this.citation = citation;
+    public void setCitationList(List citationList) {
+        this.citationList = citationList;
     }
 
     /**
-     * @return the reference
+     * @return the referenceList
      */
-    public List getReference() {
-        return reference;
+    public List getReferenceList() {
+        return referenceList;
     }
 
     /**
-     * @param reference the reference to set
+     * @param referenceList the referenceList to set
      */
-    public void setReference(List reference) {
-        this.reference = reference;
+    public void setReferenceList(List referenceList) {
+        this.referenceList = referenceList;
     }
 
     /**
@@ -178,5 +214,19 @@ public class Paper implements Serializable {
      */
     public void setPaperAbstract(String paperAbstract) {
         this.paperAbstract = paperAbstract;
+    }
+
+    /**
+     * @return the qualityValue
+     */
+    public Float getQualityValue() {
+        return qualityValue;
+    }
+
+    /**
+     * @param qualityValue the qualityValue to set
+     */
+    public void setQualityValue(Float qualityValue) {
+        this.qualityValue = qualityValue;
     }
 }

@@ -15,5 +15,5 @@ public enum Options {
     saveModel,saveRecommendList,saveResultEvaluate,loadModel, recommendationCB, 
     recommendationCF,recommendation,stopRecommendation,
     precision,recall,f1,map,ndcg,mrr,startEvaluation, stopEvaluation,errorAnalysis,drawChart,
-    showRecommendList,help,computeTFIDF,contructMatrixInput,loadExistentMatrix,saveMatrixToFile,reset
+    showRecommendList,help,computeTFIDF,contructMatrixInput,loadExistentMatrix,reset
 }

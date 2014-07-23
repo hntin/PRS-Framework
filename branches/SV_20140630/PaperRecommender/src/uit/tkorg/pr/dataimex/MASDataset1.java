@@ -32,25 +32,20 @@ public class MASDataset1 {
     }
 
     /**
-     * Read Paper.csv, for each paper, create a Paper object and put it in the hashmap.
-     *
+     * Read from .csv file, for each paper, create a Paper object and put it in the hashmap.
      * HashMap Key: paper id (in file name) 
      * HashMap Value: paper object.
-     *
      * @return the hashmap contents all papers.
      * @throws java.io.IOException
      */
     public static HashMap<String, Paper> readPaperList(String fileNamePaper, String fileNamePaperCitePaper) throws Exception {
-//        System.out.println("Begin reading paper list...");
-//        long startTime = System.nanoTime();
-
         HashMap<String, Paper> papers = new HashMap();
         
         try (BufferedReader br = new BufferedReader(new FileReader(fileNamePaper))) {
             String line;
             while ((line = br.readLine()) != null) {
                 if ((line == null) || (line.equals(""))) {
-                    break;
+                    continue;
                 }
                 String[] str = line.split("\\|\\|\\|");
                 String paperId = getAcceptedFieldValue(str[0]);
@@ -64,7 +59,7 @@ public class MASDataset1 {
                 
                 Paper paper = new Paper();
                 paper.setPaperId(paperId);
-                paper.setTitle(title);
+                paper.setPaperTitle(title);
                 paper.setPaperAbstract(paperAbstract);
                 paper.setYear(year);
                 
@@ -78,43 +73,32 @@ public class MASDataset1 {
             throw e;
         }
         
-//        long estimatedTime = System.nanoTime() - startTime;
-//        System.out.println("Reading paper list elapsed time: " + estimatedTime / 1000000000 + " seconds");
-//        System.out.println("End reading paper list.");
-        
         return papers;
     }
     
     private static void readCitationRelationship(String fileNameCitation, HashMap<String, Paper> papers) throws Exception {
-//        System.out.println("Begin reading citation relationship...");
-//        long startTime = System.nanoTime();
-
         try (BufferedReader br = new BufferedReader(new FileReader(fileNameCitation))) {
             String line;
             
             while ((line = br.readLine()) != null) {
                 if ((line == null) || (line.equals(""))) {
-                    break;
+                    continue;
                 }
                 String[] str = line.split("\\|\\|\\|");
                 String paperId1 = getAcceptedFieldValue(str[0]);
                 String paperId2 = getAcceptedFieldValue(str[1]);
                 
                 if (papers.containsKey(paperId1)) {
-                    papers.get(paperId1).getReference().add(paperId2); // reference is mutable.
+                    papers.get(paperId1).getReferenceList().add(paperId2); // reference is mutable.
                 }
                 if (papers.containsKey(paperId2)) {
-                    papers.get(paperId2).getCitation().add(paperId1);
+                    papers.get(paperId2).getCitationList().add(paperId1);
                 }
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
             throw e;
         }
-        
-//        long estimatedTime = System.nanoTime() - startTime;
-//        System.out.println("Reading citation relationship elapsed time: " + estimatedTime / 1000000000 + " seconds");
-//        System.out.println("End reading citation relationship.");
     }
 
     /**
@@ -128,15 +112,9 @@ public class MASDataset1 {
      * @throws java.io.IOException
      */
     public static HashMap<String, Author> readAuthorList(String fileNameAuthorship) throws Exception {
-//        System.out.println("Begin reading author list...");
-//        long startTime = System.nanoTime();
 
         HashMap<String, Author> authors = new HashMap();
         readAuthorship(fileNameAuthorship, authors, true);
-        
-//        long estimatedTime = System.nanoTime() - startTime;
-//        System.out.println("Reading author list elapsed time: " + estimatedTime / 1000000000 + " seconds");
-//        System.out.println("End reading author list.");
 
         return authors;
     }
@@ -150,37 +128,31 @@ public class MASDataset1 {
      * @throws Exception 
      */
     private static void readAuthorship(String fileNameAuthorship, HashMap<String, Author> authors, boolean autoAddAuthor) throws Exception {
-//        System.out.println("Begin reading authorship...");
-//        long startTime = System.nanoTime();
 
         try (BufferedReader br = new BufferedReader(new FileReader(fileNameAuthorship))) {
             String line;
             
             while ((line = br.readLine()) != null) {
                 if ((line == null) || (line.equals(""))) {
-                    break;
+                    continue;
                 }
                 String[] str = line.split("\\|\\|\\|");
                 String authorId = getAcceptedFieldValue(str[0]);
                 String paperId = getAcceptedFieldValue(str[1]);
                 
                 if (authors.containsKey(authorId)) {
-                    authors.get(authorId).getPaper().add(paperId); // mutable.
+                    authors.get(authorId).getPaperList().add(paperId); // mutable.
                 } else if (autoAddAuthor) {
                     Author author = new Author();
                     author.setAuthorId(authorId);
                     authors.put(authorId, author);
-                    authors.get(authorId).getPaper().add(paperId); // mutable.
+                    authors.get(authorId).getPaperList().add(paperId); // mutable.
                 }
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
             throw e;
         }
-        
-//        long estimatedTime = System.nanoTime() - startTime;
-//        System.out.println("Reading authorship elapsed time: " + estimatedTime / 1000000000 + " seconds");
-//        System.out.println("End reading author list.");
     }
 
     /**
@@ -193,9 +165,6 @@ public class MASDataset1 {
      * @throws Exception 
      */
     public static HashMap<String, Author> readAuthorListTestSet(String fileNameAuthorTestSet, String fileNameGroundTruth, String fileNameAuthorship) throws Exception {
-//        System.out.println("Begin reading recommending author list...");
-//        long startTime = System.nanoTime();
-
         HashMap<String, Author> authors = new HashMap<>();
         
         try (BufferedReader br = new BufferedReader(new FileReader(fileNameAuthorTestSet))) {
@@ -203,7 +172,7 @@ public class MASDataset1 {
             
             while ((line = br.readLine()) != null) {
                 if ((line == null) || (line.equals(""))) {
-                    break;
+                    continue;
                 }
                 String[] str = line.split("\\|\\|\\|");
                 String authorId = getAcceptedFieldValue(str[0]);
@@ -224,10 +193,6 @@ public class MASDataset1 {
             throw e;
         }
         
-//        long estimatedTime = System.nanoTime() - startTime;
-//        System.out.println("Reading recommending author list elapsed time: " + estimatedTime / 1000000000 + " seconds");
-//        System.out.println("End reading recommending author list.");
-        
         return authors;
     }
     
@@ -240,15 +205,13 @@ public class MASDataset1 {
      * @throws Exception 
      */
     private static void readGroundTruth(String fileNameGroundTruth, HashMap<String, Author> authors, boolean autoAddAuthor) throws Exception {
-//        System.out.println("Begin reading ground truth...");
-//        long startTime = System.nanoTime();
 
         try (BufferedReader br = new BufferedReader(new FileReader(fileNameGroundTruth))) {
             String line;
             
             while ((line = br.readLine()) != null) {
                 if ((line == null) || (line.equals(""))) {
-                    break;
+                    continue;
                 }
                 String[] str = line.split("\\|\\|\\|");
                 String authorId = getAcceptedFieldValue(str[0]);
@@ -267,10 +230,6 @@ public class MASDataset1 {
             System.out.println(e.getMessage());
             throw e;
         }
-        
-//        long estimatedTime = System.nanoTime() - startTime;
-//        System.out.println("Reading ground truth elapsed time: " + estimatedTime / 1000000000 + " seconds");
-//        System.out.println("End reading ground truth.");
     }
 
     /**
@@ -281,24 +240,22 @@ public class MASDataset1 {
      * @throws Exception 
      */
     public static HashMap<String, HashMap<String, Double>> readAuthorCitePaperMatrix(String fileNameAuthorCitePaperMatrix) throws Exception {
-        System.out.println("Begin reading author cite paper matrix...");
-        long startTime = System.nanoTime();
-
-        HashMap<String, HashMap<String, HashMap<String, Integer>>> authorCitePaperYear = new HashMap<>();
-        HashMap<String, HashMap<String, Double>> authorPaperRating = new HashMap<>();
+//        HashMap<String, HashMap<String, HashMap<String, Integer>>> authorCitePaperYear = new HashMap<>();
+        HashMap<String, HashMap<String, Double>> authorPaperRating = new HashMap<>(); // HashMap<Author ID, HashMap<Paper Id, Raw Rating>>.
         
         try (BufferedReader br = new BufferedReader(new FileReader(fileNameAuthorCitePaperMatrix))) {
             String line;
             
             while ((line = br.readLine()) != null) {
                 if ((line == null) || (line.equals(""))) {
-                    break;
+                    continue;
                 }
                 String[] str = line.split("\\|\\|\\|");
                 String authorId = getAcceptedFieldValue(str[0]);
                 String paperId = getAcceptedFieldValue(str[1]);
                 String year = getAcceptedFieldValue(str[2]);
                 
+                //<editor-fold defaultstate="collapsed" desc="authorCitePaperYear">
                 // put into authorCitePaperYear
                 // Reserved for using later.
                 /*if (authorCitePaperYear.containsKey(authorId)) {
@@ -321,29 +278,27 @@ public class MASDataset1 {
                     paper.put(paperId, yearCite);
                     authorCitePaperYear.put(authorId, paper);
                 }*/
+                //</editor-fold>
 
                 // put into authorPaperRating
-                if (authorPaperRating.containsKey(authorId)) {
-                    if (authorPaperRating.get(authorId).containsKey(paperId)) {
-                        Double rating = authorPaperRating.get(authorId).get(paperId) + 1;
-                        authorPaperRating.get(authorId).put(paperId, rating);
-                    } else {
-                        authorPaperRating.get(authorId).put(paperId, Double.valueOf(1));
-                    }
-                } else {
+                Double rating = null;
+                if (!authorPaperRating.containsKey(authorId)) {
                     HashMap<String, Double> paperRating = new HashMap<>();
-                    paperRating.put(paperId, Double.valueOf(1));
                     authorPaperRating.put(authorId, paperRating);
+                    rating = Double.valueOf(1);
+                } else {
+                    if (!authorPaperRating.get(authorId).containsKey(paperId)) {
+                        rating = Double.valueOf(1);
+                    } else {
+                        rating = authorPaperRating.get(authorId).get(paperId) + 1;
+                    }
                 }
+                authorPaperRating.get(authorId).put(paperId, rating);
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
             throw e;
         }
-        
-        long estimatedTime = System.nanoTime() - startTime;
-        System.out.println("Reading author cite paper matrix elapsed time: " + estimatedTime / 1000000000 + " seconds");
-        System.out.println("End reading author cite paper matrix.");
         
         return authorPaperRating;
     }

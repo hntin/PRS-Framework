@@ -40,31 +40,26 @@ public class Evaluator {
      * @return MeanNDCG
      */
     public static double computeMeanNDCG(HashMap<String, Author> authors, int k) throws Exception {
-        double meanNDCG = 0;
+        double sumNDCG = 0;
         
+        int numRecommendedAuthors = 0;
         double currentNDCG = 0;
-        if (k == 5) {
-            for (String authorId : authors.keySet()) {
-                currentNDCG = NDCG.computeNDCG(authors.get(authorId).getRecommendationList(), authors.get(authorId).getGroundTruth(), k);
+        for (String authorId : authors.keySet()) {
+            if ((authors.get(authorId).getRecommendationList() != null) 
+                    && (!authors.get(authorId).getRecommendationList().isEmpty())) {
+                numRecommendedAuthors++;
+            }
+            currentNDCG = NDCG.computeNDCG(authors.get(authorId).getRecommendationList(), authors.get(authorId).getGroundTruth(), k);
+            sumNDCG += currentNDCG;
+            if (k == 5) {
                 authors.get(authorId).setNdcg5(currentNDCG);
-                meanNDCG += currentNDCG;
-            }
-        } else if (k == 10) {
-            for (String authorId : authors.keySet()) {
-                currentNDCG = NDCG.computeNDCG(authors.get(authorId).getRecommendationList(), authors.get(authorId).getGroundTruth(), k);
+            } else if (k == 10) {
                 authors.get(authorId).setNdcg10(currentNDCG);
-                meanNDCG += currentNDCG;
-            }
-            
-        } else {
-            for (String authorId : authors.keySet()) {
-                meanNDCG += NDCG.computeNDCG(authors.get(authorId).getRecommendationList(), authors.get(authorId).getGroundTruth(), k);
             }
         }
+
         // Compute average.
-        meanNDCG = meanNDCG / authors.size();
-        
-        return meanNDCG;
+        return sumNDCG / numRecommendedAuthors;
     }
     
     /**
@@ -75,17 +70,20 @@ public class Evaluator {
      * @return 
      */
     public static double computeMRR(HashMap<String, Author> authors) throws Exception {
-        double mrr = 0;
+        double srr = 0;
 
+        int numRecommendedAuthors = 0;
         double currentRR = 0;
         for (String authorId : authors.keySet()) {
+            if ((authors.get(authorId).getRecommendationList() != null) 
+                    && (!authors.get(authorId).getRecommendationList().isEmpty())) {
+                numRecommendedAuthors++;
+            }
             currentRR = ReciprocalRank.computeRR(authors.get(authorId).getRecommendationList(), authors.get(authorId).getGroundTruth());
+            srr += currentRR;
             authors.get(authorId).setRr(currentRR);
-            mrr += currentRR;
         }
-        mrr = mrr / authors.size();
-
-        return mrr;
+        return srr / numRecommendedAuthors;
     }
 
     /**
@@ -93,20 +91,35 @@ public class Evaluator {
      * value and change the author hashmap input directly.
      *
      * @param authors
-     * @param n
+     * @param topN
      * @return
      */
-    public static double computeMeanPrecisionTopN(HashMap<String, Author> authors, int n) {
-        double meanPrecision = 0;
+    public static double computeMeanPrecisionTopN(HashMap<String, Author> authors, int topN) {
+        double sumPrecision = 0;
 
+        int numRecommendedAuthors = 0;
         double currentPrecision = 0;
         for (String authorId : authors.keySet()) {
-            currentPrecision = Precision.computePrecisionTopN(authors.get(authorId).getRecommendationList(), authors.get(authorId).getGroundTruth(), n);
-            authors.get(authorId).setPrecision(currentPrecision);
-            meanPrecision += currentPrecision;
+            if ((authors.get(authorId).getRecommendationList() != null) 
+                    && (!authors.get(authorId).getRecommendationList().isEmpty())) {
+                numRecommendedAuthors++;
+            }
+            currentPrecision = Precision.computePrecisionTopN(authors.get(authorId).getRecommendationList(), authors.get(authorId).getGroundTruth(), topN);
+            sumPrecision += currentPrecision;
+            if (topN == 10) {
+                authors.get(authorId).setPrecision10(currentPrecision);
+            } else if (topN == 20) {
+                authors.get(authorId).setPrecision20(currentPrecision);
+            } else if (topN == 30) {
+                authors.get(authorId).setPrecision30(currentPrecision);
+            } else if (topN == 40) {
+                authors.get(authorId).setPrecision40(currentPrecision);
+            } else if (topN == 50) {
+                authors.get(authorId).setPrecision50(currentPrecision);
+            }
         }
 
-        return meanPrecision / authors.size();
+        return sumPrecision / numRecommendedAuthors;
     }
 
     /**
@@ -118,16 +131,26 @@ public class Evaluator {
      * @return
      */
     public static double computeMeanRecallTopN(HashMap<String, Author> authors, int topN) {
-        double meanRecall = 0;
+        double sumRecall = 0;
 
+        int numRecommendedAuthors = 0;
         double currentRecall = 0;
         for (String authorId : authors.keySet()) {
+            if ((authors.get(authorId).getRecommendationList() != null) 
+                    && (!authors.get(authorId).getRecommendationList().isEmpty())) {
+                numRecommendedAuthors++;
+            }
             currentRecall = Recall.computeRecallTopN(authors.get(authorId).getRecommendationList(), authors.get(authorId).getGroundTruth(), topN);
-            authors.get(authorId).setRecall(currentRecall);
-            meanRecall += currentRecall;
+            authors.get(authorId).setRecall50(currentRecall);
+            sumRecall += currentRecall;
+            if (topN == 50) {
+                authors.get(authorId).setRecall50(currentRecall);
+            } else if (topN == 100) {
+                authors.get(authorId).setRecall100(currentRecall);
+            }
         }
 
-        return meanRecall / authors.size();
+        return sumRecall / numRecommendedAuthors;
     }
 
     /**
@@ -139,16 +162,32 @@ public class Evaluator {
      * @return
      */
     public static double computeMAP(HashMap<String, Author> authors, int k) {
-        double map = 0;
+        double sap = 0;
 
+        int numRecommendedAuthors = 0;
         double currentAP = 0;
         for (String authorId : authors.keySet()) {
+            if ((authors.get(authorId).getRecommendationList() != null) 
+                    && (!authors.get(authorId).getRecommendationList().isEmpty())) {
+                numRecommendedAuthors++;
+            }
             currentAP = AveragePrecision.computeAPK(authors.get(authorId).getRecommendationList(), authors.get(authorId).getGroundTruth(), k);
-            authors.get(authorId).setAp(currentAP);
-            map += currentAP;
+            authors.get(authorId).setAp10(currentAP);
+            sap += currentAP;
+            if (k == 10) {
+                authors.get(authorId).setAp10(currentAP);
+            } else if (k == 20) {
+                authors.get(authorId).setAp20(currentAP);
+            } else if (k == 30) {
+                authors.get(authorId).setAp30(currentAP);
+            } else if (k == 40) {
+                authors.get(authorId).setAp40(currentAP);
+            } else if (k == 50) {
+                authors.get(authorId).setAp50(currentAP);
+            }
         }
 
-        return map / authors.size();
+        return sap / numRecommendedAuthors;
     }
 
     /**
@@ -160,23 +199,23 @@ public class Evaluator {
      * @return MeanFMeasure
      */
     public static double computeMeanFMeasure(HashMap<String, Author> authors, double beta) throws Exception {
-        double meanFMeasure = 0.0;
+        double sumFMeasure = 0.0;
         
+        int numRecommendedAuthors = 0;
         double currentFMeasure = 0.0;
-        if (beta == 1) {
-            for (String authorId : authors.keySet()) {
-                currentFMeasure = FMeasure.computeF1(authors.get(authorId).getRecommendationList(), authors.get(authorId).getGroundTruth());
-                authors.get(authorId).setF1(currentFMeasure);
-                meanFMeasure += currentFMeasure;
+        for (String authorId : authors.keySet()) {
+            if ((authors.get(authorId).getRecommendationList() != null) 
+                    && (!authors.get(authorId).getRecommendationList().isEmpty())) {
+                numRecommendedAuthors++;
             }
-        } else {
-            for (String authorId : authors.keySet()) {
-                meanFMeasure += FMeasure.computeFMeasure(authors.get(authorId).getRecommendationList(), authors.get(authorId).getGroundTruth(), beta);
+            currentFMeasure = FMeasure.computeFMeasure(authors.get(authorId).getRecommendationList(), authors.get(authorId).getGroundTruth(), beta);
+            sumFMeasure += currentFMeasure;
+            if (beta == 1) {
+                authors.get(authorId).setF1(currentFMeasure);
             }
         }
+
         // Compute average.
-        meanFMeasure = meanFMeasure / authors.size();
-        
-        return meanFMeasure;
+        return sumFMeasure / numRecommendedAuthors;
     }
 }

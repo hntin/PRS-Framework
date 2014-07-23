@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package uit.tkorg.pr.datapreparation.cbf;
+package uit.tkorg.pr.datapreparation;
 
 import ir.vsr.HashMapVector;
 import java.util.ArrayList;
@@ -22,17 +22,17 @@ import uit.tkorg.utility.general.WeightingUtility;
  *
  * @author THNghiep
  */
-public class AuthorFVComputation {
+public class CBFAuthorFVComputation {
 
     // Prevent instantiation.
-    private AuthorFVComputation() {
+    private CBFAuthorFVComputation() {
     }
 
     public static HashSet<String> getPaperIdsOfAuthors(HashMap<String, Author> authors) throws Exception {
         HashSet<String> paperIds = new HashSet<>();
         
         for (String authorId : authors.keySet()) {
-            paperIds.addAll(authors.get(authorId).getPaper());
+            paperIds.addAll(authors.get(authorId).getPaperList());
         }
         
         return paperIds;
@@ -60,7 +60,7 @@ public class AuthorFVComputation {
         HashMap<String, Paper> allPapers = new HashMap<>();
         
         for (String authorId : authors.keySet()) {
-            authors.get(authorId).setPaper(convertPaperListToPaperIdList(allPapers, authors.get(authorId).getPaper()));
+            authors.get(authorId).setPaperList(convertPaperListToPaperIdList(allPapers, authors.get(authorId).getPaperList()));
         }
         
         return allPapers;
@@ -82,11 +82,11 @@ public class AuthorFVComputation {
             paperIdList.add(paper.getPaperId());
             if(!allPapers.containsKey(paper.getPaperId())) {
                 allPapers.put(paper.getPaperId(), paper); // Note: because of exploiting ref type parameter in recursion, need to put paper into allPapers right after checking for existence, before call recursion, to avoid re-put duplicating Paper.
-                if ((paper.getReference() != null) && (paper.getReference().size() > 0)) {
-                    paper.setReference(convertPaperListToPaperIdList(allPapers, paper.getReference()));
+                if ((paper.getReferenceList() != null) && (paper.getReferenceList().size() > 0)) {
+                    paper.setReferenceList(convertPaperListToPaperIdList(allPapers, paper.getReferenceList()));
                 }
-                if ((paper.getCitation() != null) && (paper.getCitation().size() > 0)) {
-                    paper.setCitation(convertPaperListToPaperIdList(allPapers, paper.getCitation())); // Exploiting mutable object paper.
+                if ((paper.getCitationList() != null) && (paper.getCitationList().size() > 0)) {
+                    paper.setCitationList(convertPaperListToPaperIdList(allPapers, paper.getCitationList())); // Exploiting mutable object paper.
                 }
             }
         }
@@ -120,32 +120,16 @@ public class AuthorFVComputation {
         
         Author author = authors.get(authorId);
         
-        List<String> paperIds = author.getPaper();
-        int latestPublicationYear = getLatestPublicationYear(papers, paperIds);
-        Paper paperLatestPublication= new Paper();
-         for (String paperId : paperIds) {
-             if (papers.get(paperId).getYear()==latestPublicationYear)
-                 paperLatestPublication=papers.get(paperId);
-         }
+        List<String> paperIds = author.getPaperList();
+        
         if (timeAwareScheme == 0) {
             for (String paperId : paperIds) {
                 featureVector.add(papers.get(paperId).getFeatureVector());
             }
-        } else if (timeAwareScheme == 1){
-             for (String paperId : paperIds) {
-                double ff = WeightingUtility.computeCosine(paperLatestPublication.getTfidfVector(),papers.get(paperId).getTfidfVector());
-                featureVector.addScaled(papers.get(paperId).getFeatureVector(), ff);
-            }
-        }else if(timeAwareScheme == 2)
-        {
+        } else if (timeAwareScheme == 1) {
+            int latestPublicationYear = getLatestPublicationYear(papers, paperIds);
             for (String paperId : paperIds) {
-                double ff = WeightingUtility.computeRPY(latestPublicationYear, papers.get(paperId).getYear(),0.9);
-                featureVector.addScaled(papers.get(paperId).getFeatureVector(), ff);
-            }
-        }else if(timeAwareScheme == 3)
-        {
-            for (String paperId : paperIds) {
-                double ff = WeightingUtility.computeForgettingFactor(latestPublicationYear, papers.get(paperId).getYear(),gamma);
+                double ff = WeightingUtility.computeForgettingFactor(latestPublicationYear, papers.get(paperId).getYear(), gamma);
                 featureVector.addScaled(papers.get(paperId).getFeatureVector(), ff);
             }
         }

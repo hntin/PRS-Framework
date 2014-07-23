@@ -18,7 +18,6 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import uit.tkorg.pr.model.Author;
 
 /**
  *
@@ -53,8 +52,5 @@ public class BinaryFileUtility {
             o = in.readObject();
         }
         return o;
-    }
-    public static void main(String[] args) throws Exception {
-        
     }
 }
