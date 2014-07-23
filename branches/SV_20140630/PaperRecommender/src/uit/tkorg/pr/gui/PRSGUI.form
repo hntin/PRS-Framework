@@ -835,9 +835,9 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jButtonFileAuthorCitePaper" min="-2" pref="145" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButtonPaper" min="-2" pref="145" max="-2" attributes="0"/>
+                              <Component id="jButtonFilePaper" min="-2" pref="145" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButtonPaperPaper" min="-2" pref="145" max="-2" attributes="0"/>
+                              <Component id="jButtonFilePaperPaper" min="-2" pref="145" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -850,8 +850,8 @@
                                   <Component id="jButtonFileAuthor" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jButtonFileAuthorPaper" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jButtonFileAuthorCitePaper" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButtonPaper" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButtonPaperPaper" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                                  <Component id="jButtonFilePaper" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jButtonFilePaperPaper" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace pref="13" max="32767" attributes="0"/>
                           </Group>
@@ -863,11 +863,17 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="File authors"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonFileAuthorActionPerformed"/>
+                      </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButtonPaper">
+                    <Component class="javax.swing.JButton" name="jButtonFilePaper">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="File papers"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonFilePaperActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="jButtonFileAuthorPaper">
                       <Properties>
@@ -876,11 +882,17 @@
                           <Dimension value="[89, 23]"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonFileAuthorPaperActionPerformed"/>
+                      </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButtonPaperPaper">
+                    <Component class="javax.swing.JButton" name="jButtonFilePaperPaper">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="File paper- paper"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonFilePaperPaperActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="jButtonFileAuthorCitePaper">
                       <Properties>
@@ -909,7 +921,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jButtonGroundTruth" min="-2" pref="145" max="-2" attributes="0"/>
+                              <Component id="jButtonFileGroundTruth" min="-2" pref="145" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -918,17 +930,20 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButtonGroundTruth" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonFileGroundTruth" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JButton" name="jButtonGroundTruth">
+                    <Component class="javax.swing.JButton" name="jButtonFileGroundTruth">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="File GroundTruth"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonFileGroundTruthActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -963,8 +978,8 @@
                   <Group type="102" attributes="0">
                       <Component id="jPanel6" min="-2" pref="56" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTabbedPane2" min="-2" pref="215" max="-2" attributes="0"/>
-                      <EmptySpace pref="40" max="32767" attributes="0"/>
+                      <Component id="jTabbedPane2" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1118,13 +1133,21 @@
                                   <Group type="102" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jComboBoxCMUser" pref="398" max="32767" attributes="0"/>
-                                          <Component id="jComboBoxWeightingUser" alignment="1" max="32767" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jComboBoxCMUser" pref="398" max="32767" attributes="0"/>
+                                                  <Component id="jComboBoxWeightingUser" alignment="1" max="32767" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          </Group>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
@@ -1142,7 +1165,9 @@
                                           <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="jComboBoxWeightingUser" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                                      <EmptySpace pref="7" max="32767" attributes="0"/>
+                                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1169,6 +1194,9 @@
                                   </StringArray>
                                 </Property>
                               </Properties>
+                              <Events>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxCMUserActionPerformed"/>
+                              </Events>
                             </Component>
                             <Component class="javax.swing.JComboBox" name="jComboBoxWeightingUser">
                               <Properties>
@@ -1185,12 +1213,20 @@
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxWeightingUserActionPerformed"/>
                               </Events>
                             </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel7">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="jLabel7"/>
+                              </Properties>
+                            </Component>
                           </SubComponents>
                         </Container>
                         <Component class="javax.swing.JButton" name="jButtonStartCombiningUser">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Start"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonStartCombiningUserActionPerformed"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -1294,6 +1330,9 @@
                                   </StringArray>
                                 </Property>
                               </Properties>
+                              <Events>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxCMPaperActionPerformed"/>
+                              </Events>
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel16">
                               <Properties>
@@ -1311,6 +1350,9 @@
                                   </StringArray>
                                 </Property>
                               </Properties>
+                              <Events>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxWeightingPaperActionPerformed"/>
+                              </Events>
                             </Component>
                           </SubComponents>
                         </Container>
@@ -1350,7 +1392,7 @@
                                   <Component id="jPanel17" max="32767" attributes="0"/>
                                   <Component id="jPanel13" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="5" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="25" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1585,6 +1627,9 @@
                       </StringArray>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxMethodRecommendActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -1720,8 +1765,8 @@
                       <Component id="jPanel19" min="-2" pref="58" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jPanel21" max="32767" attributes="0"/>
                           <Component id="jPanel36" max="32767" attributes="0"/>
+                          <Component id="jPanel21" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -1795,6 +1840,9 @@
                       </StringArray>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxMethodEvaluationActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -1815,7 +1863,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane2" alignment="0" pref="211" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -1881,7 +1929,7 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="209" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -2257,6 +2305,9 @@
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Start Evaluate"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEvaluationActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonStopEvaluation">
               <Properties>

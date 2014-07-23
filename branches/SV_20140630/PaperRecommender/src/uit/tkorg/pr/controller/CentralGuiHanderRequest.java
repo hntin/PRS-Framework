@@ -80,11 +80,13 @@ public class CentralGuiHanderRequest {
                         break;
                     case contructUserProfile: // xay dung profile nguoi dung
                         HashSet<String> paperIdsOfAuthorTestSet = CBFAuthorFVComputation.getPaperIdsOfAuthors(authors);
-                        CBFPaperFVComputation.computeFeatureVectorForAllPapers(papers, paperIdsOfAuthorTestSet, combiningPaper, weightingPaper,pruning);
+                      //  CBFPaperFVComputation.computeFeatureVectorForAllPapers(papers, paperIdsOfAuthorTestSet, combiningPaper, weightingPaper,pruning);
+                        CBFPaperFVComputation.computeFeatureVectorForAllPapers(papers, paperIdsOfAuthorTestSet, combiningPaper, weightingPaper,0.0);
                         CBFAuthorFVComputation.computeFVForAllAuthors(authors,papers,weightingAuthor,gama);
                         break;
                     case contructPaperFV:// xay dung vector dac trung cho bai bao
-                        CBFPaperFVComputation.computeFeatureVectorForAllPapers(papers,null,combiningPaper,weightingPaper,pruning);
+                        //CBFPaperFVComputation.computeFeatureVectorForAllPapers(papers,null,combiningPaper,weightingPaper,pruning);
+                        CBFPaperFVComputation.computeFeatureVectorForAllPapers(papers,null,combiningPaper,weightingPaper,0.0);
                         break;
                     case saveModel:// save model
                         break;
@@ -97,7 +99,7 @@ public class CentralGuiHanderRequest {
                     case loadModel:
                         break;
                     case recommendationCB:
-                          CBFPaperFVComputation.clearTFIDF(papers);
+                         // CBFPaperFVComputation.clearTFIDF(papers);
                           FeatureVectorSimilarity.computeCBFSimAndPutIntoModelForAuthorList(authors, papers,0);
                           FeatureVectorSimilarity.generateRecommendationForAuthorList(authors, topN);
                         break;
