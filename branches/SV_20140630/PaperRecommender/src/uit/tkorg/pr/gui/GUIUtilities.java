@@ -102,15 +102,10 @@ public class GUIUtilities {
     }
 
     //Create tfidf files from Mahout
-    public static boolean createTFIDF() {
-        String pathText = GUIUtilities.chooseFolderJChooser("Choose folder text of papers");
+    public static void createTFIDF(String pathText, String pathTFIDF) {
         String pathPreprocess = "Temp\\Preprocess";
         String pathSequence = "Temp\\Sequence";
         String pathVectorDir = "Temp\\VectorDir";
-        String pathTFIDF = null;
-        if (pathText != null) {
-            pathTFIDF = GUIUtilities.chooseFolderJChooser("Choose folder to save tfidf");
-        }
 
         try {
             if (pathTFIDF != null) {
@@ -127,10 +122,8 @@ public class GUIUtilities {
                     FileUtils.writeStringToFile(new File(pathTFIDF + "\\" + documentId + ".txt"), fileTFIDF.toString(), "UTF8", false);
                 }
             }
-            return true;
         } catch (Exception ex) {
             Logger.getLogger(IntroducePRS.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
         }
     }
 
