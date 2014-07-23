@@ -68,34 +68,34 @@ public class PRSGUI extends javax.swing.JFrame {
         jPanel11 = new javax.swing.JPanel();
         jTabbedPane4 = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jTextAreaAuthor = new javax.swing.JTextArea();
         jScrollPane12 = new javax.swing.JScrollPane();
-        jTextArea11 = new javax.swing.JTextArea();
+        jTextAreaFilePaper = new javax.swing.JTextArea();
         jScrollPane10 = new javax.swing.JScrollPane();
-        jTextArea9 = new javax.swing.JTextArea();
+        jTextAreaAuthorPaper = new javax.swing.JTextArea();
         jScrollPane13 = new javax.swing.JScrollPane();
-        jTextArea12 = new javax.swing.JTextArea();
+        jTextAreaPaperPaper = new javax.swing.JTextArea();
         jScrollPane11 = new javax.swing.JScrollPane();
-        jTextArea10 = new javax.swing.JTextArea();
+        jTextAreaAuthorCitePaper = new javax.swing.JTextArea();
         jScrollPane14 = new javax.swing.JScrollPane();
-        jTextArea13 = new javax.swing.JTextArea();
+        jTextAreaGroundTruth = new javax.swing.JTextArea();
         jPanel12 = new javax.swing.JPanel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButtonDatasetExample = new javax.swing.JRadioButton();
+        jRadioButtonDatasetSource = new javax.swing.JRadioButton();
         jPanel31 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
-        jButton8 = new javax.swing.JButton();
-        jButton19 = new javax.swing.JButton();
-        jButton20 = new javax.swing.JButton();
-        jButton22 = new javax.swing.JButton();
-        jButton24 = new javax.swing.JButton();
+        jButtonFileAuthor = new javax.swing.JButton();
+        jButtonPaper = new javax.swing.JButton();
+        jButtonFileAuthorPaper = new javax.swing.JButton();
+        jButtonPaperPaper = new javax.swing.JButton();
+        jButtonFileAuthorCitePaper = new javax.swing.JButton();
         jPanel24 = new javax.swing.JPanel();
-        jButton26 = new javax.swing.JButton();
+        jButtonGroundTruth = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jTextField2 = new javax.swing.JTextField();
         jButtonApplyMethodDataPreparation = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox();
+        jComboBoxMethodPreData = new javax.swing.JComboBox();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel26 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
@@ -123,8 +123,8 @@ public class PRSGUI extends javax.swing.JFrame {
         jButton32 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel16 = new javax.swing.JPanel();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
+        jTextFieldShowMethodRec = new javax.swing.JTextField();
+        jTextFieldTopNRecommend = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jComboBoxMethodRecommend = new javax.swing.JComboBox();
         jPanel18 = new javax.swing.JPanel();
@@ -139,7 +139,7 @@ public class PRSGUI extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jPanel19 = new javax.swing.JPanel();
         jTextField5 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
+        jTextFieldRankK = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jComboBoxMethodEvaluation = new javax.swing.JComboBox();
         jPanel21 = new javax.swing.JPanel();
@@ -149,12 +149,12 @@ public class PRSGUI extends javax.swing.JFrame {
         jPanel37 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
-        jTextArea8 = new javax.swing.JTextArea();
+        jTextAreaConsole = new javax.swing.JTextArea();
         jPanel38 = new javax.swing.JPanel();
         jPanel39 = new javax.swing.JPanel();
-        jButtonChooseDataset = new javax.swing.JButton();
         jButtonStartImportData = new javax.swing.JButton();
         jButtonStopImportData = new javax.swing.JButton();
+        jButtonChooseDataset = new javax.swing.JButton();
         jPanel40 = new javax.swing.JPanel();
         jButtonMethodDataPreparation = new javax.swing.JButton();
         jButtonContructUserProfile = new javax.swing.JButton();
@@ -170,30 +170,32 @@ public class PRSGUI extends javax.swing.JFrame {
         jButtonEvaluation = new javax.swing.JButton();
         jButtonStopEvaluation = new javax.swing.JButton();
         jButtonErrorAnalysis = new javax.swing.JButton();
+        jPanel20 = new javax.swing.JPanel();
+        jButtonTFIDF = new javax.swing.JButton();
         jButtonDrawChart = new javax.swing.JButton();
         jPanel22 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu5 = new javax.swing.JMenu();
-        jMenuItem15 = new javax.swing.JMenuItem();
-        jMenuItem16 = new javax.swing.JMenuItem();
-        jMenuItem17 = new javax.swing.JMenuItem();
-        jMenuItem18 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem19 = new javax.swing.JMenuItem();
-        jMenuItem20 = new javax.swing.JMenuItem();
-        jMenuItem21 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu7 = new javax.swing.JMenu();
-        jMenuItem22 = new javax.swing.JMenuItem();
-        jMenuItem23 = new javax.swing.JMenuItem();
-        jMenuItem24 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
+        jMenuFile = new javax.swing.JMenu();
+        jMenuItemSaveModel = new javax.swing.JMenuItem();
+        jMenuItemLoadModel = new javax.swing.JMenuItem();
+        jMenuItemReset = new javax.swing.JMenuItem();
+        jMenuItemExit = new javax.swing.JMenuItem();
+        jMenuImportData = new javax.swing.JMenu();
+        jMenuItemDatasetExample = new javax.swing.JMenuItem();
+        jMenuItemDatasetSource = new javax.swing.JMenuItem();
+        jMenuItemImportDataset = new javax.swing.JMenuItem();
+        jMenuDataPreparation = new javax.swing.JMenu();
+        jMenuMethodDataPreparation = new javax.swing.JMenu();
+        jMenuItemPreDataCB = new javax.swing.JMenuItem();
+        jMenuItemPreDataCF = new javax.swing.JMenuItem();
+        jMenuItemPrepareData = new javax.swing.JMenuItem();
+        jMenuRecommendation = new javax.swing.JMenu();
         jMenu8 = new javax.swing.JMenu();
         jMenuItem25 = new javax.swing.JMenuItem();
         jMenuItem26 = new javax.swing.JMenuItem();
         jMenuItem27 = new javax.swing.JMenuItem();
         jMenuItem28 = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
+        jMenuEvaluation = new javax.swing.JMenu();
         jMenu9 = new javax.swing.JMenu();
         jMenuItem29 = new javax.swing.JMenuItem();
         jMenuItem30 = new javax.swing.JMenuItem();
@@ -203,12 +205,12 @@ public class PRSGUI extends javax.swing.JFrame {
         jMenuItem34 = new javax.swing.JMenuItem();
         jMenuItem35 = new javax.swing.JMenuItem();
         jMenuItem36 = new javax.swing.JMenuItem();
-        jMenu10 = new javax.swing.JMenu();
-        jMenuItem37 = new javax.swing.JMenuItem();
-        jMenuItem38 = new javax.swing.JMenuItem();
-        jMenu11 = new javax.swing.JMenu();
-        jMenuItem39 = new javax.swing.JMenuItem();
-        jMenuItem40 = new javax.swing.JMenuItem();
+        jMenuUtilities = new javax.swing.JMenu();
+        jMenuItemTFIDF = new javax.swing.JMenuItem();
+        jMenuItemDrawChart = new javax.swing.JMenuItem();
+        jMenuHelp = new javax.swing.JMenu();
+        jMenuItemHelp = new javax.swing.JMenuItem();
+        jMenuItemAbout = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -317,39 +319,39 @@ public class PRSGUI extends javax.swing.JFrame {
 
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder("Data Description"));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        jTextAreaAuthor.setColumns(20);
+        jTextAreaAuthor.setRows(5);
+        jScrollPane1.setViewportView(jTextAreaAuthor);
 
         jTabbedPane4.addTab("File authors", jScrollPane1);
 
-        jTextArea11.setColumns(20);
-        jTextArea11.setRows(5);
-        jScrollPane12.setViewportView(jTextArea11);
+        jTextAreaFilePaper.setColumns(20);
+        jTextAreaFilePaper.setRows(5);
+        jScrollPane12.setViewportView(jTextAreaFilePaper);
 
         jTabbedPane4.addTab("File papers", jScrollPane12);
 
-        jTextArea9.setColumns(20);
-        jTextArea9.setRows(5);
-        jScrollPane10.setViewportView(jTextArea9);
+        jTextAreaAuthorPaper.setColumns(20);
+        jTextAreaAuthorPaper.setRows(5);
+        jScrollPane10.setViewportView(jTextAreaAuthorPaper);
 
         jTabbedPane4.addTab("File author - paper", jScrollPane10);
 
-        jTextArea12.setColumns(20);
-        jTextArea12.setRows(5);
-        jScrollPane13.setViewportView(jTextArea12);
+        jTextAreaPaperPaper.setColumns(20);
+        jTextAreaPaperPaper.setRows(5);
+        jScrollPane13.setViewportView(jTextAreaPaperPaper);
 
         jTabbedPane4.addTab("File paper- paper", jScrollPane13);
 
-        jTextArea10.setColumns(20);
-        jTextArea10.setRows(5);
-        jScrollPane11.setViewportView(jTextArea10);
+        jTextAreaAuthorCitePaper.setColumns(20);
+        jTextAreaAuthorCitePaper.setRows(5);
+        jScrollPane11.setViewportView(jTextAreaAuthorCitePaper);
 
         jTabbedPane4.addTab("File author- cite - paper", jScrollPane11);
 
-        jTextArea13.setColumns(20);
-        jTextArea13.setRows(5);
-        jScrollPane14.setViewportView(jTextArea13);
+        jTextAreaGroundTruth.setColumns(20);
+        jTextAreaGroundTruth.setRows(5);
+        jScrollPane14.setViewportView(jTextAreaGroundTruth);
 
         jTabbedPane4.addTab("File GroundTruth", jScrollPane14);
 
@@ -366,19 +368,19 @@ public class PRSGUI extends javax.swing.JFrame {
 
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder("Choose Dataset"));
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setText("From Dataset Example");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(jRadioButtonDatasetExample);
+        jRadioButtonDatasetExample.setText("From Dataset Example");
+        jRadioButtonDatasetExample.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                jRadioButtonDatasetExampleActionPerformed(evt);
             }
         });
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("From Dataset Source");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(jRadioButtonDatasetSource);
+        jRadioButtonDatasetSource.setText("From Dataset Source");
+        jRadioButtonDatasetSource.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
+                jRadioButtonDatasetSourceActionPerformed(evt);
             }
         });
 
@@ -388,20 +390,20 @@ public class PRSGUI extends javax.swing.JFrame {
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addGap(0, 5, Short.MAX_VALUE)
-                .addComponent(jRadioButton1)
+                .addComponent(jRadioButtonDatasetExample)
                 .addContainerGap())
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jRadioButton2)
+                .addComponent(jRadioButtonDatasetSource)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jRadioButton1)
+                .addComponent(jRadioButtonDatasetExample)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton2)
+                .addComponent(jRadioButtonDatasetSource)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -409,20 +411,20 @@ public class PRSGUI extends javax.swing.JFrame {
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("Training Data"));
 
-        jButton8.setText("File authors");
+        jButtonFileAuthor.setText("File authors");
 
-        jButton19.setText("File papers");
+        jButtonPaper.setText("File papers");
 
-        jButton20.setText("File author- paper");
-        jButton20.setPreferredSize(new java.awt.Dimension(89, 23));
+        jButtonFileAuthorPaper.setText("File author- paper");
+        jButtonFileAuthorPaper.setPreferredSize(new java.awt.Dimension(89, 23));
 
-        jButton22.setText("File paper- paper");
+        jButtonPaperPaper.setText("File paper- paper");
 
-        jButton24.setText("File author- cite- paper");
-        jButton24.setPreferredSize(new java.awt.Dimension(89, 23));
-        jButton24.addActionListener(new java.awt.event.ActionListener() {
+        jButtonFileAuthorCitePaper.setText("File author- cite- paper");
+        jButtonFileAuthorCitePaper.setPreferredSize(new java.awt.Dimension(89, 23));
+        jButtonFileAuthorCitePaper.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton24ActionPerformed(evt);
+                jButtonFileAuthorCitePaperActionPerformed(evt);
             }
         });
 
@@ -432,15 +434,15 @@ public class PRSGUI extends javax.swing.JFrame {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonFileAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton20, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonFileAuthorPaper, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton24, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonFileAuthorCitePaper, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonPaper, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton22, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonPaperPaper, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -448,17 +450,17 @@ public class PRSGUI extends javax.swing.JFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton8)
-                    .addComponent(jButton20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton19)
-                    .addComponent(jButton22, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonFileAuthor)
+                    .addComponent(jButtonFileAuthorPaper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonFileAuthorCitePaper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonPaper)
+                    .addComponent(jButtonPaperPaper, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
         jPanel24.setBorder(javax.swing.BorderFactory.createTitledBorder("Testing Data"));
 
-        jButton26.setText("File GroundTruth");
+        jButtonGroundTruth.setText("File GroundTruth");
 
         javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
         jPanel24.setLayout(jPanel24Layout);
@@ -466,14 +468,14 @@ public class PRSGUI extends javax.swing.JFrame {
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel24Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton26, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonGroundTruth, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel24Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton26)
+                .addComponent(jButtonGroundTruth)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -506,7 +508,7 @@ public class PRSGUI extends javax.swing.JFrame {
                         .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 9, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -531,14 +533,14 @@ public class PRSGUI extends javax.swing.JFrame {
 
         jButtonApplyMethodDataPreparation.setText("Apply");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Content - based", "Collaborative filtering", "Hybrid" }));
+        jComboBoxMethodPreData.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Content - based", "Collaborative filtering", "Hybrid" }));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboBoxMethodPreData, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -552,7 +554,7 @@ public class PRSGUI extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonApplyMethodDataPreparation)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxMethodPreData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -646,7 +648,7 @@ public class PRSGUI extends javax.swing.JFrame {
                 .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel29Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBoxCMPaper, 0, 391, Short.MAX_VALUE))
+                        .addComponent(jComboBoxCMPaper, 0, 386, Short.MAX_VALUE))
                     .addGroup(jPanel29Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addComponent(jComboBoxWeightingPaper, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -766,7 +768,7 @@ public class PRSGUI extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton30, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
+                    .addComponent(jButton30, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
                     .addComponent(jButton32, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -838,11 +840,11 @@ public class PRSGUI extends javax.swing.JFrame {
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addComponent(jComboBoxMethodRecommend, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField3)
+                .addComponent(jTextFieldShowMethodRec)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldTopNRecommend, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel16Layout.setVerticalGroup(
@@ -850,10 +852,10 @@ public class PRSGUI extends javax.swing.JFrame {
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldShowMethodRec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxMethodRecommend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldTopNRecommend, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10))
         );
 
@@ -925,7 +927,7 @@ public class PRSGUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonFindUser, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                        .addComponent(jButtonFindUser, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
                         .addContainerGap())))
         );
         jPanel3Layout.setVerticalGroup(
@@ -948,6 +950,12 @@ public class PRSGUI extends javax.swing.JFrame {
 
         jPanel19.setBorder(javax.swing.BorderFactory.createTitledBorder("Evaluation"));
 
+        jTextFieldRankK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldRankKActionPerformed(evt);
+            }
+        });
+
         jLabel2.setText("at K:");
 
         jComboBoxMethodEvaluation.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Precision", "Recall", "F Measure", "Mean Average Precison(MAP)", "Normalized Discouted Cumulative Gain(NDCG)", "Mean Reciprocal Rank(MRR)", "All Evaluation" }));
@@ -959,11 +967,12 @@ public class PRSGUI extends javax.swing.JFrame {
             .addGroup(jPanel19Layout.createSequentialGroup()
                 .addComponent(jComboBoxMethodEvaluation, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jTextField5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextFieldRankK, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -973,7 +982,7 @@ public class PRSGUI extends javax.swing.JFrame {
                     .addComponent(jComboBoxMethodEvaluation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField5)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldRankK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -985,7 +994,7 @@ public class PRSGUI extends javax.swing.JFrame {
         jPanel21.setLayout(jPanel21Layout);
         jPanel21Layout.setHorizontalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1046,9 +1055,9 @@ public class PRSGUI extends javax.swing.JFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Console"));
 
-        jTextArea8.setColumns(20);
-        jTextArea8.setRows(5);
-        jScrollPane8.setViewportView(jTextArea8);
+        jTextAreaConsole.setColumns(20);
+        jTextAreaConsole.setRows(5);
+        jScrollPane8.setViewportView(jTextAreaConsole);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -1067,20 +1076,6 @@ public class PRSGUI extends javax.swing.JFrame {
 
         jPanel39.setBorder(javax.swing.BorderFactory.createTitledBorder("Step 1- Import Data"));
 
-        jButtonChooseDataset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Database-Active-icon.png"))); // NOI18N
-        jButtonChooseDataset.setToolTipText("Choose Dataset");
-        jButtonChooseDataset.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_BOTTOM));
-        jButtonChooseDataset.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonChooseDatasetMouseClicked(evt);
-            }
-        });
-        jButtonChooseDataset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonChooseDatasetActionPerformed(evt);
-            }
-        });
-
         jButtonStartImportData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Play-Pressed.png"))); // NOI18N
         jButtonStartImportData.setToolTipText("Start Import ");
         jButtonStartImportData.addActionListener(new java.awt.event.ActionListener() {
@@ -1091,6 +1086,15 @@ public class PRSGUI extends javax.swing.JFrame {
 
         jButtonStopImportData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Stop-Pressed.png"))); // NOI18N
         jButtonStopImportData.setToolTipText("Stop Importing");
+
+        jButtonChooseDataset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Database-Active-icon.png"))); // NOI18N
+        jButtonChooseDataset.setToolTipText("Choose Dataset");
+        jButtonChooseDataset.setPreferredSize(new java.awt.Dimension(45, 41));
+        jButtonChooseDataset.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonChooseDatasetMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel39Layout = new javax.swing.GroupLayout(jPanel39);
         jPanel39.setLayout(jPanel39Layout);
@@ -1109,11 +1113,10 @@ public class PRSGUI extends javax.swing.JFrame {
             jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel39Layout.createSequentialGroup()
                 .addGroup(jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jButtonStartImportData, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jButtonChooseDataset, javax.swing.GroupLayout.Alignment.LEADING))
-                    .addComponent(jButtonStopImportData))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jButtonStartImportData)
+                    .addComponent(jButtonStopImportData)
+                    .addComponent(jButtonChooseDataset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         jPanel40.setBorder(javax.swing.BorderFactory.createTitledBorder("Step 2 - Data Preparation"));
@@ -1168,7 +1171,7 @@ public class PRSGUI extends javax.swing.JFrame {
                     .addComponent(jButtonContructUserProfile)
                     .addComponent(jButtonContructPaperFV)
                     .addComponent(jButtonSaveModel))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 22, Short.MAX_VALUE))
         );
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Step 3 - Recommendation"));
@@ -1213,13 +1216,13 @@ public class PRSGUI extends javax.swing.JFrame {
                     .addComponent(jButtonMethodRecommendation)
                     .addComponent(jButtonRecommendation)
                     .addComponent(jButtonStopRecommendation))
-                .addGap(0, 5, Short.MAX_VALUE))
+                .addGap(0, 22, Short.MAX_VALUE))
         );
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Step 4 - Evaluation"));
 
         jButtonMethodEvaluation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/option.png"))); // NOI18N
-        jButtonMethodEvaluation.setToolTipText("Choose Evaluation");
+        jButtonMethodEvaluation.setToolTipText("Method Evaluation");
         jButtonMethodEvaluation.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonMethodEvaluationMouseClicked(evt);
@@ -1240,9 +1243,6 @@ public class PRSGUI extends javax.swing.JFrame {
             }
         });
 
-        jButtonDrawChart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/chart-bar.png"))); // NOI18N
-        jButtonDrawChart.setToolTipText("Chart");
-
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
@@ -1256,9 +1256,7 @@ public class PRSGUI extends javax.swing.JFrame {
                 .addComponent(jButtonStopEvaluation, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonErrorAnalysis, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonDrawChart, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1267,9 +1265,41 @@ public class PRSGUI extends javax.swing.JFrame {
                     .addComponent(jButtonMethodEvaluation)
                     .addComponent(jButtonEvaluation)
                     .addComponent(jButtonStopEvaluation)
-                    .addComponent(jButtonErrorAnalysis)
+                    .addComponent(jButtonErrorAnalysis))
+                .addGap(0, 22, Short.MAX_VALUE))
+        );
+
+        jPanel20.setBorder(javax.swing.BorderFactory.createTitledBorder("Utilities"));
+
+        jButtonTFIDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Document-Write-icon.png"))); // NOI18N
+        jButtonTFIDF.setToolTipText("Build TF-IDF File");
+        jButtonTFIDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTFIDFActionPerformed(evt);
+            }
+        });
+
+        jButtonDrawChart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/chart-bar.png"))); // NOI18N
+        jButtonDrawChart.setToolTipText("Chart");
+
+        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
+        jPanel20.setLayout(jPanel20Layout);
+        jPanel20Layout.setHorizontalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButtonTFIDF, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonDrawChart, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(84, Short.MAX_VALUE))
+        );
+        jPanel20Layout.setVerticalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonTFIDF)
                     .addComponent(jButtonDrawChart))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 22, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel38Layout = new javax.swing.GroupLayout(jPanel38);
@@ -1281,21 +1311,21 @@ public class PRSGUI extends javax.swing.JFrame {
                 .addComponent(jPanel39, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel38Layout.setVerticalGroup(
             jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel38Layout.createSequentialGroup()
-                .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel40, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel39, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 4, Short.MAX_VALUE))
+            .addComponent(jPanel39, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         jPanel22.setBorder(javax.swing.BorderFactory.createTitledBorder("Status"));
@@ -1311,57 +1341,76 @@ public class PRSGUI extends javax.swing.JFrame {
             .addGap(0, 15, Short.MAX_VALUE)
         );
 
-        jMenu5.setText("File");
+        jMenuFile.setText("File");
 
-        jMenuItem15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Misc-Download-Database-icon.png"))); // NOI18N
-        jMenuItem15.setText("Save model");
-        jMenu5.add(jMenuItem15);
+        jMenuItemSaveModel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Misc-Download-Database-icon.png"))); // NOI18N
+        jMenuItemSaveModel.setText("Save model");
+        jMenuFile.add(jMenuItemSaveModel);
 
-        jMenuItem16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Misc-Upload-Database-icon.png"))); // NOI18N
-        jMenuItem16.setText("Load model");
-        jMenu5.add(jMenuItem16);
+        jMenuItemLoadModel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Misc-Upload-Database-icon.png"))); // NOI18N
+        jMenuItemLoadModel.setText("Load model");
+        jMenuFile.add(jMenuItemLoadModel);
 
-        jMenuItem17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Button-Refresh-icon.png"))); // NOI18N
-        jMenuItem17.setText("Reset");
-        jMenu5.add(jMenuItem17);
+        jMenuItemReset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Button-Refresh-icon.png"))); // NOI18N
+        jMenuItemReset.setText("Reset");
+        jMenuFile.add(jMenuItemReset);
 
-        jMenuItem18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Windows-Close-Program-icon.png"))); // NOI18N
-        jMenuItem18.setText("Exit");
-        jMenu5.add(jMenuItem18);
+        jMenuItemExit.setText("Exit");
+        jMenuItemExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemExitActionPerformed(evt);
+            }
+        });
+        jMenuFile.add(jMenuItemExit);
 
-        jMenuBar1.add(jMenu5);
+        jMenuBar1.add(jMenuFile);
 
-        jMenu2.setText("Import Data");
+        jMenuImportData.setText("Import Data");
 
-        jMenuItem19.setText("Choose Sample Dataset");
-        jMenu2.add(jMenuItem19);
+        jMenuItemDatasetExample.setText("Dataset Example");
+        jMenuItemDatasetExample.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemDatasetExampleActionPerformed(evt);
+            }
+        });
+        jMenuImportData.add(jMenuItemDatasetExample);
 
-        jMenuItem20.setText("Choose Source Dataset");
-        jMenu2.add(jMenuItem20);
+        jMenuItemDatasetSource.setText("Dataset Source");
+        jMenuImportData.add(jMenuItemDatasetSource);
 
-        jMenuItem21.setText("Import Dataset");
-        jMenu2.add(jMenuItem21);
+        jMenuItemImportDataset.setText("Import Dataset");
+        jMenuImportData.add(jMenuItemImportDataset);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(jMenuImportData);
 
-        jMenu3.setText("Data Preparation");
+        jMenuDataPreparation.setText("Data Preparation");
 
-        jMenu7.setText("Choose Algorithm");
+        jMenuMethodDataPreparation.setText("Method DataPreparation");
 
-        jMenuItem22.setText("Content - based");
-        jMenu7.add(jMenuItem22);
+        jMenuItemPreDataCB.setText("Content - based");
+        jMenuItemPreDataCB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemPreDataCBActionPerformed(evt);
+            }
+        });
+        jMenuMethodDataPreparation.add(jMenuItemPreDataCB);
 
-        jMenuItem23.setText("Collaborative filtering");
-        jMenu7.add(jMenuItem23);
+        jMenuItemPreDataCF.setText("Collaborative filtering");
+        jMenuItemPreDataCF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemPreDataCFActionPerformed(evt);
+            }
+        });
+        jMenuMethodDataPreparation.add(jMenuItemPreDataCF);
 
-        jMenu3.add(jMenu7);
+        jMenuDataPreparation.add(jMenuMethodDataPreparation);
 
-        jMenuItem24.setText("Prepare Data");
-        jMenu3.add(jMenuItem24);
+        jMenuItemPrepareData.setText("Prepare Data");
+        jMenuDataPreparation.add(jMenuItemPrepareData);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(jMenuDataPreparation);
 
-        jMenu4.setText("Recommendation");
+        jMenuRecommendation.setText("Recommendation");
 
         jMenu8.setText("Choose Algorithm");
 
@@ -1371,19 +1420,19 @@ public class PRSGUI extends javax.swing.JFrame {
         jMenuItem26.setText("Collaborative filtering");
         jMenu8.add(jMenuItem26);
 
-        jMenu4.add(jMenu8);
+        jMenuRecommendation.add(jMenu8);
 
         jMenuItem27.setText("Recommend");
-        jMenu4.add(jMenuItem27);
+        jMenuRecommendation.add(jMenuItem27);
 
         jMenuItem28.setText("Save Recommendation List");
-        jMenu4.add(jMenuItem28);
+        jMenuRecommendation.add(jMenuItem28);
 
-        jMenuBar1.add(jMenu4);
+        jMenuBar1.add(jMenuRecommendation);
 
-        jMenu6.setText("Evaluation");
+        jMenuEvaluation.setText("Evaluation");
 
-        jMenu9.setText("Choose Evaluation");
+        jMenu9.setText("Method Evaluation");
 
         jMenuItem29.setText("Precision");
         jMenu9.add(jMenuItem29);
@@ -1403,36 +1452,41 @@ public class PRSGUI extends javax.swing.JFrame {
         jMenuItem34.setText("MRR");
         jMenu9.add(jMenuItem34);
 
-        jMenu6.add(jMenu9);
+        jMenuEvaluation.add(jMenu9);
 
         jMenuItem35.setText("Evaluate");
-        jMenu6.add(jMenuItem35);
+        jMenuEvaluation.add(jMenuItem35);
 
         jMenuItem36.setText("Save Evaluation");
-        jMenu6.add(jMenuItem36);
+        jMenuEvaluation.add(jMenuItem36);
 
-        jMenuBar1.add(jMenu6);
+        jMenuBar1.add(jMenuEvaluation);
 
-        jMenu10.setText("Utilities");
+        jMenuUtilities.setText("Utilities");
 
-        jMenuItem37.setText("Compute TFIDF");
-        jMenu10.add(jMenuItem37);
+        jMenuItemTFIDF.setText("Compute TFIDF");
+        jMenuUtilities.add(jMenuItemTFIDF);
 
-        jMenuItem38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/chart-bar.png"))); // NOI18N
-        jMenuItem38.setText("Draw chart");
-        jMenu10.add(jMenuItem38);
+        jMenuItemDrawChart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/chart-bar.png"))); // NOI18N
+        jMenuItemDrawChart.setText("Draw chart");
+        jMenuUtilities.add(jMenuItemDrawChart);
 
-        jMenuBar1.add(jMenu10);
+        jMenuBar1.add(jMenuUtilities);
 
-        jMenu11.setText("Help");
+        jMenuHelp.setText("Help");
 
-        jMenuItem39.setText("Help contents");
-        jMenu11.add(jMenuItem39);
+        jMenuItemHelp.setText("Help contents");
+        jMenuItemHelp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemHelpActionPerformed(evt);
+            }
+        });
+        jMenuHelp.add(jMenuItemHelp);
 
-        jMenuItem40.setText("About");
-        jMenu11.add(jMenuItem40);
+        jMenuItemAbout.setText("About");
+        jMenuHelp.add(jMenuItemAbout);
 
-        jMenuBar1.add(jMenu11);
+        jMenuBar1.add(jMenuHelp);
 
         setJMenuBar(jMenuBar1);
 
@@ -1440,11 +1494,10 @@ public class PRSGUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel38, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.LEADING))
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
+            .addComponent(jPanel38, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1469,22 +1522,22 @@ public class PRSGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+    private void jRadioButtonDatasetSourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDatasetSourceActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
+    }//GEN-LAST:event_jRadioButtonDatasetSourceActionPerformed
 
-    private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
+    private void jButtonFileAuthorCitePaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFileAuthorCitePaperActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton24ActionPerformed
+    }//GEN-LAST:event_jButtonFileAuthorCitePaperActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    private void jRadioButtonDatasetExampleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDatasetExampleActionPerformed
         // TODO add your handling code here:
      
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_jRadioButtonDatasetExampleActionPerformed
 
     private void jButton30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton30ActionPerformed
         // TODO add your handling code here:
@@ -1493,12 +1546,6 @@ public class PRSGUI extends javax.swing.JFrame {
     private void jButton31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton31ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton31ActionPerformed
-
-    private void jButtonChooseDatasetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonChooseDatasetActionPerformed
-        // TODO add your handling code here:
-        
-        
-    }//GEN-LAST:event_jButtonChooseDatasetActionPerformed
 
     private void jButtonMethodDataPreparationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonMethodDataPreparationMouseClicked
         // TODO add your handling code here:
@@ -1510,12 +1557,6 @@ public class PRSGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
       
     }//GEN-LAST:event_jButtonMethodDataPreparationActionPerformed
-
-    private void jButtonChooseDatasetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonChooseDatasetMouseClicked
-        // TODO add your handling code here:
-       jPopupMenuImportData.show(jButtonChooseDataset,jButtonChooseDataset.getWidth()/4,
-                (jButtonChooseDataset.getHeight() )-jPopupMenuImportData.getPreferredSize().height);
-    }//GEN-LAST:event_jButtonChooseDatasetMouseClicked
 
     private void jButtonSaveModelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveModelActionPerformed
         // TODO add your handling code here:
@@ -1540,6 +1581,40 @@ public class PRSGUI extends javax.swing.JFrame {
         jPopupMenuEvaluation.show(jButtonMethodEvaluation,jButtonMethodEvaluation.getWidth()/4,
                 (jButtonMethodEvaluation.getHeight() )-jPopupMenuEvaluation.getPreferredSize().height/4);
     }//GEN-LAST:event_jButtonMethodEvaluationMouseClicked
+
+    private void jMenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItemExitActionPerformed
+
+    private void jButtonChooseDatasetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonChooseDatasetMouseClicked
+        // TODO add your handling code here:
+        jPopupMenuImportData.show(jButtonChooseDataset,jButtonChooseDataset.getWidth()/4,
+                (jButtonChooseDataset.getHeight() )-jPopupMenuImportData.getPreferredSize().height);
+    }//GEN-LAST:event_jButtonChooseDatasetMouseClicked
+
+    private void jTextFieldRankKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldRankKActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldRankKActionPerformed
+
+    private void jButtonTFIDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTFIDFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonTFIDFActionPerformed
+
+    private void jMenuItemDatasetExampleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDatasetExampleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItemDatasetExampleActionPerformed
+
+    private void jMenuItemPreDataCFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPreDataCFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItemPreDataCFActionPerformed
+
+    private void jMenuItemPreDataCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPreDataCBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItemPreDataCBActionPerformed
+
+    private void jMenuItemHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemHelpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItemHelpActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1568,16 +1643,10 @@ public class PRSGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton17;
-    private javax.swing.JButton jButton19;
-    private javax.swing.JButton jButton20;
-    private javax.swing.JButton jButton22;
     private javax.swing.JButton jButton23;
-    private javax.swing.JButton jButton24;
-    private javax.swing.JButton jButton26;
     private javax.swing.JButton jButton30;
     private javax.swing.JButton jButton31;
     private javax.swing.JButton jButton32;
-    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButtonApplyMethodDataPreparation;
     private javax.swing.JButton jButtonChooseDataset;
     private javax.swing.JButton jButtonContructPaperFV;
@@ -1585,11 +1654,17 @@ public class PRSGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonDrawChart;
     private javax.swing.JButton jButtonErrorAnalysis;
     private javax.swing.JButton jButtonEvaluation;
+    private javax.swing.JButton jButtonFileAuthor;
+    private javax.swing.JButton jButtonFileAuthorCitePaper;
+    private javax.swing.JButton jButtonFileAuthorPaper;
     private javax.swing.JButton jButtonFindUser;
+    private javax.swing.JButton jButtonGroundTruth;
     private javax.swing.JButton jButtonLoadModel;
     private javax.swing.JButton jButtonMethodDataPreparation;
     private javax.swing.JButton jButtonMethodEvaluation;
     private javax.swing.JButton jButtonMethodRecommendation;
+    private javax.swing.JButton jButtonPaper;
+    private javax.swing.JButton jButtonPaperPaper;
     private javax.swing.JButton jButtonRecommendation;
     private javax.swing.JButton jButtonSaveModel;
     private javax.swing.JButton jButtonStartCombiningPaper;
@@ -1598,10 +1673,11 @@ public class PRSGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonStopEvaluation;
     private javax.swing.JButton jButtonStopImportData;
     private javax.swing.JButton jButtonStopRecommendation;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JButton jButtonTFIDF;
     private javax.swing.JComboBox jComboBoxCMPaper;
     private javax.swing.JComboBox jComboBoxCMUser;
     private javax.swing.JComboBox jComboBoxMethodEvaluation;
+    private javax.swing.JComboBox jComboBoxMethodPreData;
     private javax.swing.JComboBox jComboBoxMethodRecommend;
     private javax.swing.JComboBox jComboBoxWeightingPaper;
     private javax.swing.JComboBox jComboBoxWeightingUser;
@@ -1617,27 +1693,14 @@ public class PRSGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JList jList1;
     private javax.swing.JList jList2;
-    private javax.swing.JMenu jMenu10;
-    private javax.swing.JMenu jMenu11;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem15;
-    private javax.swing.JMenuItem jMenuItem16;
-    private javax.swing.JMenuItem jMenuItem17;
-    private javax.swing.JMenuItem jMenuItem18;
-    private javax.swing.JMenuItem jMenuItem19;
-    private javax.swing.JMenuItem jMenuItem20;
-    private javax.swing.JMenuItem jMenuItem21;
-    private javax.swing.JMenuItem jMenuItem22;
-    private javax.swing.JMenuItem jMenuItem23;
-    private javax.swing.JMenuItem jMenuItem24;
+    private javax.swing.JMenu jMenuDataPreparation;
+    private javax.swing.JMenu jMenuEvaluation;
+    private javax.swing.JMenu jMenuFile;
+    private javax.swing.JMenu jMenuHelp;
+    private javax.swing.JMenu jMenuImportData;
     private javax.swing.JMenuItem jMenuItem25;
     private javax.swing.JMenuItem jMenuItem26;
     private javax.swing.JMenuItem jMenuItem27;
@@ -1650,23 +1713,36 @@ public class PRSGUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem34;
     private javax.swing.JMenuItem jMenuItem35;
     private javax.swing.JMenuItem jMenuItem36;
-    private javax.swing.JMenuItem jMenuItem37;
-    private javax.swing.JMenuItem jMenuItem38;
-    private javax.swing.JMenuItem jMenuItem39;
-    private javax.swing.JMenuItem jMenuItem40;
+    private javax.swing.JMenuItem jMenuItemAbout;
     private javax.swing.JMenuItem jMenuItemAllEvalution;
+    private javax.swing.JMenuItem jMenuItemDatasetExample;
+    private javax.swing.JMenuItem jMenuItemDatasetSource;
     private javax.swing.JMenuItem jMenuItemDcollaborativeFiltering;
     private javax.swing.JMenuItem jMenuItemDcontentbased;
+    private javax.swing.JMenuItem jMenuItemDrawChart;
     private javax.swing.JMenuItem jMenuItemExampleData;
+    private javax.swing.JMenuItem jMenuItemExit;
     private javax.swing.JMenuItem jMenuItemF1;
     private javax.swing.JMenuItem jMenuItemFromDataScource;
+    private javax.swing.JMenuItem jMenuItemHelp;
+    private javax.swing.JMenuItem jMenuItemImportDataset;
+    private javax.swing.JMenuItem jMenuItemLoadModel;
     private javax.swing.JMenuItem jMenuItemMAP;
     private javax.swing.JMenuItem jMenuItemMRR;
     private javax.swing.JMenuItem jMenuItemNDCG;
+    private javax.swing.JMenuItem jMenuItemPreDataCB;
+    private javax.swing.JMenuItem jMenuItemPreDataCF;
     private javax.swing.JMenuItem jMenuItemPrecision;
+    private javax.swing.JMenuItem jMenuItemPrepareData;
     private javax.swing.JMenuItem jMenuItemRCollaborativeFiltering;
     private javax.swing.JMenuItem jMenuItemRcontentBased;
     private javax.swing.JMenuItem jMenuItemRecall;
+    private javax.swing.JMenuItem jMenuItemReset;
+    private javax.swing.JMenuItem jMenuItemSaveModel;
+    private javax.swing.JMenuItem jMenuItemTFIDF;
+    private javax.swing.JMenu jMenuMethodDataPreparation;
+    private javax.swing.JMenu jMenuRecommendation;
+    private javax.swing.JMenu jMenuUtilities;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -1679,6 +1755,7 @@ public class PRSGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel24;
@@ -1707,8 +1784,8 @@ public class PRSGUI extends javax.swing.JFrame {
     private javax.swing.JPopupMenu jPopupMenuEvaluation;
     private javax.swing.JPopupMenu jPopupMenuImportData;
     private javax.swing.JPopupMenu jPopupMenuRecommendation;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButtonDatasetExample;
+    private javax.swing.JRadioButton jRadioButtonDatasetSource;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
@@ -1723,18 +1800,18 @@ public class PRSGUI extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea10;
-    private javax.swing.JTextArea jTextArea11;
-    private javax.swing.JTextArea jTextArea12;
-    private javax.swing.JTextArea jTextArea13;
-    private javax.swing.JTextArea jTextArea8;
-    private javax.swing.JTextArea jTextArea9;
+    private javax.swing.JTextArea jTextAreaAuthor;
+    private javax.swing.JTextArea jTextAreaAuthorCitePaper;
+    private javax.swing.JTextArea jTextAreaAuthorPaper;
+    private javax.swing.JTextArea jTextAreaConsole;
+    private javax.swing.JTextArea jTextAreaFilePaper;
+    private javax.swing.JTextArea jTextAreaGroundTruth;
+    private javax.swing.JTextArea jTextAreaPaperPaper;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField jTextFieldRankK;
+    private javax.swing.JTextField jTextFieldShowMethodRec;
+    private javax.swing.JTextField jTextFieldTopNRecommend;
     // End of variables declaration//GEN-END:variables
 }
