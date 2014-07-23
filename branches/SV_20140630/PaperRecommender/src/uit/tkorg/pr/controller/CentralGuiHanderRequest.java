@@ -51,10 +51,10 @@ public class CentralGuiHanderRequest {
         public String fileNameAuthorPaper;// File 4
         public String fileNameAuthorCitePaper;// File 5
         public String fileNameGroundTruth;// File 6
-        public String dirPapers;
-        public String dirPreProcessedPaper;
-        public String sequenceDir;
-        public String vectorDir;
+        public String dirPapers="Temp\\Text";
+        public String dirPreProcessedPaper="Temp\\Preprocess";
+        public String sequenceDir="Temp\\Sequence";
+        public String vectorDir="Temp\\VectorDir";
         public String MahoutCFDir;
         public String fileNameEvaluationResult;
         public HashMap<String, Paper> papers = new HashMap<>();
@@ -149,6 +149,8 @@ public class CentralGuiHanderRequest {
                     case help:
                         break;
                     case reset:
+                        papers = new HashMap<>();
+                        authors = new HashMap<>();
                         break;
                     default:
                       response[0] = "Unknown.";   

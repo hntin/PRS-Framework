@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 /**
@@ -190,13 +191,16 @@ public class TFIDFGUI extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonOpenResultFolderActionPerformed
 
     private void jButtonCreateTFIDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateTFIDFActionPerformed
-        Thread thread = new Thread() {
+        jButtonCreateTFIDF.setEnabled(false);
+        Runnable updateAComponent = new Runnable() {
             public void run() {
                 GUIUtilities.createTFIDF(jTextFieldTextFolder.getText().trim().toString(), jTextFieldTFIDF.getText().trim().toString());
+
             }
-        ;
         };
-        thread.start();
+        SwingUtilities.invokeLater(updateAComponent);
+        System.out.println("hgbdjsghjdfhjg");
+        jButtonCreateTFIDF.setEnabled(true);
     }//GEN-LAST:event_jButtonCreateTFIDFActionPerformed
 
     private void jButtonChooseTFIDFFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonChooseTFIDFFolderActionPerformed

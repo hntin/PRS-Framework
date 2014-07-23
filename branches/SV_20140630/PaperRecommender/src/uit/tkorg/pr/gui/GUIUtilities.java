@@ -105,6 +105,23 @@ public class GUIUtilities {
         return path;
     }
 
+    //Choose file using JChooser
+    public static String chooseFileJChooser(String title) {
+        String path = null;
+        try {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle(title);
+            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            int userSelection = fileChooser.showOpenDialog(null);
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                path = fileChooser.getSelectedFile().getAbsolutePath().toString();
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        return path;
+    }
+
     //Create tfidf files from Mahout
     public static void createTFIDF(String pathText, String pathTFIDF) {
         String pathPreprocess = "Temp\\Preprocess";
@@ -117,6 +134,7 @@ public class GUIUtilities {
                 TextVectorizationByMahoutTerminalUtility.textVectorizeFiles(pathPreprocess, pathSequence, pathVectorDir);
                 HashMap<String, HashMapVector> vectorizedPapers = MahoutFile.readMahoutVectorFiles(pathVectorDir);
                 HashMap<Integer, String> dictMap = MahoutFile.readMahoutDictionaryFiles(pathVectorDir);
+
                 for (String documentId : vectorizedPapers.keySet()) {
                     HashMapVector hashmapVector = vectorizedPapers.get(documentId);
                     StringBuffer fileTFIDF = new StringBuffer();
@@ -171,8 +189,8 @@ public class GUIUtilities {
         return true;
     }
 
-    //Doc so hang va so cot cua mot file matran
-    public static double missingValueInMatrix(String pathMatrixCF, int numAuthors, int numPapers) throws FileNotFoundException {
+    //Doc so hang va so cot cua mot file matran va tra ve missing value
+    public static double missingValueInMatrixCF(String pathMatrixCF, int numAuthors, int numPapers) throws FileNotFoundException {
         double missingValue = 0;
         BufferedReader reader = new BufferedReader(new FileReader(pathMatrixCF));
         String line = null;
@@ -181,10 +199,11 @@ public class GUIUtilities {
             while ((line = reader.readLine()) != null) {
                 numLine++;
             }
+            missingValue = numLine / (numAuthors * numPapers);
         } catch (IOException ex) {
             Logger.getLogger(GUIUtilities.class.getName()).log(Level.SEVERE, null, ex);
         }
-        missingValue = numLine / (numAuthors * numPapers);
+
         return missingValue * 100;
     }
 }
