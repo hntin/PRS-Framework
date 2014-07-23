@@ -14,6 +14,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTree;
 import javax.swing.UIManager;
+import uit.tkorg.pr.controller.CentralGuiHanderRequest;
 
 /**
  *
@@ -24,9 +25,22 @@ public class PRSGUI extends javax.swing.JFrame {
     /**
      * Creates new form PRSGUI
      */
+    private CentralGuiHanderRequest controller;
+    private String desFileAuthor= "";
+    private String desFilePaper = "";
+    private String desFileAuthorPaper = "";
+    private String desFileAuthorCitePaper ="";
+    private String desFilePaperPaper= "";
+    private String desFileGroundTruth ="";
     public PRSGUI() {
         initComponents();
-       jButtonChooseDataset.add(jPopupMenuImportData);
+        controller = new CentralGuiHanderRequest();
+        jTextAreaAuthor.setText(desFileAuthor);
+        jTextAreaAuthorCitePaper.setText(desFileAuthorCitePaper);
+        jTextAreaAuthorPaper.setText(desFileAuthorPaper);
+        jTextAreaPaper.setText(desFilePaper);
+        jTextAreaPaperPaper.setText(desFilePaperPaper);
+        jTextAreaGroundTruth.setText(desFileGroundTruth);
        
     }
 
@@ -70,7 +84,7 @@ public class PRSGUI extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaAuthor = new javax.swing.JTextArea();
         jScrollPane12 = new javax.swing.JScrollPane();
-        jTextAreaFilePaper = new javax.swing.JTextArea();
+        jTextAreaPaper = new javax.swing.JTextArea();
         jScrollPane10 = new javax.swing.JScrollPane();
         jTextAreaAuthorPaper = new javax.swing.JTextArea();
         jScrollPane13 = new javax.swing.JScrollPane();
@@ -326,9 +340,9 @@ public class PRSGUI extends javax.swing.JFrame {
 
         jTabbedPane4.addTab("File authors", jScrollPane1);
 
-        jTextAreaFilePaper.setColumns(20);
-        jTextAreaFilePaper.setRows(5);
-        jScrollPane12.setViewportView(jTextAreaFilePaper);
+        jTextAreaPaper.setColumns(20);
+        jTextAreaPaper.setRows(5);
+        jScrollPane12.setViewportView(jTextAreaPaper);
 
         jTabbedPane4.addTab("File papers", jScrollPane12);
 
@@ -725,11 +739,11 @@ public class PRSGUI extends javax.swing.JFrame {
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(578, Short.MAX_VALUE))
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(317, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1463,6 +1477,11 @@ public class PRSGUI extends javax.swing.JFrame {
         jMenuUtilities.setText("Utilities");
 
         jMenuItemTFIDF.setText("Compute TFIDF");
+        jMenuItemTFIDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemTFIDFActionPerformed(evt);
+            }
+        });
         jMenuUtilities.add(jMenuItemTFIDF);
 
         jMenuItemDrawChart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/chart-bar.png"))); // NOI18N
@@ -1534,8 +1553,8 @@ public class PRSGUI extends javax.swing.JFrame {
 
     private void jRadioButtonDatasetExampleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDatasetExampleActionPerformed
         // TODO add your handling code here:
-        
-     
+       ExampleDataset example = new ExampleDataset();
+       example.show();
     }//GEN-LAST:event_jRadioButtonDatasetExampleActionPerformed
 
     private void jButton30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton30ActionPerformed
@@ -1614,6 +1633,10 @@ public class PRSGUI extends javax.swing.JFrame {
     private void jMenuItemHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemHelpActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItemHelpActionPerformed
+
+    private void jMenuItemTFIDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTFIDFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItemTFIDFActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1804,8 +1827,8 @@ public class PRSGUI extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextAreaAuthorCitePaper;
     private javax.swing.JTextArea jTextAreaAuthorPaper;
     private javax.swing.JTextArea jTextAreaConsole;
-    private javax.swing.JTextArea jTextAreaFilePaper;
     private javax.swing.JTextArea jTextAreaGroundTruth;
+    private javax.swing.JTextArea jTextAreaPaper;
     private javax.swing.JTextArea jTextAreaPaperPaper;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;

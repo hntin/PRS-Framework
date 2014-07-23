@@ -13,8 +13,12 @@ import de.progra.charting.render.PlotChartRenderer;
 import ir.utilities.Weight;
 import ir.vsr.HashMapVector;
 import java.awt.Rectangle;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -165,5 +169,22 @@ public class GUIUtilities {
             return false;
         }
         return true;
+    }
+
+    //Doc so hang va so cot cua mot file matran
+    public static double missingValueInMatrix(String pathMatrixCF, int numAuthors, int numPapers) throws FileNotFoundException {
+        double missingValue = 0;
+        BufferedReader reader = new BufferedReader(new FileReader(pathMatrixCF));
+        String line = null;
+        int numLine = 0;
+        try {
+            while ((line = reader.readLine()) != null) {
+                numLine++;
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(GUIUtilities.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        missingValue = numLine / (numAuthors * numPapers);
+        return missingValue * 100;
     }
 }

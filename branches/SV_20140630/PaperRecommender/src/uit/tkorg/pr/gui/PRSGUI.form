@@ -435,6 +435,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Compute TFIDF"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemTFIDFActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemDrawChart">
               <Properties>
@@ -622,7 +625,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTextArea" name="jTextAreaFilePaper">
+                        <Component class="javax.swing.JTextArea" name="jTextAreaPaper">
                           <Properties>
                             <Property name="columns" type="int" value="20"/>
                             <Property name="rows" type="int" value="5"/>
@@ -1367,12 +1370,12 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <EmptySpace min="25" pref="25" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jLabel1" max="32767" attributes="0"/>
-                                      <Component id="jLabel5" max="32767" attributes="0"/>
-                                      <Component id="jLabel6" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel1" min="-2" pref="315" max="-2" attributes="0"/>
+                                      <Component id="jLabel5" alignment="0" min="-2" pref="328" max="-2" attributes="0"/>
+                                      <Component id="jLabel6" alignment="0" min="-2" pref="277" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="578" max="32767" attributes="0"/>
+                                  <EmptySpace pref="317" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>

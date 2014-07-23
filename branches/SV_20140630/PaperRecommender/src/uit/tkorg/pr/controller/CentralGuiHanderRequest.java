@@ -43,6 +43,7 @@ public class CentralGuiHanderRequest {
         public int combiningPaper; // phuong thuc combining paper
         public int topN;// topN recommend
         public int rank;// rank K evaluation
+        public int k;// so hang xom
         public String SaveDataFolder;//
         public String fileNamePapers; //File 1
         public String fileNamePaperCitePaper;// File 2
@@ -96,10 +97,14 @@ public class CentralGuiHanderRequest {
                     case loadModel:
                         break;
                     case recommendationCB:
+                          CBFPaperFVComputation.clearTFIDF(papers);
                           FeatureVectorSimilarity.computeCBFSimAndPutIntoModelForAuthorList(authors, papers,0);
                           FeatureVectorSimilarity.generateRecommendationForAuthorList(authors, topN);
                         break;
-                    case recommendationCF:
+                    case recommendationCFKNN:/// xuat hien form de dien cac tham so k hang xom
+                        
+                        break;
+                    case recommendationCFSVD:// xuat hien form de dien cac tham so cho SVD
                         break;
                     case precision:
                         StringBuilder evaluationResultPrecision = new StringBuilder();
@@ -140,10 +145,6 @@ public class CentralGuiHanderRequest {
                     case errorAnalysis:
                         break;
                     case help:
-                        break;
-                    case computeTFIDF:
-                        break;
-                    case drawChart:
                         break;
                     case reset:
                         break;

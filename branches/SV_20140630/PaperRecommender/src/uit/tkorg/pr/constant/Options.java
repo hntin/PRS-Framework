@@ -13,7 +13,7 @@ package uit.tkorg.pr.constant;
 public enum Options {
     importData, stopImportData,contructUserProfile, contructPaperFV,
     saveModel,saveRecommendList,saveResultEvaluate,loadModel, recommendationCB, 
-    recommendationCF,recommendation,stopRecommendation,
-    precision,recall,f1,map,ndcg,mrr,startEvaluation, stopEvaluation,errorAnalysis,drawChart,
-    showRecommendList,help,computeTFIDF,contructMatrixInput,loadExistentMatrix,reset
+    recommendationCFKNN,recommendationCFSVD,stopRecommendation,
+    precision,recall,f1,map,ndcg,mrr,startEvaluation, stopEvaluation,errorAnalysis,
+    showRecommendList,help,contructMatrixInput,loadExistentMatrix,reset
 }
