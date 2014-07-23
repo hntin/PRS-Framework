@@ -68,18 +68,17 @@ public class CentralPaperRecommendation {
              try {
                 switch (request) {
                     // neu gui chon la dataset sample thi goi lenh nay load Data set len form
-                    case importDatasetSample:// luc dau tab import data training va testing se bi vo hieu hoa chuc nang
-                          DatasetFolder = "SampleData\\";
-                          fileNameAuthorTestSet = DatasetFolder + "Authors.csv";
-                          fileNameGroundTruth = DatasetFolder + "GroundTruth.csv";
-                          fileNameAuthorship = DatasetFolder + "Paper_Cite_Author.csv";
-                          fileNamePapers = DatasetFolder + "Papers.csv";
-                          fileNamePaperCitePaper = DatasetFolder +"Paper_Cite_Paper.csv";
-                      
-                        break;
-                    case importDatasetFromScource://neu dc chon thi active panel,set cac file data voi duong dan dc chon
+//                    case importDatasetSample:// luc dau tab import data training va testing se bi vo hieu hoa chuc nang
+////                          DatasetFolder = "SampleData\\";
+////                          fileNameAuthorTestSet = DatasetFolder + "Authors.csv";
+//                          fileNameGroundTruth = DatasetFolder + "GroundTruth.csv";
+//                          fileNameAuthorship = DatasetFolder + "Paper_Cite_Author.csv";
+//                          fileNamePapers = DatasetFolder + "Papers.csv";
+////                          fileNamePaperCitePaper = DatasetFolder +"Paper_Cite_Paper.csv";
+//                        break;
+////                    case importDa                    case importDatasetSample:// luc dau tab import data training va testing se bi vo hieu hoa chuc nang
                         
-                        break;
+////                        break;
                     case importData:
                         authors = MASDataset1.readAuthorListTestSet(fileNameAuthorTestSet, fileNameGroundTruth, fileNameAuthorship);
                         papers = MASDataset1.readPaperList(fileNamePapers,fileNamePaperCitePaper);
@@ -92,8 +91,6 @@ public class CentralPaperRecommendation {
                         break;
                     case stopImportData:
                         break;
-                    case dataPreparationCB:
-                        break;
                     case contructUserProfile:
                         HashSet<String> paperIdsOfAuthorTestSet = AuthorFVComputation.getPaperIdsOfAuthors(authors);
                         PaperFVComputation.computeFeatureVectorForAllPapers(papers, paperIdsOfAuthorTestSet,combiningAuthor,1);
@@ -104,9 +101,8 @@ public class CentralPaperRecommendation {
                         break;
                     case saveModel:
                         break;
-                    case dataPreparationCF:
-                        break;
                     case contructMatrixInput:
+                        
                         break;
                     case loadExistentMatrix:
                         break;
@@ -161,14 +157,16 @@ public class CentralPaperRecommendation {
                     case reset:
                         break;
                     default:
-                        
-                    
-                 }
+                      response[0] = "Unknown.";   
+                    }
                 } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace(System.out);
             response[0] = "Fail.";
             }
             return response;
+        }
+        public static void main(String[] args){
+
         }
 }
