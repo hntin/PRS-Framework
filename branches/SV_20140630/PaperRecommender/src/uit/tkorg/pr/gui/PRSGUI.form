@@ -67,7 +67,7 @@
         <Property name="text" type="java.lang.String" value="jButton23"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.ButtonGroup" name="buttonGroup1">
+    <Component class="javax.swing.ButtonGroup" name="buttonGroupDataset">
     </Component>
     <Component class="javax.swing.JButton" name="jButton17">
       <Properties>
@@ -237,16 +237,22 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/Misc-Download-Database-icon.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Save model"/>
+                <Property name="text" type="java.lang.String" value="Save Model"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemSaveModelActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemLoadModel">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/Misc-Upload-Database-icon.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Load model"/>
+                <Property name="text" type="java.lang.String" value="Load Model"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemLoadModelActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemReset">
               <Properties>
@@ -255,6 +261,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Reset"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemResetActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemExit">
               <Properties>
@@ -271,23 +280,36 @@
             <Property name="text" type="java.lang.String" value="Import Data"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemDatasetExample">
+            <Menu class="javax.swing.JMenu" name="jMenu1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Dataset Example"/>
+                <Property name="text" type="java.lang.String" value="Choose Dataset"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemDatasetExampleActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemDatasetSource">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Dataset Source"/>
-              </Properties>
-            </MenuItem>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItemImportDatasetExample">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="From Dataset Example"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemImportDatasetExampleActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItemImportDatasetSource">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="From Dataset Source"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemImportDatasetSourceActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemImportDataset">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Import Dataset"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemImportDatasetActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -311,7 +333,7 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jMenuItemPreDataCF">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Collaborative filtering"/>
+                    <Property name="text" type="java.lang.String" value="Collaborative Filtering"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemPreDataCFActionPerformed"/>
@@ -319,11 +341,29 @@
                 </MenuItem>
               </SubComponents>
             </Menu>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemPrepareData">
+            <Menu class="javax.swing.JMenu" name="jMenu2">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Prepare Data"/>
               </Properties>
-            </MenuItem>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItemConstructUserProfile">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Construct User Profile"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemConstructUserProfileActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItemConstructFVPaer">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Construct Feature Vector For Paper"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemConstructFVPaerActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenuRecommendation">
@@ -336,27 +376,39 @@
                 <Property name="text" type="java.lang.String" value="Choose Algorithm"/>
               </Properties>
               <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem25">
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItemRecommendCB">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Content - based"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemRecommendCBActionPerformed"/>
+                  </Events>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem26">
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItemRecommendCF">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Collaborative filtering"/>
+                    <Property name="text" type="java.lang.String" value="Collaborative Filtering"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemRecommendCFActionPerformed"/>
+                  </Events>
                 </MenuItem>
               </SubComponents>
             </Menu>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem27">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemRecommend">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Recommend"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemRecommendActionPerformed"/>
+              </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem28">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemSaveRecList">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Save Recommendation List"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemSaveRecListActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -370,47 +422,71 @@
                 <Property name="text" type="java.lang.String" value="Method Evaluation"/>
               </Properties>
               <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem29">
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItemPrecisionEvaluation">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Precision"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemPrecisionEvaluationActionPerformed"/>
+                  </Events>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem30">
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItemRecallEvaluation">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Recall"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemRecallEvaluationActionPerformed"/>
+                  </Events>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem31">
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItemFmeasureEvaluation">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Fmeasure"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemFmeasureEvaluationActionPerformed"/>
+                  </Events>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem32">
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItemMAPEvaluation">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="MAP"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemMAPEvaluationActionPerformed"/>
+                  </Events>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem33">
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItemNDCGEvaluation">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="NDCG"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemNDCGEvaluationActionPerformed"/>
+                  </Events>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem34">
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItemMRREvaluation">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="MRR"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemMRREvaluationActionPerformed"/>
+                  </Events>
                 </MenuItem>
               </SubComponents>
             </Menu>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem35">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemEvaluate">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Evaluate"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemEvaluateActionPerformed"/>
+              </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem36">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemSaveEvaluation">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Save Evaluation"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemSaveEvaluationActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -423,6 +499,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Compute TFIDF"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemTFIDFActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemDrawChart">
               <Properties>
@@ -431,6 +510,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Draw chart"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemDrawChartActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -483,7 +565,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jPanel5" alignment="0" max="32767" attributes="0"/>
-          <Component id="jTabbedPane1" alignment="0" max="32767" attributes="0"/>
+          <Component id="jTabbedPaneStep" alignment="0" max="32767" attributes="0"/>
           <Component id="jPanel38" alignment="0" max="32767" attributes="0"/>
           <Component id="jPanel22" alignment="1" max="32767" attributes="0"/>
       </Group>
@@ -493,7 +575,7 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="jPanel38" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTabbedPane1" min="-2" pref="336" max="-2" attributes="0"/>
+              <Component id="jTabbedPaneStep" min="-2" pref="336" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -503,7 +585,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
+    <Container class="javax.swing.JTabbedPane" name="jTabbedPaneStep">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
@@ -750,7 +832,7 @@
                 <Component class="javax.swing.JRadioButton" name="jRadioButtonDatasetExample">
                   <Properties>
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="buttonGroup1"/>
+                      <ComponentRef name="buttonGroupDataset"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="From Dataset Example"/>
                   </Properties>
@@ -761,7 +843,7 @@
                 <Component class="javax.swing.JRadioButton" name="jRadioButtonDatasetSource">
                   <Properties>
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="buttonGroup1"/>
+                      <ComponentRef name="buttonGroupDataset"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="From Dataset Source"/>
                   </Properties>
@@ -936,7 +1018,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jTabbedPane2" max="32767" attributes="0"/>
+                          <Component id="jTabbedPanePreData" max="32767" attributes="0"/>
                           <Component id="jPanel6" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -948,7 +1030,7 @@
                   <Group type="102" attributes="0">
                       <Component id="jPanel6" min="-2" pref="56" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTabbedPane2" min="-2" pref="215" max="-2" attributes="0"/>
+                      <Component id="jTabbedPanePreData" min="-2" pref="215" max="-2" attributes="0"/>
                       <EmptySpace pref="31" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -970,7 +1052,7 @@
                       <Group type="102" attributes="0">
                           <Component id="jComboBoxMethodPreData" min="-2" pref="127" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jTextField2" max="32767" attributes="0"/>
+                          <Component id="jTextFieldPreDataAlgorithm" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jButtonApplyMethodDataPreparation" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
@@ -982,7 +1064,7 @@
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextFieldPreDataAlgorithm" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jButtonApplyMethodDataPreparation" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jComboBoxMethodPreData" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -992,9 +1074,9 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JTextField" name="jTextField2">
+                <Component class="javax.swing.JTextField" name="jTextFieldPreDataAlgorithm">
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField2ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldPreDataAlgorithmActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jButtonApplyMethodDataPreparation">
@@ -1005,17 +1087,16 @@
                 <Component class="javax.swing.JComboBox" name="jComboBoxMethodPreData">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="3">
+                      <StringArray count="2">
                         <StringItem index="0" value="Content - based"/>
                         <StringItem index="1" value="Collaborative filtering"/>
-                        <StringItem index="2" value="Hybrid"/>
                       </StringArray>
                     </Property>
                   </Properties>
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JTabbedPane" name="jTabbedPane2">
+            <Container class="javax.swing.JTabbedPane" name="jTabbedPanePreData">
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
               <SubComponents>
@@ -1534,7 +1615,7 @@
                       <Group type="102" attributes="0">
                           <Component id="jComboBoxMethodRecommend" min="-2" pref="144" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jTextFieldShowMethodRec" max="32767" attributes="0"/>
+                          <Component id="jTextFieldMethodRec" max="32767" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -1548,7 +1629,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jTextFieldShowMethodRec" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextFieldMethodRec" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jComboBoxMethodRecommend" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jTextFieldTopNRecommend" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
@@ -1559,7 +1640,7 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JTextField" name="jTextFieldShowMethodRec">
+                <Component class="javax.swing.JTextField" name="jTextFieldMethodRec">
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextFieldTopNRecommend">
                 </Component>
@@ -1571,10 +1652,9 @@
                 <Component class="javax.swing.JComboBox" name="jComboBoxMethodRecommend">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="3">
+                      <StringArray count="2">
                         <StringItem index="0" value="Content - based"/>
                         <StringItem index="1" value="Collaborative filtering"/>
-                        <StringItem index="2" value="Hybrid"/>
                       </StringArray>
                     </Property>
                   </Properties>
@@ -1737,7 +1817,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jComboBoxMethodEvaluation" min="-2" pref="255" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jTextField5" max="32767" attributes="0"/>
+                          <Component id="jTextFieldEvaluation" max="32767" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -1752,7 +1832,7 @@
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jComboBoxMethodEvaluation" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField5" alignment="3" max="32767" attributes="0"/>
+                              <Component id="jTextFieldEvaluation" alignment="3" max="32767" attributes="0"/>
                               <Component id="jLabel2" alignment="3" max="32767" attributes="0"/>
                               <Component id="jTextFieldRankK" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -1762,7 +1842,7 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JTextField" name="jTextField5">
+                <Component class="javax.swing.JTextField" name="jTextFieldEvaluation">
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextFieldRankK">
                   <Events>
