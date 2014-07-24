@@ -108,7 +108,7 @@ public class CentralGuiHanderRequest {
                     StringBuilder evaluationResultPrecision = new StringBuilder();
                     evaluationResultPrecision.append("Precision\t").append("P@").append(topRank).append(": ")
                             .append(Evaluator.computeMeanPrecisionTopN(authors, topRank)).append("\r\n");
-                    response[1] = evaluationResultPrecision.toString();
+                   // response[1] = evaluationResultPrecision.toString();
                     break;
                 case recall:
                     StringBuilder evaluationResultRecall = new StringBuilder();
@@ -180,7 +180,7 @@ public class CentralGuiHanderRequest {
             }
         }
     }
-
+   
     public static void main(String[] args) {
 
     }
