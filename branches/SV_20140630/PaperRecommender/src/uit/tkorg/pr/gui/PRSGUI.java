@@ -6,8 +6,10 @@
 package uit.tkorg.pr.gui;
 
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -26,6 +28,8 @@ public class PRSGUI extends javax.swing.JFrame {
      * Creates new form PRSGUI
      */
     private CentralGuiHanderRequest controller;
+    private String[] response;
+    private List previousEvaluation = new ArrayList<String>();// save result evaluation
     private int methodEvaluation;// kiem tra phuong thuc Evaluation nao dc chon
     private String desFileAuthor = "";
     private String desFilePaper = "";
@@ -33,7 +37,6 @@ public class PRSGUI extends javax.swing.JFrame {
     private String desFileAuthorCitePaper = "";
     private String desFilePaperPaper = "";
     private String desFileGroundTruth = "";
-
     public PRSGUI() {
         initComponents();
         controller = new CentralGuiHanderRequest();
@@ -1925,6 +1928,43 @@ public class PRSGUI extends javax.swing.JFrame {
         // phuong phap evaluation khac tru f1 va mrr neu co thi thuc hien cac lenh if ben duoi
         controller.topRank = Integer.parseInt(jTextFieldtopRank.getText().trim().toString());
         if (methodEvaluation == 0) {
+<<<<<<< .mine
+           response= controller.guiHanderResquest(Options.precision);
+           previousEvaluation.add(0,response[1]);
+        } else if (methodEvaluation == 1) {
+           response= controller.guiHanderResquest(Options.recall);
+           previousEvaluation.add(1,response[1]);
+        } else if (methodEvaluation == 2) {
+           response= controller.guiHanderResquest(Options.f1);
+           previousEvaluation.add(2,response[1]);
+        } else if (methodEvaluation == 3) {
+           response= controller.guiHanderResquest(Options.map);
+           previousEvaluation.add(3,response[1]);
+        } else if (methodEvaluation == 4) {
+           response= controller.guiHanderResquest(Options.ndcg);
+           previousEvaluation.add(4,response[1]);
+        } else if (methodEvaluation == 5) {
+           response= controller.guiHanderResquest(Options.mrr);
+           previousEvaluation.add(5,response[1]);
+        } else if (methodEvaluation == 6) {
+            String allResultEvaluate = new String();
+            response = controller.guiHanderResquest(Options.precision); 
+            allResultEvaluate =response[1];
+            response = controller.guiHanderResquest(Options.recall);
+            allResultEvaluate.concat("\r\n"+response[1]);
+            response = controller.guiHanderResquest(Options.f1);
+            allResultEvaluate.concat("\r\n"+response[1]);
+            response = controller.guiHanderResquest(Options.map);
+            allResultEvaluate.concat("\r\n"+response[1]);
+            response = controller.guiHanderResquest(Options.ndcg);
+            allResultEvaluate.concat("\r\n"+response[1]);
+            response = controller.guiHanderResquest(Options.mrr);
+            allResultEvaluate.concat("\r\n"+ response[1]);
+            previousEvaluation.add(6,allResultEvaluate);
+            
+            
+        }
+=======
          controller.guiHanderResquest(Options.precision);
          } else if (methodEvaluation == 1) {
          controller.guiHanderResquest(Options.recall);
@@ -1944,6 +1984,7 @@ public class PRSGUI extends javax.swing.JFrame {
          controller.guiHanderResquest(Options.ndcg);
          controller.guiHanderResquest(Options.mrr);
          }
+>>>>>>> .r347
         DefaultListModel model = new DefaultListModel();
         for (int i = 0; i < jListEvaluation.getModel().getSize(); i++) {
             model.addElement(jListEvaluation.getModel().getElementAt(i));
