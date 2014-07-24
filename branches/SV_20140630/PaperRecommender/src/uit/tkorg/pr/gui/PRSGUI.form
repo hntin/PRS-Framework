@@ -1003,7 +1003,7 @@
                       <Group type="102" attributes="0">
                           <Component id="jComboBoxMethodPreData" min="-2" pref="127" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jTextField2" max="32767" attributes="0"/>
+                          <Component id="jTextFieldDataPreAlgorithm" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jButtonApplyMethodDataPreparation" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
@@ -1015,7 +1015,7 @@
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextFieldDataPreAlgorithm" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jButtonApplyMethodDataPreparation" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jComboBoxMethodPreData" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -1025,9 +1025,9 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JTextField" name="jTextField2">
+                <Component class="javax.swing.JTextField" name="jTextFieldDataPreAlgorithm">
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField2ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldDataPreAlgorithmActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jButtonApplyMethodDataPreparation">
@@ -1038,13 +1038,15 @@
                 <Component class="javax.swing.JComboBox" name="jComboBoxMethodPreData">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="3">
+                      <StringArray count="2">
                         <StringItem index="0" value="Content - based"/>
                         <StringItem index="1" value="Collaborative filtering"/>
-                        <StringItem index="2" value="Hybrid"/>
                       </StringArray>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxMethodPreDataActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -1528,7 +1530,7 @@
                               <EmptySpace min="-2" pref="787" max="-2" attributes="0"/>
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jTextField1" min="-2" pref="148" max="-2" attributes="0"/>
+                              <Component id="jTextFieldIdAuthor" min="-2" pref="148" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jButtonFindUser" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -1544,7 +1546,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldIdAuthor" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jButtonFindUser" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -1601,6 +1603,9 @@
                 <Component class="javax.swing.JTextField" name="jTextFieldShowMethodRec">
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextFieldTopNRecommend">
+                  <Events>
+                    <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldTopNRecommendKeyReleased"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel3">
                   <Properties>
@@ -1610,10 +1615,11 @@
                 <Component class="javax.swing.JComboBox" name="jComboBoxMethodRecommend">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="3">
+                      <StringArray count="4">
                         <StringItem index="0" value="Content - based"/>
-                        <StringItem index="1" value="Collaborative filtering with KNN"/>
-                        <StringItem index="2" value="Collaborative filtering with SVD"/>
+                        <StringItem index="1" value="Collaborative filtering with KNN Pearson"/>
+                        <StringItem index="2" value="Collaborative filtering with KNN Cosine"/>
+                        <StringItem index="3" value="Collaborative filtering with SVD"/>
                       </StringArray>
                     </Property>
                   </Properties>
@@ -1712,9 +1718,9 @@
                 <Property name="text" type="java.lang.String" value="Id author"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField1">
+            <Component class="javax.swing.JTextField" name="jTextFieldIdAuthor">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldIdAuthorKeyReleased"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonFindUser">
@@ -1779,7 +1785,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jComboBoxMethodEvaluation" min="-2" pref="255" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jTextField5" max="32767" attributes="0"/>
+                          <Component id="jTextFieldEvaluationMethod" max="32767" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -1794,7 +1800,7 @@
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jComboBoxMethodEvaluation" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField5" alignment="3" max="32767" attributes="0"/>
+                              <Component id="jTextFieldEvaluationMethod" alignment="3" max="32767" attributes="0"/>
                               <Component id="jLabel2" alignment="3" max="32767" attributes="0"/>
                               <Component id="jTextFieldRankK" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -1804,7 +1810,7 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JTextField" name="jTextField5">
+                <Component class="javax.swing.JTextField" name="jTextFieldEvaluationMethod">
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextFieldRankK">
                   <Events>
@@ -2178,7 +2184,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButtonMethodRecommendation" min="-2" pref="45" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jButtonRecommendation" min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="jButtonRecommend" min="-2" pref="45" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButtonStopRecommendation" min="-2" pref="45" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -2191,7 +2197,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jButtonLoadModel" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jButtonMethodRecommendation" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButtonRecommendation" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonRecommend" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jButtonStopRecommendation" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -2208,13 +2214,16 @@
                 <Property name="toolTipText" type="java.lang.String" value="Load Model"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButtonRecommendation">
+            <Component class="javax.swing.JButton" name="jButtonRecommend">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/Icon-Recommendation.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Start Recommend"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonRecommendActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonStopRecommendation">
               <Properties>

@@ -6,6 +6,7 @@
 package uit.tkorg.pr.gui;
 
 import java.awt.Point;
+import java.awt.event.KeyEvent;
 import javax.swing.JDialog;
 import javax.swing.JInternalFrame;
 import javax.swing.JLayeredPane;
@@ -18,6 +19,7 @@ import javax.swing.JOptionPane;
 import uit.tkorg.pr.constant.Options;
 import uit.tkorg.pr.controller.CentralGuiHanderRequest;
 import uit.tkorg.pr.gui.GammaGUI;
+import uit.tkorg.utility.general.NumericUtility;
 
 /**
  *
@@ -52,7 +54,10 @@ public class PRSGUI extends javax.swing.JFrame {
         jButtonFilePaper.setEnabled(false);
         jButtonFilePaperPaper.setEnabled(false);
         jButtonFileGroundTruth.setEnabled(false);
-
+        controller.combiningAuthor = 0;
+        controller.combiningPaper = 0;
+        controller.weightingAuthor = 0;
+        controller.weightingPaper = 0;
     }
 
     /**
@@ -118,7 +123,7 @@ public class PRSGUI extends javax.swing.JFrame {
         jButtonFileGroundTruth = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
-        jTextField2 = new javax.swing.JTextField();
+        jTextFieldDataPreAlgorithm = new javax.swing.JTextField();
         jButtonApplyMethodDataPreparation = new javax.swing.JButton();
         jComboBoxMethodPreData = new javax.swing.JComboBox();
         jTabbedPane2 = new javax.swing.JTabbedPane();
@@ -158,11 +163,11 @@ public class PRSGUI extends javax.swing.JFrame {
         jScrollPane16 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTextFieldIdAuthor = new javax.swing.JTextField();
         jButtonFindUser = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel19 = new javax.swing.JPanel();
-        jTextField5 = new javax.swing.JTextField();
+        jTextFieldEvaluationMethod = new javax.swing.JTextField();
         jTextFieldRankK = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jComboBoxMethodEvaluation = new javax.swing.JComboBox();
@@ -186,7 +191,7 @@ public class PRSGUI extends javax.swing.JFrame {
         jButtonSaveModel = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jButtonLoadModel = new javax.swing.JButton();
-        jButtonRecommendation = new javax.swing.JButton();
+        jButtonRecommend = new javax.swing.JButton();
         jButtonStopRecommendation = new javax.swing.JButton();
         jButtonMethodRecommendation = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
@@ -576,15 +581,20 @@ public class PRSGUI extends javax.swing.JFrame {
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Choose Algorithm"));
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldDataPreAlgorithm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                jTextFieldDataPreAlgorithmActionPerformed(evt);
             }
         });
 
         jButtonApplyMethodDataPreparation.setText("Apply");
 
-        jComboBoxMethodPreData.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Content - based", "Collaborative filtering", "Hybrid" }));
+        jComboBoxMethodPreData.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Content - based", "Collaborative filtering" }));
+        jComboBoxMethodPreData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxMethodPreDataActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -593,7 +603,7 @@ public class PRSGUI extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addComponent(jComboBoxMethodPreData, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2)
+                .addComponent(jTextFieldDataPreAlgorithm)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonApplyMethodDataPreparation)
                 .addGap(5, 5, 5))
@@ -603,7 +613,7 @@ public class PRSGUI extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(4, 4, 4)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldDataPreAlgorithm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonApplyMethodDataPreparation)
                     .addComponent(jComboBoxMethodPreData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -899,9 +909,15 @@ public class PRSGUI extends javax.swing.JFrame {
 
         jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder("Recommendation"));
 
+        jTextFieldTopNRecommend.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldTopNRecommendKeyReleased(evt);
+            }
+        });
+
         jLabel3.setText("Top N Recommend");
 
-        jComboBoxMethodRecommend.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Content - based", "Collaborative filtering with KNN", "Collaborative filtering with SVD" }));
+        jComboBoxMethodRecommend.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Content - based", "Collaborative filtering with KNN Pearson", "Collaborative filtering with KNN Cosine", "Collaborative filtering with SVD" }));
         jComboBoxMethodRecommend.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxMethodRecommendActionPerformed(evt);
@@ -974,9 +990,9 @@ public class PRSGUI extends javax.swing.JFrame {
 
         jLabel4.setText("Id author");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+        jTextFieldIdAuthor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldIdAuthorKeyReleased(evt);
             }
         });
 
@@ -998,7 +1014,7 @@ public class PRSGUI extends javax.swing.JFrame {
                         .addGap(787, 787, 787)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextFieldIdAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonFindUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
@@ -1010,7 +1026,7 @@ public class PRSGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldIdAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonFindUser))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1045,7 +1061,7 @@ public class PRSGUI extends javax.swing.JFrame {
             .addGroup(jPanel19Layout.createSequentialGroup()
                 .addComponent(jComboBoxMethodEvaluation, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField5)
+                .addComponent(jTextFieldEvaluationMethod)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1058,7 +1074,7 @@ public class PRSGUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxMethodEvaluation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField5)
+                    .addComponent(jTextFieldEvaluationMethod)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextFieldRankK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -1252,8 +1268,13 @@ public class PRSGUI extends javax.swing.JFrame {
         jButtonLoadModel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/upload model.png"))); // NOI18N
         jButtonLoadModel.setToolTipText("Load Model");
 
-        jButtonRecommendation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Icon-Recommendation.png"))); // NOI18N
-        jButtonRecommendation.setToolTipText("Start Recommend");
+        jButtonRecommend.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Icon-Recommendation.png"))); // NOI18N
+        jButtonRecommend.setToolTipText("Start Recommend");
+        jButtonRecommend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRecommendActionPerformed(evt);
+            }
+        });
 
         jButtonStopRecommendation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Stop-Pressed.png"))); // NOI18N
         jButtonStopRecommendation.setToolTipText("Stop Recommending");
@@ -1276,7 +1297,7 @@ public class PRSGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonMethodRecommendation, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonRecommendation, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonRecommend, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonStopRecommendation, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -1287,7 +1308,7 @@ public class PRSGUI extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonLoadModel)
                     .addComponent(jButtonMethodRecommendation)
-                    .addComponent(jButtonRecommendation)
+                    .addComponent(jButtonRecommend)
                     .addComponent(jButtonStopRecommendation))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -1633,9 +1654,9 @@ public class PRSGUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jComboBoxWeightingUserActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void jTextFieldDataPreAlgorithmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDataPreAlgorithmActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_jTextFieldDataPreAlgorithmActionPerformed
 
     private void jRadioButtonDatasetSourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDatasetSourceActionPerformed
         // TODO add your handling code here:
@@ -1654,10 +1675,6 @@ public class PRSGUI extends javax.swing.JFrame {
         fc.showOpenDialog(this);
         controller.fileNameAuthorCitePaper = fc.getSelectedFile().getAbsolutePath();
     }//GEN-LAST:event_jButtonFileAuthorCitePaperActionPerformed
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jRadioButtonDatasetExampleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDatasetExampleActionPerformed
         // TODO add your handling code here:
@@ -1721,7 +1738,7 @@ public class PRSGUI extends javax.swing.JFrame {
 
     private void jTextFieldRankKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldRankKActionPerformed
         // TODO add your handling code here:
-        controller.rank = Integer.parseInt(jTextFieldRankK.getText().toString());
+        controller.topRank = Integer.parseInt(jTextFieldRankK.getText().toString());
     }//GEN-LAST:event_jTextFieldRankKActionPerformed
 
     private void jButtonTFIDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTFIDFActionPerformed
@@ -1847,8 +1864,21 @@ public class PRSGUI extends javax.swing.JFrame {
 
     private void jComboBoxMethodRecommendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxMethodRecommendActionPerformed
         // TODO add your handling code here:
-        if (jComboBoxMethodRecommend.getSelectedIndex() == 1) {
-            controller.guiHanderResquest(Options.recommendationCB);
+        if (jComboBoxMethodRecommend.getSelectedIndex() == 0) {
+            controller.recommendationMethod = 1;
+            jTextFieldShowMethodRec.setText(jComboBoxMethodRecommend.getSelectedItem().toString());
+        } else if (jComboBoxMethodRecommend.getSelectedIndex() == 1) {
+            controller.recommendationMethod = 2;
+            controller.cfMethod = 1;
+            jTextFieldShowMethodRec.setText(jComboBoxMethodRecommend.getSelectedItem().toString());
+        } else if (jComboBoxMethodRecommend.getSelectedIndex() == 2) {
+            controller.recommendationMethod = 2;
+            controller.cfMethod = 2;
+            jTextFieldShowMethodRec.setText(jComboBoxMethodRecommend.getSelectedItem().toString());
+        } else if (jComboBoxMethodRecommend.getSelectedIndex() == 3) {
+            controller.recommendationMethod = 2;
+            controller.cfMethod = 3;
+            jTextFieldShowMethodRec.setText(jComboBoxMethodRecommend.getSelectedItem().toString());
         }
     }//GEN-LAST:event_jComboBoxMethodRecommendActionPerformed
 
@@ -1856,24 +1886,31 @@ public class PRSGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (jComboBoxMethodEvaluation.getSelectedIndex() == 0) {
             methodEvaluation = 0;
+            jTextFieldEvaluationMethod.setText(jComboBoxMethodEvaluation.getSelectedItem().toString());
         } else if (jComboBoxMethodEvaluation.getSelectedIndex() == 1) {
             methodEvaluation = 1;
+            jTextFieldEvaluationMethod.setText(jComboBoxMethodEvaluation.getSelectedItem().toString());
         } else if (jComboBoxMethodEvaluation.getSelectedIndex() == 2) {
             methodEvaluation = 2;
+            jTextFieldEvaluationMethod.setText(jComboBoxMethodEvaluation.getSelectedItem().toString());
         } else if (jComboBoxMethodEvaluation.getSelectedIndex() == 3) {
             methodEvaluation = 3;
+            jTextFieldEvaluationMethod.setText(jComboBoxMethodEvaluation.getSelectedItem().toString());
         } else if (jComboBoxMethodEvaluation.getSelectedIndex() == 4) {
             methodEvaluation = 4;
+            jTextFieldEvaluationMethod.setText(jComboBoxMethodEvaluation.getSelectedItem().toString());
         } else if (jComboBoxMethodEvaluation.getSelectedIndex() == 5) {
             methodEvaluation = 5;
+            jTextFieldEvaluationMethod.setText(jComboBoxMethodEvaluation.getSelectedItem().toString());
         } else if (jComboBoxMethodEvaluation.getSelectedIndex() == 6) {
             methodEvaluation = 6;
+            jTextFieldEvaluationMethod.setText(jComboBoxMethodEvaluation.getSelectedItem().toString());
         }
     }//GEN-LAST:event_jComboBoxMethodEvaluationActionPerformed
 
     private void jButtonEvaluationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEvaluationActionPerformed
         // TODO add your handling code here:
-        // viet them ham kiem tra xem co nguoi dung co nhap rank cho cac
+        // viet them ham kiem tra xem co nguoi dung co nhap topRank cho cac
         // phuong phap evaluation khac tru f1 va mrr neu co thi thuc hien cac lenh if ben duoi
         if (methodEvaluation == 0) {
             controller.guiHanderResquest(Options.precision);
@@ -1921,6 +1958,35 @@ public class PRSGUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Warning", "Occured error...Please try again!", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButtonDrawChartActionPerformed
+
+    private void jComboBoxMethodPreDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxMethodPreDataActionPerformed
+        if (jComboBoxMethodPreData.getSelectedIndex() == 0) {
+            jTextFieldDataPreAlgorithm.setText(jComboBoxMethodPreData.getSelectedItem().toString());
+        } else if (jComboBoxMethodPreData.getSelectedIndex() == 1) {
+            jTextFieldDataPreAlgorithm.setText(jComboBoxMethodPreData.getSelectedItem().toString());
+        }
+    }//GEN-LAST:event_jComboBoxMethodPreDataActionPerformed
+
+    private void jButtonRecommendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRecommendActionPerformed
+        controller.guiHanderResquest(Options.recommend);
+    }//GEN-LAST:event_jButtonRecommendActionPerformed
+
+    private void jTextFieldTopNRecommendKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldTopNRecommendKeyReleased
+        if (!NumericUtility.isNum(jTextFieldTopNRecommend.getText().trim().toString()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE &&evt.getKeyChar() != KeyEvent.VK_ENTER) {
+            JOptionPane.showMessageDialog(rootPane, "Please input number...", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            int num = Integer.parseInt(jTextFieldTopNRecommend.getText().trim().toString());
+            if ((num < 1 || num > 100) && evt.getKeyChar() != KeyEvent.VK_ENTER) {
+                JOptionPane.showMessageDialog(rootPane, "Please input number >0 and <=101...", "Warning", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jTextFieldTopNRecommendKeyReleased
+
+    private void jTextFieldIdAuthorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldIdAuthorKeyReleased
+        if (!NumericUtility.isNum(jTextFieldTopNRecommend.getText().trim().toString()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE &&evt.getKeyChar() != KeyEvent.VK_ENTER) {
+            JOptionPane.showMessageDialog(rootPane, "Please input number...", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_jTextFieldIdAuthorKeyReleased
 
     /**
      * @param args the command line arguments
@@ -1970,7 +2036,7 @@ public class PRSGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonMethodDataPreparation;
     private javax.swing.JButton jButtonMethodEvaluation;
     private javax.swing.JButton jButtonMethodRecommendation;
-    private javax.swing.JButton jButtonRecommendation;
+    private javax.swing.JButton jButtonRecommend;
     private javax.swing.JButton jButtonSaveModel;
     private javax.swing.JButton jButtonStartCombiningPaper;
     private javax.swing.JButton jButtonStartCombiningUser;
@@ -2114,9 +2180,9 @@ public class PRSGUI extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextAreaGroundTruth;
     private javax.swing.JTextArea jTextAreaPaper;
     private javax.swing.JTextArea jTextAreaPaperPaper;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextFieldDataPreAlgorithm;
+    private javax.swing.JTextField jTextFieldEvaluationMethod;
+    private javax.swing.JTextField jTextFieldIdAuthor;
     private javax.swing.JTextField jTextFieldRankK;
     private javax.swing.JTextField jTextFieldShowMethodRec;
     private javax.swing.JTextField jTextFieldTopNRecommend;
