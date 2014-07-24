@@ -10,6 +10,7 @@ import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import org.apache.commons.io.FileUtils;
 import uit.tkorg.pr.constant.PRConstant;
 import uit.tkorg.pr.constant.Options;
@@ -47,6 +48,7 @@ public class CentralGuiHanderRequest {
     public int topNRecommend;// topNRecommend recommend
     public int topRank;// topRank K evaluation
     public int kNeighbor;// so hang xom
+    public String authorId;
     public String SaveDataFolder;//
     public String fileNamePapers; //File 1
     public String fileNamePaperCitePaper;// File 2
@@ -104,11 +106,14 @@ public class CentralGuiHanderRequest {
                 case recommend:
                     recommend();
                     break;
+                case showRecommendList:
+                    response[1]= findListRecommendOfAuthor(authorId, authors).toString();
+                    break;
                 case precision:
                     StringBuilder evaluationResultPrecision = new StringBuilder();
                     evaluationResultPrecision.append("Precision\t").append("P@").append(topRank).append(": ")
                             .append(Evaluator.computeMeanPrecisionTopN(authors, topRank)).append("\r\n");
-                   // response[1] = evaluationResultPrecision.toString();
+                    response[1] = evaluationResultPrecision.toString();
                     break;
                 case recall:
                     StringBuilder evaluationResultRecall = new StringBuilder();
@@ -180,7 +185,10 @@ public class CentralGuiHanderRequest {
             }
         }
     }
-   
+   public List<String> findListRecommendOfAuthor(String authorId,HashMap<String,Author> authors ){
+       List listRecommend = authors.get(authorId).getRecommendationList();
+       return listRecommend;
+   }
     public static void main(String[] args) {
 
     }
