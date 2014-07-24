@@ -166,13 +166,17 @@ public class CentralGuiHanderRequest {
             FeatureVectorSimilarity.generateRecommendationForAuthorList(authors, topNRecommend);
         } else if (recommendationMethod == 2) {
             //CF method
+             HashSet<String> paperIds = new HashSet<>();
+             paperIds = CBFAuthorFVComputation.getPaperIdsTestSet(authors);
             if (cfMethod == 1) {
                 //CF method with KNN Pearson
+            CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod, authors,paperIds);
             } else if (cfMethod == 2) {
                 //CF method with KNN Cosine
-
+            CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod, authors,paperIds);
             } else if (cfMethod == 3) {
                 //CF method with SVD
+             CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod, authors,paperIds);
             }
         }
     }
