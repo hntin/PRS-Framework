@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -191,7 +192,9 @@ public class TFIDFGUI extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonOpenResultFolderActionPerformed
 
     private void jButtonCreateTFIDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateTFIDFActionPerformed
-        jButtonCreateTFIDF.setEnabled(false);
+        if (new File(jTextFieldTextFolder.getText().trim().toString()).exists() && new File(jTextFieldTFIDF.getText().trim().toString()).exists())
+         {
+            jButtonCreateTFIDF.setEnabled(false);
         Runnable updateAComponent = new Runnable() {
             public void run() {
                 GUIUtilities.createTFIDF(jTextFieldTextFolder.getText().trim().toString(), jTextFieldTFIDF.getText().trim().toString());
@@ -199,8 +202,10 @@ public class TFIDFGUI extends javax.swing.JDialog {
             }
         };
         SwingUtilities.invokeLater(updateAComponent);
-        System.out.println("hgbdjsghjdfhjg");
-        jButtonCreateTFIDF.setEnabled(true);
+        jButtonCreateTFIDF.setEnabled(true);}
+        else{
+            JOptionPane.showMessageDialog(rootPane, "Please input existent folder...", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonCreateTFIDFActionPerformed
 
     private void jButtonChooseTFIDFFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonChooseTFIDFFolderActionPerformed

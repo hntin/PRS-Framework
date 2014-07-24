@@ -20,19 +20,20 @@ import java.util.Map;
  * @author THNghiep
  */
 public class NumericUtility {
-    
+
     // Prevent instantiation.
-    private NumericUtility() {}
+    private NumericUtility() {
+    }
 
     /**
-     * This method standardizes the similarity value of cosine.
-     * Value range would be between 0 and 1.
-     * 
+     * This method standardizes the similarity value of cosine. Value range
+     * would be between 0 and 1.
+     *
      * @param d
      * @return standardized value of d.
      */
     public static double standardizeSimilarityValue(double d) {
-        
+
         if (d < 0) {
             d = 0.0;
         } else if (d > 1) {
@@ -40,7 +41,7 @@ public class NumericUtility {
         } else if (Double.isNaN(d)) {
             d = 0.0;
         }
-        
+
         return d;
     }
 
@@ -53,10 +54,12 @@ public class NumericUtility {
     public static boolean isNum(String strNum) {
         boolean result = true;
         try {
-            Double.parseDouble(strNum);
+            if (strNum != null) {
+                Double.parseDouble(strNum);
+            }
         } catch (NumberFormatException e) {
             result = false;
         }
         return result;
-    }    
+    }
 }

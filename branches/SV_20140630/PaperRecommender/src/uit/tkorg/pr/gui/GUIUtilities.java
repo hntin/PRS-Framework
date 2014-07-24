@@ -25,6 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import org.apache.commons.io.FileUtils;
 import uit.tkorg.pr.dataimex.MahoutFile;
 import uit.tkorg.utility.textvectorization.TextPreprocessUtility;
@@ -36,7 +37,6 @@ import uit.tkorg.utility.textvectorization.TextVectorizationByMahoutTerminalUtil
  */
 public class GUIUtilities {
 //Save to file using JChooser
-
     public static String saveToFileJChooser() {
         String path = null;
         try {
@@ -71,7 +71,32 @@ public class GUIUtilities {
         return path;
     }
 
+//Save to file using JChooser
+    public static String saveToFile() {
+        String path = null;
+        try {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Save To File");
+            FileFilter fileFilterText=new FileNameExtensionFilter("Text Files", "*.txt");
+            FileFilter fileFilterCSV=new FileNameExtensionFilter("CVS Files", "*.csv");
+            fileChooser.addChoosableFileFilter(fileFilterText);
+            fileChooser.addChoosableFileFilter(fileFilterCSV);
+            int userSelection = fileChooser.showSaveDialog(null);
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File fileToSave = fileChooser.getSelectedFile();
+                if (!fileChooser.getFileFilter().accept(fileToSave) || !fileToSave.getName().toLowerCase().endsWith(".dat")) {
+                    fileToSave = new File(fileToSave.getAbsolutePath() + ".dat");
+                }
+                path = fileToSave.getAbsolutePath();
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        return path;
+    }
+    
 //Load file using JChooser
+
     public static String loadFileJChooser() {
         String path = null;
         try {

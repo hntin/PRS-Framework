@@ -39,11 +39,11 @@ public class CentralGuiHanderRequest {
 
     public double gama;// tham so gama cho 
     public double pruning;//tham so deu chinh cho pruning cho paper
-    public int weightingAuthor=0;// trong so author
-    public int weightingPaper=0;// trong so paper
-    public int combiningAuthor=0;// phuong thuc combining author
-    public int combiningPaper=0; // phuong thuc combining paper
-    public int recommendationMethod=1; //1: CBF, 2: CF
+    public int weightingAuthor = 0;// trong so author
+    public int weightingPaper = 0;// trong so paper
+    public int combiningAuthor = 0;// phuong thuc combining author
+    public int combiningPaper = 0; // phuong thuc combining paper
+    public int recommendationMethod = 1; //1: CBF, 2: CF
     public int cfMethod;//1: KNN Pearson, 2: KNN Cosine, 3: SVD
     public int topNRecommend;// topNRecommend recommend
     public int topRank;// topRank K evaluation
@@ -107,7 +107,7 @@ public class CentralGuiHanderRequest {
                     recommend();
                     break;
                 case showRecommendList:
-                    response[1]= findListRecommendOfAuthor(authorId, authors).toString();
+                    response[1] = findListRecommendOfAuthor(authorId, authors).toString();
                     break;
                 case precision:
                     StringBuilder evaluationResultPrecision = new StringBuilder();
@@ -186,12 +186,20 @@ public class CentralGuiHanderRequest {
         }
     }
 
+    public void reset() {
+        weightingAuthor = 0;
+        weightingPaper = 0;
+        combiningAuthor = 0;
+        combiningPaper = 0;
+        recommendationMethod = 1;
+        papers = new HashMap<>();
+        authors = new HashMap<>();
+    }
 
-
-   public List<String> findListRecommendOfAuthor(String authorId,HashMap<String,Author> authors ){
-       List listRecommend = authors.get(authorId).getRecommendationList();
-       return listRecommend;
-   }
+    public List<String> findListRecommendOfAuthor(String authorId, HashMap<String, Author> authors) {
+        List listRecommend = authors.get(authorId).getRecommendationList();
+        return listRecommend;
+    }
 
     public static void main(String[] args) {
 

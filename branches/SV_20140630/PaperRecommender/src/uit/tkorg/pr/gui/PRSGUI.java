@@ -134,9 +134,6 @@ public class PRSGUI extends javax.swing.JFrame {
         jTextAreaPaper.setEditable(false);
         jTextAreaPaperPaper.setEditable(false);
 
-        jTextFieldDataPreAlgorithm.setText(jComboBoxMethodPreData.getSelectedItem().toString());
-        jTextFieldShowMethodRec.setText(jComboBoxMethodRecommend.getSelectedItem().toString());
-        jTextFieldEvaluationMethod.setText(jComboBoxMethodEvaluation.getSelectedItem().toString());
     }
 
     /**
@@ -203,9 +200,8 @@ public class PRSGUI extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jTextFieldDataPreAlgorithm = new javax.swing.JTextField();
-        jButtonApplyMethodDataPreparation = new javax.swing.JButton();
         jComboBoxMethodPreData = new javax.swing.JComboBox();
-        jTabbedPane2 = new javax.swing.JTabbedPane();
+        jTabbedPaneDataPreparation = new javax.swing.JTabbedPane();
         jPanel26 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
         jPanel28 = new javax.swing.JPanel();
@@ -213,14 +209,12 @@ public class PRSGUI extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jComboBoxCMUser = new javax.swing.JComboBox();
         jComboBoxWeightingUser = new javax.swing.JComboBox();
-        jButtonStartCombiningUser = new javax.swing.JButton();
         jPanel25 = new javax.swing.JPanel();
         jPanel29 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jComboBoxCMPaper = new javax.swing.JComboBox();
         jLabel16 = new javax.swing.JLabel();
         jComboBoxWeightingPaper = new javax.swing.JComboBox();
-        jButtonStartCombiningPaper = new javax.swing.JButton();
         jPanel27 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -317,7 +311,7 @@ public class PRSGUI extends javax.swing.JFrame {
         jMenuMRR = new javax.swing.JMenuItem();
         jMenuAllEvaluation = new javax.swing.JMenuItem();
         jMenuItemEvaluate = new javax.swing.JMenuItem();
-        jMenuSavaResultEvaluation = new javax.swing.JMenuItem();
+        jMenuSaveResultEvaluation = new javax.swing.JMenuItem();
         jMenuUtilities = new javax.swing.JMenu();
         jMenuItemTFIDF = new javax.swing.JMenuItem();
         jMenuItemDrawChart = new javax.swing.JMenuItem();
@@ -588,12 +582,12 @@ public class PRSGUI extends javax.swing.JFrame {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButtonFileAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonFileAuthorPaper, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonFileAuthor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonFileAuthorPaper, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonFileAuthorCitePaper, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
                 .addComponent(jButtonFilePaper, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonFilePaperPaper, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -608,8 +602,8 @@ public class PRSGUI extends javax.swing.JFrame {
                     .addComponent(jButtonFileAuthorPaper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonFileAuthorCitePaper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonFilePaper)
-                    .addComponent(jButtonFilePaperPaper, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(13, Short.MAX_VALUE))
+                    .addComponent(jButtonFilePaperPaper))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         jPanel24.setBorder(javax.swing.BorderFactory.createTitledBorder("Testing Data"));
@@ -684,13 +678,12 @@ public class PRSGUI extends javax.swing.JFrame {
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Choose Algorithm"));
 
+        jTextFieldDataPreAlgorithm.setText("Content - based");
         jTextFieldDataPreAlgorithm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldDataPreAlgorithmActionPerformed(evt);
             }
         });
-
-        jButtonApplyMethodDataPreparation.setText("Apply");
 
         jComboBoxMethodPreData.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Content - based", "Collaborative filtering" }));
         jComboBoxMethodPreData.addActionListener(new java.awt.event.ActionListener() {
@@ -706,23 +699,21 @@ public class PRSGUI extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addComponent(jComboBoxMethodPreData, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldDataPreAlgorithm)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonApplyMethodDataPreparation)
-                .addGap(5, 5, 5))
+                .addComponent(jTextFieldDataPreAlgorithm, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(4, 4, 4)
+                .addGap(5, 5, 5)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldDataPreAlgorithm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonApplyMethodDataPreparation)
                     .addComponent(jComboBoxMethodPreData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder("User Profile Construction"));
+        jPanel26.setEnabled(false);
+
+        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder("Author Profile Construction"));
 
         jPanel28.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Option"));
 
@@ -769,15 +760,8 @@ public class PRSGUI extends javax.swing.JFrame {
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
                     .addComponent(jComboBoxWeightingUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
-
-        jButtonStartCombiningUser.setText("Start");
-        jButtonStartCombiningUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonStartCombiningUserActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
@@ -785,17 +769,11 @@ public class PRSGUI extends javax.swing.JFrame {
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonStartCombiningUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jPanel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel15Layout.createSequentialGroup()
-                .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonStartCombiningUser)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder("Feature Vector Construction for Paper"));
@@ -848,16 +826,8 @@ public class PRSGUI extends javax.swing.JFrame {
                 .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
                     .addComponent(jComboBoxWeightingPaper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
-
-        jButtonStartCombiningPaper.setText("Start");
-        jButtonStartCombiningPaper.setToolTipText("");
-        jButtonStartCombiningPaper.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonStartCombiningPaperActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
         jPanel25.setLayout(jPanel25Layout);
@@ -865,18 +835,12 @@ public class PRSGUI extends javax.swing.JFrame {
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel25Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonStartCombiningPaper, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel25Layout.setVerticalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel25Layout.createSequentialGroup()
-                .addComponent(jPanel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonStartCombiningPaper)
-                .addGap(5, 5, 5))
+            .addComponent(jPanel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
@@ -897,7 +861,7 @@ public class PRSGUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane2.addTab("Content - based", jPanel26);
+        jTabbedPaneDataPreparation.addTab("Content - based", jPanel26);
 
         jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder("Current relation"));
 
@@ -983,10 +947,10 @@ public class PRSGUI extends javax.swing.JFrame {
                 .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 25, Short.MAX_VALUE))
+                .addGap(0, 29, Short.MAX_VALUE))
         );
 
-        jTabbedPane2.addTab("Collaborative filtering", jPanel27);
+        jTabbedPaneDataPreparation.addTab("Collaborative filtering", jPanel27);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -994,9 +958,11 @@ public class PRSGUI extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTabbedPane2)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTabbedPaneDataPreparation)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -1004,13 +970,15 @@ public class PRSGUI extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane2)
+                .addComponent(jTabbedPaneDataPreparation)
                 .addContainerGap())
         );
 
         jTabbedPaneStep.addTab("Data Preparation", jPanel2);
 
         jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder("Recommendation"));
+
+        jTextFieldShowMethodRec.setText("Content - based");
 
         jTextFieldTopNRecommend.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -1151,6 +1119,8 @@ public class PRSGUI extends javax.swing.JFrame {
         jTabbedPaneStep.addTab("Recommendation", jPanel3);
 
         jPanel19.setBorder(javax.swing.BorderFactory.createTitledBorder("Evaluation"));
+
+        jTextFieldEvaluationMethod.setText("Precision");
 
         jLabel2.setText("at K:");
 
@@ -1630,7 +1600,7 @@ public class PRSGUI extends javax.swing.JFrame {
 
         jMenu1.setText("Prepare Data");
 
-        jMenuItem2.setText("User Profile Construction");
+        jMenuItem2.setText("Author Profile Construction");
         jMenu1.add(jMenuItem2);
 
         jMenuItem3.setText("Feature Vector Construction for Paper");
@@ -1695,8 +1665,13 @@ public class PRSGUI extends javax.swing.JFrame {
         jMenuItemEvaluate.setText("Evaluate");
         jMenuEvaluation.add(jMenuItemEvaluate);
 
-        jMenuSavaResultEvaluation.setText("Save Evaluation");
-        jMenuEvaluation.add(jMenuSavaResultEvaluation);
+        jMenuSaveResultEvaluation.setText("Save Evaluation");
+        jMenuSaveResultEvaluation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuSaveResultEvaluationActionPerformed(evt);
+            }
+        });
+        jMenuEvaluation.add(jMenuSaveResultEvaluation);
 
         jMenuBar1.add(jMenuEvaluation);
 
@@ -1771,11 +1746,20 @@ public class PRSGUI extends javax.swing.JFrame {
         } else if (jComboBoxWeightingUser.getSelectedIndex() == 2) {
             controller.weightingAuthor = 2;
         } else if (jComboBoxWeightingUser.getSelectedIndex() == 3) {
-            GammaGUI gamma = new GammaGUI();
-            gamma.show();
-            controller.gama = gamma.gammaInput;
+            String input = JOptionPane.showInputDialog("Please input gamma...");
+            while (!NumericUtility.isNum(input)) {
+                input = JOptionPane.showInputDialog("Please input gamma...");
+            }
+            if (input != null) {
+                while (Double.valueOf(input) < 0 || Double.valueOf(input) > 1) {
+                    input = JOptionPane.showInputDialog("Please input gamma...");
+                    if (input == null) {
+                        input = "-1";
+                    }
+                }
+                controller.gama = Double.valueOf(input);
+            }
         }
-
     }//GEN-LAST:event_jComboBoxWeightingUserActionPerformed
 
     private void jTextFieldDataPreAlgorithmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDataPreAlgorithmActionPerformed
@@ -1802,6 +1786,13 @@ public class PRSGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonFileAuthorCitePaperActionPerformed
 
     private void jRadioButtonDatasetExampleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDatasetExampleActionPerformed
+        jButtonFileAuthor.setEnabled(false);
+        jButtonFileAuthorCitePaper.setEnabled(false);
+        jButtonFileAuthorPaper.setEnabled(false);
+        jButtonFilePaper.setEnabled(false);
+        jButtonFilePaperPaper.setEnabled(false);
+        jButtonFileGroundTruth.setEnabled(false);
+
         ExampleDataset example = new ExampleDataset();
         example.show();
     }//GEN-LAST:event_jRadioButtonDatasetExampleActionPerformed
@@ -1953,14 +1944,6 @@ public class PRSGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jComboBoxCMUserActionPerformed
 
-    private void jButtonStartCombiningUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartCombiningUserActionPerformed
-        jTextAreaConsole.append("\nBegin construct author's profile....\n");
-        long begin = System.currentTimeMillis();
-        controller.guiHanderResquest(Options.contructUserProfile);
-        jTextAreaConsole.append("End construct author's profile....\n");
-        jTextAreaConsole.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + "s" + "\n");
-    }//GEN-LAST:event_jButtonStartCombiningUserActionPerformed
-
     private void jComboBoxCMPaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCMPaperActionPerformed
         // TODO add your handling code here:
         if (jComboBoxCMPaper.getSelectedIndex() == 0) {
@@ -2063,19 +2046,19 @@ public class PRSGUI extends javax.swing.JFrame {
                 response = controller.guiHanderResquest(Options.mrr);
                 previousEvaluation.add(response[1]);
             } else if (methodEvaluation == 6) {
-                String allResultEvaluate = new String();
+                StringBuilder allResultEvaluate = new StringBuilder();
                 response = controller.guiHanderResquest(Options.precision);
-                allResultEvaluate = response[1];
+                allResultEvaluate.append(response[1]).append("\n");
                 response = controller.guiHanderResquest(Options.recall);
-                allResultEvaluate.concat("\r\n" + response[1]);
+                allResultEvaluate.append(response[1]).append("\n");
                 response = controller.guiHanderResquest(Options.f1);
-                allResultEvaluate.concat("\r\n" + response[1]);
+                allResultEvaluate.append(response[1]).append("\n");
                 response = controller.guiHanderResquest(Options.map);
-                allResultEvaluate.concat("\r\n" + response[1]);
+                allResultEvaluate.append(response[1]).append("\n");
                 response = controller.guiHanderResquest(Options.ndcg);
-                allResultEvaluate.concat("\r\n" + response[1]);
+                allResultEvaluate.append(response[1]).append("\n");
                 response = controller.guiHanderResquest(Options.mrr);
-                allResultEvaluate.concat("\r\n" + response[1]);
+                allResultEvaluate.append(response[1]).append("\n");
                 previousEvaluation.add(allResultEvaluate);
             }
             DefaultListModel model = new DefaultListModel();
@@ -2095,14 +2078,6 @@ public class PRSGUI extends javax.swing.JFrame {
             jTextFieldtopRank.requestFocus();
     }//GEN-LAST:event_jButtonEvaluationActionPerformed
     }
-    private void jButtonStartCombiningPaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartCombiningPaperActionPerformed
-        jTextAreaConsole.append("\nBegin construct feature vector of papers....\n");
-        long begin = System.currentTimeMillis();
-        controller.guiHanderResquest(Options.contructPaperFV);
-        jTextAreaConsole.append("End construct feature vector of papers....\n");
-        jTextAreaConsole.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + "s" + "\n");
-    }//GEN-LAST:event_jButtonStartCombiningPaperActionPerformed
-
     private void jMenuItemDrawChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDrawChartActionPerformed
         try {
             ChartGUI chartGUI = new ChartGUI();
@@ -2179,7 +2154,17 @@ public class PRSGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuMRRActionPerformed
 
     private void jButtonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResetActionPerformed
-        controller.guiHanderResquest(Options.reset);
+        try {
+            controller = new CentralGuiHanderRequest();
+            jTabbedPaneStep.setEnabledAt(0, true);
+            jTabbedPaneStep.setSelectedIndex(0);
+            jTextFieldDataPreAlgorithm.setText(jComboBoxMethodPreData.getSelectedItem().toString());
+            jTextFieldShowMethodRec.setText(jComboBoxMethodRecommend.getSelectedItem().toString());
+            jTextFieldEvaluationMethod.setText(jComboBoxMethodEvaluation.getSelectedItem().toString());
+            jTextAreaConsole.setText("");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }//GEN-LAST:event_jButtonResetActionPerformed
 
     private void jListRecAlgorithmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListRecAlgorithmMouseClicked
@@ -2271,6 +2256,14 @@ public class PRSGUI extends javax.swing.JFrame {
         jTabbedPaneStep.setEnabledAt(0, true);
         jTabbedPaneStep.setSelectedIndex(0);
         buttonGroup1.setSelected(jRadioButtonDatasetExample.getModel(), true);
+
+        jButtonFileAuthor.setEnabled(false);
+        jButtonFileAuthorCitePaper.setEnabled(false);
+        jButtonFileAuthorPaper.setEnabled(false);
+        jButtonFilePaper.setEnabled(false);
+        jButtonFilePaperPaper.setEnabled(false);
+        jButtonFileGroundTruth.setEnabled(false);
+
         if (jRadioButtonDatasetExample.isSelected()) {
             ExampleDataset example = new ExampleDataset();
             example.show();
@@ -2294,7 +2287,16 @@ public class PRSGUI extends javax.swing.JFrame {
     private void jMenuItemDcontentbasedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDcontentbasedActionPerformed
         jTabbedPaneStep.setEnabledAt(1, true);
         jTabbedPaneStep.setSelectedIndex(1);
+        jComboBoxMethodPreData.setSelectedIndex(0);
+        jTextFieldDataPreAlgorithm.setText(jComboBoxMethodPreData.getSelectedItem().toString());
+        jTabbedPaneDataPreparation.setEnabledAt(0, true);
+        jTabbedPaneDataPreparation.setSelectedIndex(0);
+        jTabbedPaneDataPreparation.setEnabledAt(1, false);
     }//GEN-LAST:event_jMenuItemDcontentbasedActionPerformed
+
+    private void jMenuSaveResultEvaluationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSaveResultEvaluationActionPerformed
+        String path=GUIUtilities.saveToFileJChooser();
+    }//GEN-LAST:event_jMenuSaveResultEvaluationActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2326,7 +2328,6 @@ public class PRSGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton23;
     private javax.swing.JButton jButton30;
     private javax.swing.JButton jButton31;
-    private javax.swing.JButton jButtonApplyMethodDataPreparation;
     private javax.swing.JButton jButtonChooseDataset;
     private javax.swing.JButton jButtonContructPaperFV;
     private javax.swing.JButton jButtonContructUserProfile;
@@ -2347,8 +2348,6 @@ public class PRSGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonRecommend;
     private javax.swing.JButton jButtonReset;
     private javax.swing.JButton jButtonSaveModel;
-    private javax.swing.JButton jButtonStartCombiningPaper;
-    private javax.swing.JButton jButtonStartCombiningUser;
     private javax.swing.JButton jButtonStartImportData;
     private javax.swing.JButton jButtonStopEvaluation;
     private javax.swing.JButton jButtonStopImportData;
@@ -2424,7 +2423,7 @@ public class PRSGUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuPrecision;
     private javax.swing.JMenuItem jMenuRecall;
     private javax.swing.JMenu jMenuRecommendation;
-    private javax.swing.JMenuItem jMenuSavaResultEvaluation;
+    private javax.swing.JMenuItem jMenuSaveResultEvaluation;
     private javax.swing.JMenu jMenuUtilities;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -2479,8 +2478,8 @@ public class PRSGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane4;
+    private javax.swing.JTabbedPane jTabbedPaneDataPreparation;
     private javax.swing.JTabbedPane jTabbedPaneStep;
     private javax.swing.JTable jTableRecommendationList;
     private javax.swing.JTextArea jTextAreaAuthor;

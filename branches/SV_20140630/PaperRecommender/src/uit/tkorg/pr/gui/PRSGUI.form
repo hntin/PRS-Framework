@@ -335,7 +335,7 @@
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="User Profile Construction"/>
+                    <Property name="text" type="java.lang.String" value="Author Profile Construction"/>
                   </Properties>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
@@ -436,10 +436,13 @@
                 <Property name="text" type="java.lang.String" value="Evaluate"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuSavaResultEvaluation">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuSaveResultEvaluation">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Save Evaluation"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuSaveResultEvaluationActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -855,12 +858,12 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButtonFileAuthor" min="-2" pref="145" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jButtonFileAuthorPaper" min="-2" pref="145" max="-2" attributes="0"/>
+                              <Component id="jButtonFileAuthor" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jButtonFileAuthorPaper" min="-2" pref="121" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jButtonFileAuthorCitePaper" min="-2" pref="145" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace pref="86" max="32767" attributes="0"/>
                               <Component id="jButtonFilePaper" min="-2" pref="145" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jButtonFilePaperPaper" min="-2" pref="145" max="-2" attributes="0"/>
@@ -877,9 +880,9 @@
                                   <Component id="jButtonFileAuthorPaper" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jButtonFileAuthorCitePaper" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jButtonFilePaper" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButtonFilePaperPaper" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                                  <Component id="jButtonFilePaperPaper" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="13" max="32767" attributes="0"/>
+                              <EmptySpace pref="14" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -991,9 +994,12 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jTabbedPane2" max="32767" attributes="0"/>
-                          <Component id="jPanel6" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jTabbedPaneDataPreparation" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -1004,7 +1010,7 @@
                   <Group type="102" attributes="0">
                       <Component id="jPanel6" min="-2" pref="56" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTabbedPane2" max="32767" attributes="0"/>
+                      <Component id="jTabbedPaneDataPreparation" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -1026,20 +1032,16 @@
                       <Group type="102" attributes="0">
                           <Component id="jComboBoxMethodPreData" min="-2" pref="127" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jTextFieldDataPreAlgorithm" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButtonApplyMethodDataPreparation" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                          <Component id="jTextFieldDataPreAlgorithm" pref="419" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jTextFieldDataPreAlgorithm" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButtonApplyMethodDataPreparation" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jComboBoxMethodPreData" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
@@ -1049,14 +1051,12 @@
               </Layout>
               <SubComponents>
                 <Component class="javax.swing.JTextField" name="jTextFieldDataPreAlgorithm">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Content - based"/>
+                  </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldDataPreAlgorithmActionPerformed"/>
                   </Events>
-                </Component>
-                <Component class="javax.swing.JButton" name="jButtonApplyMethodDataPreparation">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Apply"/>
-                  </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="jComboBoxMethodPreData">
                   <Properties>
@@ -1073,11 +1073,14 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JTabbedPane" name="jTabbedPane2">
+            <Container class="javax.swing.JTabbedPane" name="jTabbedPaneDataPreparation">
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
               <SubComponents>
                 <Container class="javax.swing.JPanel" name="jPanel26">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                       <JTabbedPaneConstraints tabName="Content - based">
@@ -1113,7 +1116,7 @@
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                            <TitledBorder title="User Profile Construction"/>
+                            <TitledBorder title="Author Profile Construction"/>
                           </Border>
                         </Property>
                       </Properties>
@@ -1123,21 +1126,13 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jButtonStartCombiningUser" max="32767" attributes="0"/>
-                                      <Component id="jPanel28" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="jPanel28" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jPanel28" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jButtonStartCombiningUser" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="jPanel28" alignment="0" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                       </Layout>
@@ -1185,7 +1180,7 @@
                                           <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="jComboBoxWeightingUser" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="32" max="32767" attributes="0"/>
+                                      <EmptySpace pref="98" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1233,14 +1228,6 @@
                             </Component>
                           </SubComponents>
                         </Container>
-                        <Component class="javax.swing.JButton" name="jButtonStartCombiningUser">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Start"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonStartCombiningUserActionPerformed"/>
-                          </Events>
-                        </Component>
                       </SubComponents>
                     </Container>
                     <Container class="javax.swing.JPanel" name="jPanel25">
@@ -1257,22 +1244,14 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jPanel29" max="32767" attributes="0"/>
-                                      <Component id="jButtonStartCombiningPaper" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="jPanel29" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jPanel29" max="32767" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jButtonStartCombiningPaper" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jPanel29" alignment="0" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                       </Layout>
@@ -1321,7 +1300,7 @@
                                           <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="jComboBoxWeightingPaper" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="36" max="32767" attributes="0"/>
+                                      <EmptySpace pref="88" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1369,15 +1348,6 @@
                             </Component>
                           </SubComponents>
                         </Container>
-                        <Component class="javax.swing.JButton" name="jButtonStartCombiningPaper">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Start"/>
-                            <Property name="toolTipText" type="java.lang.String" value=""/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonStartCombiningPaperActionPerformed"/>
-                          </Events>
-                        </Component>
                       </SubComponents>
                     </Container>
                   </SubComponents>
@@ -1408,7 +1378,7 @@
                                   <Component id="jPanel17" max="32767" attributes="0"/>
                                   <Component id="jPanel13" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="25" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="29" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1624,6 +1594,9 @@
               </Layout>
               <SubComponents>
                 <Component class="javax.swing.JTextField" name="jTextFieldShowMethodRec">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Content - based"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextFieldTopNRecommend">
                   <Events>
@@ -1840,6 +1813,9 @@
               </Layout>
               <SubComponents>
                 <Component class="javax.swing.JTextField" name="jTextFieldEvaluationMethod">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Precision"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextFieldtopRank">
                 </Component>
