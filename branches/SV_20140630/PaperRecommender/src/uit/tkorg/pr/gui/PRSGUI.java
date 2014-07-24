@@ -1928,7 +1928,6 @@ public class PRSGUI extends javax.swing.JFrame {
         // phuong phap evaluation khac tru f1 va mrr neu co thi thuc hien cac lenh if ben duoi
         controller.topRank = Integer.parseInt(jTextFieldtopRank.getText().trim().toString());
         if (methodEvaluation == 0) {
-<<<<<<< .mine
            response= controller.guiHanderResquest(Options.precision);
            previousEvaluation.add(0,response[1]);
         } else if (methodEvaluation == 1) {
@@ -1960,31 +1959,8 @@ public class PRSGUI extends javax.swing.JFrame {
             allResultEvaluate.concat("\r\n"+response[1]);
             response = controller.guiHanderResquest(Options.mrr);
             allResultEvaluate.concat("\r\n"+ response[1]);
-            previousEvaluation.add(6,allResultEvaluate);
-            
-            
+            previousEvaluation.add(6,allResultEvaluate);       
         }
-=======
-         controller.guiHanderResquest(Options.precision);
-         } else if (methodEvaluation == 1) {
-         controller.guiHanderResquest(Options.recall);
-         } else if (methodEvaluation == 2) {
-         controller.guiHanderResquest(Options.f1);
-         } else if (methodEvaluation == 3) {
-         controller.guiHanderResquest(Options.map);
-         } else if (methodEvaluation == 4) {
-         controller.guiHanderResquest(Options.ndcg);
-         } else if (methodEvaluation == 5) {
-         controller.guiHanderResquest(Options.mrr);
-         } else if (methodEvaluation == 6) {
-         controller.guiHanderResquest(Options.precision);
-         controller.guiHanderResquest(Options.recall);
-         controller.guiHanderResquest(Options.f1);
-         controller.guiHanderResquest(Options.map);
-         controller.guiHanderResquest(Options.ndcg);
-         controller.guiHanderResquest(Options.mrr);
-         }
->>>>>>> .r347
         DefaultListModel model = new DefaultListModel();
         for (int i = 0; i < jListEvaluation.getModel().getSize(); i++) {
             model.addElement(jListEvaluation.getModel().getElementAt(i));
