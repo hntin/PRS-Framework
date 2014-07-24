@@ -5,20 +5,15 @@
  */
 package uit.tkorg.pr.gui;
 
-import java.awt.Point;
 import java.awt.event.KeyEvent;
-import javax.swing.JDialog;
-import javax.swing.JInternalFrame;
-import javax.swing.JLayeredPane;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JTree;
-import javax.swing.UIManager;
+import java.util.Calendar;
+import java.util.Date;
+import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import uit.tkorg.pr.constant.Options;
 import uit.tkorg.pr.controller.CentralGuiHanderRequest;
-import uit.tkorg.pr.gui.GammaGUI;
 import uit.tkorg.utility.general.NumericUtility;
 
 /**
@@ -158,7 +153,7 @@ public class PRSGUI extends javax.swing.JFrame {
         jComboBoxMethodRecommend = new javax.swing.JComboBox();
         jPanel18 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList();
+        jListRecAlgorithm = new javax.swing.JList();
         jPanel35 = new javax.swing.JPanel();
         jScrollPane16 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -168,12 +163,12 @@ public class PRSGUI extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jPanel19 = new javax.swing.JPanel();
         jTextFieldEvaluationMethod = new javax.swing.JTextField();
-        jTextFieldRankK = new javax.swing.JTextField();
+        jTextFieldtopRank = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jComboBoxMethodEvaluation = new javax.swing.JComboBox();
         jPanel21 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        jListEvaluation = new javax.swing.JList();
         jPanel36 = new javax.swing.JPanel();
         jPanel37 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -929,9 +924,9 @@ public class PRSGUI extends javax.swing.JFrame {
         jPanel16Layout.setHorizontalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel16Layout.createSequentialGroup()
-                .addComponent(jComboBoxMethodRecommend, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboBoxMethodRecommend, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldShowMethodRec, javax.swing.GroupLayout.PREFERRED_SIZE, 705, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldShowMethodRec, javax.swing.GroupLayout.PREFERRED_SIZE, 653, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -952,13 +947,13 @@ public class PRSGUI extends javax.swing.JFrame {
 
         jPanel18.setBorder(javax.swing.BorderFactory.createTitledBorder("Algorithm Choosed"));
 
-        jScrollPane3.setViewportView(jList2);
+        jScrollPane3.setViewportView(jListRecAlgorithm);
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
         jPanel18Layout.setHorizontalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -981,7 +976,7 @@ public class PRSGUI extends javax.swing.JFrame {
         jPanel35.setLayout(jPanel35Layout);
         jPanel35Layout.setHorizontalGroup(
             jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane16, javax.swing.GroupLayout.DEFAULT_SIZE, 827, Short.MAX_VALUE)
+            .addComponent(jScrollPane16)
         );
         jPanel35Layout.setVerticalGroup(
             jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1003,9 +998,9 @@ public class PRSGUI extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1039,12 +1034,6 @@ public class PRSGUI extends javax.swing.JFrame {
 
         jPanel19.setBorder(javax.swing.BorderFactory.createTitledBorder("Evaluation"));
 
-        jTextFieldRankK.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldRankKActionPerformed(evt);
-            }
-        });
-
         jLabel2.setText("at K:");
 
         jComboBoxMethodEvaluation.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Precision", "Recall", "F Measure", "Mean Average Precison(MAP)", "Normalized Discouted Cumulative Gain(NDCG)", "Mean Reciprocal Rank(MRR)", "All Evaluation" }));
@@ -1061,11 +1050,11 @@ public class PRSGUI extends javax.swing.JFrame {
             .addGroup(jPanel19Layout.createSequentialGroup()
                 .addComponent(jComboBoxMethodEvaluation, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextFieldEvaluationMethod)
+                .addComponent(jTextFieldEvaluationMethod, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextFieldRankK, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldtopRank, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel19Layout.setVerticalGroup(
@@ -1076,26 +1065,26 @@ public class PRSGUI extends javax.swing.JFrame {
                     .addComponent(jComboBoxMethodEvaluation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldEvaluationMethod)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextFieldRankK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldtopRank, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
         jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder("Evaluation Choosed"));
 
-        jScrollPane2.setViewportView(jList1);
+        jScrollPane2.setViewportView(jListEvaluation);
 
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
         jPanel21Layout.setHorizontalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane2)
         );
 
-        jPanel36.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Error anlysis", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 0)));
+        jPanel36.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Review Evaluation", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 0)));
 
         jPanel37.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
@@ -1103,7 +1092,7 @@ public class PRSGUI extends javax.swing.JFrame {
         jPanel37.setLayout(jPanel37Layout);
         jPanel37Layout.setHorizontalGroup(
             jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 680, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel37Layout.setVerticalGroup(
             jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1129,9 +1118,9 @@ public class PRSGUI extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -1736,11 +1725,6 @@ public class PRSGUI extends javax.swing.JFrame {
                 (jButtonChooseDataset.getHeight()) - jPopupMenuImportData.getPreferredSize().height);
     }//GEN-LAST:event_jButtonChooseDatasetMouseClicked
 
-    private void jTextFieldRankKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldRankKActionPerformed
-        // TODO add your handling code here:
-        controller.topRank = Integer.parseInt(jTextFieldRankK.getText().toString());
-    }//GEN-LAST:event_jTextFieldRankKActionPerformed
-
     private void jButtonTFIDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTFIDFActionPerformed
         try {
             TFIDFGUI tfidfGUI = new TFIDFGUI(this, rootPaneCheckingEnabled);
@@ -1912,6 +1896,7 @@ public class PRSGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         // viet them ham kiem tra xem co nguoi dung co nhap topRank cho cac
         // phuong phap evaluation khac tru f1 va mrr neu co thi thuc hien cac lenh if ben duoi
+        controller.topRank = Integer.parseInt(jTextFieldtopRank.getText().trim().toString());
         if (methodEvaluation == 0) {
             controller.guiHanderResquest(Options.precision);
         } else if (methodEvaluation == 1) {
@@ -1932,7 +1917,16 @@ public class PRSGUI extends javax.swing.JFrame {
             controller.guiHanderResquest(Options.ndcg);
             controller.guiHanderResquest(Options.mrr);
         }
+        DefaultListModel model = new DefaultListModel();
+        for (int i = 0; i < jListEvaluation.getModel().getSize(); i++) {
+            model.addElement(jListEvaluation.getModel().getElementAt(i));
+        }
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
 
+        model.addElement(calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE) + ":" + calendar.get(Calendar.SECOND) + " - " + jComboBoxMethodEvaluation.getSelectedItem());
+        jListEvaluation.setModel(model);
     }//GEN-LAST:event_jButtonEvaluationActionPerformed
 
     private void jButtonStartCombiningPaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartCombiningPaperActionPerformed
@@ -1968,11 +1962,22 @@ public class PRSGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxMethodPreDataActionPerformed
 
     private void jButtonRecommendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRecommendActionPerformed
+        controller.topNRecommend = Integer.parseInt(jTextFieldTopNRecommend.getText().trim().toString());
         controller.guiHanderResquest(Options.recommend);
+        DefaultListModel model = new DefaultListModel();
+        for (int i = 0; i < jListRecAlgorithm.getModel().getSize(); i++) {
+            model.addElement(jListRecAlgorithm.getModel().getElementAt(i));
+        }
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        model.addElement(calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE) + ":" + calendar.get(Calendar.SECOND) + " - " + jComboBoxMethodRecommend.getSelectedItem());
+        jListRecAlgorithm.setModel(model);
     }//GEN-LAST:event_jButtonRecommendActionPerformed
 
     private void jTextFieldTopNRecommendKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldTopNRecommendKeyReleased
-        if (!NumericUtility.isNum(jTextFieldTopNRecommend.getText().trim().toString()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE &&evt.getKeyChar() != KeyEvent.VK_ENTER) {
+        if (!NumericUtility.isNum(jTextFieldTopNRecommend.getText().trim().toString()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE && evt.getKeyChar() != KeyEvent.VK_ENTER) {
             JOptionPane.showMessageDialog(rootPane, "Please input number...", "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
             int num = Integer.parseInt(jTextFieldTopNRecommend.getText().trim().toString());
@@ -1983,7 +1988,7 @@ public class PRSGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldTopNRecommendKeyReleased
 
     private void jTextFieldIdAuthorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldIdAuthorKeyReleased
-        if (!NumericUtility.isNum(jTextFieldTopNRecommend.getText().trim().toString()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE &&evt.getKeyChar() != KeyEvent.VK_ENTER) {
+        if (!NumericUtility.isNum(jTextFieldIdAuthor.getText().trim().toString()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE && evt.getKeyChar() != KeyEvent.VK_ENTER) {
             JOptionPane.showMessageDialog(rootPane, "Please input number...", "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jTextFieldIdAuthorKeyReleased
@@ -2062,8 +2067,8 @@ public class PRSGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JList jList1;
-    private javax.swing.JList jList2;
+    private javax.swing.JList jListEvaluation;
+    private javax.swing.JList jListRecAlgorithm;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenu jMenu9;
@@ -2183,8 +2188,8 @@ public class PRSGUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldDataPreAlgorithm;
     private javax.swing.JTextField jTextFieldEvaluationMethod;
     private javax.swing.JTextField jTextFieldIdAuthor;
-    private javax.swing.JTextField jTextFieldRankK;
     private javax.swing.JTextField jTextFieldShowMethodRec;
     private javax.swing.JTextField jTextFieldTopNRecommend;
+    private javax.swing.JTextField jTextFieldtopRank;
     // End of variables declaration//GEN-END:variables
 }
