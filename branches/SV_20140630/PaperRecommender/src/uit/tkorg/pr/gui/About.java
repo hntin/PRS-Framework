@@ -5,7 +5,7 @@
  */
 
 package uit.tkorg.pr.gui;
-
+import java.io.*;
 /**
  *
  * @author Vinh
@@ -18,8 +18,9 @@ public class About extends javax.swing.JDialog {
     public About(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+       
     }
-
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -86,6 +87,7 @@ public class About extends javax.swing.JDialog {
                 dialog.setVisible(true);
             }
         });
+      
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

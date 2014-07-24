@@ -382,44 +382,52 @@
                 <Property name="text" type="java.lang.String" value="Method Evaluation"/>
               </Properties>
               <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem29">
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuPrecision">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Precision"/>
                   </Properties>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem30">
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuRecall">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Recall"/>
                   </Properties>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem31">
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuFmeasure">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Fmeasure"/>
                   </Properties>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem32">
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuMAP">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="MAP"/>
                   </Properties>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem33">
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuNDCG">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="NDCG"/>
                   </Properties>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem34">
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuMRR">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="MRR"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuMRRActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuAllEvaluation">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="All"/>
                   </Properties>
                 </MenuItem>
               </SubComponents>
             </Menu>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem35">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemEvaluate">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Evaluate"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem36">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuSavaResultEvaluation">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Save Evaluation"/>
               </Properties>

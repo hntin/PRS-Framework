@@ -223,14 +223,15 @@ public class PRSGUI extends javax.swing.JFrame {
         jMenuItem28 = new javax.swing.JMenuItem();
         jMenuEvaluation = new javax.swing.JMenu();
         jMenu9 = new javax.swing.JMenu();
-        jMenuItem29 = new javax.swing.JMenuItem();
-        jMenuItem30 = new javax.swing.JMenuItem();
-        jMenuItem31 = new javax.swing.JMenuItem();
-        jMenuItem32 = new javax.swing.JMenuItem();
-        jMenuItem33 = new javax.swing.JMenuItem();
-        jMenuItem34 = new javax.swing.JMenuItem();
-        jMenuItem35 = new javax.swing.JMenuItem();
-        jMenuItem36 = new javax.swing.JMenuItem();
+        jMenuPrecision = new javax.swing.JMenuItem();
+        jMenuRecall = new javax.swing.JMenuItem();
+        jMenuFmeasure = new javax.swing.JMenuItem();
+        jMenuMAP = new javax.swing.JMenuItem();
+        jMenuNDCG = new javax.swing.JMenuItem();
+        jMenuMRR = new javax.swing.JMenuItem();
+        jMenuAllEvaluation = new javax.swing.JMenuItem();
+        jMenuItemEvaluate = new javax.swing.JMenuItem();
+        jMenuSavaResultEvaluation = new javax.swing.JMenuItem();
         jMenuUtilities = new javax.swing.JMenu();
         jMenuItemTFIDF = new javax.swing.JMenuItem();
         jMenuItemDrawChart = new javax.swing.JMenuItem();
@@ -1537,31 +1538,39 @@ public class PRSGUI extends javax.swing.JFrame {
 
         jMenu9.setText("Method Evaluation");
 
-        jMenuItem29.setText("Precision");
-        jMenu9.add(jMenuItem29);
+        jMenuPrecision.setText("Precision");
+        jMenu9.add(jMenuPrecision);
 
-        jMenuItem30.setText("Recall");
-        jMenu9.add(jMenuItem30);
+        jMenuRecall.setText("Recall");
+        jMenu9.add(jMenuRecall);
 
-        jMenuItem31.setText("Fmeasure");
-        jMenu9.add(jMenuItem31);
+        jMenuFmeasure.setText("Fmeasure");
+        jMenu9.add(jMenuFmeasure);
 
-        jMenuItem32.setText("MAP");
-        jMenu9.add(jMenuItem32);
+        jMenuMAP.setText("MAP");
+        jMenu9.add(jMenuMAP);
 
-        jMenuItem33.setText("NDCG");
-        jMenu9.add(jMenuItem33);
+        jMenuNDCG.setText("NDCG");
+        jMenu9.add(jMenuNDCG);
 
-        jMenuItem34.setText("MRR");
-        jMenu9.add(jMenuItem34);
+        jMenuMRR.setText("MRR");
+        jMenuMRR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuMRRActionPerformed(evt);
+            }
+        });
+        jMenu9.add(jMenuMRR);
+
+        jMenuAllEvaluation.setText("All");
+        jMenu9.add(jMenuAllEvaluation);
 
         jMenuEvaluation.add(jMenu9);
 
-        jMenuItem35.setText("Evaluate");
-        jMenuEvaluation.add(jMenuItem35);
+        jMenuItemEvaluate.setText("Evaluate");
+        jMenuEvaluation.add(jMenuItemEvaluate);
 
-        jMenuItem36.setText("Save Evaluation");
-        jMenuEvaluation.add(jMenuItem36);
+        jMenuSavaResultEvaluation.setText("Save Evaluation");
+        jMenuEvaluation.add(jMenuSavaResultEvaluation);
 
         jMenuBar1.add(jMenuEvaluation);
 
@@ -1696,7 +1705,13 @@ public class PRSGUI extends javax.swing.JFrame {
 
     private void jButtonStartImportDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartImportDataActionPerformed
         // TODO add your handling code here:
+        jTextAreaConsole.setText("Begin import dataset....\n");
+        long begin= System.nanoTime();
+        jTextAreaConsole.append( String.valueOf(begin)+ "\n");
         controller.guiHanderResquest(Options.importData);
+        jTextAreaConsole.append(String.valueOf(System.nanoTime()-begin));
+        
+        
     }//GEN-LAST:event_jButtonStartImportDataActionPerformed
 
     private void jButtonErrorAnalysisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonErrorAnalysisActionPerformed
@@ -1775,6 +1790,7 @@ public class PRSGUI extends javax.swing.JFrame {
         fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         fc.showOpenDialog(this);
         controller.fileNameAuthors = fc.getSelectedFile().getAbsolutePath();
+        jTextAreaConsole.setText(fc.getSelectedFile().getAbsolutePath()+"\n");
     }//GEN-LAST:event_jButtonFileAuthorActionPerformed
 
     private void jButtonFileAuthorPaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFileAuthorPaperActionPerformed
@@ -1783,6 +1799,7 @@ public class PRSGUI extends javax.swing.JFrame {
         fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         fc.showOpenDialog(this);
         controller.fileNameAuthorPaper = fc.getSelectedFile().getAbsolutePath();
+        jTextAreaConsole.append(fc.getSelectedFile().getAbsolutePath()+"\n");
     }//GEN-LAST:event_jButtonFileAuthorPaperActionPerformed
 
     private void jButtonFilePaperPaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFilePaperPaperActionPerformed
@@ -1791,6 +1808,7 @@ public class PRSGUI extends javax.swing.JFrame {
         fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         fc.showOpenDialog(this);
         controller.fileNamePaperCitePaper = fc.getSelectedFile().getAbsolutePath();
+        jTextAreaConsole.append(fc.getSelectedFile().getAbsolutePath()+"\n");
     }//GEN-LAST:event_jButtonFilePaperPaperActionPerformed
 
     private void jButtonFileGroundTruthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFileGroundTruthActionPerformed
@@ -1799,6 +1817,7 @@ public class PRSGUI extends javax.swing.JFrame {
         fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         fc.showOpenDialog(this);
         controller.fileNameGroundTruth = fc.getSelectedFile().getAbsolutePath();
+        jTextAreaConsole.append(fc.getSelectedFile().getAbsolutePath()+"\n");
     }//GEN-LAST:event_jButtonFileGroundTruthActionPerformed
 
     private void jComboBoxCMUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCMUserActionPerformed
@@ -1993,6 +2012,10 @@ public class PRSGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTextFieldIdAuthorKeyReleased
 
+    private void jMenuMRRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuMRRActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuMRRActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2072,10 +2095,12 @@ public class PRSGUI extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenu jMenu9;
+    private javax.swing.JMenuItem jMenuAllEvaluation;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuDataPreparation;
     private javax.swing.JMenu jMenuEvaluation;
     private javax.swing.JMenu jMenuFile;
+    private javax.swing.JMenuItem jMenuFmeasure;
     private javax.swing.JMenu jMenuHelp;
     private javax.swing.JMenu jMenuImportData;
     private javax.swing.JMenuItem jMenuItem2;
@@ -2083,15 +2108,7 @@ public class PRSGUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem26;
     private javax.swing.JMenuItem jMenuItem27;
     private javax.swing.JMenuItem jMenuItem28;
-    private javax.swing.JMenuItem jMenuItem29;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem30;
-    private javax.swing.JMenuItem jMenuItem31;
-    private javax.swing.JMenuItem jMenuItem32;
-    private javax.swing.JMenuItem jMenuItem33;
-    private javax.swing.JMenuItem jMenuItem34;
-    private javax.swing.JMenuItem jMenuItem35;
-    private javax.swing.JMenuItem jMenuItem36;
     private javax.swing.JMenuItem jMenuItemAbout;
     private javax.swing.JMenuItem jMenuItemAllEvalution;
     private javax.swing.JMenuItem jMenuItemDatasetExample;
@@ -2099,6 +2116,7 @@ public class PRSGUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemDcollaborativeFiltering;
     private javax.swing.JMenuItem jMenuItemDcontentbased;
     private javax.swing.JMenuItem jMenuItemDrawChart;
+    private javax.swing.JMenuItem jMenuItemEvaluate;
     private javax.swing.JMenuItem jMenuItemExampleData;
     private javax.swing.JMenuItem jMenuItemExit;
     private javax.swing.JMenuItem jMenuItemF1;
@@ -2118,8 +2136,14 @@ public class PRSGUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemReset;
     private javax.swing.JMenuItem jMenuItemSaveModel;
     private javax.swing.JMenuItem jMenuItemTFIDF;
+    private javax.swing.JMenuItem jMenuMAP;
+    private javax.swing.JMenuItem jMenuMRR;
     private javax.swing.JMenu jMenuMethodDataPreparation;
+    private javax.swing.JMenuItem jMenuNDCG;
+    private javax.swing.JMenuItem jMenuPrecision;
+    private javax.swing.JMenuItem jMenuRecall;
     private javax.swing.JMenu jMenuRecommendation;
+    private javax.swing.JMenuItem jMenuSavaResultEvaluation;
     private javax.swing.JMenu jMenuUtilities;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
