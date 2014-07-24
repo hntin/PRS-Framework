@@ -48,6 +48,7 @@ public class CentralGuiHanderRequest {
     public int topNRecommend;// topNRecommend recommend
     public int topRank;// topRank K evaluation
     public int kNeighbor;// so hang xom
+    public int methodEvaluation;// phuong phap danh gia
     public String authorId;
     public String SaveDataFolder;//
     public String fileNamePapers; //File 1
@@ -61,12 +62,13 @@ public class CentralGuiHanderRequest {
     public String sequenceDir = "Temp\\Sequence";
     public String vectorDir = "Temp\\VectorDir";
     public String MahoutCFDir = "Temp\\MahoutDir";
-    public String fileNameEvaluationResult;
+    public String fileNameEvaluationResult;// ten file ket qua danh gia
+    public String fileNameRecommenList;// ten file danh sach recommend
     public HashMap<String, Paper> papers = new HashMap<>();
     public HashMap<String, Author> authors = new HashMap<>();
     public HashMap<String, Paper> papersOfAuthors = new HashMap<>();
 
-    public String[] guiHanderResquest(Options request) {
+    public String [] guiHanderResquest(Options request) {
         String[] response = new String[2];
 
         try {
@@ -109,45 +111,18 @@ public class CentralGuiHanderRequest {
                 case showRecommendList:
                     response[1] = findListRecommendOfAuthor(authorId, authors).toString();
                     break;
-                case precision:
-                    StringBuilder evaluationResultPrecision = new StringBuilder();
-                    evaluationResultPrecision.append("Precision\t").append("P@").append(topRank).append(": ")
-                            .append(Evaluator.computeMeanPrecisionTopN(authors, topRank)).append("\r\n");
-                    response[1] = evaluationResultPrecision.toString();
-                    break;
-                case recall:
-                    StringBuilder evaluationResultRecall = new StringBuilder();
-                    evaluationResultRecall.append("Recall\t").append("R@").append(topRank).append(": ")
-                            .append(Evaluator.computeMeanRecallTopN(authors, topRank)).append("\r\n");
-                    response[1] = evaluationResultRecall.toString();
-                    response[0] = "Success.";
-                    break;
-                case f1:
-                    StringBuilder evaluationResultF1 = new StringBuilder();
-                    evaluationResultF1.append("F1\t").append("F1: ").append(Evaluator.computeMeanFMeasure(authors, 1)).append("\r\n");
-                    response[1] = evaluationResultF1.toString();
-                    break;
-                case map:
-                    StringBuilder evaluationResultMAP = new StringBuilder();
-                    evaluationResultMAP.append("MAP\t").append("MAP@10: ").append(Evaluator.computeMAP(authors, 10)).append("\r\n");
-                    response[1] = evaluationResultMAP.toString();
-                    response[0] = "Success.";
-                    break;
-                case ndcg:
-                    StringBuilder evaluationResultNDCG = new StringBuilder();
-                    evaluationResultNDCG.append("NDCG\t").append("NDCG@").append(topRank).append(": ").append(Evaluator.computeMeanNDCG(authors, topRank)).append("\r\n");
-                    response[1] = evaluationResultNDCG.toString();
-                    response[0] = "Success.";
-                    break;
-                case mrr:
-                    StringBuilder evaluationResultMRR = new StringBuilder();
-                    evaluationResultMRR.append("MRR\t").append(Evaluator.computeMRR(authors)).append("\r\n");
-                    response[1] = evaluationResultMRR.toString();
-                    response[0] = "Success.";
+                case evaluation:
+                    response[1]= Evaluation(authors,methodEvaluation, topRank).toString();
                     break;
                 case errorAnalysis:
                     break;
                 case help:
+                    break;
+                case saveRecommendList:
+                    StringBuilder recommendList = new StringBuilder();
+                    for (String authorId: authors.keySet())
+                        recommendList.append(authorId+":\n").append(authors.get(authorId).getRecommendationList().toString()+"\r\n");
+                    FileUtils.writeStringToFile(new File(fileNameEvaluationResult), recommendList.toString(), "UTF8", true);
                     break;
                 case reset:
                     papers = new HashMap<>();
@@ -184,6 +159,35 @@ public class CentralGuiHanderRequest {
                 CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod, authors, paperIds);
             }
         }
+    }
+    
+    public StringBuilder Evaluation(HashMap<String,Author> authors,int method,int rank) throws Exception{
+        StringBuilder evaluationResult = new StringBuilder();
+        if(method==0){
+            evaluationResult.append("Precision\t").append("P@").append(rank).append(": ")
+            .append(Evaluator.computeMeanPrecisionTopN(authors,rank)).append("\r\n");
+        }else if(method==1) {   
+            evaluationResult.append("Recall\t").append("R@").append(rank).append(": ")
+            .append(Evaluator.computeMeanRecallTopN(authors,rank)).append("\r\n");
+        } else if(method==2){
+            StringBuilder evaluationResultF1 = new StringBuilder();
+            evaluationResultF1.append("F1\t").append("F1: ").append(Evaluator.computeMeanFMeasure(authors, 1)).append("\r\n");
+        }else if(method==3){
+            evaluationResult.append("MAP\t").append("MAP@10: ").append(Evaluator.computeMAP(authors, 10)).append("\r\n");        
+        }else if(method==4){
+           evaluationResult.append("NDCG\t").append("NDCG@").append(rank).append(": ").append(Evaluator.computeMeanNDCG(authors,rank)).append("\r\n");  
+        }else if(method==5){
+           evaluationResult.append("MRR\t").append(Evaluator.computeMRR(authors)).append("\r\n");
+        }else if(method==6){
+           evaluationResult.append("Precision\t").append("P@").append(rank).append(": ")
+            .append(Evaluator.computeMeanPrecisionTopN(authors,rank)).append("\r\n")
+            .append("Recall\t").append("R@").append(rank).append(": ").append(Evaluator.computeMeanRecallTopN(authors,rank)).append("\r\n")
+            .append("F1\t").append("F1: ").append(Evaluator.computeMeanFMeasure(authors, 1)).append("\r\n")
+            .append("MAP\t").append("MAP@10: ").append(Evaluator.computeMAP(authors, 10)).append("\r\n")
+            .append("NDCG\t").append("NDCG@").append(rank).append(": ").append(Evaluator.computeMeanNDCG(authors,rank)).append("\r\n")
+            .append("MRR\t").append(Evaluator.computeMRR(authors)).append("\r\n");
+        }
+        return evaluationResult;            
     }
 
     public void reset() {
