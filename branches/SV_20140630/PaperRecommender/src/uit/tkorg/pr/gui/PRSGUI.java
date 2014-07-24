@@ -2027,40 +2027,9 @@ public class PRSGUI extends javax.swing.JFrame {
             long begin = System.currentTimeMillis();
             controller.topRank = Integer.parseInt(jTextFieldtopRank.getText().trim().toString());
             System.out.println("toprank:" + controller.topRank);
-            if (methodEvaluation == 0) {
-                response = controller.guiHanderResquest(Options.precision);
-                previousEvaluation.add(response[1]);
-            } else if (methodEvaluation == 1) {
-                response = controller.guiHanderResquest(Options.recall);
-                previousEvaluation.add(response[1]);
-            } else if (methodEvaluation == 2) {
-                response = controller.guiHanderResquest(Options.f1);
-                previousEvaluation.add(response[1]);
-            } else if (methodEvaluation == 3) {
-                response = controller.guiHanderResquest(Options.map);
-                previousEvaluation.add(response[1]);
-            } else if (methodEvaluation == 4) {
-                response = controller.guiHanderResquest(Options.ndcg);
-                previousEvaluation.add(response[1]);
-            } else if (methodEvaluation == 5) {
-                response = controller.guiHanderResquest(Options.mrr);
-                previousEvaluation.add(response[1]);
-            } else if (methodEvaluation == 6) {
-                StringBuilder allResultEvaluate = new StringBuilder();
-                response = controller.guiHanderResquest(Options.precision);
-                allResultEvaluate.append(response[1]).append("\n");
-                response = controller.guiHanderResquest(Options.recall);
-                allResultEvaluate.append(response[1]).append("\n");
-                response = controller.guiHanderResquest(Options.f1);
-                allResultEvaluate.append(response[1]).append("\n");
-                response = controller.guiHanderResquest(Options.map);
-                allResultEvaluate.append(response[1]).append("\n");
-                response = controller.guiHanderResquest(Options.ndcg);
-                allResultEvaluate.append(response[1]).append("\n");
-                response = controller.guiHanderResquest(Options.mrr);
-                allResultEvaluate.append(response[1]).append("\n");
-                previousEvaluation.add(allResultEvaluate);
-            }
+          
+           
+            
             DefaultListModel model = new DefaultListModel();
             for (int i = 0; i < jListEvaluation.getModel().getSize(); i++) {
                 model.addElement(jListEvaluation.getModel().getElementAt(i));

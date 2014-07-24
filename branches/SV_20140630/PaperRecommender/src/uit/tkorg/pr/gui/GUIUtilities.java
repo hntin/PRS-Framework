@@ -5,11 +5,7 @@
  */
 package uit.tkorg.pr.gui;
 
-import de.progra.charting.ChartEncoder;
-import de.progra.charting.DefaultChart;
-import de.progra.charting.model.DefaultChartDataModel;
-import de.progra.charting.render.LineChartRenderer;
-import de.progra.charting.render.PlotChartRenderer;
+
 import ir.utilities.Weight;
 import ir.vsr.HashMapVector;
 import java.awt.Rectangle;
@@ -174,46 +170,7 @@ public class GUIUtilities {
         }
     }
 
-    //Draw chart with JOpenChart
-    public static boolean drawChart(String title1) {
-        String path = "Chart";
-        int[][] model = {{0, 10000, 200000}, // Create data array
-        {0, 20000, 100000}};
-
-        double[] columns = {0.0, 100.0, 2000.0};  // Create x-axis values
-
-        String[] rows = {"DataSet 1", "DataSet 2"}; // Create data set title
-
-        String title = "A First Test";          // Create diagram title
-
-        int width = 640;                        // Image size
-        int height = 480;
-
-        // Create data model
-        DefaultChartDataModel data = new DefaultChartDataModel(model, columns, rows);
-
-        data.setAutoScale(true);
-
-        // Create chart with default coordinate system
-        DefaultChart c = new DefaultChart(data, title, DefaultChart.LINEAR_X_LINEAR_Y, "x-axis", "y-axis");
-
-        // Add a line chart renderer
-        c.addChartRenderer(new LineChartRenderer(c.getCoordSystem(), data), 1);
-        c.addChartRenderer(new PlotChartRenderer(c.getCoordSystem(), data), 2);
-
-        // Set the chart size
-        c.setBounds(new Rectangle(0, 0, width, height));
-
-        // Export the chart as a PNG image
-        try {
-            ChartEncoder.createEncodedImage(new FileOutputStream("Chart\\second.png"), c, "png");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
-    }
-
+  
     //Doc so hang va so cot cua mot file matran va tra ve missing value
     public static double missingValueInMatrixCF(String pathMatrixCF, int numAuthors, int numPapers) throws FileNotFoundException {
         double missingValue = 0;

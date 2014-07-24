@@ -5,12 +5,7 @@
  */
 package uit.tkorg.pr.gui;
 
-import de.progra.charting.ChartEncoder;
-import de.progra.charting.DefaultChart;
-import de.progra.charting.model.DefaultChartDataModel;
-import de.progra.charting.render.LineChartRenderer;
-import de.progra.charting.render.PlotChartRenderer;
-import de.progra.charting.render.RowColorModel;
+
 import java.awt.Rectangle;
 import java.io.FileOutputStream;
 
