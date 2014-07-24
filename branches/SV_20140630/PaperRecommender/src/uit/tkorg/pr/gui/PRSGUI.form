@@ -99,6 +99,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="From Dataset Example"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemExampleDataActionPerformed"/>
+          </Events>
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="jMenuItemFromDataScource">
           <Properties>
@@ -107,6 +110,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="From Dataset Scource"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemFromDataScourceActionPerformed"/>
+          </Events>
         </MenuItem>
       </SubComponents>
     </Container>
@@ -132,6 +138,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Content Based"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemDcontentbasedActionPerformed"/>
+          </Events>
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="jMenuItemDcollaborativeFiltering">
           <Properties>
@@ -1715,7 +1724,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTable" name="jTable1">
+                    <Component class="javax.swing.JTable" name="jTableRecommendationList">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="3" rowCount="0">
@@ -1744,6 +1753,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Find"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonFindUserActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -2077,6 +2089,7 @@
                   <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/Stop-Pressed.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Stop Importing"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonChooseDataset">
@@ -2139,7 +2152,6 @@
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonMethodDataPreparationMouseClicked"/>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonMethodDataPreparationActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonContructUserProfile">
@@ -2170,6 +2182,7 @@
                   <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/save model.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Save Model"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSaveModelActionPerformed"/>
@@ -2218,6 +2231,7 @@
                   <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/upload model.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Load Model"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonRecommend">
@@ -2237,6 +2251,7 @@
                   <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/Stop-Pressed.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Stop Recommending"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonMethodRecommendation">
@@ -2245,6 +2260,7 @@
                   <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/option.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Choose Algorithm"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonMethodRecommendationMouseClicked"/>
@@ -2293,6 +2309,7 @@
                   <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/option.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Method Evaluation"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonMethodEvaluationMouseClicked"/>
@@ -2315,6 +2332,7 @@
                   <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/Stop-Pressed.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Stop Evalating"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonErrorAnalysis">
@@ -2323,6 +2341,7 @@
                   <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/analysis-icon.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Error Analysis"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonErrorAnalysisActionPerformed"/>
@@ -2378,6 +2397,7 @@
                   <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/chart-bar.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Chart"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonDrawChartActionPerformed"/>
@@ -2388,7 +2408,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/Button-Refresh-icon.png"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Chart"/>
+                <Property name="toolTipText" type="java.lang.String" value="Reset"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonResetActionPerformed"/>

@@ -39,11 +39,11 @@ public class CentralGuiHanderRequest {
 
     public double gama;// tham so gama cho 
     public double pruning;//tham so deu chinh cho pruning cho paper
-    public int weightingAuthor;// trong so author
-    public int weightingPaper;// trong so paper
-    public int combiningAuthor;// phuong thuc combining author
-    public int combiningPaper; // phuong thuc combining paper
-    public int recommendationMethod; //1: CBF, 2: CF
+    public int weightingAuthor=0;// trong so author
+    public int weightingPaper=0;// trong so paper
+    public int combiningAuthor=0;// phuong thuc combining author
+    public int combiningPaper=0; // phuong thuc combining paper
+    public int recommendationMethod=1; //1: CBF, 2: CF
     public int cfMethod;//1: KNN Pearson, 2: KNN Cosine, 3: SVD
     public int topNRecommend;// topNRecommend recommend
     public int topRank;// topRank K evaluation
@@ -171,24 +171,28 @@ public class CentralGuiHanderRequest {
             FeatureVectorSimilarity.generateRecommendationForAuthorList(authors, topNRecommend);
         } else if (recommendationMethod == 2) {
             //CF method
-             HashSet<String> paperIds = new HashSet<>();
-             paperIds = CBFAuthorFVComputation.getPaperIdsTestSet(authors);
+            HashSet<String> paperIds = new HashSet<>();
+            paperIds = CBFAuthorFVComputation.getPaperIdsTestSet(authors);
             if (cfMethod == 1) {
                 //CF method with KNN Pearson
-            CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod, authors,paperIds);
+                CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod, authors, paperIds);
             } else if (cfMethod == 2) {
                 //CF method with KNN Cosine
-            CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod, authors,paperIds);
+                CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod, authors, paperIds);
             } else if (cfMethod == 3) {
                 //CF method with SVD
-             CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod, authors,paperIds);
+                CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod, authors, paperIds);
             }
         }
     }
+
+
+
    public List<String> findListRecommendOfAuthor(String authorId,HashMap<String,Author> authors ){
        List listRecommend = authors.get(authorId).getRecommendationList();
        return listRecommend;
    }
+
     public static void main(String[] args) {
 
     }
