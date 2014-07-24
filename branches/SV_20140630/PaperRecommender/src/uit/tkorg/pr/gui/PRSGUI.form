@@ -509,7 +509,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jPanel5" alignment="0" max="32767" attributes="0"/>
-          <Component id="jTabbedPane1" alignment="0" max="32767" attributes="0"/>
+          <Component id="jTabbedPaneStep" alignment="0" max="32767" attributes="0"/>
           <Component id="jPanel38" alignment="0" max="32767" attributes="0"/>
           <Component id="jPanel22" alignment="1" max="32767" attributes="0"/>
       </Group>
@@ -519,7 +519,7 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="jPanel38" min="-2" pref="86" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTabbedPane1" min="-2" pref="336" max="-2" attributes="0"/>
+              <Component id="jTabbedPaneStep" min="-2" pref="336" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -529,7 +529,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
+    <Container class="javax.swing.JTabbedPane" name="jTabbedPaneStep">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
@@ -2149,6 +2149,9 @@
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Start Contructing User Profile"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonContructUserProfileActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonContructPaperFV">
               <Properties>
@@ -2157,6 +2160,9 @@
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Start Contructing Feature Vector for Paper"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonContructPaperFVActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonSaveModel">
               <Properties>

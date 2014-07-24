@@ -37,6 +37,7 @@ public class PRSGUI extends javax.swing.JFrame {
     private String desFileAuthorCitePaper = "";
     private String desFilePaperPaper = "";
     private String desFileGroundTruth = "";
+
     public PRSGUI() {
         initComponents();
         controller = new CentralGuiHanderRequest();
@@ -56,6 +57,13 @@ public class PRSGUI extends javax.swing.JFrame {
         controller.combiningPaper = 0;
         controller.weightingAuthor = 0;
         controller.weightingPaper = 0;
+
+        jTextAreaAuthor.setEditable(false);
+        jTextAreaAuthorCitePaper.setEditable(false);
+        jTextAreaAuthorPaper.setEditable(false);
+        jTextAreaGroundTruth.setEditable(false);
+        jTextAreaPaper.setEditable(false);
+        jTextAreaPaperPaper.setEditable(false);
     }
 
     /**
@@ -91,7 +99,7 @@ public class PRSGUI extends javax.swing.JFrame {
         jMenuItemNDCG = new javax.swing.JMenuItem();
         jMenuItemMRR = new javax.swing.JMenuItem();
         jMenuItemAllEvalution = new javax.swing.JMenuItem();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jTabbedPaneStep = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jTabbedPane4 = new javax.swing.JTabbedPane();
@@ -584,7 +592,7 @@ public class PRSGUI extends javax.swing.JFrame {
                 .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Import Data", jPanel1);
+        jTabbedPaneStep.addTab("Import Data", jPanel1);
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Choose Algorithm"));
 
@@ -912,7 +920,7 @@ public class PRSGUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Data Preparation", jPanel2);
+        jTabbedPaneStep.addTab("Data Preparation", jPanel2);
 
         jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder("Recommendation"));
 
@@ -1047,7 +1055,7 @@ public class PRSGUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Recommendation", jPanel3);
+        jTabbedPaneStep.addTab("Recommendation", jPanel3);
 
         jPanel19.setBorder(javax.swing.BorderFactory.createTitledBorder("Evaluation"));
 
@@ -1147,7 +1155,7 @@ public class PRSGUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Evaluation", jPanel4);
+        jTabbedPaneStep.addTab("Evaluation", jPanel4);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Console"));
 
@@ -1227,9 +1235,19 @@ public class PRSGUI extends javax.swing.JFrame {
 
         jButtonContructUserProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/User-Coat-Red-icon.png"))); // NOI18N
         jButtonContructUserProfile.setToolTipText("Start Contructing User Profile");
+        jButtonContructUserProfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonContructUserProfileActionPerformed(evt);
+            }
+        });
 
         jButtonContructPaperFV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Document-icon.png"))); // NOI18N
         jButtonContructPaperFV.setToolTipText("Start Contructing Feature Vector for Paper");
+        jButtonContructPaperFV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonContructPaperFVActionPerformed(evt);
+            }
+        });
 
         jButtonSaveModel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/save model.png"))); // NOI18N
         jButtonSaveModel.setToolTipText("Save Model");
@@ -1628,7 +1646,7 @@ public class PRSGUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPaneStep)
             .addComponent(jPanel38, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -1637,7 +1655,7 @@ public class PRSGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel38, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTabbedPaneStep, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1683,6 +1701,7 @@ public class PRSGUI extends javax.swing.JFrame {
         fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         fc.showOpenDialog(this);
         controller.fileNameAuthorCitePaper = fc.getSelectedFile().getAbsolutePath();
+        jTextAreaConsole.append(fc.getSelectedFile().getAbsolutePath() + "\n");
     }//GEN-LAST:event_jButtonFileAuthorCitePaperActionPerformed
 
     private void jRadioButtonDatasetExampleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDatasetExampleActionPerformed
@@ -1715,14 +1734,12 @@ public class PRSGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSaveModelActionPerformed
 
     private void jButtonStartImportDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartImportDataActionPerformed
-        // TODO add your handling code here:
-        jTextAreaConsole.setText("Begin import dataset....\n");
-        long begin = System.nanoTime();
-        jTextAreaConsole.append(String.valueOf(begin) + "\n");
+        jTabbedPaneStep.setSelectedIndex(0);
+        jTextAreaConsole.append("\nBegin import dataset....\n");
+        long begin = System.currentTimeMillis();
         controller.guiHanderResquest(Options.importData);
-        jTextAreaConsole.append(String.valueOf(System.nanoTime() - begin));
-
-
+        jTextAreaConsole.append("End import dataset....\n");
+        jTextAreaConsole.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + "s" + "\n");
     }//GEN-LAST:event_jButtonStartImportDataActionPerformed
 
     private void jButtonErrorAnalysisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonErrorAnalysisActionPerformed
@@ -1793,6 +1810,7 @@ public class PRSGUI extends javax.swing.JFrame {
         fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         fc.showOpenDialog(this);
         controller.fileNamePapers = fc.getSelectedFile().getAbsolutePath();
+        jTextAreaConsole.append(fc.getSelectedFile().getAbsolutePath() + "\n");
     }//GEN-LAST:event_jButtonFilePaperActionPerformed
 
     private void jButtonFileAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFileAuthorActionPerformed
@@ -1845,8 +1863,11 @@ public class PRSGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxCMUserActionPerformed
 
     private void jButtonStartCombiningUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartCombiningUserActionPerformed
-        // TODO add your handling code here:
+        jTextAreaConsole.append("\nBegin construct author's profile....\n");
+        long begin = System.currentTimeMillis();
         controller.guiHanderResquest(Options.contructUserProfile);
+        jTextAreaConsole.append("End construct author's profile....\n");
+        jTextAreaConsole.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + "s" + "\n");
     }//GEN-LAST:event_jButtonStartCombiningUserActionPerformed
 
     private void jComboBoxCMPaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCMPaperActionPerformed
@@ -1926,55 +1947,93 @@ public class PRSGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         // viet them ham kiem tra xem co nguoi dung co nhap topRank cho cac
         // phuong phap evaluation khac tru f1 va mrr neu co thi thuc hien cac lenh if ben duoi
-        controller.topRank = Integer.parseInt(jTextFieldtopRank.getText().trim().toString());
-        if (methodEvaluation == 0) {
-           response= controller.guiHanderResquest(Options.precision);
-           previousEvaluation.add(0,response[1]);
-        } else if (methodEvaluation == 1) {
-           response= controller.guiHanderResquest(Options.recall);
-           previousEvaluation.add(1,response[1]);
-        } else if (methodEvaluation == 2) {
-           response= controller.guiHanderResquest(Options.f1);
-           previousEvaluation.add(2,response[1]);
-        } else if (methodEvaluation == 3) {
-           response= controller.guiHanderResquest(Options.map);
-           previousEvaluation.add(3,response[1]);
-        } else if (methodEvaluation == 4) {
-           response= controller.guiHanderResquest(Options.ndcg);
-           previousEvaluation.add(4,response[1]);
-        } else if (methodEvaluation == 5) {
-           response= controller.guiHanderResquest(Options.mrr);
-           previousEvaluation.add(5,response[1]);
-        } else if (methodEvaluation == 6) {
-            String allResultEvaluate = new String();
-            response = controller.guiHanderResquest(Options.precision); 
-            allResultEvaluate =response[1];
-            response = controller.guiHanderResquest(Options.recall);
-            allResultEvaluate.concat("\r\n"+response[1]);
-            response = controller.guiHanderResquest(Options.f1);
-            allResultEvaluate.concat("\r\n"+response[1]);
-            response = controller.guiHanderResquest(Options.map);
-            allResultEvaluate.concat("\r\n"+response[1]);
-            response = controller.guiHanderResquest(Options.ndcg);
-            allResultEvaluate.concat("\r\n"+response[1]);
-            response = controller.guiHanderResquest(Options.mrr);
-            allResultEvaluate.concat("\r\n"+ response[1]);
-            previousEvaluation.add(6,allResultEvaluate);       
-        }
-        DefaultListModel model = new DefaultListModel();
-        for (int i = 0; i < jListEvaluation.getModel().getSize(); i++) {
-            model.addElement(jListEvaluation.getModel().getElementAt(i));
-        }
-        Date date = new Date();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
+        jTabbedPaneStep.setSelectedIndex(3);
+        if (!jTextFieldtopRank.getText().isEmpty()) {
+            jTextAreaConsole.append("\nBegin evaluate....\n");
+            long begin = System.currentTimeMillis();
+            controller.topRank = Integer.parseInt(jTextFieldtopRank.getText().trim().toString());
+            if (methodEvaluation == 0) {
+                controller.guiHanderResquest(Options.precision);
+            } else if (methodEvaluation == 1) {
+                controller.guiHanderResquest(Options.recall);
+            } else if (methodEvaluation == 2) {
+                controller.guiHanderResquest(Options.f1);
+            } else if (methodEvaluation == 3) {
+                controller.guiHanderResquest(Options.map);
+            } else if (methodEvaluation == 4) {
+                controller.guiHanderResquest(Options.ndcg);
+            } else if (methodEvaluation == 5) {
+                controller.guiHanderResquest(Options.mrr);
+            } else if (methodEvaluation == 6) {
+                controller.guiHanderResquest(Options.precision);
+                controller.guiHanderResquest(Options.recall);
+                controller.guiHanderResquest(Options.f1);
+                controller.guiHanderResquest(Options.map);
+                controller.guiHanderResquest(Options.ndcg);
+                controller.guiHanderResquest(Options.mrr);
+            }
+            DefaultListModel model = new DefaultListModel();
+            for (int i = 0; i < jListEvaluation.getModel().getSize(); i++) {
+                model.addElement(jListEvaluation.getModel().getElementAt(i));
+            }
+            Date date = new Date();
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
 
-        model.addElement(calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE) + ":" + calendar.get(Calendar.SECOND) + " - " + jComboBoxMethodEvaluation.getSelectedItem());
-        jListEvaluation.setModel(model);
+            model.addElement(calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE) + ":" + calendar.get(Calendar.SECOND) + " - " + jComboBoxMethodEvaluation.getSelectedItem());
+            jListEvaluation.setModel(model);
+            jTextAreaConsole.append("End evaluate....\n");
+            jTextAreaConsole.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + "s" + "\n");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Please choose topRank to evaluate...", "Warning", JOptionPane.WARNING_MESSAGE);
+            jTextFieldtopRank.requestFocus();
+            controller.topRank = Integer.parseInt(jTextFieldtopRank.getText().trim().toString());
+            if (methodEvaluation == 0) {
+                response = controller.guiHanderResquest(Options.precision);
+                previousEvaluation.add(0, response[1]);
+            } else if (methodEvaluation == 1) {
+                response = controller.guiHanderResquest(Options.recall);
+                previousEvaluation.add(1, response[1]);
+            } else if (methodEvaluation == 2) {
+                response = controller.guiHanderResquest(Options.f1);
+                previousEvaluation.add(2, response[1]);
+            } else if (methodEvaluation == 3) {
+                response = controller.guiHanderResquest(Options.map);
+                previousEvaluation.add(3, response[1]);
+            } else if (methodEvaluation == 4) {
+                response = controller.guiHanderResquest(Options.ndcg);
+                previousEvaluation.add(4, response[1]);
+            } else if (methodEvaluation == 5) {
+                response = controller.guiHanderResquest(Options.mrr);
+                previousEvaluation.add(5, response[1]);
+            } else if (methodEvaluation == 6) {
+                String allResultEvaluate = new String();
+                response = controller.guiHanderResquest(Options.precision);
+                allResultEvaluate = response[1];
+                response = controller.guiHanderResquest(Options.recall);
+                allResultEvaluate.concat("\r\n" + response[1]);
+                response = controller.guiHanderResquest(Options.f1);
+                allResultEvaluate.concat("\r\n" + response[1]);
+                response = controller.guiHanderResquest(Options.map);
+                allResultEvaluate.concat("\r\n" + response[1]);
+                response = controller.guiHanderResquest(Options.ndcg);
+                allResultEvaluate.concat("\r\n" + response[1]);
+                response = controller.guiHanderResquest(Options.mrr);
+                allResultEvaluate.concat("\r\n" + response[1]);
+                previousEvaluation.add(6, allResultEvaluate);
+            }
+            DefaultListModel model = new DefaultListModel();
+            for (int i = 0; i < jListEvaluation.getModel().getSize(); i++) {
+                model.addElement(jListEvaluation.getModel().getElementAt(i));
+            }
     }//GEN-LAST:event_jButtonEvaluationActionPerformed
-
+    }
     private void jButtonStartCombiningPaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartCombiningPaperActionPerformed
+        jTextAreaConsole.append("\nBegin construct feature vector of papers....\n");
+        long begin = System.currentTimeMillis();
         controller.guiHanderResquest(Options.contructPaperFV);
+        jTextAreaConsole.append("End construct feature vector of papers....\n");
+        jTextAreaConsole.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + "s" + "\n");
     }//GEN-LAST:event_jButtonStartCombiningPaperActionPerformed
 
     private void jMenuItemDrawChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDrawChartActionPerformed
@@ -2006,18 +2065,28 @@ public class PRSGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxMethodPreDataActionPerformed
 
     private void jButtonRecommendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRecommendActionPerformed
-        controller.topNRecommend = Integer.parseInt(jTextFieldTopNRecommend.getText().trim().toString());
-        controller.guiHanderResquest(Options.recommend);
-        DefaultListModel model = new DefaultListModel();
-        for (int i = 0; i < jListRecAlgorithm.getModel().getSize(); i++) {
-            model.addElement(jListRecAlgorithm.getModel().getElementAt(i));
-        }
-        Date date = new Date();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
+        jTabbedPaneStep.setSelectedIndex(2);
+        if (!jTextFieldTopNRecommend.getText().isEmpty()) {
+            jTextAreaConsole.append("\nBegin recommend....\n");
+            long begin = System.currentTimeMillis();
+            controller.topNRecommend = Integer.parseInt(jTextFieldTopNRecommend.getText().trim().toString());
+            controller.guiHanderResquest(Options.recommend);
+            DefaultListModel model = new DefaultListModel();
+            for (int i = 0; i < jListRecAlgorithm.getModel().getSize(); i++) {
+                model.addElement(jListRecAlgorithm.getModel().getElementAt(i));
+            }
+            Date date = new Date();
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
 
-        model.addElement(calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE) + ":" + calendar.get(Calendar.SECOND) + " - " + jComboBoxMethodRecommend.getSelectedItem());
-        jListRecAlgorithm.setModel(model);
+            model.addElement(calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE) + ":" + calendar.get(Calendar.SECOND) + " - " + jComboBoxMethodRecommend.getSelectedItem());
+            jListRecAlgorithm.setModel(model);
+            jTextAreaConsole.append("End recommend....\n");
+            jTextAreaConsole.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + "s" + "\n");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Please choose topNRecommend...", "Warning", JOptionPane.WARNING_MESSAGE);
+            jTextFieldTopNRecommend.requestFocus();
+        }
     }//GEN-LAST:event_jButtonRecommendActionPerformed
 
     private void jTextFieldTopNRecommendKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldTopNRecommendKeyReleased
@@ -2064,6 +2133,25 @@ public class PRSGUI extends javax.swing.JFrame {
             System.out.println(ex.getMessage());
         }
     }//GEN-LAST:event_jListEvaluationMouseClicked
+
+    private void jButtonContructUserProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonContructUserProfileActionPerformed
+        jTabbedPaneStep.setSelectedIndex(1);
+        jTabbedPaneStep.setSelectedIndex(1);
+        jTextAreaConsole.append("\nBegin construct author's profile....\n");
+        long begin = System.currentTimeMillis();
+        controller.guiHanderResquest(Options.contructUserProfile);
+        jTextAreaConsole.append("End construct author's profile....\n");
+        jTextAreaConsole.append("Time elapsed: " + String.valueOf(((System.currentTimeMillis() - begin)) / 1000) + "s" + "\n");
+
+    }//GEN-LAST:event_jButtonContructUserProfileActionPerformed
+
+    private void jButtonContructPaperFVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonContructPaperFVActionPerformed
+        jTextAreaConsole.append("Begin construct feature vector of papers....\n");
+        long begin = System.currentTimeMillis();
+        controller.guiHanderResquest(Options.contructPaperFV);
+        jTextAreaConsole.append("End construct feature vector of papers....\n");
+        jTextAreaConsole.append("Time elapsed: " + String.valueOf(System.currentTimeMillis() - begin) + "s");
+    }//GEN-LAST:event_jButtonContructPaperFVActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2248,9 +2336,9 @@ public class PRSGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane4;
+    private javax.swing.JTabbedPane jTabbedPaneStep;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextAreaAuthor;
     private javax.swing.JTextArea jTextAreaAuthorCitePaper;
