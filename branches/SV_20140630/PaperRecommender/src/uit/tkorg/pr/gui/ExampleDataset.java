@@ -16,12 +16,11 @@ import uit.tkorg.pr.controller.CentralGuiHanderRequest;
 public class ExampleDataset extends javax.swing.JFrame {
 
     /**
-     * Creates new form ExampleDataset
+     * Creates new form ExDatasetGUI
      */
-    CentralGuiHanderRequest controller;
     public ExampleDataset() {
         initComponents();
-        controller = new CentralGuiHanderRequest();
+       
     }
 
     /**
@@ -211,13 +210,8 @@ public class ExampleDataset extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        controller.fileNameAuthors = "SampleDataset\\Authors.csv";
-        controller.fileNamePapers = "SampleDataset\\Papers.csv";
-        controller.fileNameAuthorCitePaper= "SampleDataset\\AuthorPaper.csv";
-        controller.fileNameAuthorPaper="SampleDataset\\AuthorPaper.csv";
-        controller.fileNamePaperCitePaper= "SampleDataset\\PaperCitePaper.csv";
-        controller.fileNameGroundTruth= "SampleDataset\\GroundTruth.csv";
-        controller.guiHanderResquest(Options.importData);
+       
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
