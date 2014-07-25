@@ -45,8 +45,8 @@ public class CentralGuiHanderRequest {
     public int combiningPaper = 0; // phuong thuc combining paper
     public int recommendationMethod = 1; //1: CBF, 2: CF
     public int cfMethod;//1: KNN Pearson, 2: KNN Cosine, 3: SVD
-    public int topNRecommend;// topNRecommend recommend
-    public int topRank;// topRank K evaluation
+    public int topNRecommend;// topNRecommend RECOMMEND
+    public int topRank;// topRank K EVALUATE
     public int kNeighbor;// so hang xom
     public int methodEvaluation;// phuong phap danh gia
     public String authorId;
@@ -63,7 +63,7 @@ public class CentralGuiHanderRequest {
     public String vectorDir = "Temp\\VectorDir";
     public String MahoutCFDir = "Temp\\MahoutDir";
     public String fileNameEvaluationResult;// ten file ket qua danh gia
-    public String fileNameRecommenList;// ten file danh sach recommend
+    public String fileNameRecommenList;// ten file danh sach RECOMMEND
     public HashMap<String, Paper> papers = new HashMap<>();
     public HashMap<String, Author> authors = new HashMap<>();
     public HashMap<String, Paper> papersOfAuthors = new HashMap<>();
@@ -73,7 +73,7 @@ public class CentralGuiHanderRequest {
 
         try {
             switch (request) {
-                case importData: // import du lieu cac filename se dc truyen tu giao dien
+                case IMPORT_DATA: // import du lieu cac filename se dc truyen tu giao dien
                     authors = MASDataset1.readAuthorListTestSet(fileNameAuthors, fileNameGroundTruth, fileNameAuthorPaper);
                     papers = MASDataset1.readPaperList(fileNamePapers, fileNamePaperCitePaper);
                     PRGeneralFile.writePaperAbstractToTextFile(papers, dirPapers);
@@ -83,48 +83,45 @@ public class CentralGuiHanderRequest {
                     HashMap<String, HashMapVector> vectorizedDocuments = MahoutFile.readMahoutVectorFiles(vectorDir);
                     CBFPaperFVComputation.setTFIDFVectorForAllPapers(papers, vectorizedDocuments);
                     break;
-                case stopImportData:
+                case STOP_IMPORT_DATA:
                     break;
-                case contructUserProfile: // xay dung profile nguoi dung
+                case CONSTRUCT_AUTHOR_PROFILE: // xay dung profile nguoi dung
                     HashSet<String> paperIdsOfAuthorTestSet = CBFAuthorFVComputation.getPaperIdsOfAuthors(authors);
                     //  CBFPaperFVComputation.computeFeatureVectorForAllPapers(papers, paperIdsOfAuthorTestSet, combiningPaper, weightingPaper,pruning);
                     CBFPaperFVComputation.computeFeatureVectorForAllPapers(papers, paperIdsOfAuthorTestSet, combiningPaper, weightingPaper, 0.0);
                     CBFAuthorFVComputation.computeFVForAllAuthors(authors, papers, weightingAuthor, gama);
                     break;
-                case contructPaperFV:// xay dung vector dac trung cho bai bao
+                case CONSTRUCT_PAPER_FV:// xay dung vector dac trung cho bai bao
                     //CBFPaperFVComputation.computeFeatureVectorForAllPapers(papers,null,combiningPaper,weightingPaper,pruning);
                     CBFPaperFVComputation.computeFeatureVectorForAllPapers(papers, null, combiningPaper, weightingPaper, 0.0);
                     break;
-                case saveModel:// save model
+                case SAVE_MODEL:// save model
                     break;
-                case contructMatrixInput: // build matrix input
+                case CONSTRUCT_MATRIX_CF: // build matrix input
                     CFController.cfPrepareMatrix(fileNameAuthorCitePaper, MahoutCFDir);
                     break;
-                case loadExistentMatrix:// load mot matrix da co san
+                case LOAD_EXISTENT_MODEL:// load mot matrix da co san
                     MahoutFile.readMahoutCFRating(MahoutCFDir, authors);
                     break;
-                case loadModel:
+                case LOAD_MODEL:
                     break;
-                case recommend:
+                case RECOMMEND:
                     recommend();
                     break;
-                case showRecommendList:
-                    response[1] = findListRecommendOfAuthor(authorId, authors).toString();
-                    break;
-                case evaluation:
+                case EVALUATE:
                     response[1]= Evaluation(authors,methodEvaluation, topRank).toString();
                     break;
-                case errorAnalysis:
+                case ANALYSE_ERROR:
                     break;
-                case help:
+                case HELP:
                     break;
-                case saveRecommendList:
+                case SAVE_RECOMMENDATION_LIST:
                     StringBuilder recommendList = new StringBuilder();
                     for (String authorId: authors.keySet())
                         recommendList.append(authorId+":\n").append(authors.get(authorId).getRecommendationList().toString()+"\r\n");
                     FileUtils.writeStringToFile(new File(fileNameEvaluationResult), recommendList.toString(), "UTF8", true);
                     break;
-                case reset:
+                case RESET:
                     papers = new HashMap<>();
                     authors = new HashMap<>();
                     break;
@@ -198,11 +195,6 @@ public class CentralGuiHanderRequest {
         recommendationMethod = 1;
         papers = new HashMap<>();
         authors = new HashMap<>();
-    }
-
-    public List<String> findListRecommendOfAuthor(String authorId, HashMap<String, Author> authors) {
-        List listRecommend = authors.get(authorId).getRecommendationList();
-        return listRecommend;
     }
 
     public static void main(String[] args) {

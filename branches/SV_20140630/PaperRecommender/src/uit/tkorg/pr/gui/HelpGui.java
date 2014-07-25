@@ -12,12 +12,12 @@ import javax.swing.UIManager;
  *
  * @author Zoe
  */
-public class HelpGUI extends javax.swing.JFrame {
+public class HelpGui extends javax.swing.JFrame {
 
     /**
      * Creates new form HelpGUI
      */
-    public HelpGUI() {
+    public HelpGui() {
         initComponents();
     }
 
@@ -124,7 +124,7 @@ public class HelpGUI extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 432, Short.MAX_VALUE))
+                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Search", jPanel5);
@@ -141,7 +141,7 @@ public class HelpGUI extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 488, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 472, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE))
         );
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
@@ -263,7 +263,7 @@ public class HelpGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HelpGUI().setVisible(true);
+                new HelpGui().setVisible(true);
             }
         });
     }

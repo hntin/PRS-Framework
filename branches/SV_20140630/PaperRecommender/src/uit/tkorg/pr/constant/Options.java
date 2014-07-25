@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package uit.tkorg.pr.constant;
 
 /**
@@ -11,8 +10,9 @@ package uit.tkorg.pr.constant;
  * @author Vinh
  */
 public enum Options {
-    importData, stopImportData,contructUserProfile, contructPaperFV,
-    saveModel,saveRecommendList,saveResultEvaluate,loadModel, recommend,
-    stopRecommendation,evaluation,startEvaluation,errorAnalysis,showRecommendList,help,contructMatrixInput,
-    loadExistentMatrix,reset
+
+    IMPORT_DATA, STOP_IMPORT_DATA, CONSTRUCT_AUTHOR_PROFILE, CONSTRUCT_PAPER_FV,
+    SAVE_MODEL, LOAD_MODEL, SAVE_RECOMMENDATION_LIST, SAVE_EVALUATION_RESULT, RECOMMEND,
+    STOP_RECOMMEND, EVALUATE, ANALYSE_ERROR, HELP, CONSTRUCT_MATRIX_CF,
+    LOAD_EXISTENT_MODEL, RESET
 }

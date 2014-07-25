@@ -31,7 +31,7 @@ import uit.tkorg.utility.textvectorization.TextVectorizationByMahoutTerminalUtil
  *
  * @author Vinh
  */
-public class GUIUtilities {
+public class GuiUtilities {
 //Save to file using JChooser
     public static String saveToFileJChooser() {
         String path = null;
@@ -166,7 +166,7 @@ public class GUIUtilities {
                 }
             }
         } catch (Exception ex) {
-            Logger.getLogger(IntroducePRS.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(IntroducePRSGui.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -183,7 +183,7 @@ public class GUIUtilities {
             }
             missingValue = numLine / (numAuthors * numPapers);
         } catch (IOException ex) {
-            Logger.getLogger(GUIUtilities.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GuiUtilities.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return missingValue * 100;

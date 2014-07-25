@@ -19,12 +19,12 @@ import javax.swing.UIManager;
  *
  * @author Vinh
  */
-public class TFIDFGUI extends javax.swing.JDialog {
+public class TFIDFGui extends javax.swing.JDialog {
 
     /**
      * Creates new form TFIDFGUI
      */
-    public TFIDFGUI(java.awt.Frame parent, boolean modal) {
+    public TFIDFGui(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -174,7 +174,7 @@ public class TFIDFGUI extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonChooseTextFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonChooseTextFolderActionPerformed
-        jTextFieldTextFolder.setText(GUIUtilities.chooseFolderJChooser("Choose folder text files of papers"));
+        jTextFieldTextFolder.setText(GuiUtilities.chooseFolderJChooser("Choose folder text files of papers"));
     }//GEN-LAST:event_jButtonChooseTextFolderActionPerformed
 
     private void jButtonCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCloseActionPerformed
@@ -197,7 +197,7 @@ public class TFIDFGUI extends javax.swing.JDialog {
             jButtonCreateTFIDF.setEnabled(false);
         Runnable updateAComponent = new Runnable() {
             public void run() {
-                GUIUtilities.createTFIDF(jTextFieldTextFolder.getText().trim().toString(), jTextFieldTFIDF.getText().trim().toString());
+                GuiUtilities.createTFIDF(jTextFieldTextFolder.getText().trim().toString(), jTextFieldTFIDF.getText().trim().toString());
 
             }
         };
@@ -209,7 +209,7 @@ public class TFIDFGUI extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonCreateTFIDFActionPerformed
 
     private void jButtonChooseTFIDFFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonChooseTFIDFFolderActionPerformed
-        jTextFieldTFIDF.setText(GUIUtilities.chooseFolderJChooser("Choose folder save TFIDF files"));
+        jTextFieldTFIDF.setText(GuiUtilities.chooseFolderJChooser("Choose folder save TFIDF files"));
     }//GEN-LAST:event_jButtonChooseTFIDFFolderActionPerformed
 
     /**
@@ -231,7 +231,7 @@ public class TFIDFGUI extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TFIDFGUI dialog = new TFIDFGUI(new javax.swing.JFrame(), true);
+                TFIDFGui dialog = new TFIDFGui(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

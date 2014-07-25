@@ -236,28 +236,28 @@
     </Container>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
       <SubComponents>
-        <Menu class="javax.swing.JMenu" name="jMenuFile">
+        <Menu class="javax.swing.JMenu" name="fileMenu">
           <Properties>
             <Property name="text" type="java.lang.String" value="File"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemSaveModel">
+            <MenuItem class="javax.swing.JMenuItem" name="saveModelMenuItem">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/Misc-Download-Database-icon.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Save model"/>
+                <Property name="text" type="java.lang.String" value="Save Model"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemLoadModel">
+            <MenuItem class="javax.swing.JMenuItem" name="loadExistentModelMenuItem">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/Misc-Upload-Database-icon.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Load model"/>
+                <Property name="text" type="java.lang.String" value="Load Existent Model"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemReset">
+            <MenuItem class="javax.swing.JMenuItem" name="resetMenuItem">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/Button-Refresh-icon.png"/>
@@ -265,227 +265,53 @@
                 <Property name="text" type="java.lang.String" value="Reset"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemExit">
+            <MenuItem class="javax.swing.JMenuItem" name="exitMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Exit"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemExitActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exitMenuItemActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenuImportData">
+        <Menu class="javax.swing.JMenu" name="toolsMenu">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Import Data"/>
+            <Property name="text" type="java.lang.String" value="Tools"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemDatasetExample">
+            <MenuItem class="javax.swing.JMenuItem" name="buildTFIDFFilesMenuItem">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Dataset Example"/>
+                <Property name="text" type="java.lang.String" value="Build TFIDF Files"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemDatasetExampleActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buildTFIDFFilesMenuItemActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemDatasetSource">
+            <MenuItem class="javax.swing.JMenuItem" name="visualizeMenuItem">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Dataset Source"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemImportDataset">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Import Dataset"/>
-              </Properties>
-            </MenuItem>
-          </SubComponents>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenuDataPreparation">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Data Preparation"/>
-          </Properties>
-          <SubComponents>
-            <Menu class="javax.swing.JMenu" name="jMenuMethodDataPreparation">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Method DataPreparation"/>
-              </Properties>
-              <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItemPreDataCB">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Content - based"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemPreDataCBActionPerformed"/>
-                  </Events>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItemPreDataCF">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Collaborative filtering"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemPreDataCFActionPerformed"/>
-                  </Events>
-                </MenuItem>
-              </SubComponents>
-            </Menu>
-            <Menu class="javax.swing.JMenu" name="jMenu1">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Prepare Data"/>
-              </Properties>
-              <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Author Profile Construction"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Feature Vector Construction for Paper"/>
-                  </Properties>
-                </MenuItem>
-              </SubComponents>
-            </Menu>
-          </SubComponents>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenuRecommendation">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Recommendation"/>
-          </Properties>
-          <SubComponents>
-            <Menu class="javax.swing.JMenu" name="jMenu8">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Choose Algorithm"/>
-              </Properties>
-              <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem25">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Content - based"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem26">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Collaborative filtering"/>
-                  </Properties>
-                </MenuItem>
-              </SubComponents>
-            </Menu>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem27">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Recommend"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem28">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Save Recommendation List"/>
-              </Properties>
-            </MenuItem>
-          </SubComponents>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenuEvaluation">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Evaluation"/>
-          </Properties>
-          <SubComponents>
-            <Menu class="javax.swing.JMenu" name="jMenu9">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Method Evaluation"/>
-              </Properties>
-              <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuPrecision">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Precision"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuRecall">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Recall"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuFmeasure">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Fmeasure"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuMAP">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="MAP"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuNDCG">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="NDCG"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuMRR">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="MRR"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuMRRActionPerformed"/>
-                  </Events>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuAllEvaluation">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="All"/>
-                  </Properties>
-                </MenuItem>
-              </SubComponents>
-            </Menu>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemEvaluate">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Evaluate"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuSaveResultEvaluation">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Save Evaluation"/>
+                <Property name="text" type="java.lang.String" value="Visualize"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuSaveResultEvaluationActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="visualizeMenuItemActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenuUtilities">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Utilities"/>
-          </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemTFIDF">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Compute TFIDF"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemTFIDFActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemDrawChart">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/chart-bar.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Draw chart"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemDrawChartActionPerformed"/>
-              </Events>
-            </MenuItem>
-          </SubComponents>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenuHelp">
+        <Menu class="javax.swing.JMenu" name="helpMenu">
           <Properties>
             <Property name="text" type="java.lang.String" value="Help"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemHelp">
+            <MenuItem class="javax.swing.JMenuItem" name="helpMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Help contents"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemHelpActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="helpMenuItemActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemAbout">
+            <MenuItem class="javax.swing.JMenuItem" name="aboutMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="About"/>
               </Properties>
@@ -520,10 +346,15 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel5" alignment="0" max="32767" attributes="0"/>
-          <Component id="jTabbedPaneStep" alignment="0" max="32767" attributes="0"/>
+          <Component id="jTabbedPaneStep" alignment="0" pref="0" max="32767" attributes="0"/>
           <Component id="jPanel38" alignment="0" max="32767" attributes="0"/>
-          <Component id="jPanel22" alignment="1" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Component id="jPanel22" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jPanel5" alignment="0" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -558,28 +389,26 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="jPanel11" alignment="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jPanel11" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="jPanel12" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jPanel31" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="9" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jPanel12" max="32767" attributes="0"/>
                           <Component id="jPanel31" max="32767" attributes="0"/>
+                          <Component id="jPanel12" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="jPanel11" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -598,12 +427,12 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jTabbedPane4" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jTabbedPane4" alignment="0" pref="1038" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jTabbedPane4" alignment="0" pref="174" max="32767" attributes="0"/>
+                      <Component id="jTabbedPane4" alignment="0" pref="188" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -618,8 +447,8 @@
                       </AuxValues>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                          <JTabbedPaneConstraints tabName="File authors">
-                            <Property name="tabTitle" type="java.lang.String" value="File authors"/>
+                          <JTabbedPaneConstraints tabName="File Authors">
+                            <Property name="tabTitle" type="java.lang.String" value="File Authors"/>
                           </JTabbedPaneConstraints>
                         </Constraint>
                       </Constraints>
@@ -635,37 +464,14 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Container class="javax.swing.JScrollPane" name="jScrollPane12">
-                      <AuxValues>
-                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                      </AuxValues>
-                      <Constraints>
-                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                          <JTabbedPaneConstraints tabName="File papers">
-                            <Property name="tabTitle" type="java.lang.String" value="File papers"/>
-                          </JTabbedPaneConstraints>
-                        </Constraint>
-                      </Constraints>
-
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                      <SubComponents>
-                        <Component class="javax.swing.JTextArea" name="jTextAreaPaper">
-                          <Properties>
-                            <Property name="columns" type="int" value="20"/>
-                            <Property name="rows" type="int" value="5"/>
-                            <Property name="text" type="java.lang.String" value="File Paper.csv ch&#x1ee9;a th&#xf4;ng tin c&#x1ee7;a nh&#x1eef;ng b&#xe0;i b&#xe1;o v&#xe0; c&#xf3; &#x111;&#x1ecb;nh d&#x1ea1;ng:&#xa;IdPaper|||Title|||Content|||Year&#xa;V&#xed; d&#x1ee5;:&#xa;11|||Knowledge Discovery from Sparse Pharmacokinetic Data|||In this research effort, we show that the following hypothesis is true: The independently verified sparse information secured from the scientific literature regarding the effects of methyl mercury on mice enables us to predict the effects of the methyl mercury on humans. The Rough Sets methodology is used in this endeavor|||2000&#xa;111|||A fusion of rough sets, modified rough sets, and genetic algorithms for hybrid diagnostic systems|||A hybrid classification system is a system composed of several intelligent techniques such that the inherent limitations of one individual technique be compensated for by the strengths of another technique. In this paper, we investigate the outline of a hybrid diagnostic system for Attention Deficit Disorder (ADD) in children. This system uses Rough Sets (RS) and Modified Rough Sets (MRS) to induce rules from examples and then uses our modified genetic algorithms to globalize the rules. Also, the classification capability of this hybrid system was compared with the behavior of (a) another hybrid classification system using RS, MRS, and the &#x201c;dropping condition&#x201d; approach, (b) the Interactive Dichotomizer 3 (ID3) approach, and (c) a basic genetic algorithm. The results revealed that the global rules generated by the hybrid system are more effective in classification of the testing dataset than the rules generated by the above approaches.|||1997&#xa;112|||Rough Classification|||This article contains a new concept of approximate analysis of data, based on the idea of a &#x201c;rough&#x201d; set. The notion of approximate (rough) description of a set is introduced and investigated. The application to medical data analysis is shown as an example.|||1984&#xa;113|||Developmental toxicity risk assessment: a rough sets approach|||A rough sets approach was applied to a data set consisting of animal study results and other compound characteristics to generate local and global (certain/possible) sets of rules for prediction of developmental toxicity in human subjects. A modified version of the rough sets approach is proposed to allow the construction of an approximate set of rules to use for prediction in a manner similar to that of discriminant analysis. The modified rough sets approach is superior in predictability to the original form of rough-sets methodology. In comparison to discriminant analysis, modified rough sets (approximate rules) appear to be better in overall classification, sensitivity, positive and negative predictive values. The findings were supported by applying the modified rough sets and discriminant analysis on a test data set generated from the original data set by using a resampling plan.|||1993&#xa;114|||A Theory and Methodology of Inductive Learning|||A theory of inductive learning is presented that characterizes it as a heuristic search through a space of symbolic descriptions, generated by an application of certain inference rules to the initial observational statements (the teacher-provided examples of some concepts, or facts about a class of objects or a phenomenon). The inference rules include generalization rules, which perform generalizing transformations on descriptions, and conventional truth-preserving deductive rules (specialization and reformulation rules). The application of the inference rules to descriptions is constrained by problem background knowledge, and guided by criteria evaluating the &#x2018;quality&#x2019; of generated inductive assertions.Based on this theory, a general methodology for learning structural descriptions from examples, called star, is described and illustrated by a problem from the area of conceptual data analysis|||1983&#xa;115|||Rough classification|||This article contains a new concept of approximate analysis of data, based on the idea of a &#x201c;rough&#x201d; set. The notion of approximate (rough) description of a set is introduced and investigated. The application to medical data analysis is shown as an example.|||1999&#xa;116|||LERS-a system for learning from examples based on rough sets|||The paper presents the system LERS for rule induction. The system handles inconsistencies in the input data due to its usage of rough set theory principle. Rough set theory is especially well suited to deal with inconsistencies. In this approach, inconsistencies are not corrected. Instead, system LERS computes lower and upper approximations of each concept. Then it induces certain rules and possible rules. The user has the choice to use the machine learning approach or the knowledge acquisition approach. In the first case, the system induces a single minimal discriminant description for each concept. In the second case, the system induces all rules, each in the minimal form, that can be induced from the input data. In both cases, the user has a choice between the local or global approach.|||1992&#xa;12|||The Investigation of Mercury Presence in Human Blood: An Extrapolation from Animal Data Using Neural Networks|||In this research effort a neural network approach was used as a method of extrapolating the presence of mercury in human blood from animal data. We also investigated the effect of different data representations (As-is, Category, Simple binary, Thermometer, and Flag) on the model performance. In addition, we used the Rough Sets methodology to identify the redundant independent variables and then examined the proposed extrapolation model performance for a reduced set of independent variables. Moreover, a quality measure was introduced that revealed that the proposed extrapolation model performed extremely well for the Thermometer data representation.|||2002&#xa;121|||Pattern development for vessel accidents: a comparison of statistical and neural computing techniques|||This paper describes a sample of over 900 vessel accidents that occurred on the lower Mississippi River. Two different techniques, one statistical and the other based on a neural network model, were used to build logical groups of accidents. The objective in building the groups was to maximize between-group variation and minimize within-group variation. The result was groups whose records were as homogenous as possible.A clustering algorithm (i.e., a non-inferential statistical technique) generated sets of three, four and five groups. A Kohenen neural network model (i.e., a self-organizing map) also generated sets of three, four and five groups. The two sets of parallel groups were radically different as to the relative number of records in each group. In other words, when the two sets of groups were constructed by the respective techniques, the membership of each comparable group within the two different sets was substantially different. Not only was the respective record count in each group substantially different, so were the descriptive statistics describing each comparable set of groups.These results have significant implications for marine policy makers. Important policy variables include safety factors such as weather, speed of current, time of operation, and location of accidents, but mandatory utilization of a voluntary vessel tracking service may be subject to debate.|||2001&#xa;122|||An Introduction to Computing with Neural Nets|||Artificial neural net models have been studied for many years in the hope of achieving human-like performance in the fields of speech and image recognition. These models are composed of many nonlinear computational elements operating in parallel and arranged in patterns reminiscent of biological neural nets. Computational elements or nodes are connected via weights that are typically adapted during use to improve performance. There has been a recent resurgence in the field of artificial neural nets caused by new net topologies and algorithms, analog VLSI implementation techniques, and the belief that massive parallelism is essential for high performance speech and image recognition. This paper provides an introduction to the field of artificial neural nets by reviewing six important neural net models that can be used for pattern classification. These nets are highly parallel building blocks that illustrate neural net components and design principles and can be used to construct more complex systems. In addition to describing these nets, a major emphasis is placed on exploring how some existing classification and clustering algorithms can be performed using simple neuron-like components. Single-layer nets can implement algorithms required by Gaussian maximum-likelihood classifiers and optimum minimum-error classifiers for binary patterns corrupted by noise. More generally, the decision regions required by any classification algorithm can be generated in a straightforward manner by three-layer feed-forward nets|||1987"/>
-                          </Properties>
-                        </Component>
-                      </SubComponents>
-                    </Container>
                     <Container class="javax.swing.JScrollPane" name="jScrollPane10">
                       <AuxValues>
                         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                       </AuxValues>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                          <JTabbedPaneConstraints tabName="File author - paper">
-                            <Property name="tabTitle" type="java.lang.String" value="File author - paper"/>
+                          <JTabbedPaneConstraints tabName="File Author_ Paper">
+                            <Property name="tabTitle" type="java.lang.String" value="File Author_ Paper"/>
                           </JTabbedPaneConstraints>
                         </Constraint>
                       </Constraints>
@@ -681,14 +487,60 @@
                         </Component>
                       </SubComponents>
                     </Container>
+                    <Container class="javax.swing.JScrollPane" name="jScrollPane11">
+                      <AuxValues>
+                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                      </AuxValues>
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                          <JTabbedPaneConstraints tabName="File Author_Cited_ paper">
+                            <Property name="tabTitle" type="java.lang.String" value="File Author_Cited_ paper"/>
+                          </JTabbedPaneConstraints>
+                        </Constraint>
+                      </Constraints>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                      <SubComponents>
+                        <Component class="javax.swing.JTextArea" name="jTextAreaAuthorCitePaper">
+                          <Properties>
+                            <Property name="columns" type="int" value="20"/>
+                            <Property name="rows" type="int" value="5"/>
+                            <Property name="text" type="java.lang.String" value="File AuthorCitePape.csv ch&#x1ee9;a th&#xf4;ng tin v&#x1ec1; nh&#x1eef;ng b&#xe0;i b&#xe1;o m&#xe0; t&#xe1;c gi&#x1ea3; &#x111;&#xe3; tr&#xed;ch d&#x1eab;n v&#xe0; c&#xf3; &#x111;&#x1ecb;nh d&#x1ea1;ng:&#xa;IdAuthor|||IdPaper|||YearCited&#xa;V&#xed; d&#x1ee5;:&#xa;1|||11&#xa;1|||12&#xa;1|||13&#xa;1|||14&#xa;2|||21&#xa;2|||22&#xa;3|||31&#xa;4|||41&#xa;4|||42"/>
+                          </Properties>
+                        </Component>
+                      </SubComponents>
+                    </Container>
+                    <Container class="javax.swing.JScrollPane" name="jScrollPane12">
+                      <AuxValues>
+                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                      </AuxValues>
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                          <JTabbedPaneConstraints tabName="File Papers">
+                            <Property name="tabTitle" type="java.lang.String" value="File Papers"/>
+                          </JTabbedPaneConstraints>
+                        </Constraint>
+                      </Constraints>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                      <SubComponents>
+                        <Component class="javax.swing.JTextArea" name="jTextAreaPaper">
+                          <Properties>
+                            <Property name="columns" type="int" value="20"/>
+                            <Property name="rows" type="int" value="5"/>
+                            <Property name="text" type="java.lang.String" value="File Paper.csv ch&#x1ee9;a th&#xf4;ng tin c&#x1ee7;a nh&#x1eef;ng b&#xe0;i b&#xe1;o v&#xe0; c&#xf3; &#x111;&#x1ecb;nh d&#x1ea1;ng:&#xa;IdPaper|||TitlePaper|||ContentPaper|||YearPaper&#xa;V&#xed; d&#x1ee5;:&#xa;11|||Knowledge Discovery from Sparse Pharmacokinetic Data|||In this research effort, we show that the following hypothesis is true: The independently verified sparse information secured from the scientific literature regarding the effects of methyl mercury on mice enables us to predict the effects of the methyl mercury on humans. The Rough Sets methodology is used in this endeavor|||2000&#xa;111|||A fusion of rough sets, modified rough sets, and genetic algorithms for hybrid diagnostic systems|||A hybrid classification system is a system composed of several intelligent techniques such that the inherent limitations of one individual technique be compensated for by the strengths of another technique. In this paper, we investigate the outline of a hybrid diagnostic system for Attention Deficit Disorder (ADD) in children. This system uses Rough Sets (RS) and Modified Rough Sets (MRS) to induce rules from examples and then uses our modified genetic algorithms to globalize the rules. Also, the classification capability of this hybrid system was compared with the behavior of (a) another hybrid classification system using RS, MRS, and the &#x201c;dropping condition&#x201d; approach, (b) the Interactive Dichotomizer 3 (ID3) approach, and (c) a basic genetic algorithm. The results revealed that the global rules generated by the hybrid system are more effective in classification of the testing dataset than the rules generated by the above approaches.|||1997&#xa;112|||Rough Classification|||This article contains a new concept of approximate analysis of data, based on the idea of a &#x201c;rough&#x201d; set. The notion of approximate (rough) description of a set is introduced and investigated. The application to medical data analysis is shown as an example.|||1984&#xa;113|||Developmental toxicity risk assessment: a rough sets approach|||A rough sets approach was applied to a data set consisting of animal study results and other compound characteristics to generate local and global (certain/possible) sets of rules for prediction of developmental toxicity in human subjects. A modified version of the rough sets approach is proposed to allow the construction of an approximate set of rules to use for prediction in a manner similar to that of discriminant analysis. The modified rough sets approach is superior in predictability to the original form of rough-sets methodology. In comparison to discriminant analysis, modified rough sets (approximate rules) appear to be better in overall classification, sensitivity, positive and negative predictive values. The findings were supported by applying the modified rough sets and discriminant analysis on a test data set generated from the original data set by using a resampling plan.|||1993&#xa;114|||A Theory and Methodology of Inductive Learning|||A theory of inductive learning is presented that characterizes it as a heuristic search through a space of symbolic descriptions, generated by an application of certain inference rules to the initial observational statements (the teacher-provided examples of some concepts, or facts about a class of objects or a phenomenon). The inference rules include generalization rules, which perform generalizing transformations on descriptions, and conventional truth-preserving deductive rules (specialization and reformulation rules). The application of the inference rules to descriptions is constrained by problem background knowledge, and guided by criteria evaluating the &#x2018;quality&#x2019; of generated inductive assertions.Based on this theory, a general methodology for learning structural descriptions from examples, called star, is described and illustrated by a problem from the area of conceptual data analysis|||1983&#xa;115|||Rough classification|||This article contains a new concept of approximate analysis of data, based on the idea of a &#x201c;rough&#x201d; set. The notion of approximate (rough) description of a set is introduced and investigated. The application to medical data analysis is shown as an example.|||1999&#xa;116|||LERS-a system for learning from examples based on rough sets|||The paper presents the system LERS for rule induction. The system handles inconsistencies in the input data due to its usage of rough set theory principle. Rough set theory is especially well suited to deal with inconsistencies. In this approach, inconsistencies are not corrected. Instead, system LERS computes lower and upper approximations of each concept. Then it induces certain rules and possible rules. The user has the choice to use the machine learning approach or the knowledge acquisition approach. In the first case, the system induces a single minimal discriminant description for each concept. In the second case, the system induces all rules, each in the minimal form, that can be induced from the input data. In both cases, the user has a choice between the local or global approach.|||1992&#xa;12|||The Investigation of Mercury Presence in Human Blood: An Extrapolation from Animal Data Using Neural Networks|||In this research effort a neural network approach was used as a method of extrapolating the presence of mercury in human blood from animal data. We also investigated the effect of different data representations (As-is, Category, Simple binary, Thermometer, and Flag) on the model performance. In addition, we used the Rough Sets methodology to identify the redundant independent variables and then examined the proposed extrapolation model performance for a reduced set of independent variables. Moreover, a quality measure was introduced that revealed that the proposed extrapolation model performed extremely well for the Thermometer data representation.|||2002&#xa;121|||Pattern development for vessel accidents: a comparison of statistical and neural computing techniques|||This paper describes a sample of over 900 vessel accidents that occurred on the lower Mississippi River. Two different techniques, one statistical and the other based on a neural network model, were used to build logical groups of accidents. The objective in building the groups was to maximize between-group variation and minimize within-group variation. The result was groups whose records were as homogenous as possible.A clustering algorithm (i.e., a non-inferential statistical technique) generated sets of three, four and five groups. A Kohenen neural network model (i.e., a self-organizing map) also generated sets of three, four and five groups. The two sets of parallel groups were radically different as to the relative number of records in each group. In other words, when the two sets of groups were constructed by the respective techniques, the membership of each comparable group within the two different sets was substantially different. Not only was the respective record count in each group substantially different, so were the descriptive statistics describing each comparable set of groups.These results have significant implications for marine policy makers. Important policy variables include safety factors such as weather, speed of current, time of operation, and location of accidents, but mandatory utilization of a voluntary vessel tracking service may be subject to debate.|||2001&#xa;122|||An Introduction to Computing with Neural Nets|||Artificial neural net models have been studied for many years in the hope of achieving human-like performance in the fields of speech and image recognition. These models are composed of many nonlinear computational elements operating in parallel and arranged in patterns reminiscent of biological neural nets. Computational elements or nodes are connected via weights that are typically adapted during use to improve performance. There has been a recent resurgence in the field of artificial neural nets caused by new net topologies and algorithms, analog VLSI implementation techniques, and the belief that massive parallelism is essential for high performance speech and image recognition. This paper provides an introduction to the field of artificial neural nets by reviewing six important neural net models that can be used for pattern classification. These nets are highly parallel building blocks that illustrate neural net components and design principles and can be used to construct more complex systems. In addition to describing these nets, a major emphasis is placed on exploring how some existing classification and clustering algorithms can be performed using simple neuron-like components. Single-layer nets can implement algorithms required by Gaussian maximum-likelihood classifiers and optimum minimum-error classifiers for binary patterns corrupted by noise. More generally, the decision regions required by any classification algorithm can be generated in a straightforward manner by three-layer feed-forward nets|||1987"/>
+                          </Properties>
+                        </Component>
+                      </SubComponents>
+                    </Container>
                     <Container class="javax.swing.JScrollPane" name="jScrollPane13">
                       <AuxValues>
                         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                       </AuxValues>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                          <JTabbedPaneConstraints tabName="File paper- paper">
-                            <Property name="tabTitle" type="java.lang.String" value="File paper- paper"/>
+                          <JTabbedPaneConstraints tabName="File Paper_Cited_Paper">
+                            <Property name="tabTitle" type="java.lang.String" value="File Paper_Cited_Paper"/>
                           </JTabbedPaneConstraints>
                         </Constraint>
                       </Constraints>
@@ -700,29 +552,6 @@
                             <Property name="columns" type="int" value="20"/>
                             <Property name="rows" type="int" value="5"/>
                             <Property name="text" type="java.lang.String" value="File PaperCitePaper.csv cho bi&#x1ebf;t th&#xf4;ng tin b&#xe0;i b&#xe1;o n&#xe0;o tr&#xed;ch d&#x1eab;n b&#xe0;i b&#xe1;o n&#xe0;o v&#xe0; c&#xf3; &#x111;&#x1ecb;nh d&#x1ea1;ng:&#xa;IdPaper|||IdPaperCited&#xa;V&#xed; d&#x1ee5;:&#xa;11|||111&#xa;11|||112&#xa;11|||113&#xa;11|||114&#xa;11|||115&#xa;11|||116&#xa;12|||121&#xa;12|||122&#xa;12|||123&#xa;13|||131"/>
-                          </Properties>
-                        </Component>
-                      </SubComponents>
-                    </Container>
-                    <Container class="javax.swing.JScrollPane" name="jScrollPane11">
-                      <AuxValues>
-                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                      </AuxValues>
-                      <Constraints>
-                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                          <JTabbedPaneConstraints tabName="File author- cite - paper">
-                            <Property name="tabTitle" type="java.lang.String" value="File author- cite - paper"/>
-                          </JTabbedPaneConstraints>
-                        </Constraint>
-                      </Constraints>
-
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                      <SubComponents>
-                        <Component class="javax.swing.JTextArea" name="jTextAreaAuthorCitePaper">
-                          <Properties>
-                            <Property name="columns" type="int" value="20"/>
-                            <Property name="rows" type="int" value="5"/>
-                            <Property name="text" type="java.lang.String" value="File AuthorCitePape.csv ch&#x1ee9;a th&#xf4;ng tin v&#x1ec1; nh&#x1eef;ng b&#xe0;i b&#xe1;o m&#xe0; t&#xe1;c gi&#x1ea3; &#x111;&#xe3; tr&#xed;ch d&#x1eab;n v&#xe0; c&#xf3; &#x111;&#x1ecb;nh d&#x1ea1;ng:&#xa;IdAuthor|||IdPaper||YearCited&#xa;V&#xed; d&#x1ee5;:&#xa;1|||11&#xa;1|||12&#xa;1|||13&#xa;1|||14&#xa;2|||21&#xa;2|||22&#xa;3|||31&#xa;4|||41&#xa;4|||42"/>
                           </Properties>
                         </Component>
                       </SubComponents>
@@ -745,7 +574,7 @@
                           <Properties>
                             <Property name="columns" type="int" value="20"/>
                             <Property name="rows" type="int" value="5"/>
-                            <Property name="text" type="java.lang.String" value="File Ground_Truth.csv ch&#x1ee9;a th&#xf4;ng tin t&#xe1;c gi&#x1ea3; th&#xed;ch b&#xe0;i b&#xe1;o n&#xe0;o v&#xe0; c&#xf3; &#x111;&#x1ecb;nh d&#x1ea1;ng:&#xa;IdAuthor||IidPaper&#xa;V&#xed; d&#x1ee5;:&#xa;1|||1&#xa;1|||5&#xa;1|||112&#xa;1|||134&#xa;1|||9&#xa;2|||211&#xa;2|||215&#xa;2|||214&#xa;2|||9&#xa;2|||42"/>
+                            <Property name="text" type="java.lang.String" value="File GroundTruth.csv ch&#x1ee9;a th&#xf4;ng tin t&#xe1;c gi&#x1ea3; th&#xed;ch b&#xe0;i b&#xe1;o n&#xe0;o v&#xe0; c&#xf3; &#x111;&#x1ecb;nh d&#x1ea1;ng:&#xa;IdAuthor||IdPaper&#xa;V&#xed; d&#x1ee5;:&#xa;1|||1&#xa;1|||5&#xa;1|||112&#xa;1|||134&#xa;1|||9&#xa;2|||211&#xa;2|||215&#xa;2|||214&#xa;2|||9&#xa;2|||42"/>
                           </Properties>
                         </Component>
                       </SubComponents>
@@ -783,9 +612,9 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jRadioButtonDatasetExample" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jRadioButtonDatasetSource" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jRadioButtonDatasetSource" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -828,11 +657,11 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
                           <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel24" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -857,17 +686,17 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
                               <Component id="jButtonFileAuthor" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jButtonFileAuthorPaper" min="-2" pref="121" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jButtonFileAuthorCitePaper" min="-2" pref="145" max="-2" attributes="0"/>
-                              <EmptySpace pref="86" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="jButtonFilePaper" min="-2" pref="145" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jButtonFilePaperPaper" min="-2" pref="145" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -882,7 +711,7 @@
                                   <Component id="jButtonFilePaper" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jButtonFilePaperPaper" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="14" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -917,7 +746,7 @@
                     </Component>
                     <Component class="javax.swing.JButton" name="jButtonFilePaperPaper">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="File paper- paper"/>
+                        <Property name="text" type="java.lang.String" value="File paper-cite- paper"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonFilePaperPaperActionPerformed"/>
@@ -992,16 +821,13 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jTabbedPaneDataPreparation" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="jTabbedPaneDataPreparation" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1011,7 +837,7 @@
                       <Component id="jPanel6" min="-2" pref="56" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jTabbedPaneDataPreparation" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1032,7 +858,7 @@
                       <Group type="102" attributes="0">
                           <Component id="jComboBoxMethodPreData" min="-2" pref="127" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jTextFieldDataPreAlgorithm" pref="419" max="32767" attributes="0"/>
+                          <Component id="jTextFieldDataPreAlgorithm" min="-2" pref="346" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1052,6 +878,7 @@
               <SubComponents>
                 <Component class="javax.swing.JTextField" name="jTextFieldDataPreAlgorithm">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="text" type="java.lang.String" value="Content - based"/>
                   </Properties>
                   <Events>
@@ -1093,21 +920,17 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jPanel15" min="-2" max="-2" attributes="0"/>
+                              <Component id="jPanel15" max="32767" attributes="0"/>
+                              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                              <Component id="jPanel25" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jPanel25" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jPanel25" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel15" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="jPanel15" pref="0" max="32767" attributes="0"/>
+                          <Component id="jPanel25" alignment="0" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -1124,15 +947,18 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jPanel28" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="jPanel28" max="32767" attributes="0"/>
+                              <Component id="jPanel23" alignment="0" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jPanel28" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jPanel28" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="jPanel23" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                         </DimensionLayout>
                       </Layout>
@@ -1154,17 +980,15 @@
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jComboBoxCMUser" pref="398" max="32767" attributes="0"/>
-                                          <Component id="jComboBoxWeightingUser" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="jComboBoxCMUser" pref="347" max="32767" attributes="0"/>
+                                          <Component id="jComboBoxWeightingUser" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1180,7 +1004,7 @@
                                           <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="jComboBoxWeightingUser" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="98" max="32767" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1228,6 +1052,51 @@
                             </Component>
                           </SubComponents>
                         </Container>
+                        <Container class="javax.swing.JPanel" name="jPanel23">
+                          <Properties>
+                            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                                <TitledBorder title="Discription Option"/>
+                              </Border>
+                            </Property>
+                          </Properties>
+
+                          <Layout>
+                            <DimensionLayout dim="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                            </DimensionLayout>
+                            <DimensionLayout dim="1">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace pref="17" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                            </DimensionLayout>
+                          </Layout>
+                          <SubComponents>
+                            <Component class="javax.swing.JLabel" name="jLabel11">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Combination method"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel14">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Weighting Combination"/>
+                              </Properties>
+                            </Component>
+                          </SubComponents>
+                        </Container>
                       </SubComponents>
                     </Container>
                     <Container class="javax.swing.JPanel" name="jPanel25">
@@ -1243,15 +1112,21 @@
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jPanel29" max="32767" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jPanel29" max="32767" attributes="0"/>
+                                      <Component id="jPanel30" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="4" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jPanel29" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jPanel29" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jPanel30" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                         </DimensionLayout>
                       </Layout>
@@ -1269,22 +1144,16 @@
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Component id="jComboBoxCMPaper" pref="386" max="32767" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                                              <Component id="jComboBoxWeightingPaper" max="32767" attributes="0"/>
-                                          </Group>
+                                          <Component id="jComboBoxCMPaper" min="-2" pref="341" max="-2" attributes="0"/>
+                                          <Component id="jComboBoxWeightingPaper" min="-2" pref="340" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1300,7 +1169,7 @@
                                           <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="jComboBoxWeightingPaper" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="88" max="32767" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1348,6 +1217,51 @@
                             </Component>
                           </SubComponents>
                         </Container>
+                        <Container class="javax.swing.JPanel" name="jPanel30">
+                          <Properties>
+                            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                                <TitledBorder title="Discription Option"/>
+                              </Border>
+                            </Property>
+                          </Properties>
+
+                          <Layout>
+                            <DimensionLayout dim="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel17" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                            </DimensionLayout>
+                            <DimensionLayout dim="1">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace pref="24" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                            </DimensionLayout>
+                          </Layout>
+                          <SubComponents>
+                            <Component class="javax.swing.JLabel" name="jLabel17">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Combination method"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel18">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Weighting Combination"/>
+                              </Properties>
+                            </Component>
+                          </SubComponents>
+                        </Container>
                       </SubComponents>
                     </Container>
                   </SubComponents>
@@ -1373,12 +1287,12 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jPanel13" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jPanel17" max="32767" attributes="0"/>
-                                  <Component id="jPanel13" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="29" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1403,7 +1317,7 @@
                                       <Component id="jLabel5" alignment="0" min="-2" pref="328" max="-2" attributes="0"/>
                                       <Component id="jLabel6" alignment="0" min="-2" pref="277" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="317" max="32767" attributes="0"/>
+                                  <EmptySpace pref="195" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -1416,7 +1330,7 @@
                                   <Component id="jLabel5" min="-2" pref="22" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jLabel6" min="-2" pref="22" max="-2" attributes="0"/>
-                                  <EmptySpace pref="70" max="32767" attributes="0"/>
+                                  <EmptySpace pref="94" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -1510,25 +1424,20 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="jPanel18" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel35" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jPanel16" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="787" max="-2" attributes="0"/>
-                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jTextFieldIdAuthor" min="-2" pref="148" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButtonFindUser" max="32767" attributes="0"/>
+                              <Component id="jPanel16" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="jPanel18" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jPanel35" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                      <EmptySpace min="0" pref="2" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1537,15 +1446,9 @@
                   <Group type="102" attributes="0">
                       <Component id="jPanel16" min="-2" pref="57" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextFieldIdAuthor" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButtonFindUser" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jPanel35" min="-2" max="-2" attributes="0"/>
-                          <Component id="jPanel18" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jPanel18" max="32767" attributes="0"/>
+                          <Component id="jPanel35" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -1568,24 +1471,23 @@
                       <Group type="102" attributes="0">
                           <Component id="jComboBoxMethodRecommend" min="-2" pref="228" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jTextFieldShowMethodRec" min="-2" pref="653" max="-2" attributes="0"/>
+                          <Component id="jTextFieldShowMethodRec" max="32767" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jTextFieldTopNRecommend" min="-2" pref="149" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jTextFieldTopNRecommend" min="-2" pref="207" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jTextFieldShowMethodRec" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jComboBoxMethodRecommend" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextFieldTopNRecommend" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                              <Component id="jTextFieldTopNRecommend" alignment="3" max="32767" attributes="0"/>
+                              <Component id="jLabel3" alignment="3" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       </Group>
@@ -1595,6 +1497,7 @@
               <SubComponents>
                 <Component class="javax.swing.JTextField" name="jTextFieldShowMethodRec">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="text" type="java.lang.String" value="Content - based"/>
                   </Properties>
                 </Component>
@@ -1642,7 +1545,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane3" alignment="0" pref="183" max="32767" attributes="0"/>
+                      <Component id="jScrollPane3" alignment="0" pref="214" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -1680,12 +1583,28 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane16" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jScrollPane16" pref="781" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                          <Component id="jTextFieldIdAuthor" min="-2" pref="117" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jButtonFindUser" min="-2" pref="87" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane16" alignment="0" pref="191" max="32767" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextFieldIdAuthor" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonFindUser" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jScrollPane16" pref="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -1710,26 +1629,26 @@
                     </Component>
                   </SubComponents>
                 </Container>
+                <Component class="javax.swing.JLabel" name="jLabel4">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Id Author"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="jTextFieldIdAuthor">
+                  <Events>
+                    <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldIdAuthorKeyReleased"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButtonFindUser">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Find"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonFindUserActionPerformed"/>
+                  </Events>
+                </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JLabel" name="jLabel4">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Id author"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="jTextFieldIdAuthor">
-              <Events>
-                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldIdAuthorKeyReleased"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="jButtonFindUser">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Find"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonFindUserActionPerformed"/>
-              </Events>
-            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel4">
@@ -1744,16 +1663,16 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jPanel19" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <Component id="jPanel21" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jPanel36" max="32767" attributes="0"/>
+                              <Component id="jPanel36" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="jPanel19" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1787,12 +1706,11 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jComboBoxMethodEvaluation" min="-2" pref="255" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jTextFieldEvaluationMethod" pref="688" max="32767" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jTextFieldEvaluationMethod" min="-2" pref="581" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jTextFieldtopRank" min="-2" pref="149" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1814,6 +1732,7 @@
               <SubComponents>
                 <Component class="javax.swing.JTextField" name="jTextFieldEvaluationMethod">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="text" type="java.lang.String" value="Precision"/>
                   </Properties>
                 </Component>
@@ -1901,7 +1820,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane4" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jScrollPane4" alignment="0" pref="768" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -1920,6 +1839,7 @@
                   <SubComponents>
                     <Component class="javax.swing.JTextArea" name="jTextAreaReviewEvaluation">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="columns" type="int" value="20"/>
                         <Property name="rows" type="int" value="5"/>
                       </Properties>
@@ -1944,7 +1864,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jScrollPane8" alignment="0" max="32767" attributes="0"/>
+              <Component id="jScrollPane8" alignment="0" pref="1038" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -1963,6 +1883,7 @@
           <SubComponents>
             <Component class="javax.swing.JTextArea" name="jTextAreaConsole">
               <Properties>
+                <Property name="editable" type="boolean" value="false"/>
                 <Property name="columns" type="int" value="20"/>
                 <Property name="rows" type="int" value="5"/>
               </Properties>
@@ -1985,9 +1906,9 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                  <Component id="jPanel39" min="-2" max="-2" attributes="0"/>
+                  <Component id="jPanel39" min="-2" pref="157" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jPanel40" min="-2" max="-2" attributes="0"/>
+                  <Component id="jPanel40" min="-2" pref="158" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -2029,7 +1950,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
                       <Component id="jButtonChooseDataset" min="-2" pref="45" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButtonStartImportData" min="-2" pref="45" max="-2" attributes="0"/>
@@ -2053,7 +1974,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/Play-Pressed.png"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Start Import "/>
+                <Property name="toolTipText" type="java.lang.String" value="Start Import Dataset"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonStartImportDataActionPerformed"/>
@@ -2064,8 +1985,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/Stop-Pressed.png"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Stop Importing"/>
-                <Property name="enabled" type="boolean" value="false"/>
+                <Property name="toolTipText" type="java.lang.String" value="Stop Import Dataset"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonChooseDataset">
@@ -2097,13 +2017,11 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                       <Component id="jButtonMethodDataPreparation" min="-2" pref="45" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButtonContructUserProfile" min="-2" pref="45" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButtonContructPaperFV" min="-2" pref="45" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="jButtonSaveModel" min="-2" pref="45" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -2113,7 +2031,6 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jButtonMethodDataPreparation" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonContructUserProfile" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButtonContructPaperFV" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonSaveModel" min="-2" max="-2" attributes="0"/>
               </Group>
             </DimensionLayout>
@@ -2124,7 +2041,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/option.png"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Choose Algorithm"/>
+                <Property name="toolTipText" type="java.lang.String" value="Choose Preparation"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonMethodDataPreparationMouseClicked"/>
@@ -2133,36 +2050,21 @@
             <Component class="javax.swing.JButton" name="jButtonContructUserProfile">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/User-Coat-Red-icon.png"/>
+                  <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/buildProfile.png"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Start Contructing User Profile"/>
+                <Property name="toolTipText" type="java.lang.String" value="Start Prepare Data for CB"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonContructUserProfileActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButtonContructPaperFV">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/Document-icon.png"/>
-                </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Start Contructing Feature Vector for Paper"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonContructPaperFVActionPerformed"/>
-              </Events>
-            </Component>
             <Component class="javax.swing.JButton" name="jButtonSaveModel">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/save model.png"/>
+                  <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/computeMatrixCF.png"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Save Model"/>
-                <Property name="enabled" type="boolean" value="false"/>
+                <Property name="toolTipText" type="java.lang.String" value="Start Compute Matrix CF"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSaveModelActionPerformed"/>
-              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -2179,21 +2081,17 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jButtonLoadModel" min="-2" pref="45" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButtonMethodRecommendation" min="-2" pref="45" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="jButtonRecommend" min="-2" pref="45" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButtonStopRecommendation" min="-2" pref="45" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jButtonLoadModel" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonMethodRecommendation" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonRecommend" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonStopRecommendation" min="-2" max="-2" attributes="0"/>
@@ -2201,15 +2099,6 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="jButtonLoadModel">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/upload model.png"/>
-                </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Load Model"/>
-                <Property name="enabled" type="boolean" value="false"/>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JButton" name="jButtonRecommend">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -2226,8 +2115,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/Stop-Pressed.png"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Stop Recommending"/>
-                <Property name="enabled" type="boolean" value="false"/>
+                <Property name="toolTipText" type="java.lang.String" value="Stop Recommend"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonMethodRecommendation">
@@ -2235,8 +2123,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/option.png"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Choose Algorithm"/>
-                <Property name="enabled" type="boolean" value="false"/>
+                <Property name="toolTipText" type="java.lang.String" value="Choose Recommendation Algorithm"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonMethodRecommendationMouseClicked"/>
@@ -2257,15 +2144,13 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButtonMethodEvaluation" min="-2" pref="45" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="jButtonEvaluation" min="-2" pref="45" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButtonStopEvaluation" min="-2" pref="45" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButtonErrorAnalysis" min="-2" pref="45" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -2284,8 +2169,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/option.png"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Method Evaluation"/>
-                <Property name="enabled" type="boolean" value="false"/>
+                <Property name="toolTipText" type="java.lang.String" value="Choose Evaluation Measure"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonMethodEvaluationMouseClicked"/>
@@ -2305,10 +2189,9 @@
             <Component class="javax.swing.JButton" name="jButtonStopEvaluation">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/Stop-Pressed.png"/>
+                  <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/Save.png"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Stop Evalating"/>
-                <Property name="enabled" type="boolean" value="false"/>
+                <Property name="toolTipText" type="java.lang.String" value="Save Evaluation"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonErrorAnalysis">
@@ -2316,8 +2199,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/analysis-icon.png"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Error Analysis"/>
-                <Property name="enabled" type="boolean" value="false"/>
+                <Property name="toolTipText" type="java.lang.String" value="Analyze Error"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonErrorAnalysisActionPerformed"/>
@@ -2329,7 +2211,7 @@
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Utilities"/>
+                <TitledBorder title="Tools"/>
               </Border>
             </Property>
           </Properties>
@@ -2341,9 +2223,8 @@
                       <Component id="jButtonReset" min="-2" pref="45" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButtonTFIDF" min="-2" pref="45" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButtonDrawChart" min="-2" pref="45" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -2361,7 +2242,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/Document-Write-icon.png"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Build TF-IDF File"/>
+                <Property name="toolTipText" type="java.lang.String" value="Build TFIDF Files"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonTFIDFActionPerformed"/>
@@ -2372,8 +2253,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/chart-bar.png"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Chart"/>
-                <Property name="enabled" type="boolean" value="false"/>
+                <Property name="toolTipText" type="java.lang.String" value="Visualize"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonDrawChartActionPerformed"/>

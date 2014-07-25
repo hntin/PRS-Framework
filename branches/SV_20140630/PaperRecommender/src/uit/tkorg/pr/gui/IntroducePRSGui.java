@@ -13,12 +13,12 @@ import java.io.FileOutputStream;
  *
  * @author Zoe
  */
-public class IntroducePRS extends javax.swing.JDialog {
+public class IntroducePRSGui extends javax.swing.JDialog {
 
     /**
      * Creates new form IntroducePRS
      */
-    public IntroducePRS(java.awt.Frame parent, boolean modal) {
+    public IntroducePRSGui(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -137,16 +137,16 @@ public class IntroducePRS extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IntroducePRS.class
+            java.util.logging.Logger.getLogger(IntroducePRSGui.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(IntroducePRS.class
+            java.util.logging.Logger.getLogger(IntroducePRSGui.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(IntroducePRS.class
+            java.util.logging.Logger.getLogger(IntroducePRSGui.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(IntroducePRS.class
+            java.util.logging.Logger.getLogger(IntroducePRSGui.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -154,7 +154,7 @@ public class IntroducePRS extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                IntroducePRS dialog = new IntroducePRS(new javax.swing.JFrame(), true);
+                IntroducePRSGui dialog = new IntroducePRSGui(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
