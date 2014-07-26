@@ -102,8 +102,10 @@ public class CentralGuiHanderRequest {
                     break;
                 case LOAD_EXISTENT_MODEL:// load mot matrix da co san
                     MahoutFile.readMahoutCFRating(MahoutCFDir, authors);
+                    response[0]= "Scucess";
                     break;
                 case LOAD_MODEL:
+                    response[0]= "Scucess";
                     break;
                 case RECOMMEND:
                     recommend();
