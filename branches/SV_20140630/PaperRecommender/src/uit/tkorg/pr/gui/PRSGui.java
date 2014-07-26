@@ -6,6 +6,9 @@
 package uit.tkorg.pr.gui;
 
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -15,6 +18,7 @@ import java.util.Vector;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import uit.tkorg.pr.constant.Options;
@@ -57,8 +61,37 @@ public class PRSGui extends javax.swing.JFrame {
         jTextAreaGroundTruth.setEditable(false);
         jTextAreaPaper.setEditable(false);
         jTextAreaPaperPaper.setEditable(false);
-
+        redirectSystemStreams();
     }
+        private void updateTextArea(final String text) {
+            SwingUtilities.invokeLater(new Runnable() {
+              public void run() {
+                jTextAreaConsole.append(text);
+              }
+            });
+          }
+
+          private void redirectSystemStreams() {
+            OutputStream out = new OutputStream() {
+              @Override
+              public void write(int b) throws IOException {
+                updateTextArea(String.valueOf((char) b));
+              }
+
+              @Override
+              public void write(byte[] b, int off, int len) throws IOException {
+                updateTextArea(new String(b, off, len));
+              }
+
+              @Override
+              public void write(byte[] b) throws IOException {
+                write(b, 0, b.length);
+              }
+            };
+
+            System.setOut(new PrintStream(out, true));
+            System.setErr(new PrintStream(out, true));
+          }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -1811,7 +1844,8 @@ public class PRSGui extends javax.swing.JFrame {
             long begin = System.currentTimeMillis();
             controller.topRank = Integer.parseInt(jTextFieldtopRank.getText().trim().toString());
             System.out.println("toprank:" + controller.topRank);
-
+            response= controller.guiHanderResquest(Options.EVALUATE);
+            previousEvaluation.add(response[1]);
             DefaultListModel model = new DefaultListModel();
             for (int i = 0; i < jListEvaluation.getModel().getSize(); i++) {
                 model.addElement(jListEvaluation.getModel().getElementAt(i));
@@ -2052,11 +2086,12 @@ public class PRSGui extends javax.swing.JFrame {
             System.out.println("Unable to load Windows look and feel");
         }
         //</editor-fold>
-
+         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new PRSGui().setVisible(true);
+                
             }
         });
     }
