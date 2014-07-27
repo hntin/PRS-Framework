@@ -31,25 +31,25 @@ public class ExampleDatasetGui extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        FileGroundTruthTabbedPane = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        FileAuthorTable = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        FilePaperTable = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        FileAuthorPaperTable = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        FileAuthorCitePaperTable = new javax.swing.JTable();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable5 = new javax.swing.JTable();
+        FilePaperCitePaperTable = new javax.swing.JTable();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTable6 = new javax.swing.JTable();
+        FileGroundTruthTable = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        FileAuthorTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -57,14 +57,14 @@ public class ExampleDatasetGui extends javax.swing.JDialog {
                 {null, null}
             },
             new String [] {
-                "id-author", "Name"
+                "IdAuthor", "Name Author"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(FileAuthorTable);
 
-        jTabbedPane1.addTab("File authors", jScrollPane1);
+        FileGroundTruthTabbedPane.addTab("File Authors", jScrollPane1);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        FilePaperTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -72,14 +72,14 @@ public class ExampleDatasetGui extends javax.swing.JDialog {
                 {null, null, null, null}
             },
             new String [] {
-                "id-paper", "Title ", "Content", "Year"
+                "IdPaper", "Title Paper", "Content Paper", "Year Paper"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(FilePaperTable);
 
-        jTabbedPane1.addTab("File papers", jScrollPane2);
+        FileGroundTruthTabbedPane.addTab("File Papers", jScrollPane2);
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        FileAuthorPaperTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -87,14 +87,14 @@ public class ExampleDatasetGui extends javax.swing.JDialog {
                 {null, null}
             },
             new String [] {
-                "id-author", "id-paper"
+                "IdAuthor", "IdPaper"
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane3.setViewportView(FileAuthorPaperTable);
 
-        jTabbedPane1.addTab("File author-paper", jScrollPane3);
+        FileGroundTruthTabbedPane.addTab("File Author_Paper", jScrollPane3);
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        FileAuthorCitePaperTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -102,14 +102,14 @@ public class ExampleDatasetGui extends javax.swing.JDialog {
                 {null, null, null}
             },
             new String [] {
-                "id-author", "id-paper", "Year"
+                "IdAuthor", "IdPaper", "Cited Year"
             }
         ));
-        jScrollPane4.setViewportView(jTable4);
+        jScrollPane4.setViewportView(FileAuthorCitePaperTable);
 
-        jTabbedPane1.addTab("File author-cite-paper", jScrollPane4);
+        FileGroundTruthTabbedPane.addTab("File Author_Cited_Paper", jScrollPane4);
 
-        jTable5.setModel(new javax.swing.table.DefaultTableModel(
+        FilePaperCitePaperTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -117,14 +117,14 @@ public class ExampleDatasetGui extends javax.swing.JDialog {
                 {null, null}
             },
             new String [] {
-                "id-paper", "id-paper"
+                "IdPaper", "Cited IdPaper"
             }
         ));
-        jScrollPane5.setViewportView(jTable5);
+        jScrollPane5.setViewportView(FilePaperCitePaperTable);
 
-        jTabbedPane1.addTab("File paper-paper", jScrollPane5);
+        FileGroundTruthTabbedPane.addTab("File Paper_Cited_Paper", jScrollPane5);
 
-        jTable6.setModel(new javax.swing.table.DefaultTableModel(
+        FileGroundTruthTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -132,12 +132,12 @@ public class ExampleDatasetGui extends javax.swing.JDialog {
                 {null, null}
             },
             new String [] {
-                "id-author", "id-paper"
+                "IdAuthor", "IdPaper"
             }
         ));
-        jScrollPane6.setViewportView(jTable6);
+        jScrollPane6.setViewportView(FileGroundTruthTable);
 
-        jTabbedPane1.addTab("File Groundtruth", jScrollPane6);
+        FileGroundTruthTabbedPane.addTab("File GroundTruth", jScrollPane6);
 
         jButton1.setText("Import");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -152,20 +152,18 @@ public class ExampleDatasetGui extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(385, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6))
+            .addComponent(FileGroundTruthTabbedPane)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(FileGroundTruthTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
@@ -213,6 +211,13 @@ public class ExampleDatasetGui extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable FileAuthorCitePaperTable;
+    private javax.swing.JTable FileAuthorPaperTable;
+    private javax.swing.JTable FileAuthorTable;
+    private javax.swing.JTabbedPane FileGroundTruthTabbedPane;
+    private javax.swing.JTable FileGroundTruthTable;
+    private javax.swing.JTable FilePaperCitePaperTable;
+    private javax.swing.JTable FilePaperTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -221,12 +226,5 @@ public class ExampleDatasetGui extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
-    private javax.swing.JTable jTable5;
-    private javax.swing.JTable jTable6;
     // End of variables declaration//GEN-END:variables
 }

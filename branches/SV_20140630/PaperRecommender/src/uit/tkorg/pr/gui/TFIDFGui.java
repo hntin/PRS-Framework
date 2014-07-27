@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JRootPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -27,6 +28,7 @@ public class TFIDFGui extends javax.swing.JDialog {
     public TFIDFGui(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+
     }
 
     /**
@@ -50,7 +52,6 @@ public class TFIDFGui extends javax.swing.JDialog {
         jButtonOpenResultFolder = new javax.swing.JButton();
         jButtonCreateTFIDF = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Create TFIDF Files");
         setResizable(false);
 
@@ -192,18 +193,17 @@ public class TFIDFGui extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonOpenResultFolderActionPerformed
 
     private void jButtonCreateTFIDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateTFIDFActionPerformed
-        if (new File(jTextFieldTextFolder.getText().trim().toString()).exists() && new File(jTextFieldTFIDF.getText().trim().toString()).exists())
-         {
+        if (new File(jTextFieldTextFolder.getText().trim().toString()).exists() && new File(jTextFieldTFIDF.getText().trim().toString()).exists()) {
             jButtonCreateTFIDF.setEnabled(false);
-        Runnable updateAComponent = new Runnable() {
-            public void run() {
-                GuiUtilities.createTFIDF(jTextFieldTextFolder.getText().trim().toString(), jTextFieldTFIDF.getText().trim().toString());
+            Runnable updateAComponent = new Runnable() {
+                public void run() {
+                    GuiUtilities.createTFIDF(jTextFieldTextFolder.getText().trim().toString(), jTextFieldTFIDF.getText().trim().toString());
 
-            }
-        };
-        SwingUtilities.invokeLater(updateAComponent);
-        jButtonCreateTFIDF.setEnabled(true);}
-        else{
+                }
+            };
+            SwingUtilities.invokeLater(updateAComponent);
+            jButtonCreateTFIDF.setEnabled(true);
+        } else {
             JOptionPane.showMessageDialog(rootPane, "Please input existent folder...", "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButtonCreateTFIDFActionPerformed
@@ -239,6 +239,7 @@ public class TFIDFGui extends javax.swing.JDialog {
                     }
                 });
                 dialog.setVisible(true);
+
             }
         });
     }

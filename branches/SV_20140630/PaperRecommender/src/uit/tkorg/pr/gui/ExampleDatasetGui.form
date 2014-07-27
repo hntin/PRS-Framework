@@ -23,23 +23,20 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="jTabbedPane1" min="-2" pref="546" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-          </Group>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="385" max="32767" attributes="0"/>
               <Component id="jButton1" min="-2" pref="101" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jButton2" min="-2" pref="100" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
           </Group>
+          <Component id="FileGroundTruthTabbedPane" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="jTabbedPane1" min="-2" pref="271" max="-2" attributes="0"/>
+              <Component id="FileGroundTruthTabbedPane" min="-2" pref="271" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -51,7 +48,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
+    <Container class="javax.swing.JTabbedPane" name="FileGroundTruthTabbedPane">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
@@ -61,20 +58,20 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="File authors">
-                <Property name="tabTitle" type="java.lang.String" value="File authors"/>
+              <JTabbedPaneConstraints tabName="File Authors">
+                <Property name="tabTitle" type="java.lang.String" value="File Authors"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable1">
+            <Component class="javax.swing.JTable" name="FileAuthorTable">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="2" rowCount="4">
-                    <Column editable="true" title="id-author" type="java.lang.Object"/>
-                    <Column editable="true" title="Name" type="java.lang.Object"/>
+                    <Column editable="true" title="IdAuthor" type="java.lang.Object"/>
+                    <Column editable="true" title="Name Author" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
@@ -90,22 +87,22 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="File papers">
-                <Property name="tabTitle" type="java.lang.String" value="File papers"/>
+              <JTabbedPaneConstraints tabName="File Papers">
+                <Property name="tabTitle" type="java.lang.String" value="File Papers"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable2">
+            <Component class="javax.swing.JTable" name="FilePaperTable">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="4" rowCount="4">
-                    <Column editable="true" title="id-paper" type="java.lang.Object"/>
-                    <Column editable="true" title="Title " type="java.lang.Object"/>
-                    <Column editable="true" title="Content" type="java.lang.Object"/>
-                    <Column editable="true" title="Year" type="java.lang.Object"/>
+                    <Column editable="true" title="IdPaper" type="java.lang.Object"/>
+                    <Column editable="true" title="Title Paper" type="java.lang.Object"/>
+                    <Column editable="true" title="Content Paper" type="java.lang.Object"/>
+                    <Column editable="true" title="Year Paper" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
@@ -121,20 +118,20 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="File author-paper">
-                <Property name="tabTitle" type="java.lang.String" value="File author-paper"/>
+              <JTabbedPaneConstraints tabName="File Author_Paper">
+                <Property name="tabTitle" type="java.lang.String" value="File Author_Paper"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable3">
+            <Component class="javax.swing.JTable" name="FileAuthorPaperTable">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="2" rowCount="4">
-                    <Column editable="true" title="id-author" type="java.lang.Object"/>
-                    <Column editable="true" title="id-paper" type="java.lang.Object"/>
+                    <Column editable="true" title="IdAuthor" type="java.lang.Object"/>
+                    <Column editable="true" title="IdPaper" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
@@ -150,21 +147,21 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="File author-cite-paper">
-                <Property name="tabTitle" type="java.lang.String" value="File author-cite-paper"/>
+              <JTabbedPaneConstraints tabName="File Author_Cited_Paper">
+                <Property name="tabTitle" type="java.lang.String" value="File Author_Cited_Paper"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable4">
+            <Component class="javax.swing.JTable" name="FileAuthorCitePaperTable">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="3" rowCount="4">
-                    <Column editable="true" title="id-author" type="java.lang.Object"/>
-                    <Column editable="true" title="id-paper" type="java.lang.Object"/>
-                    <Column editable="true" title="Year" type="java.lang.Object"/>
+                    <Column editable="true" title="IdAuthor" type="java.lang.Object"/>
+                    <Column editable="true" title="IdPaper" type="java.lang.Object"/>
+                    <Column editable="true" title="Cited Year" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
@@ -180,20 +177,20 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="File paper-paper">
-                <Property name="tabTitle" type="java.lang.String" value="File paper-paper"/>
+              <JTabbedPaneConstraints tabName="File Paper_Cited_Paper">
+                <Property name="tabTitle" type="java.lang.String" value="File Paper_Cited_Paper"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable5">
+            <Component class="javax.swing.JTable" name="FilePaperCitePaperTable">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="2" rowCount="4">
-                    <Column editable="true" title="id-paper" type="java.lang.Object"/>
-                    <Column editable="true" title="id-paper" type="java.lang.Object"/>
+                    <Column editable="true" title="IdPaper" type="java.lang.Object"/>
+                    <Column editable="true" title="Cited IdPaper" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
@@ -209,20 +206,20 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="File Groundtruth">
-                <Property name="tabTitle" type="java.lang.String" value="File Groundtruth"/>
+              <JTabbedPaneConstraints tabName="File GroundTruth">
+                <Property name="tabTitle" type="java.lang.String" value="File GroundTruth"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable6">
+            <Component class="javax.swing.JTable" name="FileGroundTruthTable">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="2" rowCount="4">
-                    <Column editable="true" title="id-author" type="java.lang.Object"/>
-                    <Column editable="true" title="id-paper" type="java.lang.Object"/>
+                    <Column editable="true" title="IdAuthor" type="java.lang.Object"/>
+                    <Column editable="true" title="IdPaper" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">

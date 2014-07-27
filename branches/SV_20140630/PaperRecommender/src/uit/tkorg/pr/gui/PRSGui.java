@@ -14,6 +14,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Vector;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
@@ -25,7 +26,6 @@ import uit.tkorg.pr.constant.Options;
 import uit.tkorg.pr.controller.CentralGuiHanderRequest;
 import uit.tkorg.pr.model.Author;
 import uit.tkorg.utility.general.NumericUtility;
-
 /**
  *
  * @author Vinh
@@ -239,20 +239,18 @@ public class PRSGui extends javax.swing.JFrame {
         jButtonDrawChart = new javax.swing.JButton();
         jButtonReset = new javax.swing.JButton();
         jPanel22 = new javax.swing.JPanel();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        menuMenuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         saveModelMenuItem = new javax.swing.JMenuItem();
         loadExistentModelMenuItem = new javax.swing.JMenuItem();
-        resetMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
         toolsMenu = new javax.swing.JMenu();
+        resetMenuItem = new javax.swing.JMenuItem();
         buildTFIDFFilesMenuItem = new javax.swing.JMenuItem();
         visualizeMenuItem = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        helpMenu = new javax.swing.JMenu();
+        helpMenuItem = new javax.swing.JMenuItem();
+        aboutMenuItem = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -370,7 +368,7 @@ public class PRSGui extends javax.swing.JFrame {
         jMenuItemAllEvalution.setText("All");
         jPopupMenuEvaluation.add(jMenuItemAllEvalution);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Paper Recommendation System");
         setResizable(false);
 
@@ -378,42 +376,42 @@ public class PRSGui extends javax.swing.JFrame {
 
         jTextAreaAuthor.setColumns(20);
         jTextAreaAuthor.setRows(5);
-        jTextAreaAuthor.setText("File Authors.csv containt information about authors.\nIt have IdAuthor|||NameAuthor format.\nExample:\n1|||John F. Young\n2|||Sule Yildirim\n3|||Elizabeth K. Reilly\n4|||Yann Le Gorrec");
+        jTextAreaAuthor.setText("File Authors.csv chứa thông tin về nhà nghiên cứu và có định dạng:\nIdAuthor|||NameAuthor\nVí dụ:\n1|||John F. Young\n2|||Sule Yildirim\n3|||Elizabeth K. Reilly\n4|||Yann Le Gorrec");
         jScrollPane1.setViewportView(jTextAreaAuthor);
 
         jTabbedPane4.addTab("File Authors", jScrollPane1);
 
         jTextAreaAuthorPaper.setColumns(20);
         jTextAreaAuthorPaper.setRows(5);
-        jTextAreaAuthorPaper.setText("File AuthorPaper.csv containt information about papers  of authors.\nIt have IdAuthor|||IdPaper format.\nExample:\n1|||11\n1|||12\n1|||13\n1|||14\n2|||21\n2|||22\n3|||31\n4|||41\n4|||42");
+        jTextAreaAuthorPaper.setText("File AuthorPaper.csv chứa thông tin về những bài báo tác giả đã viết và có định dạng:\nIdAuthor|||IdPaper\nVí dụ:\n1|||11\n1|||12\n1|||13\n1|||14\n2|||21\n2|||22\n3|||31\n4|||41\n4|||42");
         jScrollPane10.setViewportView(jTextAreaAuthorPaper);
 
         jTabbedPane4.addTab("File Author_ Paper", jScrollPane10);
 
         jTextAreaAuthorCitePaper.setColumns(20);
         jTextAreaAuthorCitePaper.setRows(5);
-        jTextAreaAuthorCitePaper.setText("File AuthorCitePape.csv give information about papers which author cited.\nFile have IdAuthor|||IdPaper|||YearCited format.\nExample:\n1|||11\n1|||12\n1|||13\n1|||14\n2|||21\n2|||22\n3|||31\n4|||41\n4|||42");
+        jTextAreaAuthorCitePaper.setText("File AuthorCitePape.csv chứa thông tin về những bài báo mà tác giả đã trích dẫn và có định dạng:\nIdAuthor|||IdPaper|||YearCited\nVí dụ:\n1|||11\n1|||12\n1|||13\n1|||14\n2|||21\n2|||22\n3|||31\n4|||41\n4|||42");
         jScrollPane11.setViewportView(jTextAreaAuthorCitePaper);
 
         jTabbedPane4.addTab("File Author_Cited_ paper", jScrollPane11);
 
         jTextAreaPaper.setColumns(20);
         jTextAreaPaper.setRows(5);
-        jTextAreaPaper.setText("File Paper.csv containt information about papers (idpaper, title, content of paper, year publishion).\nFile have IdPaper|||TitlePaper|||ContentPaper|||YearPaper format.\nVí dụ:\n11|||Knowledge Discovery from Sparse Pharmacokinetic Data|||In this research effort, we show that the following hypothesis is true: The independently verified sparse information secured from the scientific literature regarding the effects of methyl mercury on mice enables us to predict the effects of the methyl mercury on humans. The Rough Sets methodology is used in this endeavor|||2000\n111|||A fusion of rough sets, modified rough sets, and genetic algorithms for hybrid diagnostic systems|||A hybrid classification system is a system composed of several intelligent techniques such that the inherent limitations of one individual technique be compensated for by the strengths of another technique. In this paper, we investigate the outline of a hybrid diagnostic system for Attention Deficit Disorder (ADD) in children. This system uses Rough Sets (RS) and Modified Rough Sets (MRS) to induce rules from examples and then uses our modified genetic algorithms to globalize the rules. Also, the classification capability of this hybrid system was compared with the behavior of (a) another hybrid classification system using RS, MRS, and the “dropping condition” approach, (b) the Interactive Dichotomizer 3 (ID3) approach, and (c) a basic genetic algorithm. The results revealed that the global rules generated by the hybrid system are more effective in classification of the testing dataset than the rules generated by the above approaches.|||1997\n112|||Rough Classification|||This article contains a new concept of approximate analysis of data, based on the idea of a “rough” set. The notion of approximate (rough) description of a set is introduced and investigated. The application to medical data analysis is shown as an example.|||1984\n113|||Developmental toxicity risk assessment: a rough sets approach|||A rough sets approach was applied to a data set consisting of animal study results and other compound characteristics to generate local and global (certain/possible) sets of rules for prediction of developmental toxicity in human subjects. A modified version of the rough sets approach is proposed to allow the construction of an approximate set of rules to use for prediction in a manner similar to that of discriminant analysis. The modified rough sets approach is superior in predictability to the original form of rough-sets methodology. In comparison to discriminant analysis, modified rough sets (approximate rules) appear to be better in overall classification, sensitivity, positive and negative predictive values. The findings were supported by applying the modified rough sets and discriminant analysis on a test data set generated from the original data set by using a resampling plan.|||1993\n114|||A Theory and Methodology of Inductive Learning|||A theory of inductive learning is presented that characterizes it as a heuristic search through a space of symbolic descriptions, generated by an application of certain inference rules to the initial observational statements (the teacher-provided examples of some concepts, or facts about a class of objects or a phenomenon). The inference rules include generalization rules, which perform generalizing transformations on descriptions, and conventional truth-preserving deductive rules (specialization and reformulation rules). The application of the inference rules to descriptions is constrained by problem background knowledge, and guided by criteria evaluating the ‘quality’ of generated inductive assertions.Based on this theory, a general methodology for learning structural descriptions from examples, called star, is described and illustrated by a problem from the area of conceptual data analysis|||1983\n115|||Rough classification|||This article contains a new concept of approximate analysis of data, based on the idea of a “rough” set. The notion of approximate (rough) description of a set is introduced and investigated. The application to medical data analysis is shown as an example.|||1999\n116|||LERS-a system for learning from examples based on rough sets|||The paper presents the system LERS for rule induction. The system handles inconsistencies in the input data due to its usage of rough set theory principle. Rough set theory is especially well suited to deal with inconsistencies. In this approach, inconsistencies are not corrected. Instead, system LERS computes lower and upper approximations of each concept. Then it induces certain rules and possible rules. The user has the choice to use the machine learning approach or the knowledge acquisition approach. In the first case, the system induces a single minimal discriminant description for each concept. In the second case, the system induces all rules, each in the minimal form, that can be induced from the input data. In both cases, the user has a choice between the local or global approach.|||1992\n12|||The Investigation of Mercury Presence in Human Blood: An Extrapolation from Animal Data Using Neural Networks|||In this research effort a neural network approach was used as a method of extrapolating the presence of mercury in human blood from animal data. We also investigated the effect of different data representations (As-is, Category, Simple binary, Thermometer, and Flag) on the model performance. In addition, we used the Rough Sets methodology to identify the redundant independent variables and then examined the proposed extrapolation model performance for a reduced set of independent variables. Moreover, a quality measure was introduced that revealed that the proposed extrapolation model performed extremely well for the Thermometer data representation.|||2002\n121|||Pattern development for vessel accidents: a comparison of statistical and neural computing techniques|||This paper describes a sample of over 900 vessel accidents that occurred on the lower Mississippi River. Two different techniques, one statistical and the other based on a neural network model, were used to build logical groups of accidents. The objective in building the groups was to maximize between-group variation and minimize within-group variation. The result was groups whose records were as homogenous as possible.A clustering algorithm (i.e., a non-inferential statistical technique) generated sets of three, four and five groups. A Kohenen neural network model (i.e., a self-organizing map) also generated sets of three, four and five groups. The two sets of parallel groups were radically different as to the relative number of records in each group. In other words, when the two sets of groups were constructed by the respective techniques, the membership of each comparable group within the two different sets was substantially different. Not only was the respective record count in each group substantially different, so were the descriptive statistics describing each comparable set of groups.These results have significant implications for marine policy makers. Important policy variables include safety factors such as weather, speed of current, time of operation, and location of accidents, but mandatory utilization of a voluntary vessel tracking service may be subject to debate.|||2001\n122|||An Introduction to Computing with Neural Nets|||Artificial neural net models have been studied for many years in the hope of achieving human-like performance in the fields of speech and image recognition. These models are composed of many nonlinear computational elements operating in parallel and arranged in patterns reminiscent of biological neural nets. Computational elements or nodes are connected via weights that are typically adapted during use to improve performance. There has been a recent resurgence in the field of artificial neural nets caused by new net topologies and algorithms, analog VLSI implementation techniques, and the belief that massive parallelism is essential for high performance speech and image recognition. This paper provides an introduction to the field of artificial neural nets by reviewing six important neural net models that can be used for pattern classification. These nets are highly parallel building blocks that illustrate neural net components and design principles and can be used to construct more complex systems. In addition to describing these nets, a major emphasis is placed on exploring how some existing classification and clustering algorithms can be performed using simple neuron-like components. Single-layer nets can implement algorithms required by Gaussian maximum-likelihood classifiers and optimum minimum-error classifiers for binary patterns corrupted by noise. More generally, the decision regions required by any classification algorithm can be generated in a straightforward manner by three-layer feed-forward nets|||1987");
+        jTextAreaPaper.setText("File Paper.csv chứa thông tin của những bài báo và có định dạng:\nIdPaper|||TitlePaper|||ContentPaper|||YearPaper\nVí dụ:\n11|||Knowledge Discovery from Sparse Pharmacokinetic Data|||In this research effort, we show that the following hypothesis is true: The independently verified sparse information secured from the scientific literature regarding the effects of methyl mercury on mice enables us to predict the effects of the methyl mercury on humans. The Rough Sets methodology is used in this endeavor|||2000\n111|||A fusion of rough sets, modified rough sets, and genetic algorithms for hybrid diagnostic systems|||A hybrid classification system is a system composed of several intelligent techniques such that the inherent limitations of one individual technique be compensated for by the strengths of another technique. In this paper, we investigate the outline of a hybrid diagnostic system for Attention Deficit Disorder (ADD) in children. This system uses Rough Sets (RS) and Modified Rough Sets (MRS) to induce rules from examples and then uses our modified genetic algorithms to globalize the rules. Also, the classification capability of this hybrid system was compared with the behavior of (a) another hybrid classification system using RS, MRS, and the “dropping condition” approach, (b) the Interactive Dichotomizer 3 (ID3) approach, and (c) a basic genetic algorithm. The results revealed that the global rules generated by the hybrid system are more effective in classification of the testing dataset than the rules generated by the above approaches.|||1997\n112|||Rough Classification|||This article contains a new concept of approximate analysis of data, based on the idea of a “rough” set. The notion of approximate (rough) description of a set is introduced and investigated. The application to medical data analysis is shown as an example.|||1984\n113|||Developmental toxicity risk assessment: a rough sets approach|||A rough sets approach was applied to a data set consisting of animal study results and other compound characteristics to generate local and global (certain/possible) sets of rules for prediction of developmental toxicity in human subjects. A modified version of the rough sets approach is proposed to allow the construction of an approximate set of rules to use for prediction in a manner similar to that of discriminant analysis. The modified rough sets approach is superior in predictability to the original form of rough-sets methodology. In comparison to discriminant analysis, modified rough sets (approximate rules) appear to be better in overall classification, sensitivity, positive and negative predictive values. The findings were supported by applying the modified rough sets and discriminant analysis on a test data set generated from the original data set by using a resampling plan.|||1993\n114|||A Theory and Methodology of Inductive Learning|||A theory of inductive learning is presented that characterizes it as a heuristic search through a space of symbolic descriptions, generated by an application of certain inference rules to the initial observational statements (the teacher-provided examples of some concepts, or facts about a class of objects or a phenomenon). The inference rules include generalization rules, which perform generalizing transformations on descriptions, and conventional truth-preserving deductive rules (specialization and reformulation rules). The application of the inference rules to descriptions is constrained by problem background knowledge, and guided by criteria evaluating the ‘quality’ of generated inductive assertions.Based on this theory, a general methodology for learning structural descriptions from examples, called star, is described and illustrated by a problem from the area of conceptual data analysis|||1983\n115|||Rough classification|||This article contains a new concept of approximate analysis of data, based on the idea of a “rough” set. The notion of approximate (rough) description of a set is introduced and investigated. The application to medical data analysis is shown as an example.|||1999\n116|||LERS-a system for learning from examples based on rough sets|||The paper presents the system LERS for rule induction. The system handles inconsistencies in the input data due to its usage of rough set theory principle. Rough set theory is especially well suited to deal with inconsistencies. In this approach, inconsistencies are not corrected. Instead, system LERS computes lower and upper approximations of each concept. Then it induces certain rules and possible rules. The user has the choice to use the machine learning approach or the knowledge acquisition approach. In the first case, the system induces a single minimal discriminant description for each concept. In the second case, the system induces all rules, each in the minimal form, that can be induced from the input data. In both cases, the user has a choice between the local or global approach.|||1992\n12|||The Investigation of Mercury Presence in Human Blood: An Extrapolation from Animal Data Using Neural Networks|||In this research effort a neural network approach was used as a method of extrapolating the presence of mercury in human blood from animal data. We also investigated the effect of different data representations (As-is, Category, Simple binary, Thermometer, and Flag) on the model performance. In addition, we used the Rough Sets methodology to identify the redundant independent variables and then examined the proposed extrapolation model performance for a reduced set of independent variables. Moreover, a quality measure was introduced that revealed that the proposed extrapolation model performed extremely well for the Thermometer data representation.|||2002\n121|||Pattern development for vessel accidents: a comparison of statistical and neural computing techniques|||This paper describes a sample of over 900 vessel accidents that occurred on the lower Mississippi River. Two different techniques, one statistical and the other based on a neural network model, were used to build logical groups of accidents. The objective in building the groups was to maximize between-group variation and minimize within-group variation. The result was groups whose records were as homogenous as possible.A clustering algorithm (i.e., a non-inferential statistical technique) generated sets of three, four and five groups. A Kohenen neural network model (i.e., a self-organizing map) also generated sets of three, four and five groups. The two sets of parallel groups were radically different as to the relative number of records in each group. In other words, when the two sets of groups were constructed by the respective techniques, the membership of each comparable group within the two different sets was substantially different. Not only was the respective record count in each group substantially different, so were the descriptive statistics describing each comparable set of groups.These results have significant implications for marine policy makers. Important policy variables include safety factors such as weather, speed of current, time of operation, and location of accidents, but mandatory utilization of a voluntary vessel tracking service may be subject to debate.|||2001\n122|||An Introduction to Computing with Neural Nets|||Artificial neural net models have been studied for many years in the hope of achieving human-like performance in the fields of speech and image recognition. These models are composed of many nonlinear computational elements operating in parallel and arranged in patterns reminiscent of biological neural nets. Computational elements or nodes are connected via weights that are typically adapted during use to improve performance. There has been a recent resurgence in the field of artificial neural nets caused by new net topologies and algorithms, analog VLSI implementation techniques, and the belief that massive parallelism is essential for high performance speech and image recognition. This paper provides an introduction to the field of artificial neural nets by reviewing six important neural net models that can be used for pattern classification. These nets are highly parallel building blocks that illustrate neural net components and design principles and can be used to construct more complex systems. In addition to describing these nets, a major emphasis is placed on exploring how some existing classification and clustering algorithms can be performed using simple neuron-like components. Single-layer nets can implement algorithms required by Gaussian maximum-likelihood classifiers and optimum minimum-error classifiers for binary patterns corrupted by noise. More generally, the decision regions required by any classification algorithm can be generated in a straightforward manner by three-layer feed-forward nets|||1987");
         jScrollPane12.setViewportView(jTextAreaPaper);
 
         jTabbedPane4.addTab("File Papers", jScrollPane12);
 
         jTextAreaPaperPaper.setColumns(20);
         jTextAreaPaperPaper.setRows(5);
-        jTextAreaPaperPaper.setText("File Paper_Cited_Paper.csv. These file give information about paper cited papers.\nFile have IdPaper|||IdPaperCited format.\nExample:\n11|||111\n11|||112\n11|||113\n11|||114\n11|||115\n11|||116\n12|||121\n12|||122\n12|||123\n13|||131");
+        jTextAreaPaperPaper.setText("File PaperCitePaper.csv cho biết thông tin bài báo nào trích dẫn bài báo nào và có định dạng:\nIdPaper|||IdPaperCited\nVí dụ:\n11|||111\n11|||112\n11|||113\n11|||114\n11|||115\n11|||116\n12|||121\n12|||122\n12|||123\n13|||131");
         jScrollPane13.setViewportView(jTextAreaPaperPaper);
 
         jTabbedPane4.addTab("File Paper_Cited_Paper", jScrollPane13);
 
         jTextAreaGroundTruth.setColumns(20);
         jTextAreaGroundTruth.setRows(5);
-        jTextAreaGroundTruth.setText("File GroundTruth.csv give information about Groundtruth of authors.\nFile have IdAuthor||IdPaper format.\nExample:\n1|||1\n1|||5\n1|||112\n1|||134\n1|||9\n2|||211\n2|||215\n2|||214\n2|||9\n2|||42");
+        jTextAreaGroundTruth.setText("File GroundTruth.csv chứa thông tin tác giả thích bài báo nào và có định dạng:\nIdAuthor||IdPaper\nVí dụ:\n1|||1\n1|||5\n1|||112\n1|||134\n1|||9\n2|||211\n2|||215\n2|||214\n2|||9\n2|||42");
         jScrollPane14.setViewportView(jTextAreaGroundTruth);
 
         jTabbedPane4.addTab("File GroundTruth", jScrollPane14);
@@ -474,21 +472,21 @@ public class PRSGui extends javax.swing.JFrame {
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("Training Data"));
 
-        jButtonFileAuthor.setText("File authors");
+        jButtonFileAuthor.setText("File Authors");
         jButtonFileAuthor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonFileAuthorActionPerformed(evt);
             }
         });
 
-        jButtonFilePaper.setText("File papers");
+        jButtonFilePaper.setText("File Papers");
         jButtonFilePaper.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonFilePaperActionPerformed(evt);
             }
         });
 
-        jButtonFileAuthorPaper.setText("File author- paper");
+        jButtonFileAuthorPaper.setText("File Author_Paper");
         jButtonFileAuthorPaper.setPreferredSize(new java.awt.Dimension(89, 23));
         jButtonFileAuthorPaper.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -496,14 +494,14 @@ public class PRSGui extends javax.swing.JFrame {
             }
         });
 
-        jButtonFilePaperPaper.setText("File paper-cite- paper");
+        jButtonFilePaperPaper.setText("File Paper_Cited_Paper");
         jButtonFilePaperPaper.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonFilePaperPaperActionPerformed(evt);
             }
         });
 
-        jButtonFileAuthorCitePaper.setText("File author- cite- paper");
+        jButtonFileAuthorCitePaper.setText("File Author_Cited_Paper");
         jButtonFileAuthorCitePaper.setPreferredSize(new java.awt.Dimension(89, 23));
         jButtonFileAuthorCitePaper.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -859,12 +857,12 @@ public class PRSGui extends javax.swing.JFrame {
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(0, 0, 0)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(195, Short.MAX_VALUE))
+                .addContainerGap(220, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -880,14 +878,14 @@ public class PRSGui extends javax.swing.JFrame {
 
         jPanel17.setBorder(javax.swing.BorderFactory.createTitledBorder("Option"));
 
-        jButton30.setText("Input Matrix Construction");
+        jButton30.setText("Construct Matrix Collaborative Filtering");
         jButton30.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton30ActionPerformed(evt);
             }
         });
 
-        jButton31.setText("Import Existent Matrix");
+        jButton31.setText("Load Existent Matrix Collaborative Filtering");
         jButton31.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton31ActionPerformed(evt);
@@ -898,21 +896,17 @@ public class PRSGui extends javax.swing.JFrame {
         jPanel17.setLayout(jPanel17Layout);
         jPanel17Layout.setHorizontalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel17Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton30, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE))
-                .addContainerGap(57, Short.MAX_VALUE))
+            .addComponent(jButton30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButton31, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel17Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton30)
-                .addGap(31, 31, 31)
+                .addGap(18, 18, 18)
                 .addComponent(jButton31)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
@@ -1229,7 +1223,6 @@ public class PRSGui extends javax.swing.JFrame {
 
         jButtonStartImportData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Play-Pressed.png"))); // NOI18N
         jButtonStartImportData.setToolTipText("Start Import Dataset");
-        jButtonStartImportData.setEnabled(false);
         jButtonStartImportData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonStartImportDataActionPerformed(evt);
@@ -1238,7 +1231,6 @@ public class PRSGui extends javax.swing.JFrame {
 
         jButtonStopImportData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Stop-Pressed.png"))); // NOI18N
         jButtonStopImportData.setToolTipText("Stop Import Dataset");
-        jButtonStopImportData.setEnabled(false);
 
         jButtonChooseDataset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Database-Active-icon.png"))); // NOI18N
         jButtonChooseDataset.setToolTipText("Choose Dataset");
@@ -1253,14 +1245,14 @@ public class PRSGui extends javax.swing.JFrame {
         jPanel39.setLayout(jPanel39Layout);
         jPanel39Layout.setHorizontalGroup(
             jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel39Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel39Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
                 .addComponent(jButtonChooseDataset, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonStartImportData, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonStopImportData, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel39Layout.setVerticalGroup(
             jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1312,7 +1304,7 @@ public class PRSGui extends javax.swing.JFrame {
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Step 3 - Recommendation"));
 
-        jButtonRecommend.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Icon-Recommendation.png"))); // NOI18N
+        jButtonRecommend.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Play-Pressed.png"))); // NOI18N
         jButtonRecommend.setToolTipText("Start Recommend");
         jButtonRecommend.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1322,7 +1314,6 @@ public class PRSGui extends javax.swing.JFrame {
 
         jButtonStopRecommendation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Stop-Pressed.png"))); // NOI18N
         jButtonStopRecommendation.setToolTipText("Stop Recommend");
-        jButtonStopRecommendation.setEnabled(false);
 
         jButtonMethodRecommendation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/option.png"))); // NOI18N
         jButtonMethodRecommendation.setToolTipText("Choose Recommendation Algorithm");
@@ -1420,7 +1411,7 @@ public class PRSGui extends javax.swing.JFrame {
         });
 
         jButtonReset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Button-Refresh-icon.png"))); // NOI18N
-        jButtonReset.setToolTipText("Reset");
+        jButtonReset.setToolTipText("Reset System");
         jButtonReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonResetActionPerformed(evt);
@@ -1498,11 +1489,6 @@ public class PRSGui extends javax.swing.JFrame {
         loadExistentModelMenuItem.setText("Load Existent Model");
         fileMenu.add(loadExistentModelMenuItem);
 
-        resetMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Button-Refresh.png"))); // NOI18N
-        resetMenuItem.setText("Reset");
-        fileMenu.add(resetMenuItem);
-
-        exitMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/stopButton.png"))); // NOI18N
         exitMenuItem.setText("Exit");
         exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1511,10 +1497,15 @@ public class PRSGui extends javax.swing.JFrame {
         });
         fileMenu.add(exitMenuItem);
 
-        jMenuBar1.add(fileMenu);
+        menuMenuBar.add(fileMenu);
 
         toolsMenu.setText("Tools");
 
+        resetMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/reset.png"))); // NOI18N
+        resetMenuItem.setText("Reset System");
+        toolsMenu.add(resetMenuItem);
+
+        buildTFIDFFilesMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/tfidf.png"))); // NOI18N
         buildTFIDFFilesMenuItem.setText("Build TFIDF Files");
         buildTFIDFFilesMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1523,6 +1514,7 @@ public class PRSGui extends javax.swing.JFrame {
         });
         toolsMenu.add(buildTFIDFFilesMenuItem);
 
+        visualizeMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/visualize.png"))); // NOI18N
         visualizeMenuItem.setText("Visualize");
         visualizeMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1531,28 +1523,31 @@ public class PRSGui extends javax.swing.JFrame {
         });
         toolsMenu.add(visualizeMenuItem);
 
-        jMenuBar1.add(toolsMenu);
+        menuMenuBar.add(toolsMenu);
 
-        jMenu1.setText("Help");
+        helpMenu.setText("Help");
 
-        jMenuItem1.setText("About program");
-        jMenu1.add(jMenuItem1);
+        helpMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/help.png"))); // NOI18N
+        helpMenuItem.setText("Help contents");
+        helpMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                helpMenuItemActionPerformed(evt);
+            }
+        });
+        helpMenu.add(helpMenuItem);
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem2.setText("How to use pramgram?");
-        jMenu1.add(jMenuItem2);
+        aboutMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/about.png"))); // NOI18N
+        aboutMenuItem.setText("About");
+        aboutMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aboutMenuItemActionPerformed(evt);
+            }
+        });
+        helpMenu.add(aboutMenuItem);
 
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem3.setText("Javadoc Reference");
-        jMenu1.add(jMenuItem3);
+        menuMenuBar.add(helpMenu);
 
-        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem4.setText("SystemInfo");
-        jMenu1.add(jMenuItem4);
-
-        jMenuBar1.add(jMenu1);
-
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(menuMenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1681,7 +1676,7 @@ public class PRSGui extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonMethodEvaluationMouseClicked
 
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
     private void jButtonChooseDatasetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonChooseDatasetMouseClicked
@@ -1692,18 +1687,32 @@ public class PRSGui extends javax.swing.JFrame {
 
     private void jButtonTFIDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTFIDFActionPerformed
         try {
-            TFIDFGui tfidfGUI = new TFIDFGui(this, rootPaneCheckingEnabled);
-            tfidfGUI.show();
+            TFIDFGui tfidfGui = new TFIDFGui(this, rootPaneCheckingEnabled);
+            tfidfGui.setLocationRelativeTo(this);
+            tfidfGui.show();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             JOptionPane.showMessageDialog(rootPane, "Warning", "Occured error...Please try again!", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButtonTFIDFActionPerformed
 
+
+    private void helpMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpMenuItemActionPerformed
+        try {
+            HelpGui helpGui = new HelpGui();
+            helpGui.setLocationRelativeTo(this);
+            helpGui.show();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            JOptionPane.showMessageDialog(rootPane, "Warning", "Occured error...Please try again!", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_helpMenuItemActionPerformed
+
     private void buildTFIDFFilesMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buildTFIDFFilesMenuItemActionPerformed
         try {
-            TFIDFGui tfidfGUI = new TFIDFGui(this, rootPaneCheckingEnabled);
-            tfidfGUI.show();
+            TFIDFGui tfidfGui = new TFIDFGui(this, rootPaneCheckingEnabled);
+            tfidfGui.setLocationRelativeTo(this);
+            tfidfGui.show();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             JOptionPane.showMessageDialog(rootPane, "Warning", "Occured error...Please try again!", JOptionPane.WARNING_MESSAGE);
@@ -1873,6 +1882,7 @@ public class PRSGui extends javax.swing.JFrame {
     private void visualizeMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizeMenuItemActionPerformed
         try {
             VisualizeGui visualizeGui = new VisualizeGui(this, rootPaneCheckingEnabled);
+            visualizeGui.setLocationRelativeTo(this);
             visualizeGui.show();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -1883,6 +1893,7 @@ public class PRSGui extends javax.swing.JFrame {
     private void jButtonDrawChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDrawChartActionPerformed
         try {
             VisualizeGui visualizeGui = new VisualizeGui(this, rootPaneCheckingEnabled);
+            visualizeGui.setLocationRelativeTo(this);
             visualizeGui.show();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -2078,6 +2089,17 @@ public class PRSGui extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonFindUserActionPerformed
 
+    private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
+        try {
+            AboutGui aboutGui = new AboutGui(this, rootPaneCheckingEnabled);
+            aboutGui.setLocationRelativeTo(this);
+            aboutGui.show();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            JOptionPane.showMessageDialog(rootPane, "Warning", "Occured error...Please try again!", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_aboutMenuItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2104,10 +2126,13 @@ public class PRSGui extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenuItem buildTFIDFFilesMenuItem;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
+    private javax.swing.JMenu helpMenu;
+    private javax.swing.JMenuItem helpMenuItem;
     private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton23;
     private javax.swing.JButton jButton30;
@@ -2158,12 +2183,6 @@ public class PRSGui extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JList jListEvaluation;
     private javax.swing.JList jListRecAlgorithm;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItemAllEvalution;
     private javax.swing.JMenuItem jMenuItemDcollaborativeFiltering;
     private javax.swing.JMenuItem jMenuItemDcontentbased;
@@ -2251,6 +2270,7 @@ public class PRSGui extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldTopNRecommend;
     private javax.swing.JTextField jTextFieldtopRank;
     private javax.swing.JMenuItem loadExistentModelMenuItem;
+    private javax.swing.JMenuBar menuMenuBar;
     private javax.swing.JMenuItem resetMenuItem;
     private javax.swing.JMenuItem saveModelMenuItem;
     private javax.swing.JMenu toolsMenu;
