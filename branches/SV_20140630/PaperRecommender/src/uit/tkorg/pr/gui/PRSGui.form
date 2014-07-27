@@ -260,13 +260,16 @@
             <MenuItem class="javax.swing.JMenuItem" name="resetMenuItem">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/Button-Refresh-icon.png"/>
+                  <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/Button-Refresh.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Reset"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="exitMenuItem">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/stopButton.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Exit"/>
               </Properties>
               <Events>
@@ -298,22 +301,38 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="helpMenu">
+        <Menu class="javax.swing.JMenu" name="jMenu1">
           <Properties>
             <Property name="text" type="java.lang.String" value="Help"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="helpMenuItem">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Help contents"/>
+                <Property name="text" type="java.lang.String" value="About program"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="helpMenuItemActionPerformed"/>
-              </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="aboutMenuItem">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="About"/>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+G"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="How to use pramgram?"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+              <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+R"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Javadoc Reference"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
+              <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+I"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="SystemInfo"/>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -459,7 +478,7 @@
                           <Properties>
                             <Property name="columns" type="int" value="20"/>
                             <Property name="rows" type="int" value="5"/>
-                            <Property name="text" type="java.lang.String" value="File Authors.csv ch&#x1ee9;a th&#xf4;ng tin v&#x1ec1; nh&#xe0; nghi&#xea;n c&#x1ee9;u v&#xe0; c&#xf3; &#x111;&#x1ecb;nh d&#x1ea1;ng:&#xa;IdAuthor|||NameAuthor&#xa;V&#xed; d&#x1ee5;:&#xa;1|||John F. Young&#xa;2|||Sule Yildirim&#xa;3|||Elizabeth K. Reilly&#xa;4|||Yann Le Gorrec"/>
+                            <Property name="text" type="java.lang.String" value="File Authors.csv containt information about authors.&#xa;It have IdAuthor|||NameAuthor format.&#xa;Example:&#xa;1|||John F. Young&#xa;2|||Sule Yildirim&#xa;3|||Elizabeth K. Reilly&#xa;4|||Yann Le Gorrec"/>
                           </Properties>
                         </Component>
                       </SubComponents>
@@ -482,7 +501,7 @@
                           <Properties>
                             <Property name="columns" type="int" value="20"/>
                             <Property name="rows" type="int" value="5"/>
-                            <Property name="text" type="java.lang.String" value="File AuthorPaper.csv ch&#x1ee9;a th&#xf4;ng tin v&#x1ec1; nh&#x1eef;ng b&#xe0;i b&#xe1;o t&#xe1;c gi&#x1ea3; &#x111;&#xe3; vi&#x1ebf;t v&#xe0; c&#xf3; &#x111;&#x1ecb;nh d&#x1ea1;ng:&#xa;IdAuthor|||IdPaper&#xa;V&#xed; d&#x1ee5;:&#xa;1|||11&#xa;1|||12&#xa;1|||13&#xa;1|||14&#xa;2|||21&#xa;2|||22&#xa;3|||31&#xa;4|||41&#xa;4|||42"/>
+                            <Property name="text" type="java.lang.String" value="File AuthorPaper.csv containt information about papers  of authors.&#xa;It have IdAuthor|||IdPaper format.&#xa;Example:&#xa;1|||11&#xa;1|||12&#xa;1|||13&#xa;1|||14&#xa;2|||21&#xa;2|||22&#xa;3|||31&#xa;4|||41&#xa;4|||42"/>
                           </Properties>
                         </Component>
                       </SubComponents>
@@ -505,7 +524,7 @@
                           <Properties>
                             <Property name="columns" type="int" value="20"/>
                             <Property name="rows" type="int" value="5"/>
-                            <Property name="text" type="java.lang.String" value="File AuthorCitePape.csv ch&#x1ee9;a th&#xf4;ng tin v&#x1ec1; nh&#x1eef;ng b&#xe0;i b&#xe1;o m&#xe0; t&#xe1;c gi&#x1ea3; &#x111;&#xe3; tr&#xed;ch d&#x1eab;n v&#xe0; c&#xf3; &#x111;&#x1ecb;nh d&#x1ea1;ng:&#xa;IdAuthor|||IdPaper|||YearCited&#xa;V&#xed; d&#x1ee5;:&#xa;1|||11&#xa;1|||12&#xa;1|||13&#xa;1|||14&#xa;2|||21&#xa;2|||22&#xa;3|||31&#xa;4|||41&#xa;4|||42"/>
+                            <Property name="text" type="java.lang.String" value="File AuthorCitePape.csv give information about papers which author cited.&#xa;File have IdAuthor|||IdPaper|||YearCited format.&#xa;Example:&#xa;1|||11&#xa;1|||12&#xa;1|||13&#xa;1|||14&#xa;2|||21&#xa;2|||22&#xa;3|||31&#xa;4|||41&#xa;4|||42"/>
                           </Properties>
                         </Component>
                       </SubComponents>
@@ -528,7 +547,7 @@
                           <Properties>
                             <Property name="columns" type="int" value="20"/>
                             <Property name="rows" type="int" value="5"/>
-                            <Property name="text" type="java.lang.String" value="File Paper.csv ch&#x1ee9;a th&#xf4;ng tin c&#x1ee7;a nh&#x1eef;ng b&#xe0;i b&#xe1;o v&#xe0; c&#xf3; &#x111;&#x1ecb;nh d&#x1ea1;ng:&#xa;IdPaper|||TitlePaper|||ContentPaper|||YearPaper&#xa;V&#xed; d&#x1ee5;:&#xa;11|||Knowledge Discovery from Sparse Pharmacokinetic Data|||In this research effort, we show that the following hypothesis is true: The independently verified sparse information secured from the scientific literature regarding the effects of methyl mercury on mice enables us to predict the effects of the methyl mercury on humans. The Rough Sets methodology is used in this endeavor|||2000&#xa;111|||A fusion of rough sets, modified rough sets, and genetic algorithms for hybrid diagnostic systems|||A hybrid classification system is a system composed of several intelligent techniques such that the inherent limitations of one individual technique be compensated for by the strengths of another technique. In this paper, we investigate the outline of a hybrid diagnostic system for Attention Deficit Disorder (ADD) in children. This system uses Rough Sets (RS) and Modified Rough Sets (MRS) to induce rules from examples and then uses our modified genetic algorithms to globalize the rules. Also, the classification capability of this hybrid system was compared with the behavior of (a) another hybrid classification system using RS, MRS, and the &#x201c;dropping condition&#x201d; approach, (b) the Interactive Dichotomizer 3 (ID3) approach, and (c) a basic genetic algorithm. The results revealed that the global rules generated by the hybrid system are more effective in classification of the testing dataset than the rules generated by the above approaches.|||1997&#xa;112|||Rough Classification|||This article contains a new concept of approximate analysis of data, based on the idea of a &#x201c;rough&#x201d; set. The notion of approximate (rough) description of a set is introduced and investigated. The application to medical data analysis is shown as an example.|||1984&#xa;113|||Developmental toxicity risk assessment: a rough sets approach|||A rough sets approach was applied to a data set consisting of animal study results and other compound characteristics to generate local and global (certain/possible) sets of rules for prediction of developmental toxicity in human subjects. A modified version of the rough sets approach is proposed to allow the construction of an approximate set of rules to use for prediction in a manner similar to that of discriminant analysis. The modified rough sets approach is superior in predictability to the original form of rough-sets methodology. In comparison to discriminant analysis, modified rough sets (approximate rules) appear to be better in overall classification, sensitivity, positive and negative predictive values. The findings were supported by applying the modified rough sets and discriminant analysis on a test data set generated from the original data set by using a resampling plan.|||1993&#xa;114|||A Theory and Methodology of Inductive Learning|||A theory of inductive learning is presented that characterizes it as a heuristic search through a space of symbolic descriptions, generated by an application of certain inference rules to the initial observational statements (the teacher-provided examples of some concepts, or facts about a class of objects or a phenomenon). The inference rules include generalization rules, which perform generalizing transformations on descriptions, and conventional truth-preserving deductive rules (specialization and reformulation rules). The application of the inference rules to descriptions is constrained by problem background knowledge, and guided by criteria evaluating the &#x2018;quality&#x2019; of generated inductive assertions.Based on this theory, a general methodology for learning structural descriptions from examples, called star, is described and illustrated by a problem from the area of conceptual data analysis|||1983&#xa;115|||Rough classification|||This article contains a new concept of approximate analysis of data, based on the idea of a &#x201c;rough&#x201d; set. The notion of approximate (rough) description of a set is introduced and investigated. The application to medical data analysis is shown as an example.|||1999&#xa;116|||LERS-a system for learning from examples based on rough sets|||The paper presents the system LERS for rule induction. The system handles inconsistencies in the input data due to its usage of rough set theory principle. Rough set theory is especially well suited to deal with inconsistencies. In this approach, inconsistencies are not corrected. Instead, system LERS computes lower and upper approximations of each concept. Then it induces certain rules and possible rules. The user has the choice to use the machine learning approach or the knowledge acquisition approach. In the first case, the system induces a single minimal discriminant description for each concept. In the second case, the system induces all rules, each in the minimal form, that can be induced from the input data. In both cases, the user has a choice between the local or global approach.|||1992&#xa;12|||The Investigation of Mercury Presence in Human Blood: An Extrapolation from Animal Data Using Neural Networks|||In this research effort a neural network approach was used as a method of extrapolating the presence of mercury in human blood from animal data. We also investigated the effect of different data representations (As-is, Category, Simple binary, Thermometer, and Flag) on the model performance. In addition, we used the Rough Sets methodology to identify the redundant independent variables and then examined the proposed extrapolation model performance for a reduced set of independent variables. Moreover, a quality measure was introduced that revealed that the proposed extrapolation model performed extremely well for the Thermometer data representation.|||2002&#xa;121|||Pattern development for vessel accidents: a comparison of statistical and neural computing techniques|||This paper describes a sample of over 900 vessel accidents that occurred on the lower Mississippi River. Two different techniques, one statistical and the other based on a neural network model, were used to build logical groups of accidents. The objective in building the groups was to maximize between-group variation and minimize within-group variation. The result was groups whose records were as homogenous as possible.A clustering algorithm (i.e., a non-inferential statistical technique) generated sets of three, four and five groups. A Kohenen neural network model (i.e., a self-organizing map) also generated sets of three, four and five groups. The two sets of parallel groups were radically different as to the relative number of records in each group. In other words, when the two sets of groups were constructed by the respective techniques, the membership of each comparable group within the two different sets was substantially different. Not only was the respective record count in each group substantially different, so were the descriptive statistics describing each comparable set of groups.These results have significant implications for marine policy makers. Important policy variables include safety factors such as weather, speed of current, time of operation, and location of accidents, but mandatory utilization of a voluntary vessel tracking service may be subject to debate.|||2001&#xa;122|||An Introduction to Computing with Neural Nets|||Artificial neural net models have been studied for many years in the hope of achieving human-like performance in the fields of speech and image recognition. These models are composed of many nonlinear computational elements operating in parallel and arranged in patterns reminiscent of biological neural nets. Computational elements or nodes are connected via weights that are typically adapted during use to improve performance. There has been a recent resurgence in the field of artificial neural nets caused by new net topologies and algorithms, analog VLSI implementation techniques, and the belief that massive parallelism is essential for high performance speech and image recognition. This paper provides an introduction to the field of artificial neural nets by reviewing six important neural net models that can be used for pattern classification. These nets are highly parallel building blocks that illustrate neural net components and design principles and can be used to construct more complex systems. In addition to describing these nets, a major emphasis is placed on exploring how some existing classification and clustering algorithms can be performed using simple neuron-like components. Single-layer nets can implement algorithms required by Gaussian maximum-likelihood classifiers and optimum minimum-error classifiers for binary patterns corrupted by noise. More generally, the decision regions required by any classification algorithm can be generated in a straightforward manner by three-layer feed-forward nets|||1987"/>
+                            <Property name="text" type="java.lang.String" value="File Paper.csv containt information about papers (idpaper, title, content of paper, year publishion).&#xa;File have IdPaper|||TitlePaper|||ContentPaper|||YearPaper format.&#xa;V&#xed; d&#x1ee5;:&#xa;11|||Knowledge Discovery from Sparse Pharmacokinetic Data|||In this research effort, we show that the following hypothesis is true: The independently verified sparse information secured from the scientific literature regarding the effects of methyl mercury on mice enables us to predict the effects of the methyl mercury on humans. The Rough Sets methodology is used in this endeavor|||2000&#xa;111|||A fusion of rough sets, modified rough sets, and genetic algorithms for hybrid diagnostic systems|||A hybrid classification system is a system composed of several intelligent techniques such that the inherent limitations of one individual technique be compensated for by the strengths of another technique. In this paper, we investigate the outline of a hybrid diagnostic system for Attention Deficit Disorder (ADD) in children. This system uses Rough Sets (RS) and Modified Rough Sets (MRS) to induce rules from examples and then uses our modified genetic algorithms to globalize the rules. Also, the classification capability of this hybrid system was compared with the behavior of (a) another hybrid classification system using RS, MRS, and the &#x201c;dropping condition&#x201d; approach, (b) the Interactive Dichotomizer 3 (ID3) approach, and (c) a basic genetic algorithm. The results revealed that the global rules generated by the hybrid system are more effective in classification of the testing dataset than the rules generated by the above approaches.|||1997&#xa;112|||Rough Classification|||This article contains a new concept of approximate analysis of data, based on the idea of a &#x201c;rough&#x201d; set. The notion of approximate (rough) description of a set is introduced and investigated. The application to medical data analysis is shown as an example.|||1984&#xa;113|||Developmental toxicity risk assessment: a rough sets approach|||A rough sets approach was applied to a data set consisting of animal study results and other compound characteristics to generate local and global (certain/possible) sets of rules for prediction of developmental toxicity in human subjects. A modified version of the rough sets approach is proposed to allow the construction of an approximate set of rules to use for prediction in a manner similar to that of discriminant analysis. The modified rough sets approach is superior in predictability to the original form of rough-sets methodology. In comparison to discriminant analysis, modified rough sets (approximate rules) appear to be better in overall classification, sensitivity, positive and negative predictive values. The findings were supported by applying the modified rough sets and discriminant analysis on a test data set generated from the original data set by using a resampling plan.|||1993&#xa;114|||A Theory and Methodology of Inductive Learning|||A theory of inductive learning is presented that characterizes it as a heuristic search through a space of symbolic descriptions, generated by an application of certain inference rules to the initial observational statements (the teacher-provided examples of some concepts, or facts about a class of objects or a phenomenon). The inference rules include generalization rules, which perform generalizing transformations on descriptions, and conventional truth-preserving deductive rules (specialization and reformulation rules). The application of the inference rules to descriptions is constrained by problem background knowledge, and guided by criteria evaluating the &#x2018;quality&#x2019; of generated inductive assertions.Based on this theory, a general methodology for learning structural descriptions from examples, called star, is described and illustrated by a problem from the area of conceptual data analysis|||1983&#xa;115|||Rough classification|||This article contains a new concept of approximate analysis of data, based on the idea of a &#x201c;rough&#x201d; set. The notion of approximate (rough) description of a set is introduced and investigated. The application to medical data analysis is shown as an example.|||1999&#xa;116|||LERS-a system for learning from examples based on rough sets|||The paper presents the system LERS for rule induction. The system handles inconsistencies in the input data due to its usage of rough set theory principle. Rough set theory is especially well suited to deal with inconsistencies. In this approach, inconsistencies are not corrected. Instead, system LERS computes lower and upper approximations of each concept. Then it induces certain rules and possible rules. The user has the choice to use the machine learning approach or the knowledge acquisition approach. In the first case, the system induces a single minimal discriminant description for each concept. In the second case, the system induces all rules, each in the minimal form, that can be induced from the input data. In both cases, the user has a choice between the local or global approach.|||1992&#xa;12|||The Investigation of Mercury Presence in Human Blood: An Extrapolation from Animal Data Using Neural Networks|||In this research effort a neural network approach was used as a method of extrapolating the presence of mercury in human blood from animal data. We also investigated the effect of different data representations (As-is, Category, Simple binary, Thermometer, and Flag) on the model performance. In addition, we used the Rough Sets methodology to identify the redundant independent variables and then examined the proposed extrapolation model performance for a reduced set of independent variables. Moreover, a quality measure was introduced that revealed that the proposed extrapolation model performed extremely well for the Thermometer data representation.|||2002&#xa;121|||Pattern development for vessel accidents: a comparison of statistical and neural computing techniques|||This paper describes a sample of over 900 vessel accidents that occurred on the lower Mississippi River. Two different techniques, one statistical and the other based on a neural network model, were used to build logical groups of accidents. The objective in building the groups was to maximize between-group variation and minimize within-group variation. The result was groups whose records were as homogenous as possible.A clustering algorithm (i.e., a non-inferential statistical technique) generated sets of three, four and five groups. A Kohenen neural network model (i.e., a self-organizing map) also generated sets of three, four and five groups. The two sets of parallel groups were radically different as to the relative number of records in each group. In other words, when the two sets of groups were constructed by the respective techniques, the membership of each comparable group within the two different sets was substantially different. Not only was the respective record count in each group substantially different, so were the descriptive statistics describing each comparable set of groups.These results have significant implications for marine policy makers. Important policy variables include safety factors such as weather, speed of current, time of operation, and location of accidents, but mandatory utilization of a voluntary vessel tracking service may be subject to debate.|||2001&#xa;122|||An Introduction to Computing with Neural Nets|||Artificial neural net models have been studied for many years in the hope of achieving human-like performance in the fields of speech and image recognition. These models are composed of many nonlinear computational elements operating in parallel and arranged in patterns reminiscent of biological neural nets. Computational elements or nodes are connected via weights that are typically adapted during use to improve performance. There has been a recent resurgence in the field of artificial neural nets caused by new net topologies and algorithms, analog VLSI implementation techniques, and the belief that massive parallelism is essential for high performance speech and image recognition. This paper provides an introduction to the field of artificial neural nets by reviewing six important neural net models that can be used for pattern classification. These nets are highly parallel building blocks that illustrate neural net components and design principles and can be used to construct more complex systems. In addition to describing these nets, a major emphasis is placed on exploring how some existing classification and clustering algorithms can be performed using simple neuron-like components. Single-layer nets can implement algorithms required by Gaussian maximum-likelihood classifiers and optimum minimum-error classifiers for binary patterns corrupted by noise. More generally, the decision regions required by any classification algorithm can be generated in a straightforward manner by three-layer feed-forward nets|||1987"/>
                           </Properties>
                         </Component>
                       </SubComponents>
@@ -551,7 +570,7 @@
                           <Properties>
                             <Property name="columns" type="int" value="20"/>
                             <Property name="rows" type="int" value="5"/>
-                            <Property name="text" type="java.lang.String" value="File PaperCitePaper.csv cho bi&#x1ebf;t th&#xf4;ng tin b&#xe0;i b&#xe1;o n&#xe0;o tr&#xed;ch d&#x1eab;n b&#xe0;i b&#xe1;o n&#xe0;o v&#xe0; c&#xf3; &#x111;&#x1ecb;nh d&#x1ea1;ng:&#xa;IdPaper|||IdPaperCited&#xa;V&#xed; d&#x1ee5;:&#xa;11|||111&#xa;11|||112&#xa;11|||113&#xa;11|||114&#xa;11|||115&#xa;11|||116&#xa;12|||121&#xa;12|||122&#xa;12|||123&#xa;13|||131"/>
+                            <Property name="text" type="java.lang.String" value="File Paper_Cited_Paper.csv. These file give information about paper cited papers.&#xa;File have IdPaper|||IdPaperCited format.&#xa;Example:&#xa;11|||111&#xa;11|||112&#xa;11|||113&#xa;11|||114&#xa;11|||115&#xa;11|||116&#xa;12|||121&#xa;12|||122&#xa;12|||123&#xa;13|||131"/>
                           </Properties>
                         </Component>
                       </SubComponents>
@@ -574,7 +593,7 @@
                           <Properties>
                             <Property name="columns" type="int" value="20"/>
                             <Property name="rows" type="int" value="5"/>
-                            <Property name="text" type="java.lang.String" value="File GroundTruth.csv ch&#x1ee9;a th&#xf4;ng tin t&#xe1;c gi&#x1ea3; th&#xed;ch b&#xe0;i b&#xe1;o n&#xe0;o v&#xe0; c&#xf3; &#x111;&#x1ecb;nh d&#x1ea1;ng:&#xa;IdAuthor||IdPaper&#xa;V&#xed; d&#x1ee5;:&#xa;1|||1&#xa;1|||5&#xa;1|||112&#xa;1|||134&#xa;1|||9&#xa;2|||211&#xa;2|||215&#xa;2|||214&#xa;2|||9&#xa;2|||42"/>
+                            <Property name="text" type="java.lang.String" value="File GroundTruth.csv give information about Groundtruth of authors.&#xa;File have IdAuthor||IdPaper format.&#xa;Example:&#xa;1|||1&#xa;1|||5&#xa;1|||112&#xa;1|||134&#xa;1|||9&#xa;2|||211&#xa;2|||215&#xa;2|||214&#xa;2|||9&#xa;2|||42"/>
                           </Properties>
                         </Component>
                       </SubComponents>
@@ -1949,14 +1968,14 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="jButtonChooseDataset" min="-2" pref="45" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButtonStartImportData" min="-2" pref="45" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButtonStopImportData" min="-2" pref="45" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1975,6 +1994,7 @@
                   <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/Play-Pressed.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Start Import Dataset"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonStartImportDataActionPerformed"/>
@@ -1986,6 +2006,7 @@
                   <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/Stop-Pressed.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Stop Import Dataset"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonChooseDataset">
@@ -2116,6 +2137,7 @@
                   <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/Stop-Pressed.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Stop Recommend"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonMethodRecommendation">
