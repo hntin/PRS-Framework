@@ -103,7 +103,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemExampleDataActionPerformed"/>
           </Events>
         </MenuItem>
-        <MenuItem class="javax.swing.JMenuItem" name="jMenuItemFromDataScource">
+        <MenuItem class="javax.swing.JMenuItem" name="jMenuItemDataSource">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -111,7 +111,7 @@
             <Property name="text" type="java.lang.String" value="From Dataset Scource"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemFromDataScourceActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemDataSourceActionPerformed"/>
           </Events>
         </MenuItem>
       </SubComponents>
@@ -134,18 +134,21 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
       <SubComponents>
-        <MenuItem class="javax.swing.JMenuItem" name="jMenuItemDcontentbased">
+        <MenuItem class="javax.swing.JMenuItem" name="jMenuItemDataContentbased">
           <Properties>
             <Property name="text" type="java.lang.String" value="Content Based"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemDcontentbasedActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemDataContentbasedActionPerformed"/>
           </Events>
         </MenuItem>
-        <MenuItem class="javax.swing.JMenuItem" name="jMenuItemDcollaborativeFiltering">
+        <MenuItem class="javax.swing.JMenuItem" name="jMenuItemDataCollaborativeFiltering">
           <Properties>
             <Property name="text" type="java.lang.String" value="Collaborative Filtering"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemDataCollaborativeFilteringActionPerformed"/>
+          </Events>
         </MenuItem>
       </SubComponents>
     </Container>
@@ -167,15 +170,37 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
       <SubComponents>
-        <MenuItem class="javax.swing.JMenuItem" name="jMenuItemRcontentBased">
+        <MenuItem class="javax.swing.JMenuItem" name="jMenuItemRecContentBased">
           <Properties>
             <Property name="text" type="java.lang.String" value="Content Based"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemRecContentBasedActionPerformed"/>
+          </Events>
         </MenuItem>
-        <MenuItem class="javax.swing.JMenuItem" name="jMenuItemRCollaborativeFiltering">
+        <MenuItem class="javax.swing.JMenuItem" name="jMenuItemRecCFPearson">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Collaborative Filtering"/>
+            <Property name="text" type="java.lang.String" value="Collaborative filtering with KNN Pearson"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemRecCFPearsonActionPerformed"/>
+          </Events>
+        </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="jMenuItemRecCFCosine">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Collaborative filtering with KNN Cosine"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemRecCFCosineActionPerformed"/>
+          </Events>
+        </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="jMenuItemRecCFSVD">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Collaborative filtering with SVD"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemRecCFSVDActionPerformed"/>
+          </Events>
         </MenuItem>
       </SubComponents>
     </Container>
@@ -197,40 +222,61 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
       <SubComponents>
+        <MenuItem class="javax.swing.JMenuItem" name="jMenuItemAllEvalutions">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="All Evaluations"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemAllEvalutionsActionPerformed"/>
+          </Events>
+        </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="jMenuItemPrecision">
           <Properties>
             <Property name="text" type="java.lang.String" value="Precision"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemPrecisionActionPerformed"/>
+          </Events>
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="jMenuItemRecall">
           <Properties>
             <Property name="text" type="java.lang.String" value="Recall"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemRecallActionPerformed"/>
+          </Events>
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="jMenuItemF1">
           <Properties>
             <Property name="text" type="java.lang.String" value="F1"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemF1ActionPerformed"/>
+          </Events>
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="jMenuItemMAP">
           <Properties>
             <Property name="text" type="java.lang.String" value="MAP"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemMAPActionPerformed"/>
+          </Events>
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="jMenuItemNDCG">
           <Properties>
             <Property name="text" type="java.lang.String" value="NDCG"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemNDCGActionPerformed"/>
+          </Events>
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="jMenuItemMRR">
           <Properties>
             <Property name="text" type="java.lang.String" value="MRR"/>
           </Properties>
-        </MenuItem>
-        <MenuItem class="javax.swing.JMenuItem" name="jMenuItemAllEvalution">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="All"/>
-          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemMRRActionPerformed"/>
+          </Events>
         </MenuItem>
       </SubComponents>
     </Container>
@@ -259,6 +305,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="exitMenuItem">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/exit.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Exit"/>
               </Properties>
               <Events>
@@ -279,6 +328,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Reset System"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resetMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="buildTFIDFFilesMenuItem">
               <Properties>
@@ -706,9 +758,9 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jButtonFileAuthorPaper" min="-2" pref="121" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButtonFileAuthorCitePaper" min="-2" pref="145" max="-2" attributes="0"/>
+                              <Component id="jButtonFileAuthorCitePaper" min="-2" pref="158" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButtonFilePaper" min="-2" pref="145" max="-2" attributes="0"/>
+                              <Component id="jButtonFilePaper" min="-2" pref="132" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jButtonFilePaperPaper" min="-2" pref="145" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
@@ -1756,13 +1808,13 @@
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="7">
-                        <StringItem index="0" value="Precision"/>
-                        <StringItem index="1" value="Recall"/>
-                        <StringItem index="2" value="F Measure"/>
-                        <StringItem index="3" value="Mean Average Precison(MAP)"/>
-                        <StringItem index="4" value="Normalized Discouted Cumulative Gain(NDCG)"/>
-                        <StringItem index="5" value="Mean Reciprocal Rank(MRR)"/>
-                        <StringItem index="6" value="All Evaluation"/>
+                        <StringItem index="0" value="All Evaluations"/>
+                        <StringItem index="1" value="Precision"/>
+                        <StringItem index="2" value="Recall"/>
+                        <StringItem index="3" value="F Measure"/>
+                        <StringItem index="4" value="Mean Average Precison(MAP)"/>
+                        <StringItem index="5" value="Normalized Discouted Cumulative Gain(NDCG)"/>
+                        <StringItem index="6" value="Mean Reciprocal Rank(MRR)"/>
                       </StringArray>
                     </Property>
                   </Properties>
@@ -1995,6 +2047,7 @@
                   <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/Stop-Pressed.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Stop Import Dataset"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonChooseDataset">
@@ -2031,7 +2084,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButtonContructUserProfile" min="-2" pref="45" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jButtonSaveModel" min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="ComputeMatrixCFButton" min="-2" pref="45" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -2040,7 +2093,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jButtonMethodDataPreparation" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonContructUserProfile" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButtonSaveModel" min="-2" max="-2" attributes="0"/>
+                  <Component id="ComputeMatrixCFButton" min="-2" max="-2" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -2067,13 +2120,16 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonContructUserProfileActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButtonSaveModel">
+            <Component class="javax.swing.JButton" name="ComputeMatrixCFButton">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/computeMatrixCF.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Start Compute Matrix CF"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ComputeMatrixCFButtonActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -2125,6 +2181,7 @@
                   <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/Stop-Pressed.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Stop Recommend"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonMethodRecommendation">

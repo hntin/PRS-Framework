@@ -26,6 +26,7 @@ import uit.tkorg.pr.constant.Options;
 import uit.tkorg.pr.controller.CentralGuiHanderRequest;
 import uit.tkorg.pr.model.Author;
 import uit.tkorg.utility.general.NumericUtility;
+
 /**
  *
  * @author Vinh
@@ -63,35 +64,36 @@ public class PRSGui extends javax.swing.JFrame {
         jTextAreaPaperPaper.setEditable(false);
         redirectSystemStreams();
     }
-        private void updateTextArea(final String text) {
-            SwingUtilities.invokeLater(new Runnable() {
-              public void run() {
+
+    private void updateTextArea(final String text) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
                 jTextAreaConsole.append(text);
-              }
-            });
-          }
+            }
+        });
+    }
 
-          private void redirectSystemStreams() {
-            OutputStream out = new OutputStream() {
-              @Override
-              public void write(int b) throws IOException {
+    private void redirectSystemStreams() {
+        OutputStream out = new OutputStream() {
+            @Override
+            public void write(int b) throws IOException {
                 updateTextArea(String.valueOf((char) b));
-              }
+            }
 
-              @Override
-              public void write(byte[] b, int off, int len) throws IOException {
+            @Override
+            public void write(byte[] b, int off, int len) throws IOException {
                 updateTextArea(new String(b, off, len));
-              }
+            }
 
-              @Override
-              public void write(byte[] b) throws IOException {
+            @Override
+            public void write(byte[] b) throws IOException {
                 write(b, 0, b.length);
-              }
-            };
+            }
+        };
 
-            System.setOut(new PrintStream(out, true));
-            System.setErr(new PrintStream(out, true));
-          }
+        System.setOut(new PrintStream(out, true));
+        System.setErr(new PrintStream(out, true));
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -111,21 +113,23 @@ public class PRSGui extends javax.swing.JFrame {
         jButton17 = new javax.swing.JButton();
         jPopupMenuImportData = new javax.swing.JPopupMenu();
         jMenuItemExampleData = new javax.swing.JMenuItem();
-        jMenuItemFromDataScource = new javax.swing.JMenuItem();
+        jMenuItemDataSource = new javax.swing.JMenuItem();
         jPopupMenuDataPreparation = new javax.swing.JPopupMenu();
-        jMenuItemDcontentbased = new javax.swing.JMenuItem();
-        jMenuItemDcollaborativeFiltering = new javax.swing.JMenuItem();
+        jMenuItemDataContentbased = new javax.swing.JMenuItem();
+        jMenuItemDataCollaborativeFiltering = new javax.swing.JMenuItem();
         jPopupMenuRecommendation = new javax.swing.JPopupMenu();
-        jMenuItemRcontentBased = new javax.swing.JMenuItem();
-        jMenuItemRCollaborativeFiltering = new javax.swing.JMenuItem();
+        jMenuItemRecContentBased = new javax.swing.JMenuItem();
+        jMenuItemRecCFPearson = new javax.swing.JMenuItem();
+        jMenuItemRecCFCosine = new javax.swing.JMenuItem();
+        jMenuItemRecCFSVD = new javax.swing.JMenuItem();
         jPopupMenuEvaluation = new javax.swing.JPopupMenu();
+        jMenuItemAllEvalutions = new javax.swing.JMenuItem();
         jMenuItemPrecision = new javax.swing.JMenuItem();
         jMenuItemRecall = new javax.swing.JMenuItem();
         jMenuItemF1 = new javax.swing.JMenuItem();
         jMenuItemMAP = new javax.swing.JMenuItem();
         jMenuItemNDCG = new javax.swing.JMenuItem();
         jMenuItemMRR = new javax.swing.JMenuItem();
-        jMenuItemAllEvalution = new javax.swing.JMenuItem();
         jTabbedPaneStep = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
@@ -224,7 +228,7 @@ public class PRSGui extends javax.swing.JFrame {
         jPanel40 = new javax.swing.JPanel();
         jButtonMethodDataPreparation = new javax.swing.JButton();
         jButtonContructUserProfile = new javax.swing.JButton();
-        jButtonSaveModel = new javax.swing.JButton();
+        ComputeMatrixCFButton = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jButtonRecommend = new javax.swing.JButton();
         jButtonStopRecommendation = new javax.swing.JButton();
@@ -312,61 +316,127 @@ public class PRSGui extends javax.swing.JFrame {
         });
         jPopupMenuImportData.add(jMenuItemExampleData);
 
-        jMenuItemFromDataScource.setBackground(new java.awt.Color(255, 255, 255));
-        jMenuItemFromDataScource.setText("From Dataset Scource");
-        jMenuItemFromDataScource.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemDataSource.setBackground(new java.awt.Color(255, 255, 255));
+        jMenuItemDataSource.setText("From Dataset Scource");
+        jMenuItemDataSource.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemFromDataScourceActionPerformed(evt);
+                jMenuItemDataSourceActionPerformed(evt);
             }
         });
-        jPopupMenuImportData.add(jMenuItemFromDataScource);
+        jPopupMenuImportData.add(jMenuItemDataSource);
 
         jPopupMenuDataPreparation.setBackground(new java.awt.Color(255, 255, 255));
         jPopupMenuDataPreparation.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
-        jMenuItemDcontentbased.setText("Content Based");
-        jMenuItemDcontentbased.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemDataContentbased.setText("Content Based");
+        jMenuItemDataContentbased.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemDcontentbasedActionPerformed(evt);
+                jMenuItemDataContentbasedActionPerformed(evt);
             }
         });
-        jPopupMenuDataPreparation.add(jMenuItemDcontentbased);
+        jPopupMenuDataPreparation.add(jMenuItemDataContentbased);
 
-        jMenuItemDcollaborativeFiltering.setText("Collaborative Filtering");
-        jPopupMenuDataPreparation.add(jMenuItemDcollaborativeFiltering);
+        jMenuItemDataCollaborativeFiltering.setText("Collaborative Filtering");
+        jMenuItemDataCollaborativeFiltering.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemDataCollaborativeFilteringActionPerformed(evt);
+            }
+        });
+        jPopupMenuDataPreparation.add(jMenuItemDataCollaborativeFiltering);
 
         jPopupMenuRecommendation.setBackground(new java.awt.Color(255, 255, 255));
         jPopupMenuRecommendation.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
-        jMenuItemRcontentBased.setText("Content Based");
-        jPopupMenuRecommendation.add(jMenuItemRcontentBased);
+        jMenuItemRecContentBased.setText("Content Based");
+        jMenuItemRecContentBased.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemRecContentBasedActionPerformed(evt);
+            }
+        });
+        jPopupMenuRecommendation.add(jMenuItemRecContentBased);
 
-        jMenuItemRCollaborativeFiltering.setText("Collaborative Filtering");
-        jPopupMenuRecommendation.add(jMenuItemRCollaborativeFiltering);
+        jMenuItemRecCFPearson.setText("Collaborative filtering with KNN Pearson");
+        jMenuItemRecCFPearson.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemRecCFPearsonActionPerformed(evt);
+            }
+        });
+        jPopupMenuRecommendation.add(jMenuItemRecCFPearson);
+
+        jMenuItemRecCFCosine.setText("Collaborative filtering with KNN Cosine");
+        jMenuItemRecCFCosine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemRecCFCosineActionPerformed(evt);
+            }
+        });
+        jPopupMenuRecommendation.add(jMenuItemRecCFCosine);
+
+        jMenuItemRecCFSVD.setText("Collaborative filtering with SVD");
+        jMenuItemRecCFSVD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemRecCFSVDActionPerformed(evt);
+            }
+        });
+        jPopupMenuRecommendation.add(jMenuItemRecCFSVD);
 
         jPopupMenuEvaluation.setBackground(new java.awt.Color(255, 255, 255));
         jPopupMenuEvaluation.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
+        jMenuItemAllEvalutions.setText("All Evaluations");
+        jMenuItemAllEvalutions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemAllEvalutionsActionPerformed(evt);
+            }
+        });
+        jPopupMenuEvaluation.add(jMenuItemAllEvalutions);
+
         jMenuItemPrecision.setText("Precision");
+        jMenuItemPrecision.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemPrecisionActionPerformed(evt);
+            }
+        });
         jPopupMenuEvaluation.add(jMenuItemPrecision);
 
         jMenuItemRecall.setText("Recall");
+        jMenuItemRecall.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemRecallActionPerformed(evt);
+            }
+        });
         jPopupMenuEvaluation.add(jMenuItemRecall);
 
         jMenuItemF1.setText("F1");
+        jMenuItemF1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemF1ActionPerformed(evt);
+            }
+        });
         jPopupMenuEvaluation.add(jMenuItemF1);
 
         jMenuItemMAP.setText("MAP");
+        jMenuItemMAP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemMAPActionPerformed(evt);
+            }
+        });
         jPopupMenuEvaluation.add(jMenuItemMAP);
 
         jMenuItemNDCG.setText("NDCG");
+        jMenuItemNDCG.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemNDCGActionPerformed(evt);
+            }
+        });
         jPopupMenuEvaluation.add(jMenuItemNDCG);
 
         jMenuItemMRR.setText("MRR");
+        jMenuItemMRR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemMRRActionPerformed(evt);
+            }
+        });
         jPopupMenuEvaluation.add(jMenuItemMRR);
-
-        jMenuItemAllEvalution.setText("All");
-        jPopupMenuEvaluation.add(jMenuItemAllEvalution);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Paper Recommendation System");
@@ -519,9 +589,9 @@ public class PRSGui extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonFileAuthorPaper, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonFileAuthorCitePaper, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonFileAuthorCitePaper, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonFilePaper, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonFilePaper, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonFilePaperPaper, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1103,7 +1173,7 @@ public class PRSGui extends javax.swing.JFrame {
 
         jLabel2.setText("at K:");
 
-        jComboBoxMethodEvaluation.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Precision", "Recall", "F Measure", "Mean Average Precison(MAP)", "Normalized Discouted Cumulative Gain(NDCG)", "Mean Reciprocal Rank(MRR)", "All Evaluation" }));
+        jComboBoxMethodEvaluation.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "All Evaluations", "Precision", "Recall", "F Measure", "Mean Average Precison(MAP)", "Normalized Discouted Cumulative Gain(NDCG)", "Mean Reciprocal Rank(MRR)" }));
         jComboBoxMethodEvaluation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxMethodEvaluationActionPerformed(evt);
@@ -1231,6 +1301,7 @@ public class PRSGui extends javax.swing.JFrame {
 
         jButtonStopImportData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Stop-Pressed.png"))); // NOI18N
         jButtonStopImportData.setToolTipText("Stop Import Dataset");
+        jButtonStopImportData.setEnabled(false);
 
         jButtonChooseDataset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Database-Active-icon.png"))); // NOI18N
         jButtonChooseDataset.setToolTipText("Choose Dataset");
@@ -1279,8 +1350,13 @@ public class PRSGui extends javax.swing.JFrame {
             }
         });
 
-        jButtonSaveModel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/computeMatrixCF.png"))); // NOI18N
-        jButtonSaveModel.setToolTipText("Start Compute Matrix CF");
+        ComputeMatrixCFButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/computeMatrixCF.png"))); // NOI18N
+        ComputeMatrixCFButton.setToolTipText("Start Compute Matrix CF");
+        ComputeMatrixCFButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComputeMatrixCFButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel40Layout = new javax.swing.GroupLayout(jPanel40);
         jPanel40.setLayout(jPanel40Layout);
@@ -1292,14 +1368,14 @@ public class PRSGui extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonContructUserProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonSaveModel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ComputeMatrixCFButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel40Layout.setVerticalGroup(
             jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jButtonMethodDataPreparation)
             .addComponent(jButtonContructUserProfile)
-            .addComponent(jButtonSaveModel)
+            .addComponent(ComputeMatrixCFButton)
         );
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Step 3 - Recommendation"));
@@ -1314,6 +1390,7 @@ public class PRSGui extends javax.swing.JFrame {
 
         jButtonStopRecommendation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Stop-Pressed.png"))); // NOI18N
         jButtonStopRecommendation.setToolTipText("Stop Recommend");
+        jButtonStopRecommendation.setEnabled(false);
 
         jButtonMethodRecommendation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/option.png"))); // NOI18N
         jButtonMethodRecommendation.setToolTipText("Choose Recommendation Algorithm");
@@ -1489,6 +1566,7 @@ public class PRSGui extends javax.swing.JFrame {
         loadExistentModelMenuItem.setText("Load Existent Model");
         fileMenu.add(loadExistentModelMenuItem);
 
+        exitMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/exit.png"))); // NOI18N
         exitMenuItem.setText("Exit");
         exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1503,6 +1581,11 @@ public class PRSGui extends javax.swing.JFrame {
 
         resetMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/reset.png"))); // NOI18N
         resetMenuItem.setText("Reset System");
+        resetMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetMenuItemActionPerformed(evt);
+            }
+        });
         toolsMenu.add(resetMenuItem);
 
         buildTFIDFFilesMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/tfidf.png"))); // NOI18N
@@ -1617,11 +1700,11 @@ public class PRSGui extends javax.swing.JFrame {
 
     private void jButtonFileAuthorCitePaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFileAuthorCitePaperActionPerformed
         // TODO add your handling code here:
-        JFileChooser fc = new JFileChooser();
-        fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        fc.showOpenDialog(this);
-        controller.fileNameAuthorCitePaper = fc.getSelectedFile().getAbsolutePath();
-        jTextAreaConsole.append(fc.getSelectedFile().getAbsolutePath() + "\n");
+        String path = GuiUtilities.chooseFileJChooser("Choose File");
+        if (path != null) {
+            controller.fileNameAuthorCitePaper = path;
+            jTextAreaConsole.append(path + "\n");
+        }
     }//GEN-LAST:event_jButtonFileAuthorCitePaperActionPerformed
 
     private void jRadioButtonDatasetExampleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDatasetExampleActionPerformed
@@ -1632,7 +1715,24 @@ public class PRSGui extends javax.swing.JFrame {
         jButtonFilePaperPaper.setEnabled(false);
         jButtonFileGroundTruth.setEnabled(false);
         ExampleDatasetGui datasetExample = new ExampleDatasetGui(this, rootPaneCheckingEnabled);
+        datasetExample.setLocationRelativeTo(this);
         datasetExample.show();
+        boolean check = datasetExample.check;
+        if (check) {
+            System.out.println(check);
+            controller.fileNameAuthors = "ExampleDataset\\Authors.csv";
+            controller.fileNameAuthorPaper = "ExampleDataset\\AuthorPaper.csv";
+            controller.fileNameAuthorCitePaper = "ExampleDataset\\AuthorCitePaper.csv";
+            controller.fileNamePapers = "ExampleDataset\\Paper.csv";
+            controller.fileNamePaperCitePaper = "ExampleDataset\\PaperCitePaper.csv";
+            controller.fileNameGroundTruth = "ExampleDataset\\GroundTruth.csv";
+            try {
+                controller.guiHanderResquest(Options.IMPORT_DATA);
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+
     }//GEN-LAST:event_jRadioButtonDatasetExampleActionPerformed
 
     private void jButton30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton30ActionPerformed
@@ -1645,7 +1745,7 @@ public class PRSGui extends javax.swing.JFrame {
 
     private void jButtonMethodDataPreparationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonMethodDataPreparationMouseClicked
         // TODO add your handling code here:
-        jPopupMenuDataPreparation.show(jButtonMethodDataPreparation,1,
+        jPopupMenuDataPreparation.show(jButtonMethodDataPreparation, 1,
                 (jButtonMethodDataPreparation.getHeight()));
     }//GEN-LAST:event_jButtonMethodDataPreparationMouseClicked
 
@@ -1664,14 +1764,12 @@ public class PRSGui extends javax.swing.JFrame {
 
     private void jButtonMethodRecommendationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonMethodRecommendationMouseClicked
         // TODO add your handling code here:
-        jPopupMenuRecommendation.show(jButtonMethodRecommendation,1,
+        jPopupMenuRecommendation.show(jButtonMethodRecommendation, 1,
                 (jButtonMethodRecommendation.getHeight()));
     }//GEN-LAST:event_jButtonMethodRecommendationMouseClicked
 
     private void jButtonMethodEvaluationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonMethodEvaluationMouseClicked
-        // TODO add your handling code here:
-//        
-        jPopupMenuEvaluation.show(jButtonMethodEvaluation,1,
+        jPopupMenuEvaluation.show(jButtonMethodEvaluation, 1,
                 (jButtonMethodEvaluation.getHeight()));
     }//GEN-LAST:event_jButtonMethodEvaluationMouseClicked
 
@@ -1681,7 +1779,7 @@ public class PRSGui extends javax.swing.JFrame {
 
     private void jButtonChooseDatasetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonChooseDatasetMouseClicked
         // TODO add your handling code here:
-        jPopupMenuImportData.show(jButtonChooseDataset,1,
+        jPopupMenuImportData.show(jButtonChooseDataset, 1,
                 (jButtonChooseDataset.getHeight()));
     }//GEN-LAST:event_jButtonChooseDatasetMouseClicked
 
@@ -1721,47 +1819,49 @@ public class PRSGui extends javax.swing.JFrame {
 
     private void jButtonFilePaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFilePaperActionPerformed
         // TODO add your handling code here:
-        JFileChooser fc = new JFileChooser();
-        fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        fc.showOpenDialog(this);
-        controller.fileNamePapers = fc.getSelectedFile().getAbsolutePath();
-        jTextAreaConsole.append(fc.getSelectedFile().getAbsolutePath() + "\n");
+        String path = GuiUtilities.chooseFileJChooser("Choose File");
+        if (path != null) {
+            controller.fileNamePapers = path;
+            jTextAreaConsole.append(path + "\n");
+        }
     }//GEN-LAST:event_jButtonFilePaperActionPerformed
 
     private void jButtonFileAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFileAuthorActionPerformed
         // TODO add your handling code here:
-        JFileChooser fc = new JFileChooser();
-        fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        fc.showOpenDialog(this);
-        controller.fileNameAuthors = fc.getSelectedFile().getAbsolutePath();
-        jTextAreaConsole.setText(fc.getSelectedFile().getAbsolutePath() + "\n");
+        String path = GuiUtilities.chooseFileJChooser("Choose File");
+        if (path != null) {
+            controller.fileNameAuthors = path;
+            jTextAreaConsole.append(path + "\n");
+        }
+
     }//GEN-LAST:event_jButtonFileAuthorActionPerformed
 
     private void jButtonFileAuthorPaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFileAuthorPaperActionPerformed
         // TODO add your handling code here:
-        JFileChooser fc = new JFileChooser();
-        fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        fc.showOpenDialog(this);
-        controller.fileNameAuthorPaper = fc.getSelectedFile().getAbsolutePath();
-        jTextAreaConsole.append(fc.getSelectedFile().getAbsolutePath() + "\n");
+        String path = GuiUtilities.chooseFileJChooser("Choose File");
+        if (path != null) {
+            controller.fileNameAuthorPaper = path;
+            jTextAreaConsole.append(path + "\n");
+        }
+
     }//GEN-LAST:event_jButtonFileAuthorPaperActionPerformed
 
     private void jButtonFilePaperPaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFilePaperPaperActionPerformed
         // TODO add your handling code here:
-        JFileChooser fc = new JFileChooser();
-        fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        fc.showOpenDialog(this);
-        controller.fileNamePaperCitePaper = fc.getSelectedFile().getAbsolutePath();
-        jTextAreaConsole.append(fc.getSelectedFile().getAbsolutePath() + "\n");
+        String path = GuiUtilities.chooseFileJChooser("Choose File");
+        if (path != null) {
+            controller.fileNamePaperCitePaper = path;
+            jTextAreaConsole.append(path + "\n");
+        }
     }//GEN-LAST:event_jButtonFilePaperPaperActionPerformed
 
     private void jButtonFileGroundTruthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFileGroundTruthActionPerformed
         // TODO add your handling code here:
-        JFileChooser fc = new JFileChooser();
-        fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        fc.showOpenDialog(this);
-        controller.fileNameGroundTruth = fc.getSelectedFile().getAbsolutePath();
-        jTextAreaConsole.append(fc.getSelectedFile().getAbsolutePath() + "\n");
+        String path = GuiUtilities.chooseFileJChooser("Choose File");
+        if (path != null) {
+            controller.fileNameGroundTruth = path;
+            jTextAreaConsole.append(path + "\n");
+        }
     }//GEN-LAST:event_jButtonFileGroundTruthActionPerformed
 
     private void jComboBoxCMUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCMUserActionPerformed
@@ -1854,13 +1954,14 @@ public class PRSGui extends javax.swing.JFrame {
         // TODO add your handling code here:
         // viet them ham kiem tra xem co nguoi dung co nhap topRank cho cac
         // phuong phap EVALUATE khac tru f1 va mrr neu co thi thuc hien cac lenh if ben duoi
+        jTabbedPaneStep.setEnabledAt(3, true);
         jTabbedPaneStep.setSelectedIndex(3);
         if (!jTextFieldtopRank.getText().isEmpty()) {
             jTextAreaConsole.append("\nBegin evaluate....\n");
             long begin = System.currentTimeMillis();
             controller.topRank = Integer.parseInt(jTextFieldtopRank.getText().trim().toString());
             System.out.println("toprank:" + controller.topRank);
-            response= controller.guiHanderResquest(Options.EVALUATE);
+            response = controller.guiHanderResquest(Options.EVALUATE);
             previousEvaluation.add(response[1]);
             DefaultListModel model = new DefaultListModel();
             for (int i = 0; i < jListEvaluation.getModel().getSize(); i++) {
@@ -1904,12 +2005,19 @@ public class PRSGui extends javax.swing.JFrame {
     private void jComboBoxMethodPreDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxMethodPreDataActionPerformed
         if (jComboBoxMethodPreData.getSelectedIndex() == 0) {
             jTextFieldDataPreAlgorithm.setText(jComboBoxMethodPreData.getSelectedItem().toString());
+            jTabbedPaneDataPreparation.setEnabledAt(0, true);
+            jTabbedPaneDataPreparation.setSelectedIndex(0);
+            jTabbedPaneDataPreparation.setEnabledAt(1, false);
         } else if (jComboBoxMethodPreData.getSelectedIndex() == 1) {
             jTextFieldDataPreAlgorithm.setText(jComboBoxMethodPreData.getSelectedItem().toString());
+            jTabbedPaneDataPreparation.setEnabledAt(1, true);
+            jTabbedPaneDataPreparation.setSelectedIndex(1);
+            jTabbedPaneDataPreparation.setEnabledAt(0, false);
         }
     }//GEN-LAST:event_jComboBoxMethodPreDataActionPerformed
 
     private void jButtonRecommendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRecommendActionPerformed
+        jTabbedPaneStep.setEnabledAt(2, true);
         jTabbedPaneStep.setSelectedIndex(2);
         if (!jTextFieldTopNRecommend.getText().isEmpty()) {
             jTextAreaConsole.append("\nBegin recommend....\n");
@@ -1949,6 +2057,7 @@ public class PRSGui extends javax.swing.JFrame {
     private void jButtonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResetActionPerformed
         try {
             controller = new CentralGuiHanderRequest();
+            //this.initComponents();
             jTabbedPaneStep.setEnabledAt(0, true);
             jTabbedPaneStep.setSelectedIndex(0);
             jTextFieldDataPreAlgorithm.setText(jComboBoxMethodPreData.getSelectedItem().toString());
@@ -2023,11 +2132,27 @@ public class PRSGui extends javax.swing.JFrame {
 
         if (jRadioButtonDatasetExample.isSelected()) {
             ExampleDatasetGui datasetExample = new ExampleDatasetGui(this, rootPaneCheckingEnabled);
+            datasetExample.setLocationRelativeTo(this);
             datasetExample.show();
+            boolean check = datasetExample.check;
+            if (check) {
+                controller.fileNameAuthors = "ExampleDataset\\Authors.csv";
+                controller.fileNameAuthorPaper = "ExampleDataset\\AuthorPaper.csv";
+                controller.fileNameAuthorCitePaper = "ExampleDataset\\AuthorCitePaper.csv";
+                controller.fileNamePapers = "ExampleDataset\\Paper.csv";
+                controller.fileNamePaperCitePaper = "ExampleDataset\\PaperCitePaper.csv";
+                controller.fileNameGroundTruth = "ExampleDataset\\GroundTruth.csv";
+                try {
+                    controller.guiHanderResquest(Options.IMPORT_DATA);
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+
         }
     }//GEN-LAST:event_jMenuItemExampleDataActionPerformed
 
-    private void jMenuItemFromDataScourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemFromDataScourceActionPerformed
+    private void jMenuItemDataSourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDataSourceActionPerformed
         jTabbedPaneStep.setEnabledAt(0, true);
         jTabbedPaneStep.setSelectedIndex(0);
         buttonGroup1.setSelected(jRadioButtonDatasetSource.getModel(), true);
@@ -2039,9 +2164,9 @@ public class PRSGui extends javax.swing.JFrame {
             jButtonFilePaperPaper.setEnabled(true);
             jButtonFileGroundTruth.setEnabled(true);
         }
-    }//GEN-LAST:event_jMenuItemFromDataScourceActionPerformed
+    }//GEN-LAST:event_jMenuItemDataSourceActionPerformed
 
-    private void jMenuItemDcontentbasedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDcontentbasedActionPerformed
+    private void jMenuItemDataContentbasedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDataContentbasedActionPerformed
         jTabbedPaneStep.setEnabledAt(1, true);
         jTabbedPaneStep.setSelectedIndex(1);
         jComboBoxMethodPreData.setSelectedIndex(0);
@@ -2049,7 +2174,9 @@ public class PRSGui extends javax.swing.JFrame {
         jTabbedPaneDataPreparation.setEnabledAt(0, true);
         jTabbedPaneDataPreparation.setSelectedIndex(0);
         jTabbedPaneDataPreparation.setEnabledAt(1, false);
-    }//GEN-LAST:event_jMenuItemDcontentbasedActionPerformed
+        jComboBoxMethodPreData.setSelectedIndex(0);
+        jTextFieldDataPreAlgorithm.setText(jComboBoxMethodPreData.getSelectedItem().toString());
+    }//GEN-LAST:event_jMenuItemDataContentbasedActionPerformed
 
     private void jTextFieldIdAuthorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldIdAuthorKeyReleased
         if (!NumericUtility.isNum(jTextFieldIdAuthor.getText().trim().toString()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE && evt.getKeyChar() != KeyEvent.VK_ENTER) {
@@ -2100,6 +2227,131 @@ public class PRSGui extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_aboutMenuItemActionPerformed
 
+    private void resetMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetMenuItemActionPerformed
+        try {
+            controller = new CentralGuiHanderRequest();
+            jTabbedPaneStep.setEnabledAt(0, true);
+            jTabbedPaneStep.setSelectedIndex(0);
+            jTextFieldDataPreAlgorithm.setText(jComboBoxMethodPreData.getSelectedItem().toString());
+            jTextFieldShowMethodRec.setText(jComboBoxMethodRecommend.getSelectedItem().toString());
+            jTextFieldEvaluationMethod.setText(jComboBoxMethodEvaluation.getSelectedItem().toString());
+            jTextAreaConsole.setText("");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_resetMenuItemActionPerformed
+
+    private void jMenuItemDataCollaborativeFilteringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDataCollaborativeFilteringActionPerformed
+        jTabbedPaneStep.setEnabledAt(1, true);
+        jTabbedPaneStep.setSelectedIndex(1);
+        jComboBoxMethodPreData.setSelectedIndex(1);
+        jTextFieldDataPreAlgorithm.setText(jComboBoxMethodPreData.getSelectedItem().toString());
+        jTabbedPaneDataPreparation.setEnabledAt(1, true);
+        jTabbedPaneDataPreparation.setSelectedIndex(1);
+        jTabbedPaneDataPreparation.setEnabledAt(0, false);
+        jComboBoxMethodPreData.setSelectedIndex(1);
+        jTextFieldDataPreAlgorithm.setText(jComboBoxMethodPreData.getSelectedItem().toString());
+    }//GEN-LAST:event_jMenuItemDataCollaborativeFilteringActionPerformed
+
+    private void ComputeMatrixCFButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComputeMatrixCFButtonActionPerformed
+        jTabbedPaneStep.setSelectedIndex(1);
+        jTabbedPaneStep.setSelectedIndex(1);
+        jTextAreaConsole.append("\nBegin compute Matrix Collaborative Filtering....\n");
+        long begin = System.currentTimeMillis();
+        controller.guiHanderResquest(Options.CONSTRUCT_MATRIX_CF);
+        jTextAreaConsole.append("End compute Matrix Collaborative Filtering....\n");
+        jTextAreaConsole.append("Time elapsed: " + String.valueOf(((System.currentTimeMillis() - begin)) / 1000) + "s" + "\n");
+    }//GEN-LAST:event_ComputeMatrixCFButtonActionPerformed
+
+    private void jMenuItemRecContentBasedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRecContentBasedActionPerformed
+        jTabbedPaneStep.setEnabledAt(2, true);
+        jTabbedPaneStep.setSelectedIndex(2);
+
+        jComboBoxMethodRecommend.setSelectedIndex(0);
+        jTextFieldShowMethodRec.setText(jComboBoxMethodRecommend.getSelectedItem().toString());
+
+    }//GEN-LAST:event_jMenuItemRecContentBasedActionPerformed
+
+    private void jMenuItemRecCFPearsonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRecCFPearsonActionPerformed
+        jTabbedPaneStep.setEnabledAt(2, true);
+        jTabbedPaneStep.setSelectedIndex(2);
+
+        jComboBoxMethodRecommend.setSelectedIndex(1);
+        jTextFieldShowMethodRec.setText(jComboBoxMethodRecommend.getSelectedItem().toString());
+    }//GEN-LAST:event_jMenuItemRecCFPearsonActionPerformed
+
+    private void jMenuItemRecCFCosineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRecCFCosineActionPerformed
+        jTabbedPaneStep.setEnabledAt(2, true);
+        jTabbedPaneStep.setSelectedIndex(2);
+
+        jComboBoxMethodRecommend.setSelectedIndex(2);
+        jTextFieldShowMethodRec.setText(jComboBoxMethodRecommend.getSelectedItem().toString());
+    }//GEN-LAST:event_jMenuItemRecCFCosineActionPerformed
+
+    private void jMenuItemRecCFSVDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRecCFSVDActionPerformed
+        jTabbedPaneStep.setEnabledAt(2, true);
+        jTabbedPaneStep.setSelectedIndex(2);
+
+        jComboBoxMethodRecommend.setSelectedIndex(3);
+        jTextFieldShowMethodRec.setText(jComboBoxMethodRecommend.getSelectedItem().toString());
+    }//GEN-LAST:event_jMenuItemRecCFSVDActionPerformed
+
+    private void jMenuItemAllEvalutionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAllEvalutionsActionPerformed
+        jTabbedPaneStep.setEnabledAt(3, true);
+        jTabbedPaneStep.setSelectedIndex(3);
+
+        jComboBoxMethodEvaluation.setSelectedIndex(0);
+        jTextFieldEvaluationMethod.setText(jComboBoxMethodEvaluation.getSelectedItem().toString());
+    }//GEN-LAST:event_jMenuItemAllEvalutionsActionPerformed
+
+    private void jMenuItemPrecisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPrecisionActionPerformed
+        jTabbedPaneStep.setEnabledAt(3, true);
+        jTabbedPaneStep.setSelectedIndex(3);
+
+        jComboBoxMethodEvaluation.setSelectedIndex(1);
+        jTextFieldEvaluationMethod.setText(jComboBoxMethodEvaluation.getSelectedItem().toString());
+    }//GEN-LAST:event_jMenuItemPrecisionActionPerformed
+
+    private void jMenuItemRecallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRecallActionPerformed
+        jTabbedPaneStep.setEnabledAt(3, true);
+        jTabbedPaneStep.setSelectedIndex(3);
+
+        jComboBoxMethodEvaluation.setSelectedIndex(2);
+        jTextFieldEvaluationMethod.setText(jComboBoxMethodEvaluation.getSelectedItem().toString());
+    }//GEN-LAST:event_jMenuItemRecallActionPerformed
+
+    private void jMenuItemF1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemF1ActionPerformed
+        jTabbedPaneStep.setEnabledAt(3, true);
+        jTabbedPaneStep.setSelectedIndex(3);
+
+        jComboBoxMethodEvaluation.setSelectedIndex(3);
+        jTextFieldEvaluationMethod.setText(jComboBoxMethodEvaluation.getSelectedItem().toString());
+    }//GEN-LAST:event_jMenuItemF1ActionPerformed
+
+    private void jMenuItemMAPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMAPActionPerformed
+        jTabbedPaneStep.setEnabledAt(3, true);
+        jTabbedPaneStep.setSelectedIndex(3);
+
+        jComboBoxMethodEvaluation.setSelectedIndex(4);
+        jTextFieldEvaluationMethod.setText(jComboBoxMethodEvaluation.getSelectedItem().toString());
+    }//GEN-LAST:event_jMenuItemMAPActionPerformed
+
+    private void jMenuItemNDCGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNDCGActionPerformed
+        jTabbedPaneStep.setEnabledAt(3, true);
+        jTabbedPaneStep.setSelectedIndex(3);
+
+        jComboBoxMethodEvaluation.setSelectedIndex(5);
+        jTextFieldEvaluationMethod.setText(jComboBoxMethodEvaluation.getSelectedItem().toString());
+    }//GEN-LAST:event_jMenuItemNDCGActionPerformed
+
+    private void jMenuItemMRRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMRRActionPerformed
+        jTabbedPaneStep.setEnabledAt(3, true);
+        jTabbedPaneStep.setSelectedIndex(3);
+
+        jComboBoxMethodEvaluation.setSelectedIndex(6);
+        jTextFieldEvaluationMethod.setText(jComboBoxMethodEvaluation.getSelectedItem().toString());
+    }//GEN-LAST:event_jMenuItemMRRActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2115,17 +2367,18 @@ public class PRSGui extends javax.swing.JFrame {
             System.out.println("Unable to load Windows look and feel");
         }
         //</editor-fold>
-         
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new PRSGui().setVisible(true);
-                
+
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ComputeMatrixCFButton;
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenuItem buildTFIDFFilesMenuItem;
     private javax.swing.ButtonGroup buttonGroup1;
@@ -2154,7 +2407,6 @@ public class PRSGui extends javax.swing.JFrame {
     private javax.swing.JButton jButtonMethodRecommendation;
     private javax.swing.JButton jButtonRecommend;
     private javax.swing.JButton jButtonReset;
-    private javax.swing.JButton jButtonSaveModel;
     private javax.swing.JButton jButtonStartImportData;
     private javax.swing.JButton jButtonStopEvaluation;
     private javax.swing.JButton jButtonStopImportData;
@@ -2183,18 +2435,20 @@ public class PRSGui extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JList jListEvaluation;
     private javax.swing.JList jListRecAlgorithm;
-    private javax.swing.JMenuItem jMenuItemAllEvalution;
-    private javax.swing.JMenuItem jMenuItemDcollaborativeFiltering;
-    private javax.swing.JMenuItem jMenuItemDcontentbased;
+    private javax.swing.JMenuItem jMenuItemAllEvalutions;
+    private javax.swing.JMenuItem jMenuItemDataCollaborativeFiltering;
+    private javax.swing.JMenuItem jMenuItemDataContentbased;
+    private javax.swing.JMenuItem jMenuItemDataSource;
     private javax.swing.JMenuItem jMenuItemExampleData;
     private javax.swing.JMenuItem jMenuItemF1;
-    private javax.swing.JMenuItem jMenuItemFromDataScource;
     private javax.swing.JMenuItem jMenuItemMAP;
     private javax.swing.JMenuItem jMenuItemMRR;
     private javax.swing.JMenuItem jMenuItemNDCG;
     private javax.swing.JMenuItem jMenuItemPrecision;
-    private javax.swing.JMenuItem jMenuItemRCollaborativeFiltering;
-    private javax.swing.JMenuItem jMenuItemRcontentBased;
+    private javax.swing.JMenuItem jMenuItemRecCFCosine;
+    private javax.swing.JMenuItem jMenuItemRecCFPearson;
+    private javax.swing.JMenuItem jMenuItemRecCFSVD;
+    private javax.swing.JMenuItem jMenuItemRecContentBased;
     private javax.swing.JMenuItem jMenuItemRecall;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;

@@ -7,27 +7,19 @@ package uit.tkorg.pr.controller;
 
 import ir.vsr.HashMapVector;
 import java.io.File;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import org.apache.commons.io.FileUtils;
-import uit.tkorg.pr.constant.PRConstant;
 import uit.tkorg.pr.constant.Options;
 import uit.tkorg.pr.dataimex.MASDataset1;
 import uit.tkorg.pr.dataimex.MahoutFile;
-import uit.tkorg.pr.dataimex.NUSDataset1;
 import uit.tkorg.pr.dataimex.PRGeneralFile;
 import uit.tkorg.pr.datapreparation.CBFAuthorFVComputation;
 import uit.tkorg.pr.datapreparation.CBFPaperFVComputation;
-import uit.tkorg.pr.datapreparation.CFRatingMatrixComputation;
 import uit.tkorg.pr.evaluation.Evaluator;
 import uit.tkorg.pr.method.cbf.FeatureVectorSimilarity;
-import uit.tkorg.pr.method.cf.KNNCF;
-import uit.tkorg.pr.method.cf.SVDCF;
 import uit.tkorg.pr.model.Author;
 import uit.tkorg.pr.model.Paper;
-import uit.tkorg.utility.general.BinaryFileUtility;
 import uit.tkorg.utility.textvectorization.TextPreprocessUtility;
 import uit.tkorg.utility.textvectorization.TextVectorizationByMahoutTerminalUtility;
 
@@ -49,7 +41,6 @@ public class CentralGuiHanderRequest {
     public int topRank;// topRank K EVALUATE
     public int kNeighbor;// so hang xom
     public int methodEvaluation;// phuong phap danh gia
-    public String authorId;
     public String SaveDataFolder;//
     public String fileNamePapers; //File 1
     public String fileNamePaperCitePaper;// File 2
@@ -68,7 +59,34 @@ public class CentralGuiHanderRequest {
     public HashMap<String, Author> authors = new HashMap<>();
     public HashMap<String, Paper> papersOfAuthors = new HashMap<>();
 
-    public String [] guiHanderResquest(Options request) {
+    public CentralGuiHanderRequest() {
+        gama = 0;// tham so gama cho 
+        pruning = 0;//tham so deu chinh cho pruning cho paper
+        weightingAuthor = 0;// trong so author
+        weightingPaper = 0;// trong so paper
+        combiningAuthor = 0;// phuong thuc combining author
+        combiningPaper = 0; // phuong thuc combining paper
+        recommendationMethod = 1; //1: CBF, 2: CF
+        cfMethod = 1;//1: KNN Pearson, 2: KNN Cosine, 3: SVD
+        topNRecommend = 0;// topNRecommend RECOMMEND
+        topRank = 0;// topRank K EVALUATE
+        kNeighbor = 0;// so hang xom
+        methodEvaluation = 0;// phuong phap danh gia
+        SaveDataFolder = null;//
+        fileNamePapers = null; //File 1
+        fileNamePaperCitePaper = null;// File 2
+        fileNameAuthors = null;// File 3
+        fileNameAuthorPaper = null;// File 4
+        fileNameAuthorCitePaper = null;// File 5
+        fileNameGroundTruth = null;// File 6
+        fileNameEvaluationResult = null;// ten file ket qua danh gia
+        fileNameRecommenList = null;// ten file danh sach RECOMMEND
+        papers = new HashMap<>();
+        authors = new HashMap<>();
+        papersOfAuthors = new HashMap<>();
+    }
+
+    public String[] guiHanderResquest(Options request) {
         String[] response = new String[2];
 
         try {
@@ -102,16 +120,16 @@ public class CentralGuiHanderRequest {
                     break;
                 case LOAD_EXISTENT_MODEL:// load mot matrix da co san
                     MahoutFile.readMahoutCFRating(MahoutCFDir, authors);
-                    response[0]= "Scucess";
+                    response[0] = "Scucess";
                     break;
                 case LOAD_MODEL:
-                    response[0]= "Scucess";
+                    response[0] = "Scucess";
                     break;
                 case RECOMMEND:
                     recommend();
                     break;
                 case EVALUATE:
-                    response[1]= Evaluation(authors,methodEvaluation, topRank).toString();
+                    response[1] = Evaluation(authors, methodEvaluation, topRank).toString();
                     break;
                 case ANALYSE_ERROR:
                     break;
@@ -119,8 +137,9 @@ public class CentralGuiHanderRequest {
                     break;
                 case SAVE_RECOMMENDATION_LIST:
                     StringBuilder recommendList = new StringBuilder();
-                    for (String authorId: authors.keySet())
-                        recommendList.append(authorId+":\n").append(authors.get(authorId).getRecommendationList().toString()+"\r\n");
+                    for (String authorId : authors.keySet()) {
+                        recommendList.append(authorId + ":\n").append(authors.get(authorId).getRecommendationList().toString() + "\r\n");
+                    }
                     FileUtils.writeStringToFile(new File(fileNameEvaluationResult), recommendList.toString(), "UTF8", true);
                     break;
                 case RESET:
@@ -159,44 +178,35 @@ public class CentralGuiHanderRequest {
             }
         }
     }
-    
-    public StringBuilder Evaluation(HashMap<String,Author> authors,int method,int rank) throws Exception{
+
+    public StringBuilder Evaluation(HashMap<String, Author> authors, int method, int rank) throws Exception {
         StringBuilder evaluationResult = new StringBuilder();
-        if(method==0){
+        if (method == 0) {
             evaluationResult.append("Precision\t").append("P@").append(rank).append(": ")
-            .append(Evaluator.computeMeanPrecisionTopN(authors,rank)).append("\r\n");
-        }else if(method==1) {   
+                    .append(Evaluator.computeMeanPrecisionTopN(authors, rank)).append("\r\n")
+                    .append("Recall\t").append("R@").append(rank).append(": ").append(Evaluator.computeMeanRecallTopN(authors, rank)).append("\r\n")
+                    .append("F1\t").append("F1: ").append(Evaluator.computeMeanFMeasure(authors, 1)).append("\r\n")
+                    .append("MAP\t").append("MAP@10: ").append(Evaluator.computeMAP(authors, 10)).append("\r\n")
+                    .append("NDCG\t").append("NDCG@").append(rank).append(": ").append(Evaluator.computeMeanNDCG(authors, rank)).append("\r\n")
+                    .append("MRR\t").append(Evaluator.computeMRR(authors)).append("\r\n");
+        }
+        else if (method == 1) {
+            evaluationResult.append("Precision\t").append("P@").append(rank).append(": ")
+                    .append(Evaluator.computeMeanPrecisionTopN(authors, rank)).append("\r\n");
+        } else if (method == 2) {
             evaluationResult.append("Recall\t").append("R@").append(rank).append(": ")
-            .append(Evaluator.computeMeanRecallTopN(authors,rank)).append("\r\n");
-        } else if(method==2){
+                    .append(Evaluator.computeMeanRecallTopN(authors, rank)).append("\r\n");
+        } else if (method == 3) {
             StringBuilder evaluationResultF1 = new StringBuilder();
             evaluationResultF1.append("F1\t").append("F1: ").append(Evaluator.computeMeanFMeasure(authors, 1)).append("\r\n");
-        }else if(method==3){
-            evaluationResult.append("MAP\t").append("MAP@10: ").append(Evaluator.computeMAP(authors, 10)).append("\r\n");        
-        }else if(method==4){
-           evaluationResult.append("NDCG\t").append("NDCG@").append(rank).append(": ").append(Evaluator.computeMeanNDCG(authors,rank)).append("\r\n");  
-        }else if(method==5){
-           evaluationResult.append("MRR\t").append(Evaluator.computeMRR(authors)).append("\r\n");
-        }else if(method==6){
-           evaluationResult.append("Precision\t").append("P@").append(rank).append(": ")
-            .append(Evaluator.computeMeanPrecisionTopN(authors,rank)).append("\r\n")
-            .append("Recall\t").append("R@").append(rank).append(": ").append(Evaluator.computeMeanRecallTopN(authors,rank)).append("\r\n")
-            .append("F1\t").append("F1: ").append(Evaluator.computeMeanFMeasure(authors, 1)).append("\r\n")
-            .append("MAP\t").append("MAP@10: ").append(Evaluator.computeMAP(authors, 10)).append("\r\n")
-            .append("NDCG\t").append("NDCG@").append(rank).append(": ").append(Evaluator.computeMeanNDCG(authors,rank)).append("\r\n")
-            .append("MRR\t").append(Evaluator.computeMRR(authors)).append("\r\n");
-        }
-        return evaluationResult;            
-    }
-
-    public void reset() {
-        weightingAuthor = 0;
-        weightingPaper = 0;
-        combiningAuthor = 0;
-        combiningPaper = 0;
-        recommendationMethod = 1;
-        papers = new HashMap<>();
-        authors = new HashMap<>();
+        } else if (method == 4) {
+            evaluationResult.append("MAP\t").append("MAP@10: ").append(Evaluator.computeMAP(authors, 10)).append("\r\n");
+        } else if (method == 5) {
+            evaluationResult.append("NDCG\t").append("NDCG@").append(rank).append(": ").append(Evaluator.computeMeanNDCG(authors, rank)).append("\r\n");
+        } else if (method == 6) {
+            evaluationResult.append("MRR\t").append(Evaluator.computeMRR(authors)).append("\r\n");
+        } 
+        return evaluationResult;
     }
 
     public static void main(String[] args) {

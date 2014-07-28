@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package uit.tkorg.pr.gui;
 
 import javax.swing.UIManager;
@@ -13,6 +12,8 @@ import javax.swing.UIManager;
  * @author Vinh
  */
 public class ExampleDatasetGui extends javax.swing.JDialog {
+
+    boolean check = false;
 
     /**
      * Creates new form DatasetExample
@@ -34,20 +35,25 @@ public class ExampleDatasetGui extends javax.swing.JDialog {
         FileGroundTruthTabbedPane = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         FileAuthorTable = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        FilePaperTable = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         FileAuthorPaperTable = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
         FileAuthorCitePaperTable = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        FilePaperTable = new javax.swing.JTable();
         jScrollPane5 = new javax.swing.JScrollPane();
         FilePaperCitePaperTable = new javax.swing.JTable();
         jScrollPane6 = new javax.swing.JScrollPane();
         FileGroundTruthTable = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        importButton = new javax.swing.JButton();
+        disposeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         FileAuthorTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -63,21 +69,6 @@ public class ExampleDatasetGui extends javax.swing.JDialog {
         jScrollPane1.setViewportView(FileAuthorTable);
 
         FileGroundTruthTabbedPane.addTab("File Authors", jScrollPane1);
-
-        FilePaperTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "IdPaper", "Title Paper", "Content Paper", "Year Paper"
-            }
-        ));
-        jScrollPane2.setViewportView(FilePaperTable);
-
-        FileGroundTruthTabbedPane.addTab("File Papers", jScrollPane2);
 
         FileAuthorPaperTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -109,6 +100,21 @@ public class ExampleDatasetGui extends javax.swing.JDialog {
 
         FileGroundTruthTabbedPane.addTab("File Author_Cited_Paper", jScrollPane4);
 
+        FilePaperTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "IdPaper", "Title Paper", "Content Paper", "Year Paper"
+            }
+        ));
+        jScrollPane2.setViewportView(FilePaperTable);
+
+        FileGroundTruthTabbedPane.addTab("File Papers", jScrollPane2);
+
         FilePaperCitePaperTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -139,14 +145,19 @@ public class ExampleDatasetGui extends javax.swing.JDialog {
 
         FileGroundTruthTabbedPane.addTab("File GroundTruth", jScrollPane6);
 
-        jButton1.setText("Import");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        importButton.setText("Import");
+        importButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                importButtonActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Close");
+        disposeButton.setText("Close");
+        disposeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                disposeButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -154,9 +165,9 @@ public class ExampleDatasetGui extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(385, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(importButton, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(disposeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6))
             .addComponent(FileGroundTruthTabbedPane)
         );
@@ -166,18 +177,35 @@ public class ExampleDatasetGui extends javax.swing.JDialog {
                 .addComponent(FileGroundTruthTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(disposeButton)
+                    .addComponent(importButton))
                 .addGap(0, 8, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-       
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void importButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importButtonActionPerformed
+        check = true;
+        this.dispose();
+    }//GEN-LAST:event_importButtonActionPerformed
+
+    private void disposeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disposeButtonActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_disposeButtonActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        try {
+            GuiUtilities.loadDataToJTable(FileAuthorTable, "ExampleDataset\\Authors.csv");
+            GuiUtilities.loadDataToJTable(FilePaperTable, "ExampleDataset\\Paper.csv");
+            GuiUtilities.loadDataToJTable(FileAuthorPaperTable, "ExampleDataset\\AuthorPaper.csv");
+            GuiUtilities.loadDataToJTable(FileAuthorCitePaperTable, "ExampleDataset\\AuthorCitePaper.csv");
+            GuiUtilities.loadDataToJTable(FilePaperCitePaperTable, "ExampleDataset\\PaperCitePaper.csv");
+            GuiUtilities.loadDataToJTable(FileGroundTruthTable, "ExampleDataset\\GroundTruth.csv");
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -188,7 +216,7 @@ public class ExampleDatasetGui extends javax.swing.JDialog {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-       try {
+        try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (Exception e) {
             System.out.println("Unable to load Windows look and feel");
@@ -218,8 +246,8 @@ public class ExampleDatasetGui extends javax.swing.JDialog {
     private javax.swing.JTable FileGroundTruthTable;
     private javax.swing.JTable FilePaperCitePaperTable;
     private javax.swing.JTable FilePaperTable;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton disposeButton;
+    private javax.swing.JButton importButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

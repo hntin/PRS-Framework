@@ -5,25 +5,28 @@
  */
 package uit.tkorg.pr.gui;
 
-
 import ir.utilities.Weight;
 import ir.vsr.HashMapVector;
-import java.awt.Rectangle;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Vector;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JTable;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 import org.apache.commons.io.FileUtils;
 import uit.tkorg.pr.dataimex.MahoutFile;
+import uit.tkorg.pr.method.cbf.FeatureVectorSimilarity;
 import uit.tkorg.utility.textvectorization.TextPreprocessUtility;
 import uit.tkorg.utility.textvectorization.TextVectorizationByMahoutTerminalUtility;
 
@@ -33,6 +36,7 @@ import uit.tkorg.utility.textvectorization.TextVectorizationByMahoutTerminalUtil
  */
 public class GuiUtilities {
 //Save to file using JChooser
+
     public static String saveToFileJChooser() {
         String path = null;
         try {
@@ -73,8 +77,8 @@ public class GuiUtilities {
         try {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle("Save To File");
-            FileFilter fileFilterText=new FileNameExtensionFilter("Text Files", "*.txt");
-            FileFilter fileFilterCSV=new FileNameExtensionFilter("CVS Files", "*.csv");
+            FileFilter fileFilterText = new FileNameExtensionFilter("Text Files", "*.txt");
+            FileFilter fileFilterCSV = new FileNameExtensionFilter("CVS Files", "*.csv");
             fileChooser.addChoosableFileFilter(fileFilterText);
             fileChooser.addChoosableFileFilter(fileFilterCSV);
             int userSelection = fileChooser.showSaveDialog(null);
@@ -90,9 +94,8 @@ public class GuiUtilities {
         }
         return path;
     }
-    
-//Load file using JChooser
 
+//Load file using JChooser
     public static String loadFileJChooser() {
         String path = null;
         try {
@@ -170,7 +173,6 @@ public class GuiUtilities {
         }
     }
 
-  
     //Doc so hang va so cot cua mot file matran va tra ve missing value
     public static double missingValueInMatrixCF(String pathMatrixCF, int numAuthors, int numPapers) throws FileNotFoundException {
         double missingValue = 0;
@@ -187,5 +189,72 @@ public class GuiUtilities {
         }
 
         return missingValue * 100;
+    }
+
+    //Check format files
+    public static boolean checkFormatFile(String path) throws FileNotFoundException, IOException {
+        Runtime runtime = Runtime.getRuntime();
+        int numOfProcessors = runtime.availableProcessors();
+        ExecutorService executor = Executors.newFixedThreadPool(numOfProcessors - 1);
+
+        FileReader file = new FileReader(new File(path));
+        BufferedReader textReader = new BufferedReader(file);
+        while (textReader.readLine() != null) {
+            final String line = textReader.readLine();
+            String[] tokens = line.split(" ");
+            if (tokens.length == 2) {
+            }
+            executor.submit(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+
+                    } catch (Exception ex) {
+                        Logger.getLogger(FeatureVectorSimilarity.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            });
+        }
+        executor.shutdown();
+        while (!executor.isTerminated()) {
+        }
+        return false;
+    }
+
+    //Draw chart evaluation
+    public static void drawChartEvaluation(String path) {
+
+    }
+
+    //Load Data From CSV To JTable
+    public static void loadDataToJTable(JTable jTable, String path) {
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader(path));
+            String line = null;
+            DefaultTableModel tablemodel = (DefaultTableModel) jTable.getModel();
+            tablemodel.getDataVector().removeAllElements();
+            jTable.setModel(tablemodel);
+            while ((line = reader.readLine()) != null) {
+                Vector vector = new Vector();
+                System.out.println(line);
+                String[] str = line.split("\\|\\|\\|");
+                for (int i = 0; i < str.length; i++) {
+                    vector.addElement(str[i]);
+                }
+                tablemodel.addRow(vector);
+            }
+            jTable.setModel(tablemodel);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(JTable.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(JTable.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                reader.close();
+            } catch (IOException ex) {
+                Logger.getLogger(JTable.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }
