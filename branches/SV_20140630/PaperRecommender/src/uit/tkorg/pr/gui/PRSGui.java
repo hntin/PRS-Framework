@@ -171,8 +171,8 @@ public class PRSGui extends javax.swing.JFrame {
         jComboBoxCMUser = new javax.swing.JComboBox();
         jComboBoxWeightingUser = new javax.swing.JComboBox();
         jPanel23 = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        AuthorCombinationMethodLabel = new javax.swing.JLabel();
+        AuthorWeightingComibationLabel = new javax.swing.JLabel();
         jPanel25 = new javax.swing.JPanel();
         jPanel29 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
@@ -188,8 +188,8 @@ public class PRSGui extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jPanel17 = new javax.swing.JPanel();
-        jButton30 = new javax.swing.JButton();
-        jButton31 = new javax.swing.JButton();
+        constructMatrixCFButton = new javax.swing.JButton();
+        loadExistenMatrixtCFButton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel16 = new javax.swing.JPanel();
         jTextFieldShowMethodRec = new javax.swing.JTextField();
@@ -765,9 +765,9 @@ public class PRSGui extends javax.swing.JFrame {
 
         jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder("Discription Option"));
 
-        jLabel11.setText("Combination method");
+        AuthorCombinationMethodLabel.setText("Combination method");
 
-        jLabel14.setText("Weighting Combination");
+        AuthorWeightingComibationLabel.setText("Weighting Combination");
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
         jPanel23.setLayout(jPanel23Layout);
@@ -775,16 +775,16 @@ public class PRSGui extends javax.swing.JFrame {
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel23Layout.createSequentialGroup()
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel14))
+                    .addComponent(AuthorCombinationMethodLabel)
+                    .addComponent(AuthorWeightingComibationLabel))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel23Layout.createSequentialGroup()
-                .addComponent(jLabel11)
+                .addComponent(AuthorCombinationMethodLabel)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel14)
+                .addComponent(AuthorWeightingComibationLabel)
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
@@ -948,17 +948,17 @@ public class PRSGui extends javax.swing.JFrame {
 
         jPanel17.setBorder(javax.swing.BorderFactory.createTitledBorder("Option"));
 
-        jButton30.setText("Construct Matrix Collaborative Filtering");
-        jButton30.addActionListener(new java.awt.event.ActionListener() {
+        constructMatrixCFButton.setText("Construct Matrix Collaborative Filtering");
+        constructMatrixCFButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton30ActionPerformed(evt);
+                constructMatrixCFButtonActionPerformed(evt);
             }
         });
 
-        jButton31.setText("Load Existent Matrix Collaborative Filtering");
-        jButton31.addActionListener(new java.awt.event.ActionListener() {
+        loadExistenMatrixtCFButton.setText("Load Existent Matrix Collaborative Filtering");
+        loadExistenMatrixtCFButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton31ActionPerformed(evt);
+                loadExistenMatrixtCFButtonActionPerformed(evt);
             }
         });
 
@@ -966,16 +966,16 @@ public class PRSGui extends javax.swing.JFrame {
         jPanel17.setLayout(jPanel17Layout);
         jPanel17Layout.setHorizontalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton31, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
+            .addComponent(constructMatrixCFButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(loadExistenMatrixtCFButton, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel17Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton30)
+                .addComponent(constructMatrixCFButton)
                 .addGap(18, 18, 18)
-                .addComponent(jButton31)
+                .addComponent(loadExistenMatrixtCFButton)
                 .addContainerGap(108, Short.MAX_VALUE))
         );
 
@@ -1731,17 +1731,19 @@ public class PRSGui extends javax.swing.JFrame {
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "No import data...", "Notice", JOptionPane.INFORMATION_MESSAGE);
         }
 
     }//GEN-LAST:event_jRadioButtonDatasetExampleActionPerformed
 
-    private void jButton30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton30ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton30ActionPerformed
+    private void constructMatrixCFButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_constructMatrixCFButtonActionPerformed
+        
+    }//GEN-LAST:event_constructMatrixCFButtonActionPerformed
 
-    private void jButton31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton31ActionPerformed
+    private void loadExistenMatrixtCFButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadExistenMatrixtCFButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton31ActionPerformed
+    }//GEN-LAST:event_loadExistenMatrixtCFButtonActionPerformed
 
     private void jButtonMethodDataPreparationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonMethodDataPreparationMouseClicked
         // TODO add your handling code here:
@@ -1868,12 +1870,16 @@ public class PRSGui extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (jComboBoxCMUser.getSelectedIndex() == 0) {
             controller.combiningAuthor = 0;
+            //AuthorCombinationMethodLabel.setText(AuthorCombinationMethodLabel.getText() + ":" + "compute author's profile only based on feature vector of author's paper");
         } else if (jComboBoxCMUser.getSelectedIndex() == 1) {
             controller.combiningAuthor = 1;
+            //AuthorCombinationMethodLabel.setText(AuthorCombinationMethodLabel.getText() + ":" + "compute author's profile only based on feature vector of author's paper and author's citation paper");
         } else if (jComboBoxCMUser.getSelectedIndex() == 2) {
             controller.combiningAuthor = 2;
+            //AuthorCombinationMethodLabel.setText(AuthorCombinationMethodLabel.getText() + ":" + "compute author's profile based on feature vector of author's paper and author's preference paper");
         } else if (jComboBoxCMUser.getSelectedIndex() == 3) {
             controller.combiningAuthor = 3;
+            //AuthorCombinationMethodLabel.setText(AuthorCombinationMethodLabel.getText() + ":" + "compute author's profile only based on feature vector of author's paper, author's citation paper and author's preference paper");
         }
     }//GEN-LAST:event_jComboBoxCMUserActionPerformed
 
@@ -2147,8 +2153,9 @@ public class PRSGui extends javax.swing.JFrame {
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
                 }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "No import data...", "Notice", JOptionPane.INFORMATION_MESSAGE);
             }
-
         }
     }//GEN-LAST:event_jMenuItemExampleDataActionPerformed
 
@@ -2378,18 +2385,19 @@ public class PRSGui extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel AuthorCombinationMethodLabel;
+    private javax.swing.JLabel AuthorWeightingComibationLabel;
     private javax.swing.JButton ComputeMatrixCFButton;
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenuItem buildTFIDFFilesMenuItem;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton constructMatrixCFButton;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenuItem helpMenuItem;
     private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton23;
-    private javax.swing.JButton jButton30;
-    private javax.swing.JButton jButton31;
     private javax.swing.JButton jButtonChooseDataset;
     private javax.swing.JButton jButtonContructUserProfile;
     private javax.swing.JButton jButtonDrawChart;
@@ -2420,10 +2428,8 @@ public class PRSGui extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBoxWeightingPaper;
     private javax.swing.JComboBox jComboBoxWeightingUser;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -2523,6 +2529,7 @@ public class PRSGui extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldShowMethodRec;
     private javax.swing.JTextField jTextFieldTopNRecommend;
     private javax.swing.JTextField jTextFieldtopRank;
+    private javax.swing.JButton loadExistenMatrixtCFButton;
     private javax.swing.JMenuItem loadExistentModelMenuItem;
     private javax.swing.JMenuBar menuMenuBar;
     private javax.swing.JMenuItem resetMenuItem;

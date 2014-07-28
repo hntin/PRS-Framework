@@ -6,6 +6,13 @@
 package uit.tkorg.pr.gui;
 
 import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.UIManager;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -27,7 +34,7 @@ public class VisualizeGui extends javax.swing.JDialog {
     /**
      * Creates new form Visualized
      */
-    public VisualizeGui(java.awt.Frame parent, boolean modal) {
+    public VisualizeGui(java.awt.Frame parent, boolean modal) throws IOException {
         super(parent, modal);
         initComponents();
         final XYDataset dataset = createDataset();
@@ -37,42 +44,38 @@ public class VisualizeGui extends javax.swing.JDialog {
         setContentPane(chartPanel);
     }
 
-    private XYDataset createDataset() {
+    private XYDataset createDataset() throws FileNotFoundException, IOException {
+        String[] Series = new String[4];
+        final XYSeries series1 = new XYSeries("Precison");
+        final XYSeries series2 = new XYSeries("Recall");
+        final XYSeries series3 = new XYSeries("MAP");
+        final XYSeries series4 = new XYSeries("NDCG");
 
-        final XYSeries series1 = new XYSeries("First");
-        series1.add(1.0, 1.0);
-        series1.add(2.0, 4.0);
-        series1.add(3.0, 3.0);
-        series1.add(4.0, 5.0);
-        series1.add(5.0, 5.0);
-        series1.add(6.0, 7.0);
-        series1.add(7.0, 7.0);
-        series1.add(8.0, 8.0);
+        String path = "Temp\\ResultEvaluation.txt";
 
-        final XYSeries series2 = new XYSeries("Second");
-        series2.add(1.0, 5.0);
-        series2.add(2.0, 7.0);
-        series2.add(3.0, 6.0);
-        series2.add(4.0, 8.0);
-        series2.add(5.0, 4.0);
-        series2.add(6.0, 4.0);
-        series2.add(7.0, 2.0);
-        series2.add(8.0, 1.0);
-
-        final XYSeries series3 = new XYSeries("Third");
-        series3.add(3.0, 4.0);
-        series3.add(4.0, 3.0);
-        series3.add(5.0, 2.0);
-        series3.add(6.0, 3.0);
-        series3.add(7.0, 6.0);
-        series3.add(8.0, 3.0);
-        series3.add(9.0, 4.0);
-        series3.add(10.0, 3.0);
+        FileReader file = new FileReader(new File(path));
+        BufferedReader textReader = new BufferedReader(file);
+        String line = null;
+        String[] tokens;
+        while (textReader.readLine() != null) {
+            line = textReader.readLine();
+            tokens = line.split("\t");
+            if (tokens[0] == "Precision") {
+                series1.add(Double.parseDouble(tokens[1]), Double.parseDouble(tokens[2]));
+            } else if (tokens[0] == "Recall") {
+                series2.add(Double.parseDouble(tokens[1]), Double.parseDouble(tokens[2]));
+            } else if (tokens[0] == "MAP") {
+                series3.add(Double.parseDouble(tokens[1]), Double.parseDouble(tokens[2]));
+            } else if (tokens[0] == "NDCG") {
+                series4.add(Double.parseDouble(tokens[1]), Double.parseDouble(tokens[2]));
+            }
+        }
 
         final XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(series1);
         dataset.addSeries(series2);
         dataset.addSeries(series3);
+        dataset.addSeries(series4);
 
         return dataset;
 
@@ -165,7 +168,12 @@ public class VisualizeGui extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                VisualizeGui dialog = new VisualizeGui(new javax.swing.JFrame(), true);
+                VisualizeGui dialog = null;
+                try {
+                    dialog = new VisualizeGui(new javax.swing.JFrame(), true);
+                } catch (IOException ex) {
+                    Logger.getLogger(VisualizeGui.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
