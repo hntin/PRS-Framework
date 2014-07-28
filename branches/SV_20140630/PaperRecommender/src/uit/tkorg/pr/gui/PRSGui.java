@@ -5,6 +5,9 @@
  */
 package uit.tkorg.pr.gui;
 
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -14,10 +17,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -40,7 +43,6 @@ public class PRSGui extends javax.swing.JFrame {
     private String[] response;
     private List previousEvaluation = new ArrayList<String>();// save result EVALUATE
     private List previousRecommdendation = new ArrayList<HashMap<String, Author>>();
-    private int methodEvaluation;// kiem tra phuong thuc Evaluation nao dc chon
 
     public PRSGui() {
         initComponents();
@@ -62,6 +64,13 @@ public class PRSGui extends javax.swing.JFrame {
         jTextAreaGroundTruth.setEditable(false);
         jTextAreaPaper.setEditable(false);
         jTextAreaPaperPaper.setEditable(false);
+
+        jTabbedPaneStep.setEnabledAt(0, false);
+        jTabbedPaneStep.setEnabledAt(1, false);
+        jTabbedPaneStep.setEnabledAt(2, false);
+        jTabbedPaneStep.setEnabledAt(3, false);
+        enableComponents((Container) jTabbedPaneStep.getComponentAt(0), false);
+
         redirectSystemStreams();
     }
 
@@ -223,7 +232,6 @@ public class PRSGui extends javax.swing.JFrame {
         jPanel38 = new javax.swing.JPanel();
         jPanel39 = new javax.swing.JPanel();
         jButtonStartImportData = new javax.swing.JButton();
-        jButtonStopImportData = new javax.swing.JButton();
         jButtonChooseDataset = new javax.swing.JButton();
         jPanel40 = new javax.swing.JPanel();
         jButtonMethodDataPreparation = new javax.swing.JButton();
@@ -236,7 +244,7 @@ public class PRSGui extends javax.swing.JFrame {
         jPanel10 = new javax.swing.JPanel();
         jButtonMethodEvaluation = new javax.swing.JButton();
         jButtonEvaluation = new javax.swing.JButton();
-        jButtonStopEvaluation = new javax.swing.JButton();
+        jButtonSaveEvaluation = new javax.swing.JButton();
         jButtonErrorAnalysis = new javax.swing.JButton();
         jPanel20 = new javax.swing.JPanel();
         jButtonTFIDF = new javax.swing.JButton();
@@ -1299,10 +1307,6 @@ public class PRSGui extends javax.swing.JFrame {
             }
         });
 
-        jButtonStopImportData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Stop-Pressed.png"))); // NOI18N
-        jButtonStopImportData.setToolTipText("Stop Import Dataset");
-        jButtonStopImportData.setEnabled(false);
-
         jButtonChooseDataset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Database-Active-icon.png"))); // NOI18N
         jButtonChooseDataset.setToolTipText("Choose Dataset");
         jButtonChooseDataset.setPreferredSize(new java.awt.Dimension(45, 41));
@@ -1321,14 +1325,11 @@ public class PRSGui extends javax.swing.JFrame {
                 .addComponent(jButtonChooseDataset, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonStartImportData, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonStopImportData, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel39Layout.setVerticalGroup(
             jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jButtonStartImportData)
-            .addComponent(jButtonStopImportData)
             .addComponent(jButtonChooseDataset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
@@ -1388,9 +1389,8 @@ public class PRSGui extends javax.swing.JFrame {
             }
         });
 
-        jButtonStopRecommendation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Stop-Pressed.png"))); // NOI18N
-        jButtonStopRecommendation.setToolTipText("Stop Recommend");
-        jButtonStopRecommendation.setEnabled(false);
+        jButtonStopRecommendation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Save.png"))); // NOI18N
+        jButtonStopRecommendation.setToolTipText("Save Recommendation List");
 
         jButtonMethodRecommendation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/option.png"))); // NOI18N
         jButtonMethodRecommendation.setToolTipText("Choose Recommendation Algorithm");
@@ -1437,8 +1437,13 @@ public class PRSGui extends javax.swing.JFrame {
             }
         });
 
-        jButtonStopEvaluation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Save.png"))); // NOI18N
-        jButtonStopEvaluation.setToolTipText("Save Evaluation");
+        jButtonSaveEvaluation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Save.png"))); // NOI18N
+        jButtonSaveEvaluation.setToolTipText("Save Evaluation");
+        jButtonSaveEvaluation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSaveEvaluationActionPerformed(evt);
+            }
+        });
 
         jButtonErrorAnalysis.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/analysis-icon.png"))); // NOI18N
         jButtonErrorAnalysis.setToolTipText("Analyze Error");
@@ -1457,7 +1462,7 @@ public class PRSGui extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonEvaluation, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonStopEvaluation, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonSaveEvaluation, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonErrorAnalysis, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -1465,7 +1470,7 @@ public class PRSGui extends javax.swing.JFrame {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jButtonMethodEvaluation)
             .addComponent(jButtonEvaluation)
-            .addComponent(jButtonStopEvaluation)
+            .addComponent(jButtonSaveEvaluation)
             .addComponent(jButtonErrorAnalysis)
         );
 
@@ -1519,7 +1524,7 @@ public class PRSGui extends javax.swing.JFrame {
             jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel38Layout.createSequentialGroup()
                 .addGap(2, 2, 2)
-                .addComponent(jPanel39, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel39, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1528,7 +1533,7 @@ public class PRSGui extends javax.swing.JFrame {
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(212, Short.MAX_VALUE))
         );
         jPanel38Layout.setVerticalGroup(
             jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1738,7 +1743,7 @@ public class PRSGui extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButtonDatasetExampleActionPerformed
 
     private void constructMatrixCFButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_constructMatrixCFButtonActionPerformed
-        
+
     }//GEN-LAST:event_constructMatrixCFButtonActionPerformed
 
     private void loadExistenMatrixtCFButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadExistenMatrixtCFButtonActionPerformed
@@ -1755,7 +1760,17 @@ public class PRSGui extends javax.swing.JFrame {
         jTabbedPaneStep.setSelectedIndex(0);
         jTextAreaConsole.append("\nBegin import dataset....\n");
         long begin = System.currentTimeMillis();
-        controller.guiHanderResquest(Options.IMPORT_DATA);
+        Thread thread = new Thread() {
+            public void run() {
+                controller.guiHanderResquest(Options.IMPORT_DATA);
+            }
+        };
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+        }
         jTextAreaConsole.append("End import dataset....\n");
         jTextAreaConsole.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + "s" + "\n");
     }//GEN-LAST:event_jButtonStartImportDataActionPerformed
@@ -1933,25 +1948,25 @@ public class PRSGui extends javax.swing.JFrame {
     private void jComboBoxMethodEvaluationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxMethodEvaluationActionPerformed
         // TODO add your handling code here:
         if (jComboBoxMethodEvaluation.getSelectedIndex() == 0) {
-            methodEvaluation = 0;
+            controller.methodEvaluation = 0;
             jTextFieldEvaluationMethod.setText(jComboBoxMethodEvaluation.getSelectedItem().toString());
         } else if (jComboBoxMethodEvaluation.getSelectedIndex() == 1) {
-            methodEvaluation = 1;
+            controller.methodEvaluation = 1;
             jTextFieldEvaluationMethod.setText(jComboBoxMethodEvaluation.getSelectedItem().toString());
         } else if (jComboBoxMethodEvaluation.getSelectedIndex() == 2) {
-            methodEvaluation = 2;
+            controller.methodEvaluation = 2;
             jTextFieldEvaluationMethod.setText(jComboBoxMethodEvaluation.getSelectedItem().toString());
         } else if (jComboBoxMethodEvaluation.getSelectedIndex() == 3) {
-            methodEvaluation = 3;
+            controller.methodEvaluation = 3;
             jTextFieldEvaluationMethod.setText(jComboBoxMethodEvaluation.getSelectedItem().toString());
         } else if (jComboBoxMethodEvaluation.getSelectedIndex() == 4) {
-            methodEvaluation = 4;
+            controller.methodEvaluation = 4;
             jTextFieldEvaluationMethod.setText(jComboBoxMethodEvaluation.getSelectedItem().toString());
         } else if (jComboBoxMethodEvaluation.getSelectedIndex() == 5) {
-            methodEvaluation = 5;
+            controller.methodEvaluation = 5;
             jTextFieldEvaluationMethod.setText(jComboBoxMethodEvaluation.getSelectedItem().toString());
         } else if (jComboBoxMethodEvaluation.getSelectedIndex() == 6) {
-            methodEvaluation = 6;
+            controller.methodEvaluation = 6;
             jTextFieldEvaluationMethod.setText(jComboBoxMethodEvaluation.getSelectedItem().toString());
         }
     }//GEN-LAST:event_jComboBoxMethodEvaluationActionPerformed
@@ -1963,12 +1978,17 @@ public class PRSGui extends javax.swing.JFrame {
         jTabbedPaneStep.setEnabledAt(3, true);
         jTabbedPaneStep.setSelectedIndex(3);
         if (!jTextFieldtopRank.getText().isEmpty()) {
+            //GuiUtilities.deleteFile("Temp\\ResultEvaluation.txt");
             jTextAreaConsole.append("\nBegin evaluate....\n");
             long begin = System.currentTimeMillis();
             controller.topRank = Integer.parseInt(jTextFieldtopRank.getText().trim().toString());
-            System.out.println("toprank:" + controller.topRank);
             response = controller.guiHanderResquest(Options.EVALUATE);
             previousEvaluation.add(response[1]);
+            try {
+                GuiUtilities.writeToFileText("Temp\\ResultEvaluation.txt", response[1]);
+            } catch (IOException ex) {
+                Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+            }
             DefaultListModel model = new DefaultListModel();
             for (int i = 0; i < jListEvaluation.getModel().getSize(); i++) {
                 model.addElement(jListEvaluation.getModel().getElementAt(i));
@@ -1981,6 +2001,7 @@ public class PRSGui extends javax.swing.JFrame {
             jListEvaluation.setModel(model);
             jTextAreaConsole.append("End evaluate....\n");
             jTextAreaConsole.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + "s" + "\n");
+
         } else {
             JOptionPane.showMessageDialog(rootPane, "Please choose topRank to evaluate...", "Warning", JOptionPane.WARNING_MESSAGE);
             jTextFieldtopRank.requestFocus();
@@ -2125,9 +2146,10 @@ public class PRSGui extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonContructUserProfileActionPerformed
 
     private void jMenuItemExampleDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExampleDataActionPerformed
-        jTabbedPaneStep.setEnabledAt(0, true);
-        jTabbedPaneStep.setSelectedIndex(0);
+        manageJTablePane(0);
         buttonGroup1.setSelected(jRadioButtonDatasetExample.getModel(), true);
+
+        enableComponents((Container) jTabbedPaneStep.getComponentAt(0), true);
 
         jButtonFileAuthor.setEnabled(false);
         jButtonFileAuthorCitePaper.setEnabled(false);
@@ -2148,11 +2170,23 @@ public class PRSGui extends javax.swing.JFrame {
                 controller.fileNamePapers = "ExampleDataset\\Paper.csv";
                 controller.fileNamePaperCitePaper = "ExampleDataset\\PaperCitePaper.csv";
                 controller.fileNameGroundTruth = "ExampleDataset\\GroundTruth.csv";
+                
+                jTextAreaConsole.append("\nBegin import dataset....\n");
+                long begin = System.currentTimeMillis();
+
+                Thread thread = new Thread() {
+                    public void run() {
+                        controller.guiHanderResquest(Options.IMPORT_DATA);
+                    }
+                };
+                thread.start();
                 try {
-                    controller.guiHanderResquest(Options.IMPORT_DATA);
-                } catch (Exception ex) {
-                    System.out.println(ex.getMessage());
+                    thread.join();
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                jTextAreaConsole.append("End import dataset....\n");
+                jTextAreaConsole.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + "s" + "\n");
             } else {
                 JOptionPane.showMessageDialog(rootPane, "No import data...", "Notice", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -2160,8 +2194,7 @@ public class PRSGui extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemExampleDataActionPerformed
 
     private void jMenuItemDataSourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDataSourceActionPerformed
-        jTabbedPaneStep.setEnabledAt(0, true);
-        jTabbedPaneStep.setSelectedIndex(0);
+        manageJTablePane(0);
         buttonGroup1.setSelected(jRadioButtonDatasetSource.getModel(), true);
         if (jRadioButtonDatasetSource.isSelected()) {
             jButtonFileAuthor.setEnabled(true);
@@ -2189,6 +2222,10 @@ public class PRSGui extends javax.swing.JFrame {
         if (!NumericUtility.isNum(jTextFieldIdAuthor.getText().trim().toString()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE && evt.getKeyChar() != KeyEvent.VK_ENTER) {
             JOptionPane.showMessageDialog(rootPane, "Please input number...", "Warning", JOptionPane.WARNING_MESSAGE);
         }
+//        else if(evt.getKeyChar()==KeyEvent.VK_ENTER){
+//            ActionEvent ActionEvent=null;
+//            jButtonFindUserActionPerformed(ActionEvent);
+//        }
     }//GEN-LAST:event_jTextFieldIdAuthorKeyReleased
 
     private void jButtonFindUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFindUserActionPerformed
@@ -2306,7 +2343,7 @@ public class PRSGui extends javax.swing.JFrame {
     private void jMenuItemAllEvalutionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAllEvalutionsActionPerformed
         jTabbedPaneStep.setEnabledAt(3, true);
         jTabbedPaneStep.setSelectedIndex(3);
-
+        controller.methodEvaluation = 0;
         jComboBoxMethodEvaluation.setSelectedIndex(0);
         jTextFieldEvaluationMethod.setText(jComboBoxMethodEvaluation.getSelectedItem().toString());
     }//GEN-LAST:event_jMenuItemAllEvalutionsActionPerformed
@@ -2314,7 +2351,7 @@ public class PRSGui extends javax.swing.JFrame {
     private void jMenuItemPrecisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPrecisionActionPerformed
         jTabbedPaneStep.setEnabledAt(3, true);
         jTabbedPaneStep.setSelectedIndex(3);
-
+        controller.methodEvaluation = 1;
         jComboBoxMethodEvaluation.setSelectedIndex(1);
         jTextFieldEvaluationMethod.setText(jComboBoxMethodEvaluation.getSelectedItem().toString());
     }//GEN-LAST:event_jMenuItemPrecisionActionPerformed
@@ -2322,7 +2359,7 @@ public class PRSGui extends javax.swing.JFrame {
     private void jMenuItemRecallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRecallActionPerformed
         jTabbedPaneStep.setEnabledAt(3, true);
         jTabbedPaneStep.setSelectedIndex(3);
-
+        controller.methodEvaluation = 2;
         jComboBoxMethodEvaluation.setSelectedIndex(2);
         jTextFieldEvaluationMethod.setText(jComboBoxMethodEvaluation.getSelectedItem().toString());
     }//GEN-LAST:event_jMenuItemRecallActionPerformed
@@ -2330,7 +2367,7 @@ public class PRSGui extends javax.swing.JFrame {
     private void jMenuItemF1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemF1ActionPerformed
         jTabbedPaneStep.setEnabledAt(3, true);
         jTabbedPaneStep.setSelectedIndex(3);
-
+        controller.methodEvaluation = 3;
         jComboBoxMethodEvaluation.setSelectedIndex(3);
         jTextFieldEvaluationMethod.setText(jComboBoxMethodEvaluation.getSelectedItem().toString());
     }//GEN-LAST:event_jMenuItemF1ActionPerformed
@@ -2338,7 +2375,7 @@ public class PRSGui extends javax.swing.JFrame {
     private void jMenuItemMAPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMAPActionPerformed
         jTabbedPaneStep.setEnabledAt(3, true);
         jTabbedPaneStep.setSelectedIndex(3);
-
+        controller.methodEvaluation = 4;
         jComboBoxMethodEvaluation.setSelectedIndex(4);
         jTextFieldEvaluationMethod.setText(jComboBoxMethodEvaluation.getSelectedItem().toString());
     }//GEN-LAST:event_jMenuItemMAPActionPerformed
@@ -2346,7 +2383,7 @@ public class PRSGui extends javax.swing.JFrame {
     private void jMenuItemNDCGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNDCGActionPerformed
         jTabbedPaneStep.setEnabledAt(3, true);
         jTabbedPaneStep.setSelectedIndex(3);
-
+        controller.methodEvaluation = 5;
         jComboBoxMethodEvaluation.setSelectedIndex(5);
         jTextFieldEvaluationMethod.setText(jComboBoxMethodEvaluation.getSelectedItem().toString());
     }//GEN-LAST:event_jMenuItemNDCGActionPerformed
@@ -2354,10 +2391,40 @@ public class PRSGui extends javax.swing.JFrame {
     private void jMenuItemMRRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMRRActionPerformed
         jTabbedPaneStep.setEnabledAt(3, true);
         jTabbedPaneStep.setSelectedIndex(3);
-
+        controller.methodEvaluation = 6;
         jComboBoxMethodEvaluation.setSelectedIndex(6);
         jTextFieldEvaluationMethod.setText(jComboBoxMethodEvaluation.getSelectedItem().toString());
     }//GEN-LAST:event_jMenuItemMRRActionPerformed
+
+    private void jButtonSaveEvaluationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveEvaluationActionPerformed
+        try {
+            controller.guiHanderResquest(Options.SAVE_EVALUATION_RESULT);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }//GEN-LAST:event_jButtonSaveEvaluationActionPerformed
+//<editor-fold defaultstate="collapsed" desc="GuiUtilities">
+
+    public void enableComponents(Container container, boolean enable) {
+        Component[] components = container.getComponents();
+        for (Component component : components) {
+            component.setEnabled(enable);
+            if (component instanceof Container) {
+                enableComponents((Container) component, enable);
+            }
+        }
+    }
+
+    public void manageJTablePane(int index) {
+        jTabbedPaneStep.setEnabledAt(index, true);
+        jTabbedPaneStep.setSelectedIndex(index);
+        for (int i = 0; i < 4; i++) {
+            if (i != index) {
+                jTabbedPaneStep.setEnabledAt(i, false);
+            }
+        }
+    }
+//</editor-fold>
 
     /**
      * @param args the command line arguments
@@ -2415,9 +2482,8 @@ public class PRSGui extends javax.swing.JFrame {
     private javax.swing.JButton jButtonMethodRecommendation;
     private javax.swing.JButton jButtonRecommend;
     private javax.swing.JButton jButtonReset;
+    private javax.swing.JButton jButtonSaveEvaluation;
     private javax.swing.JButton jButtonStartImportData;
-    private javax.swing.JButton jButtonStopEvaluation;
-    private javax.swing.JButton jButtonStopImportData;
     private javax.swing.JButton jButtonStopRecommendation;
     private javax.swing.JButton jButtonTFIDF;
     private javax.swing.JComboBox jComboBoxCMPaper;

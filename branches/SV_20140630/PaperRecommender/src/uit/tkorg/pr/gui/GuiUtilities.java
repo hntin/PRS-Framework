@@ -8,10 +8,14 @@ package uit.tkorg.pr.gui;
 import ir.utilities.Weight;
 import ir.vsr.HashMapVector;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
@@ -226,8 +230,41 @@ public class GuiUtilities {
 
     }
 
-    //
-    
+    //Write to File
+    public static boolean writeToFileText(String path, String content) throws IOException {
+        File file = new File(path);
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        try {
+            OutputStreamWriter osw = new OutputStreamWriter(
+                    new FileOutputStream(file, true), "UTF-8");
+            BufferedWriter bw = new BufferedWriter(osw);
+            bw.append(content);
+            bw.close();
+            return true;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
+
+    //Delete File
+    public static boolean deleteFile(String path) {
+        File file = new File(path);
+        try {
+            if (file.exists()) {
+                file.delete();
+                return true;
+            } else {
+                return true;
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
+
     //Load Data From CSV To JTable
     public static void loadDataToJTable(JTable jTable, String path) {
         BufferedReader reader = null;

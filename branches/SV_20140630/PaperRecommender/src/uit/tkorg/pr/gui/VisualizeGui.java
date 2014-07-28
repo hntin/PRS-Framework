@@ -45,29 +45,30 @@ public class VisualizeGui extends javax.swing.JDialog {
     }
 
     private XYDataset createDataset() throws FileNotFoundException, IOException {
-        String[] Series = new String[4];
         final XYSeries series1 = new XYSeries("Precison");
         final XYSeries series2 = new XYSeries("Recall");
         final XYSeries series3 = new XYSeries("MAP");
         final XYSeries series4 = new XYSeries("NDCG");
 
         String path = "Temp\\ResultEvaluation.txt";
+        System.out.println(new File(path).exists());
 
         FileReader file = new FileReader(new File(path));
         BufferedReader textReader = new BufferedReader(file);
         String line = null;
         String[] tokens;
-        while (textReader.readLine() != null) {
-            line = textReader.readLine();
+        while ((line = textReader.readLine()) != null) {
             tokens = line.split("\t");
-            if (tokens[0] == "Precision") {
-                series1.add(Double.parseDouble(tokens[1]), Double.parseDouble(tokens[2]));
-            } else if (tokens[0] == "Recall") {
-                series2.add(Double.parseDouble(tokens[1]), Double.parseDouble(tokens[2]));
-            } else if (tokens[0] == "MAP") {
-                series3.add(Double.parseDouble(tokens[1]), Double.parseDouble(tokens[2]));
-            } else if (tokens[0] == "NDCG") {
-                series4.add(Double.parseDouble(tokens[1]), Double.parseDouble(tokens[2]));
+            if (tokens.length == 3) {
+                if (tokens[0].equals("Precision")) {
+                    series1.add(Double.parseDouble(tokens[1]), Double.parseDouble(tokens[2]));
+                } else if (tokens[0].equals("Recall")) {
+                    series2.add(Double.parseDouble(tokens[1]), Double.parseDouble(tokens[2]));
+                } else if (tokens[0].equals("MAP")) {
+                    series3.add(Double.parseDouble(tokens[1]), Double.parseDouble(tokens[2]));
+                } else if (tokens[0].equals("NDCG")) {
+                    series4.add(Double.parseDouble(tokens[1]), Double.parseDouble(tokens[2]));
+                }
             }
         }
 
@@ -86,8 +87,8 @@ public class VisualizeGui extends javax.swing.JDialog {
         // create the chart...
         final JFreeChart chart = ChartFactory.createXYLineChart(
                 "Evaluation Chart", // chart title
-                "X", // x axis label
-                "Y", // y axis label
+                "TopRank", // x axis label
+                "Accuracy", // y axis label
                 dataset, // data
                 PlotOrientation.VERTICAL,
                 true, // include legend
@@ -103,20 +104,21 @@ public class VisualizeGui extends javax.swing.JDialog {
         // get a reference to the plot for further customisation...
         final XYPlot plot = chart.getXYPlot();
         plot.setBackgroundPaint(Color.lightGray);
-        //    plot.setAxisOffset(new Spacer(Spacer.ABSOLUTE, 5.0, 5.0, 5.0, 5.0));
+        //   plot.setAxisOffset(new Spacer(Spacer.ABSOLUTE, 5.0, 5.0, 5.0, 5.0));
         plot.setDomainGridlinePaint(Color.white);
         plot.setRangeGridlinePaint(Color.white);
 
         final XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
-//        renderer.setSeriesLinesVisible(0, false);
-//        renderer.setSeriesShapesVisible(1, false);
         renderer.setSeriesLinesVisible(0, true);
         renderer.setSeriesShapesVisible(1, true);
+        renderer.setSeriesShapesVisible(2, true);
+        renderer.setSeriesShapesVisible(3, true);
         plot.setRenderer(renderer);
 
         // change the auto tick unit selection to integer units only...
         final NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
-        rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        //rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        rangeAxis.setStandardTickUnits(NumberAxis.createStandardTickUnits());
         // OPTIONAL CUSTOMISATION COMPLETED.
 
         return chart;

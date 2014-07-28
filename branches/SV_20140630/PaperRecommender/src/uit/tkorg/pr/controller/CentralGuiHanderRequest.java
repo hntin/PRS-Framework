@@ -53,8 +53,8 @@ public class CentralGuiHanderRequest {
     public String sequenceDir = "Temp\\Sequence";
     public String vectorDir = "Temp\\VectorDir";
     public String MahoutCFDir = "Temp\\MahoutDir";
-    public String fileNameEvaluationResult;// ten file ket qua danh gia
-    public String fileNameRecommenList;// ten file danh sach RECOMMEND
+    public String fileNameEvaluationResult="Temp\\ResultEvaluation.txt";// ten file ket qua danh gia
+    public String fileNameRecommenList="Temp\\RecommendationList.txt";// ten file danh sach RECOMMEND
     public HashMap<String, Paper> papers = new HashMap<>();
     public HashMap<String, Author> authors = new HashMap<>();
     public HashMap<String, Paper> papersOfAuthors = new HashMap<>();
@@ -140,7 +140,10 @@ public class CentralGuiHanderRequest {
                     for (String authorId : authors.keySet()) {
                         recommendList.append(authorId + ":\n").append(authors.get(authorId).getRecommendationList().toString() + "\r\n");
                     }
-                    FileUtils.writeStringToFile(new File(fileNameEvaluationResult), recommendList.toString(), "UTF8", true);
+                    FileUtils.writeStringToFile(new File(fileNameRecommenList), recommendList.toString(), "UTF8", true);
+                    break;
+                case SAVE_EVALUATION_RESULT:
+                      FileUtils.writeStringToFile(new File(fileNameEvaluationResult),Evaluation(authors, methodEvaluation, topRank).toString(), "UTF8", true);
                     break;
                 case RESET:
                     papers = new HashMap<>();
@@ -181,30 +184,30 @@ public class CentralGuiHanderRequest {
 
     public StringBuilder Evaluation(HashMap<String, Author> authors, int method, int rank) throws Exception {
         StringBuilder evaluationResult = new StringBuilder();
+        evaluationResult.append("\r\nMeasure\t").append("TopRank\t").append("Result").append("\r\n");
         if (method == 0) {
-            evaluationResult.append("Precision\t").append("P@").append(rank).append(": ")
-                    .append(Evaluator.computeMeanPrecisionTopN(authors, rank)).append("\r\n")
-                    .append("Recall\t").append("R@").append(rank).append(": ").append(Evaluator.computeMeanRecallTopN(authors, rank)).append("\r\n")
-                    .append("F1\t").append("F1: ").append(Evaluator.computeMeanFMeasure(authors, 1)).append("\r\n")
-                    .append("MAP\t").append("MAP@10: ").append(Evaluator.computeMAP(authors, 10)).append("\r\n")
-                    .append("NDCG\t").append("NDCG@").append(rank).append(": ").append(Evaluator.computeMeanNDCG(authors, rank)).append("\r\n")
-                    .append("MRR\t").append(Evaluator.computeMRR(authors)).append("\r\n");
+           evaluationResult.append("Precision\t").append(rank).append("\t")
+            .append(Evaluator.computeMeanPrecisionTopN(authors,rank)).append("\r\n")
+            .append("Recall\t").append(rank).append("\t").append(Evaluator.computeMeanRecallTopN(authors,rank)).append("\r\n")
+            .append("F1\t").append("").append("\t").append(Evaluator.computeMeanFMeasure(authors, 1)).append("\r\n")
+            .append("MAP\t").append(rank).append("\t").append(Evaluator.computeMAP(authors, 10)).append("\r\n")
+            .append("NDCG\t").append(rank).append("\t").append(Evaluator.computeMeanNDCG(authors,rank)).append("\r\n")
+            .append("MRR\t").append("").append("\t").append(Evaluator.computeMRR(authors)).append("\r\n");
         }
         else if (method == 1) {
-            evaluationResult.append("Precision\t").append("P@").append(rank).append(": ")
+            evaluationResult.append("Precision\t").append(rank).append("\t")
                     .append(Evaluator.computeMeanPrecisionTopN(authors, rank)).append("\r\n");
         } else if (method == 2) {
-            evaluationResult.append("Recall\t").append("R@").append(rank).append(": ")
+            evaluationResult.append("Recall\t").append(rank).append("\t")
                     .append(Evaluator.computeMeanRecallTopN(authors, rank)).append("\r\n");
         } else if (method == 3) {
-            StringBuilder evaluationResultF1 = new StringBuilder();
-            evaluationResultF1.append("F1\t").append("F1: ").append(Evaluator.computeMeanFMeasure(authors, 1)).append("\r\n");
+            evaluationResult.append("F1\t").append("").append("\t").append(Evaluator.computeMeanFMeasure(authors, 1)).append("\r\n");
         } else if (method == 4) {
-            evaluationResult.append("MAP\t").append("MAP@10: ").append(Evaluator.computeMAP(authors, 10)).append("\r\n");
+            evaluationResult.append("MAP\t").append(rank).append("\t").append(Evaluator.computeMAP(authors, 10)).append("\r\n");        
         } else if (method == 5) {
-            evaluationResult.append("NDCG\t").append("NDCG@").append(rank).append(": ").append(Evaluator.computeMeanNDCG(authors, rank)).append("\r\n");
+            evaluationResult.append("NDCG\t").append(rank).append("\t").append(Evaluator.computeMeanNDCG(authors,rank)).append("\r\n");  
         } else if (method == 6) {
-            evaluationResult.append("MRR\t").append(Evaluator.computeMRR(authors)).append("\r\n");
+            evaluationResult.append("MRR\t").append("").append("\t").append(Evaluator.computeMRR(authors)).append("\r\n");
         } 
         return evaluationResult;
     }
