@@ -43,7 +43,7 @@ public class PRSGui extends javax.swing.JFrame {
     private String[] response;
     private List previousEvaluation = new ArrayList<String>();// save result EVALUATE
     private List previousRecommdendation = new ArrayList<HashMap<String, Author>>();
-
+    private static int count =0;// kiem tra nguoi dung co chon du so file theo yeu cau cua chuong trinh k
     public PRSGui() {
         initComponents();
         controller = new CentralGuiHanderRequest();
@@ -53,6 +53,7 @@ public class PRSGui extends javax.swing.JFrame {
         jButtonFilePaper.setEnabled(false);
         jButtonFilePaperPaper.setEnabled(false);
         jButtonFileGroundTruth.setEnabled(false);
+        jButtonStartImportData.setEnabled(false);
         controller.combiningAuthor = 0;
         controller.combiningPaper = 0;
         controller.weightingAuthor = 0;
@@ -65,18 +66,19 @@ public class PRSGui extends javax.swing.JFrame {
         jTextAreaPaper.setEditable(false);
         jTextAreaPaperPaper.setEditable(false);
 
-        jTabbedPaneStep.setEnabledAt(0, false);
+//        jTabbedPaneStep.setEnabledAt(0, false);
         jTabbedPaneStep.setEnabledAt(1, false);
         jTabbedPaneStep.setEnabledAt(2, false);
         jTabbedPaneStep.setEnabledAt(3, false);
-        enableComponents((Container) jTabbedPaneStep.getComponentAt(0), false);
-
+       // enableComponents((Container) jTabbedPaneStep.getComponentAt(0), false);
+       
         redirectSystemStreams();
     }
 
     private void updateTextArea(final String text) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
+              
                 jTextAreaConsole.append(text);
             }
         });
@@ -99,9 +101,9 @@ public class PRSGui extends javax.swing.JFrame {
                 write(b, 0, b.length);
             }
         };
-
-        System.setOut(new PrintStream(out, true));
-        System.setErr(new PrintStream(out, true));
+      
+        System.setOut(new PrintStream(out,true));
+        System.setErr(new PrintStream(out,true));
     }
 
     /**
@@ -1709,6 +1711,7 @@ public class PRSGui extends javax.swing.JFrame {
         if (path != null) {
             controller.fileNameAuthorCitePaper = path;
             jTextAreaConsole.append(path + "\n");
+            count++;
         }
     }//GEN-LAST:event_jButtonFileAuthorCitePaperActionPerformed
 
@@ -1757,7 +1760,8 @@ public class PRSGui extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonMethodDataPreparationMouseClicked
 
     private void jButtonStartImportDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartImportDataActionPerformed
-        jTabbedPaneStep.setSelectedIndex(0);
+        //jTabbedPaneStep.setSelectedIndex(0);
+        jTextAreaConsole.setText(null);
         jTextAreaConsole.append("\nBegin import dataset....\n");
         long begin = System.currentTimeMillis();
         Thread thread = new Thread() {
@@ -1840,6 +1844,7 @@ public class PRSGui extends javax.swing.JFrame {
         if (path != null) {
             controller.fileNamePapers = path;
             jTextAreaConsole.append(path + "\n");
+            count ++;
         }
     }//GEN-LAST:event_jButtonFilePaperActionPerformed
 
@@ -1849,6 +1854,7 @@ public class PRSGui extends javax.swing.JFrame {
         if (path != null) {
             controller.fileNameAuthors = path;
             jTextAreaConsole.append(path + "\n");
+            count ++;
         }
 
     }//GEN-LAST:event_jButtonFileAuthorActionPerformed
@@ -1859,6 +1865,7 @@ public class PRSGui extends javax.swing.JFrame {
         if (path != null) {
             controller.fileNameAuthorPaper = path;
             jTextAreaConsole.append(path + "\n");
+            count++;
         }
 
     }//GEN-LAST:event_jButtonFileAuthorPaperActionPerformed
@@ -1869,6 +1876,7 @@ public class PRSGui extends javax.swing.JFrame {
         if (path != null) {
             controller.fileNamePaperCitePaper = path;
             jTextAreaConsole.append(path + "\n");
+            count ++;
         }
     }//GEN-LAST:event_jButtonFilePaperPaperActionPerformed
 
@@ -1878,7 +1886,9 @@ public class PRSGui extends javax.swing.JFrame {
         if (path != null) {
             controller.fileNameGroundTruth = path;
             jTextAreaConsole.append(path + "\n");
+            count ++;
         }
+         if (count== 6) jButtonStartImportData.setEnabled(true);
     }//GEN-LAST:event_jButtonFileGroundTruthActionPerformed
 
     private void jComboBoxCMUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCMUserActionPerformed
