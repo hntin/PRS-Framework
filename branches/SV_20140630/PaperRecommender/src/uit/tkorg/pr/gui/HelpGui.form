@@ -144,6 +144,9 @@
                                   <TreeModel code="Paper Recommemdation Framework&#xa; About Framework&#xa; How to use framework&#xa;  Import data&#xa;  Data preparation&#xa;  Recommendation&#xa;  Evaluation"/>
                                 </Property>
                               </Properties>
+                              <Events>
+                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTreeHelpMouseClicked"/>
+                              </Events>
                             </Component>
                           </SubComponents>
                         </Container>

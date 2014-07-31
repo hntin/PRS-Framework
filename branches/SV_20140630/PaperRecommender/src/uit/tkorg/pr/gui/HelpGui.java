@@ -25,7 +25,23 @@ public class HelpGui extends javax.swing.JFrame {
     public HelpGui() {
         initComponents();
         jEditorPane1.setEditable(false);
-        
+         File file = new File("Paper Recommendation Framework.htm");
+        java.net.URL helpURL = null;
+        try {
+            helpURL = file.toURI().toURL();
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(HelpGui.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    if (helpURL != null) {
+        try {
+            jEditorPane1.setPage(helpURL);
+            jEditorPane1.getDocument();
+        } catch (IOException e) {
+            System.err.println("Attempted to read a bad URL: " + helpURL);
+        }
+    } else {
+        System.err.println("Couldn't find file");
+    };
         
     }
     public void showHelp (String fileName){
@@ -80,6 +96,11 @@ public class HelpGui extends javax.swing.JFrame {
         treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
         jTreeHelp.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jTreeHelp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTreeHelpMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTreeHelp);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -245,25 +266,13 @@ public class HelpGui extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-         File file = new File("Guide Framework.htm");
-        java.net.URL helpURL = null;
-        try {
-            helpURL = file.toURI().toURL();
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(HelpGui.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    if (helpURL != null) {
-        try {
-            jEditorPane1.setPage(helpURL);
-            jEditorPane1.getDocument();
-        } catch (IOException e) {
-            System.err.println("Attempted to read a bad URL: " + helpURL);
-        }
-    } else {
-        System.err.println("Couldn't find file");
-    }
-    ;
+       
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTreeHelpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTreeHelpMouseClicked
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_jTreeHelpMouseClicked
 
     /**
      * @param args the command line arguments
