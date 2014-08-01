@@ -5,6 +5,7 @@
  */
 package uit.tkorg.pr.gui;
 
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -187,11 +188,9 @@ public class ExampleDatasetGui extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void importButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importButtonActionPerformed
-       // canle =2, no =1,yes/ok =0
-        JOptionPane.showMessageDialog(rootPane,"DO YOU WANT TO IMPORT DATA FROM EXAMPLE DATASET", null,JOptionPane.OK_CANCEL_OPTION);
-        if (JOptionPane.OK_CANCEL_OPTION==0){
-             check = true;
-        }else check = false;
+       int comfirm = JOptionPane.showConfirmDialog(rootPane,"Do you want to import example dataset ?", null,JOptionPane.YES_NO_OPTION);
+       if (comfirm== JOptionPane.YES_OPTION) check =true;
+       else check = false;
         this.dispose();
     }//GEN-LAST:event_importButtonActionPerformed
 
