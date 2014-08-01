@@ -73,7 +73,7 @@ public class PRSGui extends javax.swing.JFrame {
         jTabbedPaneStep.setEnabledAt(3, false);
        // enableComponents((Container) jTabbedPaneStep.getComponentAt(0), false);
        
-        redirectSystemStreams();
+         redirectSystemStreams();
     }
 
     private void updateTextArea(final String text) {
@@ -1739,13 +1739,11 @@ public class PRSGui extends javax.swing.JFrame {
             try {
                 controller.guiHanderResquest(Options.IMPORT_DATA);
             } catch (Exception ex) {
-               //System.out.println(ex.getMessage());
+                System.out.println(ex.getMessage());
                // If processing is fault processing show this message
                 JOptionPane.showMessageDialog(rootPane,ex.getMessage(), "Error",JOptionPane.ERROR_MESSAGE);
             }
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "No import data...", "Notice", JOptionPane.INFORMATION_MESSAGE);
-        }
+        } 
 
     }//GEN-LAST:event_jRadioButtonDatasetExampleActionPerformed
 
@@ -1775,10 +1773,15 @@ public class PRSGui extends javax.swing.JFrame {
         //jTabbedPaneStep.setSelectedIndex(0);
         jTextAreaConsole.setText(null);
         jTextAreaConsole.append("\nBegin import dataset....\n");
-        long begin = System.currentTimeMillis();
+       long begin = System.currentTimeMillis();
         Thread thread = new Thread() {
             public void run() {
+                try{
                 controller.guiHanderResquest(Options.IMPORT_DATA);
+                }catch (Exception ex){
+                     // Show this dialog imform to user about error
+            JOptionPane.showMessageDialog(rootPane,ex.getMessage(),"Error Import Data",JOptionPane.ERROR_MESSAGE);
+                }
             }
         };
         thread.start();
@@ -1786,11 +1789,9 @@ public class PRSGui extends javax.swing.JFrame {
             thread.join();
         } catch (InterruptedException ex) {
             Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
-            // Show this dialog imform to user about error
-            JOptionPane.showMessageDialog(rootPane,ex.getMessage(),"Error Import Data",JOptionPane.ERROR_MESSAGE);
         }
-        jTextAreaConsole.append("End import dataset....\n");
-        jTextAreaConsole.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + "s" + "\n");
+       jTextAreaConsole.append("End import dataset....\n");
+       jTextAreaConsole.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + "s" + "\n");
     }//GEN-LAST:event_jButtonStartImportDataActionPerformed
 
     private void jButtonErrorAnalysisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonErrorAnalysisActionPerformed
