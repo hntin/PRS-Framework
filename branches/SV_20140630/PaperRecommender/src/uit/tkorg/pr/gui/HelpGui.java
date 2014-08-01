@@ -6,13 +6,11 @@
 
 package uit.tkorg.pr.gui;
 import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
-
+import java.io.IOException;
 /**
  *
  * @author Zoe
@@ -22,10 +20,11 @@ public class HelpGui extends javax.swing.JFrame {
     /**
      * Creates new form HelpGUI
      */
+    
     public HelpGui() {
         initComponents();
         jEditorPane1.setEditable(false);
-         File file = new File("Paper Recommendation Framework.htm");
+        File file = new File("Paper Recommendation Framework.html");
         java.net.URL helpURL = null;
         try {
             helpURL = file.toURI().toURL();
@@ -219,6 +218,11 @@ public class HelpGui extends javax.swing.JFrame {
         jButton3.setFocusable(false);
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jButton3);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -273,6 +277,12 @@ public class HelpGui extends javax.swing.JFrame {
         // TODO add your handling code here:
        
     }//GEN-LAST:event_jTreeHelpMouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    
+ 
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

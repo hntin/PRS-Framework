@@ -1460,6 +1460,7 @@
                         <Component class="javax.swing.JButton" name="loadExistenMatrixtCFButton">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Load Existent Matrix Collaborative Filtering"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loadExistenMatrixtCFButtonActionPerformed"/>

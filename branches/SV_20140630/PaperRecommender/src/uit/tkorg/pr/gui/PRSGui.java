@@ -58,6 +58,7 @@ public class PRSGui extends javax.swing.JFrame {
         controller.combiningPaper = 0;
         controller.weightingAuthor = 0;
         controller.weightingPaper = 0;
+        controller.gama =0.3;
 
         jTextAreaAuthor.setEditable(false);
         jTextAreaAuthorCitePaper.setEditable(false);
@@ -966,6 +967,7 @@ public class PRSGui extends javax.swing.JFrame {
         });
 
         loadExistenMatrixtCFButton.setText("Load Existent Matrix Collaborative Filtering");
+        loadExistenMatrixtCFButton.setEnabled(false);
         loadExistenMatrixtCFButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loadExistenMatrixtCFButtonActionPerformed(evt);
@@ -1737,7 +1739,9 @@ public class PRSGui extends javax.swing.JFrame {
             try {
                 controller.guiHanderResquest(Options.IMPORT_DATA);
             } catch (Exception ex) {
-                System.out.println(ex.getMessage());
+               //System.out.println(ex.getMessage());
+               // If processing is fault processing show this message
+                JOptionPane.showMessageDialog(rootPane,ex.getMessage(), "Error",JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "No import data...", "Notice", JOptionPane.INFORMATION_MESSAGE);
@@ -1746,11 +1750,19 @@ public class PRSGui extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButtonDatasetExampleActionPerformed
 
     private void constructMatrixCFButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_constructMatrixCFButtonActionPerformed
-
+            // TODO add your handling code here:
+        controller.guiHanderResquest(Options.CONSTRUCT_MATRIX_CF);
+        
     }//GEN-LAST:event_constructMatrixCFButtonActionPerformed
 
     private void loadExistenMatrixtCFButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadExistenMatrixtCFButtonActionPerformed
         // TODO add your handling code here:
+         String path = GuiUtilities.chooseFileJChooser("Choose File");
+        if (path != null) {
+            controller.fileNameMatrixExistent = path;
+            jTextAreaConsole.append(path + "\n");
+                   }
+        controller.guiHanderResquest(Options.LOAD_EXISTENT_MODEL);
     }//GEN-LAST:event_loadExistenMatrixtCFButtonActionPerformed
 
     private void jButtonMethodDataPreparationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonMethodDataPreparationMouseClicked
@@ -1774,6 +1786,8 @@ public class PRSGui extends javax.swing.JFrame {
             thread.join();
         } catch (InterruptedException ex) {
             Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+            // Show this dialog imform to user about error
+            JOptionPane.showMessageDialog(rootPane,ex.getMessage(),"Error Import Data",JOptionPane.ERROR_MESSAGE);
         }
         jTextAreaConsole.append("End import dataset....\n");
         jTextAreaConsole.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + "s" + "\n");

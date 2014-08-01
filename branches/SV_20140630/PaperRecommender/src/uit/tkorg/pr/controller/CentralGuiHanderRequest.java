@@ -10,6 +10,8 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.HashSet;
 import org.apache.commons.io.FileUtils;
+import org.apache.mahout.cf.taste.impl.model.file.FileDataModel;
+import org.apache.mahout.cf.taste.model.DataModel;
 import uit.tkorg.pr.constant.Options;
 import uit.tkorg.pr.dataimex.MASDataset1;
 import uit.tkorg.pr.dataimex.MahoutFile;
@@ -55,6 +57,7 @@ public class CentralGuiHanderRequest {
     public String MahoutCFDir = "Temp\\MahoutDir";
     public String fileNameEvaluationResult="Temp\\ResultEvaluation.txt";// ten file ket qua danh gia
     public String fileNameRecommenList="Temp\\RecommendationList.txt";// ten file danh sach RECOMMEND
+    public String fileNameMatrixExistent;
     public HashMap<String, Paper> papers = new HashMap<>();
     public HashMap<String, Author> authors = new HashMap<>();
     public HashMap<String, Paper> papersOfAuthors = new HashMap<>();
@@ -105,7 +108,7 @@ public class CentralGuiHanderRequest {
                     break;
                 case CONSTRUCT_AUTHOR_PROFILE: // xay dung profile nguoi dung
                     HashSet<String> paperIdsOfAuthorTestSet = CBFAuthorFVComputation.getPaperIdsOfAuthors(authors);
-                    //  CBFPaperFVComputation.computeFeatureVectorForAllPapers(papers, paperIdsOfAuthorTestSet, combiningPaper, weightingPaper,pruning);
+                    //CBFPaperFVComputation.computeFeatureVectorForAllPapers(papers, paperIdsOfAuthorTestSet, combiningPaper, weightingPaper,pruning);
                     CBFPaperFVComputation.computeFeatureVectorForAllPapers(papers, paperIdsOfAuthorTestSet, combiningPaper, weightingPaper, 0.0);
                     CBFAuthorFVComputation.computeFVForAllAuthors(authors, papers, weightingAuthor, gama);
                     break;
@@ -119,8 +122,9 @@ public class CentralGuiHanderRequest {
                     CFController.cfPrepareMatrix(fileNameAuthorCitePaper, MahoutCFDir);
                     break;
                 case LOAD_EXISTENT_MODEL:// load mot matrix da co san
-                    MahoutFile.readMahoutCFRating(MahoutCFDir, authors);
-                    response[0] = "Scucess";
+                    File userPreferencesFile = new File(fileNameMatrixExistent);
+                    DataModel dataModel = new FileDataModel(userPreferencesFile);
+                   
                     break;
                 case LOAD_MODEL:
                     response[0] = "Scucess";
@@ -181,7 +185,7 @@ public class CentralGuiHanderRequest {
             }
         }
     }
-
+   
     public StringBuilder Evaluation(HashMap<String, Author> authors, int method, int rank) throws Exception {
         StringBuilder evaluationResult = new StringBuilder();
         evaluationResult.append("\r\nMeasure\t").append("TopRank\t").append("Result").append("\r\n");
