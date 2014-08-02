@@ -208,6 +208,8 @@ public class PRSGui extends javax.swing.JFrame {
         jTextFieldTopNRecommend = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jComboBoxMethodRecommend = new javax.swing.JComboBox();
+        jLabelKnn = new javax.swing.JLabel();
+        kNeighbor = new javax.swing.JTextField();
         jPanel18 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jListRecAlgorithm = new javax.swing.JList();
@@ -1053,6 +1055,11 @@ public class PRSGui extends javax.swing.JFrame {
             }
         });
 
+        jLabelKnn.setText("K _ Neighborhood");
+        jLabelKnn.setEnabled(false);
+
+        kNeighbor.setEnabled(false);
+
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
         jPanel16Layout.setHorizontalGroup(
@@ -1060,11 +1067,15 @@ public class PRSGui extends javax.swing.JFrame {
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addComponent(jComboBoxMethodRecommend, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldShowMethodRec)
+                .addComponent(jTextFieldShowMethodRec, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabelKnn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(kNeighbor)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextFieldTopNRecommend, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jTextFieldTopNRecommend, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1074,7 +1085,9 @@ public class PRSGui extends javax.swing.JFrame {
                     .addComponent(jTextFieldShowMethodRec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxMethodRecommend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldTopNRecommend)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelKnn)
+                    .addComponent(kNeighbor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10))
         );
 
@@ -1401,6 +1414,11 @@ public class PRSGui extends javax.swing.JFrame {
         jButtonMethodRecommendation.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonMethodRecommendationMouseClicked(evt);
+            }
+        });
+        jButtonMethodRecommendation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonMethodRecommendationActionPerformed(evt);
             }
         });
 
@@ -1955,18 +1973,23 @@ public class PRSGui extends javax.swing.JFrame {
         if (jComboBoxMethodRecommend.getSelectedIndex() == 0) {
             controller.recommendationMethod = 1;
             jTextFieldShowMethodRec.setText(jComboBoxMethodRecommend.getSelectedItem().toString());
-        } else if (jComboBoxMethodRecommend.getSelectedIndex() == 1) {
+        } else {
+            jLabelKnn.setEnabled(true);
+            kNeighbor.setEditable(true);
+            controller.kNeighbor = Integer.parseInt(kNeighbor.getText());
+            if (jComboBoxMethodRecommend.getSelectedIndex() == 1) {
             controller.recommendationMethod = 2;
             controller.cfMethod = 1;
-            jTextFieldShowMethodRec.setText(jComboBoxMethodRecommend.getSelectedItem().toString());
-        } else if (jComboBoxMethodRecommend.getSelectedIndex() == 2) {
-            controller.recommendationMethod = 2;
-            controller.cfMethod = 2;
-            jTextFieldShowMethodRec.setText(jComboBoxMethodRecommend.getSelectedItem().toString());
-        } else if (jComboBoxMethodRecommend.getSelectedIndex() == 3) {
-            controller.recommendationMethod = 2;
-            controller.cfMethod = 3;
-            jTextFieldShowMethodRec.setText(jComboBoxMethodRecommend.getSelectedItem().toString());
+           jTextFieldShowMethodRec.setText(jComboBoxMethodRecommend.getSelectedItem().toString());
+            } else if (jComboBoxMethodRecommend.getSelectedIndex() == 2) {
+                controller.recommendationMethod = 2;
+                controller.cfMethod = 2;
+                jTextFieldShowMethodRec.setText(jComboBoxMethodRecommend.getSelectedItem().toString());
+            } else if (jComboBoxMethodRecommend.getSelectedIndex() == 3) {
+                controller.recommendationMethod = 2;
+                controller.cfMethod = 3;
+                jTextFieldShowMethodRec.setText(jComboBoxMethodRecommend.getSelectedItem().toString());
+            }
         }
     }//GEN-LAST:event_jComboBoxMethodRecommendActionPerformed
 
@@ -2428,6 +2451,10 @@ public class PRSGui extends javax.swing.JFrame {
             System.out.println(ex.getMessage());
         }
     }//GEN-LAST:event_jButtonSaveEvaluationActionPerformed
+
+    private void jButtonMethodRecommendationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMethodRecommendationActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonMethodRecommendationActionPerformed
 //<editor-fold defaultstate="collapsed" desc="GuiUtilities">
 
     public void enableComponents(Container container, boolean enable) {
@@ -2530,6 +2557,7 @@ public class PRSGui extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabelKnn;
     private javax.swing.JList jListEvaluation;
     private javax.swing.JList jListRecAlgorithm;
     private javax.swing.JMenuItem jMenuItemAllEvalutions;
@@ -2620,6 +2648,7 @@ public class PRSGui extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldShowMethodRec;
     private javax.swing.JTextField jTextFieldTopNRecommend;
     private javax.swing.JTextField jTextFieldtopRank;
+    private javax.swing.JTextField kNeighbor;
     private javax.swing.JButton loadExistenMatrixtCFButton;
     private javax.swing.JMenuItem loadExistentModelMenuItem;
     private javax.swing.JMenuBar menuMenuBar;

@@ -32,7 +32,7 @@ public class CFController {
             String fileNameAuthorCitePaper, 
             String MahoutCFDir, 
             int cfMethod,
-            HashMap<String, Author> authorTestSet, HashSet<String> paperIdsInTestSet) throws Exception {
+            HashMap<String, Author> authorTestSet, HashSet<String> paperIdsInTestSet, int k) throws Exception {
         String algorithmName = null;
         
         // Step 1: Prepare CF matrix.
@@ -42,7 +42,7 @@ public class CFController {
         // Step 2: Predict ratings.
         if ((cfMethod == 1) || (cfMethod == 2)) {
             // KNN. k neighbors.
-            int k = 8;
+          
             if (cfMethod == 1) {
                 // kNNCF co-pearson.
                 algorithmName = "CF KNN Pearson " + "k" + k;

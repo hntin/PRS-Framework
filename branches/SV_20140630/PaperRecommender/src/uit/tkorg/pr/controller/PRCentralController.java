@@ -225,7 +225,7 @@ public class PRCentralController {
         int weightingSchemePaperTestSet = 0;
         int similarityScheme = 0;
         double pruning = 0.0;
-
+        int k=8;
         // parameters for cf method: 1: KNN Pearson, 2: KNN Cosine, 3: SVD
         int cfMethod = 1;
         
@@ -261,7 +261,7 @@ public class PRCentralController {
             startTime = System.nanoTime();
 
             algorithmName = CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod,
-                    authorTestSet, paperIdsInTestSet);
+                    authorTestSet, paperIdsInTestSet,k);
             CF.cfRecommendToAuthorList(authorTestSet, topNRecommend);
 
             estimatedTime = System.nanoTime() - startTime;
@@ -277,7 +277,7 @@ public class PRCentralController {
                     combiningSchemePaperTestSet, weightingSchemePaperTestSet, similarityScheme,
                     pruning);
             CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir,
-                    cfMethod, authorTestSet, paperIdsInTestSet);
+                    cfMethod, authorTestSet, paperIdsInTestSet,k);
             combinationScheme = 1;
             alpha = (float) 0.9;
             CBFCF.computeCBFCFCombinationAndPutIntoModelForAuthorList(authorTestSet, alpha, combinationScheme);
@@ -336,7 +336,7 @@ public class PRCentralController {
             // Compute CF value
             CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, 
                     cfMethod,
-                    authorTestSet, paperIdsInTestSet);
+                    authorTestSet, paperIdsInTestSet,k);
             // Compute Trust paper value.
             TrustDataModelPreparation.computeCoAuthorRSSHM(authorTestSet, 
                     fileNameAuthorship, fileNamePapers);

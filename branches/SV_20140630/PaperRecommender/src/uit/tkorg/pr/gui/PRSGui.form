@@ -1533,11 +1533,15 @@
                       <Group type="102" attributes="0">
                           <Component id="jComboBoxMethodRecommend" min="-2" pref="228" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jTextFieldShowMethodRec" max="32767" attributes="0"/>
+                          <Component id="jTextFieldShowMethodRec" min="-2" pref="290" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jLabelKnn" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="kNeighbor" max="32767" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jTextFieldTopNRecommend" min="-2" pref="207" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="jTextFieldTopNRecommend" min="-2" pref="153" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1550,6 +1554,8 @@
                               <Component id="jComboBoxMethodRecommend" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jTextFieldTopNRecommend" alignment="3" max="32767" attributes="0"/>
                               <Component id="jLabel3" alignment="3" max="32767" attributes="0"/>
+                              <Component id="jLabelKnn" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="kNeighbor" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       </Group>
@@ -1587,6 +1593,17 @@
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxMethodRecommendActionPerformed"/>
                   </Events>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabelKnn">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="K _ Neighborhood"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="kNeighbor">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
               </SubComponents>
             </Container>
@@ -2181,6 +2198,7 @@
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonMethodRecommendationMouseClicked"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonMethodRecommendationActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

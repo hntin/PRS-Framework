@@ -104,7 +104,7 @@ public class MLDataPreparation {
 
         // parameters for trust based method
         int howToTrust;
-
+        int k=8;
         //<editor-fold defaultstate="collapsed" desc="ML HYBRID">
         // Compute CBF value.
         CBFController.cbfComputeRecommendingScore(authorTestSet, papers,
@@ -116,7 +116,7 @@ public class MLDataPreparation {
         // Compute CF value
         CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir,
                 cfMethod,
-                authorTestSet, paperIdsInTestSet);
+                authorTestSet, paperIdsInTestSet,k);
         // Compute Trust paper value.
         TrustDataModelPreparation.computeCoAuthorRSSHM(authorTestSet,
                 fileNameAuthorship, fileNamePapers);

@@ -175,13 +175,13 @@ public class CentralGuiHanderRequest {
             paperIds = CBFAuthorFVComputation.getPaperIdsTestSet(authors);
             if (cfMethod == 1) {
                 //CF method with KNN Pearson
-                CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod, authors, paperIds);
+                CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod, authors, paperIds,kNeighbor);
             } else if (cfMethod == 2) {
                 //CF method with KNN Cosine
-                CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod, authors, paperIds);
+                CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod, authors, paperIds,kNeighbor);
             } else if (cfMethod == 3) {
                 //CF method with SVD
-                CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod, authors, paperIds);
+                CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod, authors, paperIds,kNeighbor);
             }
         }
     }
@@ -216,7 +216,5 @@ public class CentralGuiHanderRequest {
         return evaluationResult;
     }
 
-    public static void main(String[] args) {
-
-    }
+    
 }
