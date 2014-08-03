@@ -1644,6 +1644,7 @@
                       </Properties>
                       <Events>
                         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jListRecAlgorithmMouseClicked"/>
+                        <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="jListRecAlgorithmValueChanged"/>
                       </Events>
                     </Component>
                   </SubComponents>
@@ -1704,6 +1705,7 @@
                             <Column editable="true" title="Recommendation List" type="java.lang.Object"/>
                           </Table>
                         </Property>
+                        <Property name="autoResizeMode" type="int" value="3"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -1879,6 +1881,7 @@
                       </Properties>
                       <Events>
                         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jListEvaluationMouseClicked"/>
+                        <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="jListEvaluationValueChanged"/>
                       </Events>
                     </Component>
                   </SubComponents>
@@ -2198,7 +2201,6 @@
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonMethodRecommendationMouseClicked"/>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonMethodRecommendationActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

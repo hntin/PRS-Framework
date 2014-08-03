@@ -68,6 +68,7 @@ public class ExampleDatasetGui extends javax.swing.JDialog {
                 "IdAuthor", "Name Author"
             }
         ));
+        FileAuthorTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
         jScrollPane1.setViewportView(FileAuthorTable);
 
         FileGroundTruthTabbedPane.addTab("File Authors", jScrollPane1);
@@ -83,6 +84,7 @@ public class ExampleDatasetGui extends javax.swing.JDialog {
                 "IdAuthor", "IdPaper"
             }
         ));
+        FileAuthorPaperTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
         jScrollPane3.setViewportView(FileAuthorPaperTable);
 
         FileGroundTruthTabbedPane.addTab("File Author_Paper", jScrollPane3);
@@ -98,6 +100,7 @@ public class ExampleDatasetGui extends javax.swing.JDialog {
                 "IdAuthor", "IdPaper", "Cited Year"
             }
         ));
+        FileAuthorCitePaperTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
         jScrollPane4.setViewportView(FileAuthorCitePaperTable);
 
         FileGroundTruthTabbedPane.addTab("File Author_Cited_Paper", jScrollPane4);
@@ -113,6 +116,7 @@ public class ExampleDatasetGui extends javax.swing.JDialog {
                 "IdPaper", "Title Paper", "Content Paper", "Year Paper"
             }
         ));
+        FilePaperTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
         jScrollPane2.setViewportView(FilePaperTable);
 
         FileGroundTruthTabbedPane.addTab("File Papers", jScrollPane2);
@@ -128,6 +132,7 @@ public class ExampleDatasetGui extends javax.swing.JDialog {
                 "IdPaper", "Cited IdPaper"
             }
         ));
+        FilePaperCitePaperTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
         jScrollPane5.setViewportView(FilePaperCitePaperTable);
 
         FileGroundTruthTabbedPane.addTab("File Paper_Cited_Paper", jScrollPane5);
@@ -143,6 +148,7 @@ public class ExampleDatasetGui extends javax.swing.JDialog {
                 "IdAuthor", "IdPaper"
             }
         ));
+        FileGroundTruthTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
         jScrollPane6.setViewportView(FileGroundTruthTable);
 
         FileGroundTruthTabbedPane.addTab("File GroundTruth", jScrollPane6);

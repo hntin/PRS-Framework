@@ -276,7 +276,6 @@ public class GuiUtilities {
             jTable.setModel(tablemodel);
             while ((line = reader.readLine()) != null) {
                 Vector vector = new Vector();
-                System.out.println(line);
                 String[] str = line.split("\\|\\|\\|");
                 for (int i = 0; i < str.length; i++) {
                     vector.addElement(str[i]);

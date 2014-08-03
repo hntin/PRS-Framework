@@ -5,9 +5,11 @@
  */
 package uit.tkorg.pr.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.event.ActionEvent;
+import java.awt.Font;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -21,8 +23,14 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import uit.tkorg.pr.constant.Options;
@@ -43,7 +51,8 @@ public class PRSGui extends javax.swing.JFrame {
     private String[] response;
     private List previousEvaluation = new ArrayList<String>();// save result EVALUATE
     private List previousRecommdendation = new ArrayList<HashMap<String, Author>>();
-    private static int count =0;// kiem tra nguoi dung co chon du so file theo yeu cau cua chuong trinh k
+    private static int count = 0;// kiem tra nguoi dung co chon du so file theo yeu cau cua chuong trinh k
+
     public PRSGui() {
         initComponents();
         controller = new CentralGuiHanderRequest();
@@ -58,7 +67,7 @@ public class PRSGui extends javax.swing.JFrame {
         controller.combiningPaper = 0;
         controller.weightingAuthor = 0;
         controller.weightingPaper = 0;
-        controller.gama =0.3;
+        controller.gama = 0.3;
 
         jTextAreaAuthor.setEditable(false);
         jTextAreaAuthorCitePaper.setEditable(false);
@@ -71,15 +80,15 @@ public class PRSGui extends javax.swing.JFrame {
         jTabbedPaneStep.setEnabledAt(1, false);
         jTabbedPaneStep.setEnabledAt(2, false);
         jTabbedPaneStep.setEnabledAt(3, false);
-       // enableComponents((Container) jTabbedPaneStep.getComponentAt(0), false);
-       
-         redirectSystemStreams();
+        // enableComponents((Container) jTabbedPaneStep.getComponentAt(0), false);
+
+        redirectSystemStreams();
     }
 
     private void updateTextArea(final String text) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-              
+
                 jTextAreaConsole.append(text);
             }
         });
@@ -102,9 +111,9 @@ public class PRSGui extends javax.swing.JFrame {
                 write(b, 0, b.length);
             }
         };
-      
-        System.setOut(new PrintStream(out,true));
-        System.setErr(new PrintStream(out,true));
+
+        System.setOut(new PrintStream(out, true));
+        System.setErr(new PrintStream(out, true));
     }
 
     /**
@@ -1098,6 +1107,11 @@ public class PRSGui extends javax.swing.JFrame {
                 jListRecAlgorithmMouseClicked(evt);
             }
         });
+        jListRecAlgorithm.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jListRecAlgorithmValueChanged(evt);
+            }
+        });
         jScrollPane3.setViewportView(jListRecAlgorithm);
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
@@ -1121,6 +1135,7 @@ public class PRSGui extends javax.swing.JFrame {
                 "No.", "Id author", "Recommendation List"
             }
         ));
+        jTableRecommendationList.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
         jScrollPane16.setViewportView(jTableRecommendationList);
 
         jLabel4.setText("Id Author");
@@ -1235,6 +1250,11 @@ public class PRSGui extends javax.swing.JFrame {
         jListEvaluation.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jListEvaluationMouseClicked(evt);
+            }
+        });
+        jListEvaluation.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jListEvaluationValueChanged(evt);
             }
         });
         jScrollPane2.setViewportView(jListEvaluation);
@@ -1414,11 +1434,6 @@ public class PRSGui extends javax.swing.JFrame {
         jButtonMethodRecommendation.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonMethodRecommendationMouseClicked(evt);
-            }
-        });
-        jButtonMethodRecommendation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonMethodRecommendationActionPerformed(evt);
             }
         });
 
@@ -1758,26 +1773,26 @@ public class PRSGui extends javax.swing.JFrame {
                 controller.guiHanderResquest(Options.IMPORT_DATA);
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
-               // If processing is fault processing show this message
-                JOptionPane.showMessageDialog(rootPane,ex.getMessage(), "Error",JOptionPane.ERROR_MESSAGE);
+                // If processing is fault processing show this message
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
-        } 
+        }
 
     }//GEN-LAST:event_jRadioButtonDatasetExampleActionPerformed
 
     private void constructMatrixCFButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_constructMatrixCFButtonActionPerformed
-            // TODO add your handling code here:
+        // TODO add your handling code here:
         controller.guiHanderResquest(Options.CONSTRUCT_MATRIX_CF);
-        
+
     }//GEN-LAST:event_constructMatrixCFButtonActionPerformed
 
     private void loadExistenMatrixtCFButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadExistenMatrixtCFButtonActionPerformed
         // TODO add your handling code here:
-         String path = GuiUtilities.chooseFileJChooser("Choose File");
+        String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
             controller.fileNameMatrixExistent = path;
             jTextAreaConsole.append(path + "\n");
-                   }
+        }
         controller.guiHanderResquest(Options.LOAD_EXISTENT_MODEL);
     }//GEN-LAST:event_loadExistenMatrixtCFButtonActionPerformed
 
@@ -1791,14 +1806,14 @@ public class PRSGui extends javax.swing.JFrame {
         //jTabbedPaneStep.setSelectedIndex(0);
         jTextAreaConsole.setText(null);
         jTextAreaConsole.append("\nBegin import dataset....\n");
-       long begin = System.currentTimeMillis();
+        long begin = System.currentTimeMillis();
         Thread thread = new Thread() {
             public void run() {
-                try{
-                controller.guiHanderResquest(Options.IMPORT_DATA);
-                }catch (Exception ex){
-                     // Show this dialog imform to user about error
-            JOptionPane.showMessageDialog(rootPane,ex.getMessage(),"Error Import Data",JOptionPane.ERROR_MESSAGE);
+                try {
+                    controller.guiHanderResquest(Options.IMPORT_DATA);
+                } catch (Exception ex) {
+                    // Show this dialog imform to user about error
+                    JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Error Import Data", JOptionPane.ERROR_MESSAGE);
                 }
             }
         };
@@ -1808,8 +1823,8 @@ public class PRSGui extends javax.swing.JFrame {
         } catch (InterruptedException ex) {
             Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
         }
-       jTextAreaConsole.append("End import dataset....\n");
-       jTextAreaConsole.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + "s" + "\n");
+        jTextAreaConsole.append("End import dataset....\n");
+        jTextAreaConsole.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + "s" + "\n");
     }//GEN-LAST:event_jButtonStartImportDataActionPerformed
 
     private void jButtonErrorAnalysisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonErrorAnalysisActionPerformed
@@ -1877,7 +1892,7 @@ public class PRSGui extends javax.swing.JFrame {
         if (path != null) {
             controller.fileNamePapers = path;
             jTextAreaConsole.append(path + "\n");
-            count ++;
+            count++;
         }
     }//GEN-LAST:event_jButtonFilePaperActionPerformed
 
@@ -1887,7 +1902,7 @@ public class PRSGui extends javax.swing.JFrame {
         if (path != null) {
             controller.fileNameAuthors = path;
             jTextAreaConsole.append(path + "\n");
-            count ++;
+            count++;
         }
 
     }//GEN-LAST:event_jButtonFileAuthorActionPerformed
@@ -1909,7 +1924,7 @@ public class PRSGui extends javax.swing.JFrame {
         if (path != null) {
             controller.fileNamePaperCitePaper = path;
             jTextAreaConsole.append(path + "\n");
-            count ++;
+            count++;
         }
     }//GEN-LAST:event_jButtonFilePaperPaperActionPerformed
 
@@ -1919,9 +1934,11 @@ public class PRSGui extends javax.swing.JFrame {
         if (path != null) {
             controller.fileNameGroundTruth = path;
             jTextAreaConsole.append(path + "\n");
-            count ++;
+            count++;
         }
-         if (count== 6) jButtonStartImportData.setEnabled(true);
+        if (count == 6) {
+            jButtonStartImportData.setEnabled(true);
+        }
     }//GEN-LAST:event_jButtonFileGroundTruthActionPerformed
 
     private void jComboBoxCMUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCMUserActionPerformed
@@ -1978,9 +1995,9 @@ public class PRSGui extends javax.swing.JFrame {
             kNeighbor.setEditable(true);
             controller.kNeighbor = Integer.parseInt(kNeighbor.getText());
             if (jComboBoxMethodRecommend.getSelectedIndex() == 1) {
-            controller.recommendationMethod = 2;
-            controller.cfMethod = 1;
-           jTextFieldShowMethodRec.setText(jComboBoxMethodRecommend.getSelectedItem().toString());
+                controller.recommendationMethod = 2;
+                controller.cfMethod = 1;
+                jTextFieldShowMethodRec.setText(jComboBoxMethodRecommend.getSelectedItem().toString());
             } else if (jComboBoxMethodRecommend.getSelectedIndex() == 2) {
                 controller.recommendationMethod = 2;
                 controller.cfMethod = 2;
@@ -2050,6 +2067,7 @@ public class PRSGui extends javax.swing.JFrame {
             jTextAreaConsole.append("End evaluate....\n");
             jTextAreaConsole.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + "s" + "\n");
 
+            jListEvaluation.setSelectedIndex(jListEvaluation.getModel().getSize() - 1);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Please choose topRank to evaluate...", "Warning", JOptionPane.WARNING_MESSAGE);
             jTextFieldtopRank.requestFocus();
@@ -2062,7 +2080,7 @@ public class PRSGui extends javax.swing.JFrame {
             visualizeGui.show();
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(rootPane, "Warning", "Occured error...Please try again!", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, "Occured error...Please try again!", "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_visualizeMenuItemActionPerformed
 
@@ -2073,7 +2091,7 @@ public class PRSGui extends javax.swing.JFrame {
             visualizeGui.show();
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(rootPane, "Warning", "Occured error...Please try again!", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, "Occured error...Please try again!", "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButtonDrawChartActionPerformed
 
@@ -2112,6 +2130,8 @@ public class PRSGui extends javax.swing.JFrame {
             jListRecAlgorithm.setModel(model);
             jTextAreaConsole.append("End recommend....\n");
             jTextAreaConsole.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + "s" + "\n");
+
+            jListRecAlgorithm.setSelectedIndex(jListRecAlgorithm.getModel().getSize() - 1);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Please choose topNRecommend...", "Warning", JOptionPane.WARNING_MESSAGE);
             jTextFieldTopNRecommend.requestFocus();
@@ -2169,10 +2189,7 @@ public class PRSGui extends javax.swing.JFrame {
     private void jListEvaluationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListEvaluationMouseClicked
         try {
             jTextAreaReviewEvaluation.setText("");
-            System.out.println(previousEvaluation.get(0).toString());
             jTextAreaReviewEvaluation.setText(previousEvaluation.get(jListEvaluation.getSelectedIndex()).toString());
-            System.out.println();
-
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
@@ -2218,21 +2235,43 @@ public class PRSGui extends javax.swing.JFrame {
                 controller.fileNamePapers = "ExampleDataset\\Paper.csv";
                 controller.fileNamePaperCitePaper = "ExampleDataset\\PaperCitePaper.csv";
                 controller.fileNameGroundTruth = "ExampleDataset\\GroundTruth.csv";
-                
+
+                final JDialog loading = new JDialog(this);
+                JPanel panel = new JPanel(new BorderLayout());
+                panel.setSize(100, 100);
+                Icon icon = new ImageIcon("src\\uit\\tkorg\\pr\\gui\\Icon\\wait.png");
+                JLabel label = new JLabel("Please wait...", icon, 10);
+                label.setFont(new Font("Times New Roman", Font.ITALIC, 32));
+                panel.add(label, BorderLayout.CENTER);
+
+                loading.setUndecorated(true);
+                loading.getContentPane().add(panel);
+                loading.pack();
+                loading.setLocationRelativeTo(this);
+                loading.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+                loading.setModal(true);
+
+                SwingWorker swingWorker;
+                swingWorker = new SwingWorker() {
+
+                    @Override
+                    protected Object doInBackground() throws Exception {
+                        controller.guiHanderResquest(Options.IMPORT_DATA);
+                        return null;
+                    }
+
+                    @Override
+                    protected void done() {
+                        loading.dispose();
+                        JOptionPane.showMessageDialog(rootPane, "Import is completed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                    }
+
+                };
+
                 jTextAreaConsole.append("\nBegin import dataset....\n");
                 long begin = System.currentTimeMillis();
-
-                Thread thread = new Thread() {
-                    public void run() {
-                        controller.guiHanderResquest(Options.IMPORT_DATA);
-                    }
-                };
-                thread.start();
-                try {
-                    thread.join();
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                swingWorker.execute();
+                loading.setVisible(true);
                 jTextAreaConsole.append("End import dataset....\n");
                 jTextAreaConsole.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + "s" + "\n");
             } else {
@@ -2281,24 +2320,21 @@ public class PRSGui extends javax.swing.JFrame {
             int IdAuthor = Integer.parseInt(jTextFieldIdAuthor.getText());
             try {
                 HashMap<String, Author> hm = (HashMap<String, Author>) previousRecommdendation.get(jListRecAlgorithm.getSelectedIndex());
-                DefaultTableModel tablemodel = (DefaultTableModel) jTableRecommendationList.getModel();
-                tablemodel.getDataVector().removeAllElements();
-                jTableRecommendationList.setModel(tablemodel);
-                int i = 0;
+                int i = -1;
+                int index = -1;
                 for (String AuthorId : hm.keySet()) {
+                    i++;
                     if (IdAuthor == Integer.parseInt(AuthorId)) {
-                        i++;
-                        Vector vector = new Vector();
-                        vector.addElement(i);
-                        vector.addElement(hm.get(AuthorId).getAuthorId());
-                        vector.addElement(hm.get(AuthorId).getRecommendationList());
-                        tablemodel.addRow(vector);
+                        index = i;
                     }
                 }
-                jTableRecommendationList.setModel(tablemodel);
-                if (i == 0) {
+                if (index == -1) {
                     JOptionPane.showMessageDialog(rootPane, "No Id Author which you found...", "Notice", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    jTableRecommendationList.getSelectionModel().setSelectionInterval(index, index);
+                    jTableRecommendationList.scrollRectToVisible(new Rectangle(jTableRecommendationList.getCellRect(index, 0, true)));
                 }
+
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }
@@ -2452,9 +2488,36 @@ public class PRSGui extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonSaveEvaluationActionPerformed
 
-    private void jButtonMethodRecommendationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMethodRecommendationActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonMethodRecommendationActionPerformed
+    private void jListRecAlgorithmValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListRecAlgorithmValueChanged
+        try {
+            HashMap<String, Author> hm = (HashMap<String, Author>) previousRecommdendation.get(jListRecAlgorithm.getSelectedIndex());
+            DefaultTableModel tablemodel = (DefaultTableModel) jTableRecommendationList.getModel();
+            tablemodel.getDataVector().removeAllElements();
+            jTableRecommendationList.setModel(tablemodel);
+            int i = 0;
+            for (String AuthorId : hm.keySet()) {
+                i++;
+                Vector vector = new Vector();
+                vector.addElement(i);
+                vector.addElement(hm.get(AuthorId).getAuthorId());
+                vector.addElement(hm.get(AuthorId).getRecommendationList());
+                tablemodel.addRow(vector);
+            }
+            jTableRecommendationList.setModel(tablemodel);
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }//GEN-LAST:event_jListRecAlgorithmValueChanged
+
+    private void jListEvaluationValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListEvaluationValueChanged
+        try {
+            jTextAreaReviewEvaluation.setText("");
+            jTextAreaReviewEvaluation.setText(previousEvaluation.get(jListEvaluation.getSelectedIndex()).toString());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }//GEN-LAST:event_jListEvaluationValueChanged
 //<editor-fold defaultstate="collapsed" desc="GuiUtilities">
 
     public void enableComponents(Container container, boolean enable) {
