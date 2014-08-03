@@ -5,9 +5,13 @@
  */
 
 package uit.tkorg.pr.gui;
+import com.lowagie.text.DocumentException;
 import java.awt.Color;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,6 +19,9 @@ import javax.swing.UIManager;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.Highlighter;
+import org.docx4j.org.xhtmlrenderer.pdf.ITextRenderer;
+
+
 /**
  *
  * @author Zoe
@@ -28,7 +35,7 @@ public class HelpGui extends javax.swing.JFrame {
     public HelpGui() {
         initComponents();
         jEditorPane1.setEditable(false);
-        File file = new File("Paper Recommendation Framework.htm");
+        File file = new File("Paper Recommendation Framework.html");
         java.net.URL helpURL = null;
         try {
             helpURL = file.toURI().toURL();
@@ -298,6 +305,20 @@ public class HelpGui extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        try{
+        String File_To_Convert = "Paper Recommendation Framework.html";
+        String url = new File(File_To_Convert).toURI().toURL().toString();
+        System.out.println(""+url);
+        String HTML_TO_PDF = "ConvertedFile.pdf";
+        OutputStream os = new FileOutputStream(HTML_TO_PDF);       
+        ITextRenderer renderer = new ITextRenderer();
+        renderer.setDocument(url);      
+        renderer.layout();
+        renderer.createPDF(os);        
+        os.close();
+        }catch (Exception e){
+             System.out.println(e.getMessage());
+        }
     
  
     }//GEN-LAST:event_jButton3ActionPerformed
