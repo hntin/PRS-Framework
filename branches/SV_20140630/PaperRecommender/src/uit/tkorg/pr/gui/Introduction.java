@@ -5,6 +5,7 @@
  */
 package uit.tkorg.pr.gui;
 
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 /**
@@ -92,6 +93,11 @@ public class Introduction extends javax.swing.JFrame {
 
         jMenuItem8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem8.setText("Explore");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem8);
 
         jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
@@ -107,6 +113,11 @@ public class Introduction extends javax.swing.JFrame {
 
         jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem5.setText("How to use program?");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem5);
 
         jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
@@ -127,7 +138,27 @@ public class Introduction extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         PRSGui pRSGui = new PRSGui();
         pRSGui.show();
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+         try {
+            HelpGui helpGui = new HelpGui();
+            helpGui.setLocationRelativeTo(this);
+            helpGui.show();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            JOptionPane.showMessageDialog(rootPane, "Warning", "Occured error...Please try again!", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        // TODO add your handling code here:
+        PRSGui pRSGui = new PRSGui();
+        pRSGui.show();
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     /**
      * @param args the command line arguments
