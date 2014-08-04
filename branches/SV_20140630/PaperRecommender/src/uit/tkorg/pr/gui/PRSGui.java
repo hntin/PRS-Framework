@@ -27,6 +27,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -54,6 +55,11 @@ public class PRSGui extends javax.swing.JFrame {
     private List previousEvaluation = new ArrayList<String>();// save result EVALUATE
     private List previousRecommdendation = new ArrayList<HashMap<String, Author>>();
     private static int count = 0;// kiem tra nguoi dung co chon du so file theo yeu cau cua chuong trinh k
+
+    public boolean step1 = false;
+    public boolean step2 = false;
+    public boolean step3 = false;
+    public boolean step4 = false;
 
     public PRSGui() {
         initComponents();
@@ -1731,6 +1737,7 @@ public class PRSGui extends javax.swing.JFrame {
                 long begin = System.currentTimeMillis();
                 swingWorker.execute();
                 loading.setVisible(true);
+                step1 = true;
                 jTextAreaConsole.append("End import dataset....\n");
                 jTextAreaConsole.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + "s" + "\n");
             } else {
@@ -1945,7 +1952,6 @@ public class PRSGui extends javax.swing.JFrame {
     private void jButtonEvaluationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEvaluationActionPerformed
         if (jTabbedPaneStep.getSelectedIndex() == 3) {
             if (!jTextFieldtopRank.getText().isEmpty()) {
-                //GuiUtilities.deleteFile("Temp\\ResultEvaluation.txt");
                 jTextAreaConsole.append("\nBegin evaluate....\n");
                 long begin = System.currentTimeMillis();
                 controller.topRank = Integer.parseInt(jTextFieldtopRank.getText().trim().toString());
@@ -1970,6 +1976,7 @@ public class PRSGui extends javax.swing.JFrame {
                 jTextAreaConsole.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + "s" + "\n");
 
                 jListEvaluation.setSelectedIndex(jListEvaluation.getModel().getSize() - 1);
+                step4 = true;
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Please choose topRank to evaluate...", "Warning", JOptionPane.WARNING_MESSAGE);
                 jTextFieldtopRank.requestFocus();
@@ -1991,13 +1998,17 @@ public class PRSGui extends javax.swing.JFrame {
     }//GEN-LAST:event_visualizeMenuItemActionPerformed
 
     private void jButtonDrawChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDrawChartActionPerformed
-        try {
-            VisualizeGui visualizeGui = new VisualizeGui(this, rootPaneCheckingEnabled);
-            visualizeGui.setLocationRelativeTo(this);
-            visualizeGui.show();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(rootPane, "Occured error...Please try again!", "Warning", JOptionPane.WARNING_MESSAGE);
+        if (step4) {
+            try {
+                VisualizeGui visualizeGui = new VisualizeGui(this, rootPaneCheckingEnabled);
+                visualizeGui.setLocationRelativeTo(this);
+                visualizeGui.show();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                JOptionPane.showMessageDialog(rootPane, "Occured error...Please try again!", "Warning", JOptionPane.WARNING_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Haven't evaluated, yet!", "Notice", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButtonDrawChartActionPerformed
 
@@ -2023,6 +2034,7 @@ public class PRSGui extends javax.swing.JFrame {
                 jTextAreaConsole.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + "s" + "\n");
 
                 jListRecAlgorithm.setSelectedIndex(jListRecAlgorithm.getModel().getSize() - 1);
+                step3 = true;
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Please choose topNRecommend...", "Warning", JOptionPane.WARNING_MESSAGE);
                 jTextFieldTopNRecommend.requestFocus();
@@ -2044,14 +2056,38 @@ public class PRSGui extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldTopNRecommendKeyReleased
 
     private void jButtonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResetActionPerformed
-        try {
-            controller = new CentralGuiHanderRequest();
-            //this.initComponents();
-            jTabbedPaneStep.setEnabledAt(0, true);
-            jTabbedPaneStep.setSelectedIndex(0);
-            jTextAreaConsole.setText("");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        if (!step4) {
+            try {
+                controller = new CentralGuiHanderRequest();
+                jTabbedPaneStep.setEnabledAt(0, true);
+                jTabbedPaneStep.setSelectedIndex(0);
+                jTextAreaConsole.setText("");
+                jButtonFileAuthor.setEnabled(false);
+                jButtonFileAuthorCitePaper.setEnabled(false);
+                jButtonFileAuthorPaper.setEnabled(false);
+                jButtonFilePaper.setEnabled(false);
+                jButtonFilePaperPaper.setEnabled(false);
+                jButtonFileGroundTruth.setEnabled(false);
+                controller.combiningAuthor = 0;
+                controller.combiningPaper = 0;
+                controller.weightingAuthor = 0;
+                controller.weightingPaper = 0;
+                controller.gama = 0.3;
+
+                jTextAreaAuthor.setEditable(false);
+                jTextAreaAuthorCitePaper.setEditable(false);
+                jTextAreaAuthorPaper.setEditable(false);
+                jTextAreaGroundTruth.setEditable(false);
+                jTextAreaPaper.setEditable(false);
+                jTextAreaPaperPaper.setEditable(false);
+
+                jTabbedPaneStep.setEnabledAt(0, false);
+                jTabbedPaneStep.setEnabledAt(1, false);
+                jTabbedPaneStep.setEnabledAt(2, false);
+                jTabbedPaneStep.setEnabledAt(3, false);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
     }//GEN-LAST:event_jButtonResetActionPerformed
 
@@ -2098,6 +2134,7 @@ public class PRSGui extends javax.swing.JFrame {
             controller.guiHanderResquest(Options.CONSTRUCT_PAPER_FV);
             jTextAreaConsole.append("End construct feature vector of papers....\n");
             jTextAreaConsole.append("Time elapsed: " + String.valueOf(System.currentTimeMillis() - begin) + "s");
+            step2 = true;
         } else {
             JOptionPane.showMessageDialog(rootPane, "Please choose data preparation!", "Notice", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -2164,6 +2201,7 @@ public class PRSGui extends javax.swing.JFrame {
                 long begin = System.currentTimeMillis();
                 swingWorker.execute();
                 loading.setVisible(true);
+                step1 = true;
                 jTextAreaConsole.append("End import dataset....\n");
                 jTextAreaConsole.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + "s" + "\n");
             } else {
@@ -2186,10 +2224,14 @@ public class PRSGui extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemDataSourceActionPerformed
 
     private void jMenuItemDataContentbasedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDataContentbasedActionPerformed
-        manageJTablePane(1);
-        jTabbedPaneDataPreparation.setEnabledAt(0, true);
-        jTabbedPaneDataPreparation.setSelectedIndex(0);
-        jTabbedPaneDataPreparation.setEnabledAt(1, false);
+        if (step1) {
+            manageJTablePane(1);
+            jTabbedPaneDataPreparation.setEnabledAt(0, true);
+            jTabbedPaneDataPreparation.setSelectedIndex(0);
+            jTabbedPaneDataPreparation.setEnabledAt(1, false);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Haven't import data, yet!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jMenuItemDataContentbasedActionPerformed
 
     private void jTextFieldIdAuthorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldIdAuthorKeyReleased
@@ -2253,10 +2295,14 @@ public class PRSGui extends javax.swing.JFrame {
     }//GEN-LAST:event_resetMenuItemActionPerformed
 
     private void jMenuItemDataCollaborativeFilteringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDataCollaborativeFilteringActionPerformed
-        manageJTablePane(1);
-        jTabbedPaneDataPreparation.setEnabledAt(1, true);
-        jTabbedPaneDataPreparation.setSelectedIndex(1);
-        jTabbedPaneDataPreparation.setEnabledAt(0, false);
+        if (step1) {
+            manageJTablePane(1);
+            jTabbedPaneDataPreparation.setEnabledAt(1, true);
+            jTabbedPaneDataPreparation.setSelectedIndex(1);
+            jTabbedPaneDataPreparation.setEnabledAt(0, false);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Haven't import data, yet!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jMenuItemDataCollaborativeFilteringActionPerformed
 
     private void ComputeMatrixCFButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComputeMatrixCFButtonActionPerformed
@@ -2266,87 +2312,145 @@ public class PRSGui extends javax.swing.JFrame {
             controller.guiHanderResquest(Options.CONSTRUCT_MATRIX_CF);
             jTextAreaConsole.append("End compute Matrix Collaborative Filtering....\n");
             jTextAreaConsole.append("Time elapsed: " + String.valueOf(((System.currentTimeMillis() - begin)) / 1000) + "s" + "\n");
+            step2 = true;
         } else {
             JOptionPane.showMessageDialog(rootPane, "Please choose data preparation!", "Notice", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_ComputeMatrixCFButtonActionPerformed
 
     private void jMenuItemRecContentBasedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRecContentBasedActionPerformed
-        manageJTablePane(2);
-        jComboBoxMethodRecommend.setSelectedIndex(0);
+        if (step2) {
+            manageJTablePane(2);
+            jComboBoxMethodRecommend.setSelectedIndex(0);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Haven't prepared data!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jMenuItemRecContentBasedActionPerformed
 
     private void jMenuItemRecCFPearsonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRecCFPearsonActionPerformed
-        manageJTablePane(2);
-        jComboBoxMethodRecommend.setSelectedIndex(1);
+        if (step2) {
+            manageJTablePane(2);
+            jComboBoxMethodRecommend.setSelectedIndex(1);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Haven't prepared data!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jMenuItemRecCFPearsonActionPerformed
 
     private void jMenuItemRecCFCosineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRecCFCosineActionPerformed
-        manageJTablePane(2);
-        jComboBoxMethodRecommend.setSelectedIndex(2);
+        if (step2) {
+            manageJTablePane(2);
+            jComboBoxMethodRecommend.setSelectedIndex(2);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Haven't prepared data!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jMenuItemRecCFCosineActionPerformed
 
     private void jMenuItemRecCFSVDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRecCFSVDActionPerformed
-        manageJTablePane(2);
-        jComboBoxMethodRecommend.setSelectedIndex(3);
+        if (step2) {
+            manageJTablePane(2);
+            jComboBoxMethodRecommend.setSelectedIndex(3);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Haven't prepared data!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jMenuItemRecCFSVDActionPerformed
 
     private void jMenuItemAllEvalutionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAllEvalutionsActionPerformed
-        manageJTablePane(3);
-        controller.methodEvaluation = 0;
-        jComboBoxMethodEvaluation.setSelectedIndex(0);
+        if (step3) {
+            manageJTablePane(3);
+            controller.methodEvaluation = 0;
+            jComboBoxMethodEvaluation.setSelectedIndex(0);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Haven't recommended, yet!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jMenuItemAllEvalutionsActionPerformed
 
     private void jMenuItemPrecisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPrecisionActionPerformed
-        manageJTablePane(3);
-        controller.methodEvaluation = 1;
-        jComboBoxMethodEvaluation.setSelectedIndex(1);
+        if (step3) {
+            manageJTablePane(3);
+            controller.methodEvaluation = 1;
+            jComboBoxMethodEvaluation.setSelectedIndex(1);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Haven't recommended, yet!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jMenuItemPrecisionActionPerformed
 
     private void jMenuItemRecallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRecallActionPerformed
-        manageJTablePane(3);
-        controller.methodEvaluation = 2;
-        jComboBoxMethodEvaluation.setSelectedIndex(2);
+        if (step3) {
+            manageJTablePane(3);
+            controller.methodEvaluation = 2;
+            jComboBoxMethodEvaluation.setSelectedIndex(2);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Haven't recommended, yet!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jMenuItemRecallActionPerformed
 
     private void jMenuItemF1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemF1ActionPerformed
-        manageJTablePane(3);
-        controller.methodEvaluation = 3;
-        jComboBoxMethodEvaluation.setSelectedIndex(3);
+        if (step3) {
+            manageJTablePane(3);
+            controller.methodEvaluation = 3;
+            jComboBoxMethodEvaluation.setSelectedIndex(3);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Haven't recommended, yet!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jMenuItemF1ActionPerformed
 
     private void jMenuItemMAPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMAPActionPerformed
-        manageJTablePane(3);
-        controller.methodEvaluation = 4;
-        jComboBoxMethodEvaluation.setSelectedIndex(4);
+        if (step3) {
+            manageJTablePane(3);
+            controller.methodEvaluation = 4;
+            jComboBoxMethodEvaluation.setSelectedIndex(4);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Haven't recommended, yet!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jMenuItemMAPActionPerformed
 
     private void jMenuItemNDCGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNDCGActionPerformed
-        manageJTablePane(3);
-        controller.methodEvaluation = 5;
-        jComboBoxMethodEvaluation.setSelectedIndex(5);
+        if (step3) {
+            manageJTablePane(3);
+            controller.methodEvaluation = 5;
+            jComboBoxMethodEvaluation.setSelectedIndex(5);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Haven't recommended, yet!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jMenuItemNDCGActionPerformed
 
     private void jMenuItemMRRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMRRActionPerformed
-        manageJTablePane(3);
-        controller.methodEvaluation = 6;
-        jComboBoxMethodEvaluation.setSelectedIndex(6);
+        if (step3) {
+            manageJTablePane(3);
+            controller.methodEvaluation = 6;
+            jComboBoxMethodEvaluation.setSelectedIndex(6);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Haven't recommended, yet!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jMenuItemMRRActionPerformed
 
     private void jButtonSaveEvaluationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveEvaluationActionPerformed
         if (jTabbedPaneStep.getSelectedIndex() == 3) {
             if (jListEvaluation.getModel().getSize() > 0) {
-                StringBuilder stringBuilder = new StringBuilder();
-                stringBuilder.append(previousEvaluation.get(jListEvaluation.getSelectedIndex()));
+                String path = null;
                 try {
-                    String path = "Temp\\" + jListEvaluation.getSelectedValue().toString().replace(":", "") + ".txt";
-                    FileUtils.writeStringToFile(new File(path), stringBuilder.toString(), "UTF8", false);
-                    JOptionPane.showMessageDialog(rootPane, "Save Evaluation completed...", "Notice", JOptionPane.INFORMATION_MESSAGE);
-                } catch (IOException ex) {
-                    Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+                    JFileChooser fileChooser = new JFileChooser();
+                    fileChooser.setDialogTitle("Choose folder");
+                    fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                    int userSelection = fileChooser.showOpenDialog(null);
+                    if (userSelection == JFileChooser.APPROVE_OPTION) {
+                        path = fileChooser.getSelectedFile().getAbsolutePath().toString();
+                        StringBuilder stringBuilder = new StringBuilder();
+                        stringBuilder.append(previousEvaluation.get(jListEvaluation.getSelectedIndex()));
+                        try {
+                            String path1 = jListEvaluation.getSelectedValue().toString().replace(":", "") + ".txt";
+                            FileUtils.writeStringToFile(new File(path + "\\" + path1), stringBuilder.toString(), "UTF8", false);
+                            JOptionPane.showMessageDialog(rootPane, "Save Evaluation completed...", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                        } catch (IOException ex) {
+                            Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    step4 = true;
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
                 }
-            }
-            else {
+
+            } else {
                 JOptionPane.showMessageDialog(rootPane, "Haven't evaluated yet!", "Notice", JOptionPane.INFORMATION_MESSAGE);
             }
         } else {
@@ -2389,26 +2493,40 @@ public class PRSGui extends javax.swing.JFrame {
         //Save Rec List
         if (jTabbedPaneStep.getSelectedIndex() == 2) {
             if (jListRecAlgorithm.getModel().getSize() > 0) {
-                HashMap<String, Author> hm = (HashMap<String, Author>) previousRecommdendation.get(jListRecAlgorithm.getSelectedIndex());
-                StringBuilder stringBuilder = new StringBuilder();
-                for (String IdAuthor : hm.keySet()) {
-                    stringBuilder.append(IdAuthor).append("|||");
-                    int size = hm.get(IdAuthor).getRecommendationList().size();
-                    for (int i = 0; i < size; i++) {
-                        if (i != size - 1) {
-                            stringBuilder.append((String) hm.get(IdAuthor).getRecommendationList().get(i)).append(",");
-                        } else {
-                            stringBuilder.append((String) hm.get(IdAuthor).getRecommendationList().get(i));
+                String path = null;
+                try {
+                    JFileChooser fileChooser = new JFileChooser();
+                    fileChooser.setDialogTitle("Choose folder");
+                    fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                    int userSelection = fileChooser.showOpenDialog(null);
+                    if (userSelection == JFileChooser.APPROVE_OPTION) {
+                        path = fileChooser.getSelectedFile().getAbsolutePath().toString();
+
+                        HashMap<String, Author> hm = (HashMap<String, Author>) previousRecommdendation.get(jListRecAlgorithm.getSelectedIndex());
+                        StringBuilder stringBuilder = new StringBuilder();
+                        for (String IdAuthor : hm.keySet()) {
+                            stringBuilder.append(IdAuthor).append("|||");
+                            int size = hm.get(IdAuthor).getRecommendationList().size();
+                            for (int i = 0; i < size; i++) {
+                                if (i != size - 1) {
+                                    stringBuilder.append((String) hm.get(IdAuthor).getRecommendationList().get(i)).append(",");
+                                } else {
+                                    stringBuilder.append((String) hm.get(IdAuthor).getRecommendationList().get(i));
+                                }
+                            }
+                            stringBuilder.append("\r\n");
+                        }
+                        try {
+                            String path1 = jListRecAlgorithm.getSelectedValue().toString().replace(":", "") + ".txt";
+                            FileUtils.writeStringToFile(new File(path + "\\" + path1), stringBuilder.toString(), "UTF8", false);
+                            JOptionPane.showMessageDialog(rootPane, "Save Recommendation List completed...", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                        } catch (IOException ex) {
+                            Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
-                    stringBuilder.append("\r\n");
-                }
-                try {
-                    String path = "Temp\\" + jListRecAlgorithm.getSelectedValue().toString().replace(":", "") + ".txt";
-                    FileUtils.writeStringToFile(new File(path), stringBuilder.toString(), "UTF8", false);
-                    JOptionPane.showMessageDialog(rootPane, "Save Recommendation List completed...", "Notice", JOptionPane.INFORMATION_MESSAGE);
-                } catch (IOException ex) {
-                    Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+                    step3 = true;
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
                 }
 
             } else {
