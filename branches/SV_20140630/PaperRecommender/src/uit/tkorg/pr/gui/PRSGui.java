@@ -544,7 +544,7 @@ public class PRSGui extends javax.swing.JFrame {
         jRadioButtonDatasetExample.setEnabled(false);
 
         buttonGroup1.add(jRadioButtonDatasetSource);
-        jRadioButtonDatasetSource.setText("From Dataset Source");
+        jRadioButtonDatasetSource.setText("From Dataset Scource");
         jRadioButtonDatasetSource.setEnabled(false);
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
@@ -1794,13 +1794,23 @@ public class PRSGui extends javax.swing.JFrame {
 
 
     private void helpMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpMenuItemActionPerformed
-        try {
-            HelpGui helpGui = new HelpGui();
-            helpGui.setLocationRelativeTo(this);
-            helpGui.show();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            JOptionPane.showMessageDialog(rootPane, "Warning", "Occured error...Please try again!", JOptionPane.WARNING_MESSAGE);
+     try 
+        { 
+            String path = new File("").getAbsolutePath() + "\\Paper Recommendation Framework\\Paper Recommendation Framework.chm"; 
+            File file = new File(path); 
+             
+            if(file.exists()) 
+            { 
+                Runtime.getRuntime().exec("rundll32 url.dll, FileProtocolHandler " + path); 
+            } 
+            else 
+            { 
+                throw new Exception("File \"Help.chm\" not found!"); 
+            } 
+        } 
+        catch(Exception ex) 
+        { 
+            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Notice", JOptionPane.OK_OPTION); 
         }
     }//GEN-LAST:event_helpMenuItemActionPerformed
 
