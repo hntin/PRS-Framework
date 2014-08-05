@@ -22,7 +22,6 @@ import uit.tkorg.utility.general.NumericUtility;
 public class CheckError {
 
     /**
-     * Check loi format file co dung dinh dang hay khong
      *
      * @param importFile
      * @param path
