@@ -5,6 +5,7 @@
  */
 package uit.tkorg.pr.gui;
 
+import java.io.File;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -45,7 +46,6 @@ public class Introduction extends javax.swing.JFrame {
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
@@ -109,9 +109,6 @@ public class Introduction extends javax.swing.JFrame {
 
         jMenu2.setText("Help");
 
-        jMenuItem4.setText("About program");
-        jMenu2.add(jMenuItem4);
-
         jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem5.setText("How to use program?");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
@@ -147,7 +144,24 @@ public class Introduction extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
-        
+        try 
+        { 
+            String path = new File("").getAbsolutePath() + "\\Paper Recommendation Framework\\Paper Recommendation Framework.chm"; 
+            File file = new File(path); 
+             
+            if(file.exists()) 
+            { 
+                Runtime.getRuntime().exec("rundll32 url.dll, FileProtocolHandler " + path); 
+            } 
+            else 
+            { 
+                throw new Exception("File \"Help.chm\" not found!"); 
+            } 
+        } 
+        catch(Exception ex) 
+        { 
+            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Notice", JOptionPane.OK_OPTION); 
+        }
        
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
@@ -196,7 +210,6 @@ public class Introduction extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
