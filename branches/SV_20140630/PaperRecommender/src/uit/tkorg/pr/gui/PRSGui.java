@@ -464,6 +464,11 @@ public class PRSGui extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Paper Recommendation System");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder("Data Description"));
 
@@ -2056,7 +2061,7 @@ public class PRSGui extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldTopNRecommendKeyReleased
 
     private void jButtonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResetActionPerformed
-        if (!step4) {
+        if (step4) {
             try {
                 controller = new CentralGuiHanderRequest();
                 jTabbedPaneStep.setEnabledAt(0, true);
@@ -2085,6 +2090,11 @@ public class PRSGui extends javax.swing.JFrame {
                 jTabbedPaneStep.setEnabledAt(1, false);
                 jTabbedPaneStep.setEnabledAt(2, false);
                 jTabbedPaneStep.setEnabledAt(3, false);
+                
+                step1=false;
+                step2=false;
+                step3=false;
+                step4=false;
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -2536,6 +2546,10 @@ public class PRSGui extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Please choose recommendation algorithm!", "Notice", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButtonSaveRecListActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        GuiUtilities.deleteFile("Temp\\ResultEvaluation.txt");
+    }//GEN-LAST:event_formWindowClosed
 //<editor-fold defaultstate="collapsed" desc="GuiUtilities">
 
     public void enableComponents(Container container, boolean enable) {

@@ -51,7 +51,6 @@ public class VisualizeGui extends javax.swing.JDialog {
         final XYSeries series4 = new XYSeries("NDCG");
 
         String path = "Temp\\ResultEvaluation.txt";
-        System.out.println(new File(path).exists());
 
         FileReader file = new FileReader(new File(path));
         BufferedReader textReader = new BufferedReader(file);

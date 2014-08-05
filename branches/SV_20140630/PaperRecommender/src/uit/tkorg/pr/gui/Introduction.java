@@ -19,6 +19,7 @@ public class Introduction extends javax.swing.JFrame {
      */
     public Introduction() {
         initComponents();
+        exploreButton.requestFocusInWindow();
     }
 
     /**
@@ -30,7 +31,7 @@ public class Introduction extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        exploreButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -53,15 +54,15 @@ public class Introduction extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setBackground(new java.awt.Color(153, 153, 153));
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jButton1.setText("Explore");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        exploreButton.setBackground(new java.awt.Color(153, 153, 153));
+        exploreButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        exploreButton.setText("Explore");
+        exploreButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                exploreButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 290, 150, 70));
+        getContentPane().add(exploreButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 290, 150, 70));
 
         jLabel2.setText("<html>Framework for Paper Recommendation System.<br>This is a product of thesis about Paper Recommendation Sytem.</html>");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, 40));
@@ -135,11 +136,15 @@ public class Introduction extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void exploreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exploreButtonActionPerformed
         PRSGui pRSGui = new PRSGui();
         pRSGui.show();
+<<<<<<< .mine
+    }//GEN-LAST:event_exploreButtonActionPerformed
+=======
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+>>>>>>> .r397
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
@@ -185,7 +190,7 @@ public class Introduction extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton exploreButton;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
