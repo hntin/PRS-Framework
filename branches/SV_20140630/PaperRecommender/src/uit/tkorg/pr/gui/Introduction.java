@@ -139,23 +139,16 @@ public class Introduction extends javax.swing.JFrame {
     private void exploreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exploreButtonActionPerformed
         PRSGui pRSGui = new PRSGui();
         pRSGui.show();
-<<<<<<< .mine
-    }//GEN-LAST:event_exploreButtonActionPerformed
-=======
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
->>>>>>> .r397
+    }//GEN-LAST:event_exploreButtonActionPerformed
+
+       
+                                     
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
-         try {
-            HelpGui helpGui = new HelpGui();
-            helpGui.setLocationRelativeTo(this);
-            helpGui.show();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            JOptionPane.showMessageDialog(rootPane, "Warning", "Occured error...Please try again!", JOptionPane.WARNING_MESSAGE);
-        }
+        
+       
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
