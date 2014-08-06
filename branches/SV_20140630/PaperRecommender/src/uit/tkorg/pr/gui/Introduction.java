@@ -136,7 +136,10 @@ public class Introduction extends javax.swing.JFrame {
     private void exploreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exploreButtonActionPerformed
         PRSGui pRSGui = new PRSGui();
         pRSGui.show();
+<<<<<<< .mine
+=======
         this.dispose();
+>>>>>>> .r404
     }//GEN-LAST:event_exploreButtonActionPerformed
 
        

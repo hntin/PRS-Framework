@@ -62,9 +62,8 @@ public class CheckError {
             executor.submit(new Runnable() {
                 @Override
                 public void run() {
-                    if(tokens.length!=2 && !NumericUtility.isNum(tokens[0]))
-                    {
-                        
+                    if (tokens.length != 2 && !NumericUtility.isNum(tokens[0])) {
+
                     }
                 }
             });
@@ -75,33 +74,128 @@ public class CheckError {
         return check;
     }
 
-    public static boolean fileAuthorPaper(String path) {
+    public static boolean fileAuthorPaper(String path) throws FileNotFoundException, IOException {
         boolean check = false;
+        Runtime runtime = Runtime.getRuntime();
+        int numOfProcessors = runtime.availableProcessors();
+        ExecutorService executor = Executors.newFixedThreadPool(numOfProcessors - 1);
+        FileReader file = new FileReader(new File(path));
+        BufferedReader textReader = new BufferedReader(file);
+        String line = textReader.readLine();
+        while (textReader.readLine() != null) {
+            final String[] tokens = line.split("\\|\\|\\|");
+            executor.submit(new Runnable() {
+                @Override
+                public void run() {
+                    if (tokens.length != 2 && !NumericUtility.isNum(tokens[0])) {
 
+                    }
+                }
+            });
+        }
+        executor.shutdown();
+        while (!executor.isTerminated()) {
+        }
         return check;
     }
 
-    public static boolean fileAuthorCitePaper(String path) {
+    public static boolean fileAuthorCitePaper(String path) throws FileNotFoundException, IOException {
         boolean check = false;
+        Runtime runtime = Runtime.getRuntime();
+        int numOfProcessors = runtime.availableProcessors();
+        ExecutorService executor = Executors.newFixedThreadPool(numOfProcessors - 1);
+        FileReader file = new FileReader(new File(path));
+        BufferedReader textReader = new BufferedReader(file);
+        String line = textReader.readLine();
+        while (textReader.readLine() != null) {
+            final String[] tokens = line.split("\\|\\|\\|");
+            executor.submit(new Runnable() {
+                @Override
+                public void run() {
+                    if (tokens.length != 2 && !NumericUtility.isNum(tokens[0])) {
 
+                    }
+                }
+            });
+        }
+        executor.shutdown();
+        while (!executor.isTerminated()) {
+        }
         return check;
     }
 
-    public static boolean filePapers(String path) {
+    public static boolean filePapers(String path) throws FileNotFoundException, IOException {
         boolean check = false;
+        Runtime runtime = Runtime.getRuntime();
+        int numOfProcessors = runtime.availableProcessors();
+        ExecutorService executor = Executors.newFixedThreadPool(numOfProcessors - 1);
+        FileReader file = new FileReader(new File(path));
+        BufferedReader textReader = new BufferedReader(file);
+        String line = textReader.readLine();
+        while (textReader.readLine() != null) {
+            final String[] tokens = line.split("\\|\\|\\|");
+            executor.submit(new Runnable() {
+                @Override
+                public void run() {
+                    if (tokens.length != 2 && !NumericUtility.isNum(tokens[0])) {
 
+                    }
+                }
+            });
+        }
+        executor.shutdown();
+        while (!executor.isTerminated()) {
+        }
         return check;
     }
 
-    public static boolean filePaperCitePaper(String path) {
+    public static boolean filePaperCitePaper(String path) throws FileNotFoundException, IOException {
         boolean check = false;
+        Runtime runtime = Runtime.getRuntime();
+        int numOfProcessors = runtime.availableProcessors();
+        ExecutorService executor = Executors.newFixedThreadPool(numOfProcessors - 1);
+        FileReader file = new FileReader(new File(path));
+        BufferedReader textReader = new BufferedReader(file);
+        String line = textReader.readLine();
+        while (textReader.readLine() != null) {
+            final String[] tokens = line.split("\\|\\|\\|");
+            executor.submit(new Runnable() {
+                @Override
+                public void run() {
+                    if (tokens.length != 2 && !NumericUtility.isNum(tokens[0])) {
 
+                    }
+                }
+            });
+        }
+        executor.shutdown();
+        while (!executor.isTerminated()) {
+        }
         return check;
     }
 
-    public static boolean fileGroundTruth(String path) {
+    public static boolean fileGroundTruth(String path) throws FileNotFoundException, IOException {
         boolean check = false;
+        Runtime runtime = Runtime.getRuntime();
+        int numOfProcessors = runtime.availableProcessors();
+        ExecutorService executor = Executors.newFixedThreadPool(numOfProcessors - 1);
+        FileReader file = new FileReader(new File(path));
+        BufferedReader textReader = new BufferedReader(file);
+        String line = textReader.readLine();
+        while (textReader.readLine() != null) {
+            final String[] tokens = line.split("\\|\\|\\|");
+            executor.submit(new Runnable() {
+                @Override
+                public void run() {
+                    if (tokens.length != 2 && !NumericUtility.isNum(tokens[0])) {
 
+                    }
+                }
+            });
+        }
+        executor.shutdown();
+        while (!executor.isTerminated()) {
+        }
         return check;
     }
 }
