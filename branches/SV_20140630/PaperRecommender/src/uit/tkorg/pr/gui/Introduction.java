@@ -103,6 +103,11 @@ public class Introduction extends javax.swing.JFrame {
 
         jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem3.setText("Exit");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem3);
 
         jMenuBar1.add(jMenu1);
@@ -136,10 +141,6 @@ public class Introduction extends javax.swing.JFrame {
     private void exploreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exploreButtonActionPerformed
         PRSGui pRSGui = new PRSGui();
         pRSGui.show();
-<<<<<<< .mine
-=======
-        this.dispose();
->>>>>>> .r404
     }//GEN-LAST:event_exploreButtonActionPerformed
 
        
@@ -172,8 +173,11 @@ public class Introduction extends javax.swing.JFrame {
         // TODO add your handling code here:
         PRSGui pRSGui = new PRSGui();
         pRSGui.show();
-        this.dispose();
     }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments

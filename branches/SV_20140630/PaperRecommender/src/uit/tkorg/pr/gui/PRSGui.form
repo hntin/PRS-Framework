@@ -768,7 +768,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jButtonFilePaper" min="-2" pref="132" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButtonFilePaperPaper" min="-2" pref="145" max="-2" attributes="0"/>
+                              <Component id="jButtonFilePaperCitePaper" min="-2" pref="145" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -782,7 +782,7 @@
                                   <Component id="jButtonFileAuthorPaper" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jButtonFileAuthorCitePaper" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jButtonFilePaper" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButtonFilePaperPaper" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jButtonFilePaperCitePaper" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
@@ -817,12 +817,12 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonFileAuthorPaperActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButtonFilePaperPaper">
+                    <Component class="javax.swing.JButton" name="jButtonFilePaperCitePaper">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="File Paper_Cited_Paper"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonFilePaperPaperActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonFilePaperCitePaperActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="jButtonFileAuthorCitePaper">

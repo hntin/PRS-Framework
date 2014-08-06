@@ -11,7 +11,9 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -36,6 +38,7 @@ import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import org.apache.commons.io.FileUtils;
+import uit.tkorg.pr.constant.ImportFiles;
 import uit.tkorg.pr.constant.Options;
 import uit.tkorg.pr.controller.CentralGuiHanderRequest;
 import uit.tkorg.pr.model.Author;
@@ -68,7 +71,7 @@ public class PRSGui extends javax.swing.JFrame {
         jButtonFileAuthorCitePaper.setEnabled(false);
         jButtonFileAuthorPaper.setEnabled(false);
         jButtonFilePaper.setEnabled(false);
-        jButtonFilePaperPaper.setEnabled(false);
+        jButtonFilePaperCitePaper.setEnabled(false);
         jButtonFileGroundTruth.setEnabled(false);
         controller.combiningAuthor = 0;
         controller.combiningPaper = 0;
@@ -182,7 +185,7 @@ public class PRSGui extends javax.swing.JFrame {
         jButtonFileAuthor = new javax.swing.JButton();
         jButtonFilePaper = new javax.swing.JButton();
         jButtonFileAuthorPaper = new javax.swing.JButton();
-        jButtonFilePaperPaper = new javax.swing.JButton();
+        jButtonFilePaperCitePaper = new javax.swing.JButton();
         jButtonFileAuthorCitePaper = new javax.swing.JButton();
         jPanel24 = new javax.swing.JPanel();
         jButtonFileGroundTruth = new javax.swing.JButton();
@@ -596,10 +599,10 @@ public class PRSGui extends javax.swing.JFrame {
             }
         });
 
-        jButtonFilePaperPaper.setText("File Paper_Cited_Paper");
-        jButtonFilePaperPaper.addActionListener(new java.awt.event.ActionListener() {
+        jButtonFilePaperCitePaper.setText("File Paper_Cited_Paper");
+        jButtonFilePaperCitePaper.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFilePaperPaperActionPerformed(evt);
+                jButtonFilePaperCitePaperActionPerformed(evt);
             }
         });
 
@@ -625,7 +628,7 @@ public class PRSGui extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonFilePaper, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonFilePaperPaper, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonFilePaperCitePaper, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
@@ -637,7 +640,7 @@ public class PRSGui extends javax.swing.JFrame {
                     .addComponent(jButtonFileAuthorPaper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonFileAuthorCitePaper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonFilePaper)
-                    .addComponent(jButtonFilePaperPaper))
+                    .addComponent(jButtonFilePaperCitePaper))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1670,23 +1673,40 @@ public class PRSGui extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxWeightingUserActionPerformed
 
     private void jButtonFileAuthorCitePaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFileAuthorCitePaperActionPerformed
-        // TODO add your handling code here:
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
-            controller.fileNameAuthorCitePaper = path;
-            jTextAreaConsole.append(path + "\n");
-            count++;
+            try {
+                if (CheckError.CheckImportData(ImportFiles.FILE_AUTHOR_CITE_PAPER, path)) {
+                    controller.fileNameAuthorCitePaper = path;
+                    jTextAreaConsole.append(path + "\n");
+                    count++;
+                } else {
+                    String fileLog = "Temp\\log.txt";
+                    FileReader file = new FileReader(new File(fileLog));
+                    BufferedReader textReader = new BufferedReader(file);
+                    StringBuilder error = new StringBuilder();
+                    String line = null;
+                    while ((line = textReader.readLine()) != null) {
+                        error.append(line);
+                    }
+                    file.close();
+                    JOptionPane.showMessageDialog(rootPane, error, "Error", JOptionPane.ERROR_MESSAGE);
+                    GuiUtilities.deleteFile(fileLog);
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if (count == 6) {
+            jButtonStartImportData.setEnabled(true);
         }
     }//GEN-LAST:event_jButtonFileAuthorCitePaperActionPerformed
 
     private void constructMatrixCFButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_constructMatrixCFButtonActionPerformed
-        // TODO add your handling code here:
         controller.guiHanderResquest(Options.CONSTRUCT_MATRIX_CF);
-
     }//GEN-LAST:event_constructMatrixCFButtonActionPerformed
 
     private void loadExistenMatrixtCFButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadExistenMatrixtCFButtonActionPerformed
-        // TODO add your handling code here:
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
             controller.fileNameMatrixExistent = path;
@@ -1696,7 +1716,6 @@ public class PRSGui extends javax.swing.JFrame {
     }//GEN-LAST:event_loadExistenMatrixtCFButtonActionPerformed
 
     private void jButtonMethodDataPreparationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonMethodDataPreparationMouseClicked
-        // TODO add your handling code here:
         jPopupMenuDataPreparation.show(jButtonMethodDataPreparation, 1,
                 (jButtonMethodDataPreparation.getHeight()));
     }//GEN-LAST:event_jButtonMethodDataPreparationMouseClicked
@@ -1794,23 +1813,17 @@ public class PRSGui extends javax.swing.JFrame {
 
 
     private void helpMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpMenuItemActionPerformed
-     try 
-        { 
-            String path = new File("").getAbsolutePath() + "\\Paper Recommendation Framework\\Paper Recommendation Framework.chm"; 
-            File file = new File(path); 
-             
-            if(file.exists()) 
-            { 
-                Runtime.getRuntime().exec("rundll32 url.dll, FileProtocolHandler " + path); 
-            } 
-            else 
-            { 
-                throw new Exception("File \"Help.chm\" not found!"); 
-            } 
-        } 
-        catch(Exception ex) 
-        { 
-            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Notice", JOptionPane.OK_OPTION); 
+        try {
+            String path = new File("").getAbsolutePath() + "\\Paper Recommendation Framework\\Paper Recommendation Framework.chm";
+            File file = new File(path);
+
+            if (file.exists()) {
+                Runtime.getRuntime().exec("rundll32 url.dll, FileProtocolHandler " + path);
+            } else {
+                throw new Exception("File \"Help.chm\" not found!");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Notice", JOptionPane.OK_OPTION);
         }
     }//GEN-LAST:event_helpMenuItemActionPerformed
 
@@ -1826,54 +1839,149 @@ public class PRSGui extends javax.swing.JFrame {
     }//GEN-LAST:event_buildTFIDFFilesMenuItemActionPerformed
 
     private void jButtonFilePaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFilePaperActionPerformed
-        // TODO add your handling code here:
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
-            controller.fileNamePapers = path;
-            jTextAreaConsole.append(path + "\n");
-            count++;
+            try {
+                if (CheckError.CheckImportData(ImportFiles.FILE_PAPERS, path)) {
+                    controller.fileNamePapers = path;
+                    jTextAreaConsole.append(path + "\n");
+                    count++;
+                } else {
+                    String fileLog = "Temp\\log.txt";
+                    FileReader file = new FileReader(new File(fileLog));
+                    BufferedReader textReader = new BufferedReader(file);
+                    StringBuilder error = new StringBuilder();
+                    String line = null;
+                    while ((line = textReader.readLine()) != null) {
+                        error.append(line);
+                    }
+                    file.close();
+                    JOptionPane.showMessageDialog(rootPane, error, "Error", JOptionPane.ERROR_MESSAGE);
+                    GuiUtilities.deleteFile(fileLog);
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if (count == 6) {
+            jButtonStartImportData.setEnabled(true);
         }
     }//GEN-LAST:event_jButtonFilePaperActionPerformed
 
     private void jButtonFileAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFileAuthorActionPerformed
-        // TODO add your handling code here:
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
-            controller.fileNameAuthors = path;
-            jTextAreaConsole.append(path + "\n");
-            count++;
+            try {
+                if (CheckError.CheckImportData(ImportFiles.FILE_AUTHORS, path)) {
+                    controller.fileNameAuthors = path;
+                    jTextAreaConsole.append(path + "\n");
+                    count++;
+                } else {
+                    String fileLog = "Temp\\log.txt";
+                    FileReader file = new FileReader(new File(fileLog));
+                    BufferedReader textReader = new BufferedReader(file);
+                    StringBuilder error = new StringBuilder();
+                    String line = null;
+                    while ((line = textReader.readLine()) != null) {
+                        error.append(line);
+                    }
+                    file.close();
+                    JOptionPane.showMessageDialog(rootPane, error, "Error", JOptionPane.ERROR_MESSAGE);
+                    GuiUtilities.deleteFile(fileLog);
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-
+        if (count == 6) {
+            jButtonStartImportData.setEnabled(true);
+        }
     }//GEN-LAST:event_jButtonFileAuthorActionPerformed
 
     private void jButtonFileAuthorPaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFileAuthorPaperActionPerformed
-        // TODO add your handling code here:
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
-            controller.fileNameAuthorPaper = path;
-            jTextAreaConsole.append(path + "\n");
-            count++;
+            try {
+                if (CheckError.CheckImportData(ImportFiles.FILE_AUTHOR_PAPER, path)) {
+                    controller.fileNameAuthorPaper = path;
+                    jTextAreaConsole.append(path + "\n");
+                    count++;
+                } else {
+                    String fileLog = "Temp\\log.txt";
+                    FileReader file = new FileReader(new File(fileLog));
+                    BufferedReader textReader = new BufferedReader(file);
+                    StringBuilder error = new StringBuilder();
+                    String line = null;
+                    while ((line = textReader.readLine()) != null) {
+                        error.append(line);
+                    }
+                    file.close();
+                    JOptionPane.showMessageDialog(rootPane, error, "Error", JOptionPane.ERROR_MESSAGE);
+                    GuiUtilities.deleteFile(fileLog);
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-
+        if (count == 6) {
+            jButtonStartImportData.setEnabled(true);
+        }
     }//GEN-LAST:event_jButtonFileAuthorPaperActionPerformed
 
-    private void jButtonFilePaperPaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFilePaperPaperActionPerformed
-        // TODO add your handling code here:
+    private void jButtonFilePaperCitePaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFilePaperCitePaperActionPerformed
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
-            controller.fileNamePaperCitePaper = path;
-            jTextAreaConsole.append(path + "\n");
-            count++;
+            try {
+                if (CheckError.CheckImportData(ImportFiles.FILE_PAPER_CITE_PAPER, path)) {
+                    controller.fileNamePaperCitePaper = path;
+                    jTextAreaConsole.append(path + "\n");
+                    count++;
+                } else {
+                    String fileLog = "Temp\\log.txt";
+                    FileReader file = new FileReader(new File(fileLog));
+                    BufferedReader textReader = new BufferedReader(file);
+                    StringBuilder error = new StringBuilder();
+                    String line = null;
+                    while ((line = textReader.readLine()) != null) {
+                        error.append(line);
+                    }
+                    file.close();
+                    JOptionPane.showMessageDialog(rootPane, error, "Error", JOptionPane.ERROR_MESSAGE);
+                    GuiUtilities.deleteFile(fileLog);
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-    }//GEN-LAST:event_jButtonFilePaperPaperActionPerformed
+        if (count == 6) {
+            jButtonStartImportData.setEnabled(true);
+        }
+    }//GEN-LAST:event_jButtonFilePaperCitePaperActionPerformed
 
     private void jButtonFileGroundTruthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFileGroundTruthActionPerformed
-        // TODO add your handling code here:
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
-            controller.fileNameGroundTruth = path;
-            jTextAreaConsole.append(path + "\n");
-            count++;
+            try {
+                if (CheckError.CheckImportData(ImportFiles.FILE_GROUNDTRUTH, path)) {
+                    controller.fileNameGroundTruth = path;
+                    jTextAreaConsole.append(path + "\n");
+                    count++;
+                } else {
+                    String fileLog = "Temp\\log.txt";
+                    FileReader file = new FileReader(new File(fileLog));
+                    BufferedReader textReader = new BufferedReader(file);
+                    StringBuilder error = new StringBuilder();
+                    String line = null;
+                    while ((line = textReader.readLine()) != null) {
+                        error.append(line);
+                    }
+                    file.close();
+                    JOptionPane.showMessageDialog(rootPane, error, "Error", JOptionPane.ERROR_MESSAGE);
+                    GuiUtilities.deleteFile(fileLog);
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         if (count == 6) {
             jButtonStartImportData.setEnabled(true);
@@ -2081,7 +2189,7 @@ public class PRSGui extends javax.swing.JFrame {
                 jButtonFileAuthorCitePaper.setEnabled(false);
                 jButtonFileAuthorPaper.setEnabled(false);
                 jButtonFilePaper.setEnabled(false);
-                jButtonFilePaperPaper.setEnabled(false);
+                jButtonFilePaperCitePaper.setEnabled(false);
                 jButtonFileGroundTruth.setEnabled(false);
                 controller.combiningAuthor = 0;
                 controller.combiningPaper = 0;
@@ -2100,11 +2208,11 @@ public class PRSGui extends javax.swing.JFrame {
                 jTabbedPaneStep.setEnabledAt(1, false);
                 jTabbedPaneStep.setEnabledAt(2, false);
                 jTabbedPaneStep.setEnabledAt(3, false);
-                
-                step1=false;
-                step2=false;
-                step3=false;
-                step4=false;
+
+                step1 = false;
+                step2 = false;
+                step3 = false;
+                step4 = false;
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -2169,7 +2277,7 @@ public class PRSGui extends javax.swing.JFrame {
         jButtonFileAuthorCitePaper.setEnabled(false);
         jButtonFileAuthorPaper.setEnabled(false);
         jButtonFilePaper.setEnabled(false);
-        jButtonFilePaperPaper.setEnabled(false);
+        jButtonFilePaperCitePaper.setEnabled(false);
         jButtonFileGroundTruth.setEnabled(false);
 
         if (jRadioButtonDatasetExample.isSelected()) {
@@ -2238,7 +2346,7 @@ public class PRSGui extends javax.swing.JFrame {
             jButtonFileAuthorCitePaper.setEnabled(true);
             jButtonFileAuthorPaper.setEnabled(true);
             jButtonFilePaper.setEnabled(true);
-            jButtonFilePaperPaper.setEnabled(true);
+            jButtonFilePaperCitePaper.setEnabled(true);
             jButtonFileGroundTruth.setEnabled(true);
         }
     }//GEN-LAST:event_jMenuItemDataSourceActionPerformed
@@ -2632,7 +2740,7 @@ public class PRSGui extends javax.swing.JFrame {
     private javax.swing.JButton jButtonFileAuthorPaper;
     private javax.swing.JButton jButtonFileGroundTruth;
     private javax.swing.JButton jButtonFilePaper;
-    private javax.swing.JButton jButtonFilePaperPaper;
+    private javax.swing.JButton jButtonFilePaperCitePaper;
     private javax.swing.JButton jButtonFindUser;
     private javax.swing.JButton jButtonMethodDataPreparation;
     private javax.swing.JButton jButtonMethodEvaluation;

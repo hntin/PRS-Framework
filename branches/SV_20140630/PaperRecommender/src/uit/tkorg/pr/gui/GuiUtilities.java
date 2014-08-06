@@ -195,36 +195,6 @@ public class GuiUtilities {
         return missingValue * 100;
     }
 
-    //Check format files
-    public static boolean checkFormatFile(String path) throws FileNotFoundException, IOException {
-        Runtime runtime = Runtime.getRuntime();
-        int numOfProcessors = runtime.availableProcessors();
-        ExecutorService executor = Executors.newFixedThreadPool(numOfProcessors - 1);
-
-        FileReader file = new FileReader(new File(path));
-        BufferedReader textReader = new BufferedReader(file);
-        while (textReader.readLine() != null) {
-            final String line = textReader.readLine();
-            String[] tokens = line.split(" ");
-            if (tokens.length == 2) {
-            }
-            executor.submit(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-
-                    } catch (Exception ex) {
-                        Logger.getLogger(FeatureVectorSimilarity.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            });
-        }
-        executor.shutdown();
-        while (!executor.isTerminated()) {
-        }
-        return false;
-    }
-
     //Draw chart evaluation
     public static void drawChartEvaluation(String path) {
 
