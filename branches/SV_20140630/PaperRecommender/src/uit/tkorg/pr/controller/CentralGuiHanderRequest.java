@@ -119,7 +119,7 @@ public class CentralGuiHanderRequest {
                 case SAVE_MODEL:// save model
                     break;
                 case CONSTRUCT_MATRIX_CF: // build matrix input
-                    CFController.cfPrepareMatrix(fileNameAuthorCitePaper, MahoutCFDir);
+                    CFController.cfPrepareMatrix(fileNameAuthorCitePaper,MahoutCFDir + "\\CFRatingMatrixOriginal.txt");
                     break;
                 case LOAD_EXISTENT_MODEL:// load mot matrix da co san
                     File userPreferencesFile = new File(fileNameMatrixExistent);
