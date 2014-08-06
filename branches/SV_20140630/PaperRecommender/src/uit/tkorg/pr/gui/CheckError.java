@@ -32,29 +32,33 @@ public class CheckError {
      * @return
      * @throws java.io.IOException
      */
-    public static boolean CheckImportData(ImportFiles importFile, final String path) throws IOException {
+    public static void CheckImportData(ImportFiles importFile, final String path) throws IOException {
         switch (importFile) {
             case FILE_AUTHORS:
-                return fileAuthors(path);
+                fileAuthors(path);
+                break;
             case FILE_AUTHOR_PAPER:
-                return fileAuthorPaper(path);
+                fileAuthorPaper(path);
+                break;
             case FILE_AUTHOR_CITE_PAPER:
-                return fileAuthorCitePaper(path);
+                fileAuthorCitePaper(path);
+                break;
             case FILE_PAPERS:
-                return filePapers(path);
+                filePapers(path);
+                break;
             case FILE_PAPER_CITE_PAPER:
-                return filePaperCitePaper(path);
+                filePaperCitePaper(path);
+                break;
             case FILE_GROUNDTRUTH:
-                return fileGroundTruth(path);
+                fileGroundTruth(path);
+                break;
             default:
                 break;
         }
-        return false;
     }
 
 //File author.csv has format idAuthor|||nameAuthor
-    public static boolean fileAuthors(final String path) throws FileNotFoundException, IOException {
-        boolean check = true;
+    public static void fileAuthors(final String path) throws FileNotFoundException, IOException {
         final File fileLog = new File("Temp\\log.txt");
 
         Runtime runtime = Runtime.getRuntime();
@@ -65,36 +69,30 @@ public class CheckError {
         String line = null;
         int numline = 0;
         while ((line = textReader.readLine()) != null) {
+            final int numlineFinal = numline;
             final String[] tokens = line.split("\\|\\|\\|");
             executor.submit(new Runnable() {
                 @Override
                 public void run() {
                     if (tokens.length != 2 || !NumericUtility.isNum(tokens[0])) {
-                        String error = "File '" + path + "' not correct format\nReason:\n Correct at line ";
+                        String error = "File '" + path + "' not correct format\nReason:\nError at line " + String.valueOf(numlineFinal + 1);
                         try {
-                            FileUtils.writeStringToFile(fileLog, error, "UTF8", true);
+                            FileUtils.writeStringToFile(fileLog, error, "UTF8", false);
                         } catch (IOException ex) {
                             Logger.getLogger(CheckError.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
                 }
             });
-            if (fileLog.exists()) {
-                FileUtils.writeStringToFile(fileLog, String.valueOf(numline), "UTF8", true);
-                check = false;
-                break;
-            }
             numline++;
         }
         executor.shutdown();
         while (!executor.isTerminated()) {
         }
-        return check;
     }
 
 //File author_paper.csv has format idAuthor|||idPaper
-    public static boolean fileAuthorPaper(final String path) throws FileNotFoundException, IOException {
-        boolean check = true;
+    public static void fileAuthorPaper(final String path) throws FileNotFoundException, IOException {
         final File fileLog = new File("Temp\\log.txt");
 
         Runtime runtime = Runtime.getRuntime();
@@ -105,12 +103,13 @@ public class CheckError {
         String line = null;
         int numline = 0;
         while ((line = textReader.readLine()) != null) {
+            final int numlineFinal = numline;
             final String[] tokens = line.split("\\|\\|\\|");
             executor.submit(new Runnable() {
                 @Override
                 public void run() {
                     if (tokens.length != 2 || !NumericUtility.isNum(tokens[0]) || !NumericUtility.isNum(tokens[1])) {
-                        String error = "File '" + path + "' not correct format\nReason:\n Correct at line ";
+                        String error = "File '" + path + "' not correct format\nReason:\nError at line " + numlineFinal;
                         try {
                             FileUtils.writeStringToFile(fileLog, error, "UTF8", true);
                         } catch (IOException ex) {
@@ -119,22 +118,15 @@ public class CheckError {
                     }
                 }
             });
-            if (fileLog.exists()) {
-                FileUtils.writeStringToFile(fileLog, String.valueOf(numline), "UTF8", true);
-                check = false;
-                break;
-            }
             numline++;
         }
         executor.shutdown();
         while (!executor.isTerminated()) {
         }
-        return check;
     }
 
 //File author_cite_paper.csv has format idAuthor|||IdPaper|||Year
-    public static boolean fileAuthorCitePaper(final String path) throws FileNotFoundException, IOException {
-        boolean check = true;
+    public static void fileAuthorCitePaper(final String path) throws FileNotFoundException, IOException {
         final File fileLog = new File("Temp\\log.txt");
 
         Runtime runtime = Runtime.getRuntime();
@@ -145,13 +137,14 @@ public class CheckError {
         String line = null;
         int numline = 0;
         while ((line = textReader.readLine()) != null) {
+            final int numlineFinal = numline;
             final String[] tokens = line.split("\\|\\|\\|");
             executor.submit(new Runnable() {
                 @Override
                 public void run() {
                     if (tokens.length != 3 || !NumericUtility.isNum(tokens[0]) || !NumericUtility.isNum(tokens[1])
                             || !NumericUtility.isNum(tokens[2])) {
-                        String error = "File '" + path + "' not correct format\nReason:\n Correct at line ";
+                        String error = "File '" + path + "' not correct format\nReason:\nError at line " + numlineFinal;
                         try {
                             FileUtils.writeStringToFile(fileLog, error, "UTF8", true);
                         } catch (IOException ex) {
@@ -160,22 +153,14 @@ public class CheckError {
                     }
                 }
             });
-            if (fileLog.exists()) {
-                FileUtils.writeStringToFile(fileLog, String.valueOf(numline), "UTF8", true);
-                check = false;
-                break;
-            }
-            numline++;
         }
         executor.shutdown();
         while (!executor.isTerminated()) {
         }
-        return check;
     }
 
 //File paper.csv has format idPaper|||title|||content|||year
-    public static boolean filePapers(final String path) throws FileNotFoundException, IOException {
-        boolean check = true;
+    public static void filePapers(final String path) throws FileNotFoundException, IOException {
         final File fileLog = new File("Temp\\log.txt");
 
         Runtime runtime = Runtime.getRuntime();
@@ -186,12 +171,13 @@ public class CheckError {
         String line = null;
         int numline = 0;
         while ((line = textReader.readLine()) != null) {
+            final int numlineFinal = numline;
             final String[] tokens = line.split("\\|\\|\\|");
             executor.submit(new Runnable() {
                 @Override
                 public void run() {
                     if (tokens.length != 4 || !NumericUtility.isNum(tokens[0]) || !NumericUtility.isNum(tokens[3])) {
-                        String error = "File '" + path + "' not correct format\nReason:\n Correct at line ";
+                        String error = "File '" + path + "' not correct format\nReason:\nError at line " + numlineFinal;
                         try {
                             FileUtils.writeStringToFile(fileLog, error, "UTF8", true);
                         } catch (IOException ex) {
@@ -200,22 +186,15 @@ public class CheckError {
                     }
                 }
             });
-            if (fileLog.exists()) {
-                FileUtils.writeStringToFile(fileLog, String.valueOf(numline), "UTF8", true);
-                check = false;
-                break;
-            }
             numline++;
         }
         executor.shutdown();
         while (!executor.isTerminated()) {
         }
-        return check;
     }
 
 //File paper_cite_paper.csv has format idPaper|||idPaper
-    public static boolean filePaperCitePaper(final String path) throws FileNotFoundException, IOException {
-        boolean check = true;
+    public static void filePaperCitePaper(final String path) throws FileNotFoundException, IOException {
         final File fileLog = new File("Temp\\log.txt");
 
         Runtime runtime = Runtime.getRuntime();
@@ -226,13 +205,14 @@ public class CheckError {
         String line = null;
         int numline = 0;
         while ((line = textReader.readLine()) != null) {
+            final int numlineFinal = numline;
             final String[] tokens = line.split("\\|\\|\\|");
             executor.submit(new Runnable() {
                 @Override
                 public void run() {
                     if (tokens.length != 2 || !NumericUtility.isNum(tokens[0]) || !NumericUtility.isNum(tokens[1])
                             || tokens[0].equals(tokens[1])) {
-                        String error = "File '" + path + "' not correct format\nReason:\n Correct at line ";
+                        String error = "File '" + path + "' not correct format\nReason:\nError at line " + numlineFinal;
                         try {
                             FileUtils.writeStringToFile(fileLog, error, "UTF8", true);
                         } catch (IOException ex) {
@@ -241,22 +221,15 @@ public class CheckError {
                     }
                 }
             });
-            if (fileLog.exists()) {
-                FileUtils.writeStringToFile(fileLog, String.valueOf(numline), "UTF8", true);
-                check = false;
-                break;
-            }
             numline++;
         }
         executor.shutdown();
         while (!executor.isTerminated()) {
         }
-        return check;
     }
 
 //File groundtruth.csv has format idAuthor|||idPaper
-    public static boolean fileGroundTruth(final String path) throws FileNotFoundException, IOException {
-        boolean check = true;
+    public static void fileGroundTruth(final String path) throws FileNotFoundException, IOException {
         final File fileLog = new File("Temp\\log.txt");
 
         Runtime runtime = Runtime.getRuntime();
@@ -267,12 +240,13 @@ public class CheckError {
         String line = null;
         int numline = 0;
         while ((line = textReader.readLine()) != null) {
+            final int numlineFinal = numline;
             final String[] tokens = line.split("\\|\\|\\|");
             executor.submit(new Runnable() {
                 @Override
                 public void run() {
                     if (tokens.length != 2 || !NumericUtility.isNum(tokens[0]) || !NumericUtility.isNum(tokens[1])) {
-                        String error = "File '" + path + "' not correct format\nReason:\n Correct at line ";
+                        String error = "File '" + path + "' not correct format\nReason:\nError at line " + numlineFinal;
                         try {
                             FileUtils.writeStringToFile(fileLog, error, "UTF8", true);
                         } catch (IOException ex) {
@@ -281,16 +255,10 @@ public class CheckError {
                     }
                 }
             });
-            if (fileLog.exists()) {
-                FileUtils.writeStringToFile(fileLog, String.valueOf(numline), "UTF8", true);
-                check = false;
-                break;
-            }
             numline++;
         }
         executor.shutdown();
         while (!executor.isTerminated()) {
         }
-        return check;
     }
 }

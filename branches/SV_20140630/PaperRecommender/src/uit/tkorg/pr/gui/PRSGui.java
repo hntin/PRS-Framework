@@ -1676,18 +1676,19 @@ public class PRSGui extends javax.swing.JFrame {
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
             try {
-                if (CheckError.CheckImportData(ImportFiles.FILE_AUTHOR_CITE_PAPER, path)) {
+                CheckError.CheckImportData(ImportFiles.FILE_AUTHOR_CITE_PAPER, path);
+                String fileLog = "Temp\\log.txt";
+                if (!new File(fileLog).exists()) {
                     controller.fileNameAuthorCitePaper = path;
                     jTextAreaConsole.append(path + "\n");
                     count++;
                 } else {
-                    String fileLog = "Temp\\log.txt";
                     FileReader file = new FileReader(new File(fileLog));
                     BufferedReader textReader = new BufferedReader(file);
                     StringBuilder error = new StringBuilder();
                     String line = null;
                     while ((line = textReader.readLine()) != null) {
-                        error.append(line);
+                        error.append(line).append("\n");
                     }
                     file.close();
                     JOptionPane.showMessageDialog(rootPane, error, "Error", JOptionPane.ERROR_MESSAGE);
@@ -1842,18 +1843,19 @@ public class PRSGui extends javax.swing.JFrame {
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
             try {
-                if (CheckError.CheckImportData(ImportFiles.FILE_PAPERS, path)) {
+                CheckError.CheckImportData(ImportFiles.FILE_PAPERS, path);
+                String fileLog = "Temp\\log.txt";
+                if (!new File(fileLog).exists()) {
                     controller.fileNamePapers = path;
                     jTextAreaConsole.append(path + "\n");
                     count++;
                 } else {
-                    String fileLog = "Temp\\log.txt";
                     FileReader file = new FileReader(new File(fileLog));
                     BufferedReader textReader = new BufferedReader(file);
                     StringBuilder error = new StringBuilder();
                     String line = null;
                     while ((line = textReader.readLine()) != null) {
-                        error.append(line);
+                        error.append(line).append("\n");
                     }
                     file.close();
                     JOptionPane.showMessageDialog(rootPane, error, "Error", JOptionPane.ERROR_MESSAGE);
@@ -1872,18 +1874,20 @@ public class PRSGui extends javax.swing.JFrame {
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
             try {
-                if (CheckError.CheckImportData(ImportFiles.FILE_AUTHORS, path)) {
+                CheckError.CheckImportData(ImportFiles.FILE_AUTHORS, path);
+                String fileLog = "Temp\\log.txt";
+
+                if (!new File(fileLog).exists()) {
                     controller.fileNameAuthors = path;
                     jTextAreaConsole.append(path + "\n");
                     count++;
                 } else {
-                    String fileLog = "Temp\\log.txt";
                     FileReader file = new FileReader(new File(fileLog));
                     BufferedReader textReader = new BufferedReader(file);
                     StringBuilder error = new StringBuilder();
                     String line = null;
                     while ((line = textReader.readLine()) != null) {
-                        error.append(line);
+                        error.append(line).append("\n");
                     }
                     file.close();
                     JOptionPane.showMessageDialog(rootPane, error, "Error", JOptionPane.ERROR_MESSAGE);
@@ -1902,18 +1906,19 @@ public class PRSGui extends javax.swing.JFrame {
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
             try {
-                if (CheckError.CheckImportData(ImportFiles.FILE_AUTHOR_PAPER, path)) {
+                CheckError.CheckImportData(ImportFiles.FILE_AUTHOR_PAPER, path);
+                String fileLog = "Temp\\log.txt";
+                if (!new File(fileLog).exists()) {
                     controller.fileNameAuthorPaper = path;
                     jTextAreaConsole.append(path + "\n");
                     count++;
                 } else {
-                    String fileLog = "Temp\\log.txt";
                     FileReader file = new FileReader(new File(fileLog));
                     BufferedReader textReader = new BufferedReader(file);
                     StringBuilder error = new StringBuilder();
                     String line = null;
                     while ((line = textReader.readLine()) != null) {
-                        error.append(line);
+                        error.append(line).append("\n");
                     }
                     file.close();
                     JOptionPane.showMessageDialog(rootPane, error, "Error", JOptionPane.ERROR_MESSAGE);
@@ -1932,18 +1937,19 @@ public class PRSGui extends javax.swing.JFrame {
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
             try {
-                if (CheckError.CheckImportData(ImportFiles.FILE_PAPER_CITE_PAPER, path)) {
+                CheckError.CheckImportData(ImportFiles.FILE_PAPER_CITE_PAPER, path);
+                String fileLog = "Temp\\log.txt";
+                if (!new File(fileLog).exists()) {
                     controller.fileNamePaperCitePaper = path;
                     jTextAreaConsole.append(path + "\n");
                     count++;
                 } else {
-                    String fileLog = "Temp\\log.txt";
                     FileReader file = new FileReader(new File(fileLog));
                     BufferedReader textReader = new BufferedReader(file);
                     StringBuilder error = new StringBuilder();
                     String line = null;
                     while ((line = textReader.readLine()) != null) {
-                        error.append(line);
+                        error.append(line).append("\n");
                     }
                     file.close();
                     JOptionPane.showMessageDialog(rootPane, error, "Error", JOptionPane.ERROR_MESSAGE);
@@ -1962,18 +1968,19 @@ public class PRSGui extends javax.swing.JFrame {
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
             try {
-                if (CheckError.CheckImportData(ImportFiles.FILE_GROUNDTRUTH, path)) {
+                CheckError.CheckImportData(ImportFiles.FILE_GROUNDTRUTH, path);
+                String fileLog = "Temp\\log.txt";
+                if (!new File(fileLog).exists()) {
                     controller.fileNameGroundTruth = path;
                     jTextAreaConsole.append(path + "\n");
                     count++;
                 } else {
-                    String fileLog = "Temp\\log.txt";
                     FileReader file = new FileReader(new File(fileLog));
                     BufferedReader textReader = new BufferedReader(file);
                     StringBuilder error = new StringBuilder();
                     String line = null;
                     while ((line = textReader.readLine()) != null) {
-                        error.append(line);
+                        error.append(line).append("\n");
                     }
                     file.close();
                     JOptionPane.showMessageDialog(rootPane, error, "Error", JOptionPane.ERROR_MESSAGE);
