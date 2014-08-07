@@ -13,6 +13,7 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -60,7 +61,8 @@ public class PRSGui extends javax.swing.JFrame {
     private static int count = 0;// kiem tra nguoi dung co chon du so file theo yeu cau cua chuong trinh k
 
     public boolean step1 = false;
-    public boolean step2 = false;
+    public boolean step21 = false;
+    public boolean step22 = false;
     public boolean step3 = false;
     public boolean step4 = false;
 
@@ -91,7 +93,6 @@ public class PRSGui extends javax.swing.JFrame {
         jTabbedPaneStep.setEnabledAt(2, false);
         jTabbedPaneStep.setEnabledAt(3, false);
         // enableComponents((Container) jTabbedPaneStep.getComponentAt(0), false);
-
         redirectSystemStreams();
     }
 
@@ -199,8 +200,10 @@ public class PRSGui extends javax.swing.JFrame {
         jComboBoxCMUser = new javax.swing.JComboBox();
         jComboBoxWeightingUser = new javax.swing.JComboBox();
         jPanel23 = new javax.swing.JPanel();
-        AuthorCombinationMethodLabel = new javax.swing.JLabel();
-        AuthorWeightingComibationLabel = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        CMAuthorTextPane = new javax.swing.JTextPane();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        WCAuthorTextPane = new javax.swing.JTextPane();
         jPanel25 = new javax.swing.JPanel();
         jPanel29 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
@@ -208,16 +211,15 @@ public class PRSGui extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jComboBoxWeightingPaper = new javax.swing.JComboBox();
         jPanel30 = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        CMPaperTextPane = new javax.swing.JTextPane();
+        jScrollPane15 = new javax.swing.JScrollPane();
+        WCPaperTextPane = new javax.swing.JTextPane();
         jPanel27 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jPanel17 = new javax.swing.JPanel();
-        constructMatrixCFButton = new javax.swing.JButton();
-        loadExistenMatrixtCFButton = new javax.swing.JButton();
+        columLabel = new javax.swing.JLabel();
+        rowLabel = new javax.swing.JLabel();
+        missingValueLabel = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel16 = new javax.swing.JPanel();
         jTextFieldTopNRecommend = new javax.swing.JTextField();
@@ -764,27 +766,27 @@ public class PRSGui extends javax.swing.JFrame {
 
         jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder("Discription Option"));
 
-        AuthorCombinationMethodLabel.setText("Combination method");
+        CMAuthorTextPane.setBorder(javax.swing.BorderFactory.createTitledBorder("Combination method"));
+        CMAuthorTextPane.setText("Compute author's profile only based on feature vector of author's paper");
+        jScrollPane6.setViewportView(CMAuthorTextPane);
 
-        AuthorWeightingComibationLabel.setText("Weighting Combination");
+        WCAuthorTextPane.setBorder(javax.swing.BorderFactory.createTitledBorder("Weighting Combination"));
+        WCAuthorTextPane.setText("Using Linear Combination(LC) weighting to compute author's profile");
+        jScrollPane9.setViewportView(WCAuthorTextPane);
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
         jPanel23.setLayout(jPanel23Layout);
         jPanel23Layout.setHorizontalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel23Layout.createSequentialGroup()
-                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(AuthorCombinationMethodLabel)
-                    .addComponent(AuthorWeightingComibationLabel))
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane6)
+            .addComponent(jScrollPane9)
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel23Layout.createSequentialGroup()
-                .addComponent(AuthorCombinationMethodLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(AuthorWeightingComibationLabel)
-                .addGap(43, 43, 43))
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
@@ -853,27 +855,29 @@ public class PRSGui extends javax.swing.JFrame {
 
         jPanel30.setBorder(javax.swing.BorderFactory.createTitledBorder("Discription Option"));
 
-        jLabel17.setText("Combination method");
+        CMPaperTextPane.setBorder(javax.swing.BorderFactory.createTitledBorder("Combination method"));
+        CMPaperTextPane.setText("Compute paper's feature vector only based on feature vector of paper");
+        jScrollPane7.setViewportView(CMPaperTextPane);
 
-        jLabel18.setText("Weighting Combination");
+        WCPaperTextPane.setBorder(javax.swing.BorderFactory.createTitledBorder("Weighting Combination"));
+        WCPaperTextPane.setText("Using Linear Combination(LC) weighting to compute paper's feature vector");
+        WCPaperTextPane.setToolTipText("");
+        jScrollPane15.setViewportView(WCPaperTextPane);
 
         javax.swing.GroupLayout jPanel30Layout = new javax.swing.GroupLayout(jPanel30);
         jPanel30.setLayout(jPanel30Layout);
         jPanel30Layout.setHorizontalGroup(
             jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel30Layout.createSequentialGroup()
-                .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel17)
-                    .addComponent(jLabel18))
-                .addGap(0, 369, Short.MAX_VALUE))
+            .addComponent(jScrollPane7)
+            .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
         );
         jPanel30Layout.setVerticalGroup(
             jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel30Layout.createSequentialGroup()
-                .addComponent(jLabel17)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
-                .addComponent(jLabel18)
-                .addGap(40, 40, 40))
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
@@ -892,7 +896,7 @@ public class PRSGui extends javax.swing.JFrame {
             .addGroup(jPanel25Layout.createSequentialGroup()
                 .addComponent(jPanel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
@@ -915,11 +919,11 @@ public class PRSGui extends javax.swing.JFrame {
 
         jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder("Current relation"));
 
-        jLabel1.setText("Colums:");
+        columLabel.setText("Colums:");
 
-        jLabel5.setText("Rows:");
+        rowLabel.setText("Rows:");
 
-        jLabel6.setText("Missing value:");
+        missingValueLabel.setText("Missing value:");
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -928,72 +932,33 @@ public class PRSGui extends javax.swing.JFrame {
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(220, Short.MAX_VALUE))
+                    .addComponent(columLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rowLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(missingValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(690, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(columLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rowLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(157, Short.MAX_VALUE))
-        );
-
-        jPanel17.setBorder(javax.swing.BorderFactory.createTitledBorder("Option"));
-
-        constructMatrixCFButton.setText("Construct Matrix Collaborative Filtering");
-        constructMatrixCFButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                constructMatrixCFButtonActionPerformed(evt);
-            }
-        });
-
-        loadExistenMatrixtCFButton.setText("Load Existent Matrix Collaborative Filtering");
-        loadExistenMatrixtCFButton.setEnabled(false);
-        loadExistenMatrixtCFButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loadExistenMatrixtCFButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
-        jPanel17.setLayout(jPanel17Layout);
-        jPanel17Layout.setHorizontalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(constructMatrixCFButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(loadExistenMatrixtCFButton, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
-        );
-        jPanel17Layout.setVerticalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel17Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(constructMatrixCFButton)
-                .addGap(18, 18, 18)
-                .addComponent(loadExistenMatrixtCFButton)
-                .addContainerGap(171, Short.MAX_VALUE))
+                .addComponent(missingValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(159, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
         jPanel27.setLayout(jPanel27Layout);
         jPanel27Layout.setHorizontalGroup(
             jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel27Layout.createSequentialGroup()
-                .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel27Layout.setVerticalGroup(
             jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel27Layout.createSequentialGroup()
-                .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1035,6 +1000,11 @@ public class PRSGui extends javax.swing.JFrame {
         jLabelKnn.setEnabled(false);
 
         kNeighbor.setEnabled(false);
+        kNeighbor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                kNeighborKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
@@ -1648,13 +1618,15 @@ public class PRSGui extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBoxWeightingUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxWeightingUserActionPerformed
-        // TODO add your handling code here:
         if (jComboBoxWeightingUser.getSelectedIndex() == 0) {
             controller.weightingAuthor = 0;
+            WCAuthorTextPane.setText("Using Linear Combination(LC) weighting to compute author's profile");
         } else if (jComboBoxWeightingUser.getSelectedIndex() == 1) {
             controller.weightingAuthor = 1;
+            WCAuthorTextPane.setText("Using Cosine Similarity(SIM) weighting to compute author's profile");
         } else if (jComboBoxWeightingUser.getSelectedIndex() == 2) {
             controller.weightingAuthor = 2;
+            WCAuthorTextPane.setText("Using Reciprocal of the difference between published years(RPY) weighting to compute author's profile");
         } else if (jComboBoxWeightingUser.getSelectedIndex() == 3) {
             String input = JOptionPane.showInputDialog("Please input gamma...");
             while (!NumericUtility.isNum(input)) {
@@ -1667,7 +1639,9 @@ public class PRSGui extends javax.swing.JFrame {
                         input = "-1";
                     }
                 }
+                controller.weightingPaper = 3;
                 controller.gama = Double.valueOf(input);
+                WCAuthorTextPane.setText("Using Forgetting factor(FF) weighting to compute author's profile");
             }
         }
     }//GEN-LAST:event_jComboBoxWeightingUserActionPerformed
@@ -1702,19 +1676,6 @@ public class PRSGui extends javax.swing.JFrame {
             jButtonStartImportData.setEnabled(true);
         }
     }//GEN-LAST:event_jButtonFileAuthorCitePaperActionPerformed
-
-    private void constructMatrixCFButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_constructMatrixCFButtonActionPerformed
-        controller.guiHanderResquest(Options.CONSTRUCT_MATRIX_CF);
-    }//GEN-LAST:event_constructMatrixCFButtonActionPerformed
-
-    private void loadExistenMatrixtCFButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadExistenMatrixtCFButtonActionPerformed
-        String path = GuiUtilities.chooseFileJChooser("Choose File");
-        if (path != null) {
-            controller.fileNameMatrixExistent = path;
-            jTextAreaConsole.append(path + "\n");
-        }
-        controller.guiHanderResquest(Options.LOAD_EXISTENT_MODEL);
-    }//GEN-LAST:event_loadExistenMatrixtCFButtonActionPerformed
 
     private void jButtonMethodDataPreparationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonMethodDataPreparationMouseClicked
         jPopupMenuDataPreparation.show(jButtonMethodDataPreparation, 1,
@@ -1996,51 +1957,69 @@ public class PRSGui extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonFileGroundTruthActionPerformed
 
     private void jComboBoxCMUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCMUserActionPerformed
-        // TODO add your handling code here:
         if (jComboBoxCMUser.getSelectedIndex() == 0) {
             controller.combiningAuthor = 0;
-            //AuthorCombinationMethodLabel.setText(AuthorCombinationMethodLabel.getText() + ":" + "compute author's profile only based on feature vector of author's paper");
+            CMAuthorTextPane.setText("Compute author's profile only based on feature vector of author's paper");
         } else if (jComboBoxCMUser.getSelectedIndex() == 1) {
             controller.combiningAuthor = 1;
-            //AuthorCombinationMethodLabel.setText(AuthorCombinationMethodLabel.getText() + ":" + "compute author's profile only based on feature vector of author's paper and author's citation paper");
+            CMAuthorTextPane.setText("Compute author's profile based on feature vector of author's paper and author's citation paper");
         } else if (jComboBoxCMUser.getSelectedIndex() == 2) {
             controller.combiningAuthor = 2;
-            //AuthorCombinationMethodLabel.setText(AuthorCombinationMethodLabel.getText() + ":" + "compute author's profile based on feature vector of author's paper and author's preference paper");
+            CMAuthorTextPane.setText("Compute author's profile based on feature vector of author's paper and author's preference paper");
         } else if (jComboBoxCMUser.getSelectedIndex() == 3) {
             controller.combiningAuthor = 3;
-            //AuthorCombinationMethodLabel.setText(AuthorCombinationMethodLabel.getText() + ":" + "compute author's profile only based on feature vector of author's paper, author's citation paper and author's preference paper");
+            CMAuthorTextPane.setText("Compute author's profile only based on feature vector of author's paper, author's citation paper and author's preference paper");
         }
     }//GEN-LAST:event_jComboBoxCMUserActionPerformed
 
     private void jComboBoxCMPaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCMPaperActionPerformed
-        // TODO add your handling code here:
         if (jComboBoxCMPaper.getSelectedIndex() == 0) {
             controller.combiningPaper = 0;
+            CMPaperTextPane.setText("Compute paper's feature vector only based on feature vector of paper");
         } else if (jComboBoxCMPaper.getSelectedIndex() == 1) {
             controller.combiningPaper = 1;
+            CMPaperTextPane.setText("Compute paper's feature vector based on feature vector of paper and paper's citation paper");
         } else if (jComboBoxCMPaper.getSelectedIndex() == 2) {
             controller.combiningPaper = 2;
+            CMPaperTextPane.setText("Compute paper's feature vector based on feature vector of paper and paper's preference paper");
         } else if (jComboBoxCMPaper.getSelectedIndex() == 3) {
             controller.combiningPaper = 3;
+            CMPaperTextPane.setText("Compute paper's feature vector based on feature vector of paper, paper's citation paper and preference paper");
         }
     }//GEN-LAST:event_jComboBoxCMPaperActionPerformed
 
     private void jComboBoxWeightingPaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxWeightingPaperActionPerformed
-        // TODO add your handling code here:
         if (jComboBoxWeightingPaper.getSelectedIndex() == 0) {
             controller.weightingPaper = 0;
+            WCPaperTextPane.setText("Using Linear Combination(LC) weighting to compute paper's feature vector");
         } else if (jComboBoxWeightingPaper.getSelectedIndex() == 1) {
             controller.weightingPaper = 1;
+            WCPaperTextPane.setText("Using Cosine Similarity(SIM) weighting to compute paper's feature vector");
         } else if (jComboBoxWeightingPaper.getSelectedIndex() == 2) {
             controller.weightingPaper = 2;
+            WCPaperTextPane.setText("Using Reciprocal of the difference between published years(RPY) weighting to compute paper's feature vector");
         } else if (jComboBoxWeightingPaper.getSelectedIndex() == 3) {
-            controller.weightingPaper = 3;
-        }
 
+            String input = JOptionPane.showInputDialog("Please input gamma...");
+            while (!NumericUtility.isNum(input)) {
+                input = JOptionPane.showInputDialog("Please input gamma...");
+            }
+            if (input != null) {
+                while (Double.valueOf(input) < 0 || Double.valueOf(input) > 1) {
+                    input = JOptionPane.showInputDialog("Please input gamma...");
+                    if (input == null) {
+                        input = "-1";
+                    }
+
+                }
+                controller.weightingPaper = 3;
+                controller.gama = Double.valueOf(input);
+                WCPaperTextPane.setText("Using Forgetting factor(FF) weighting to compute paper's feature vector");
+            }
+        }
     }//GEN-LAST:event_jComboBoxWeightingPaperActionPerformed
 
     private void jComboBoxMethodRecommendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxMethodRecommendActionPerformed
-        // TODO add your handling code here:
         if (jComboBoxMethodRecommend.getSelectedIndex() == 0) {
             controller.recommendationMethod = 1;
         } else {
@@ -2061,7 +2040,6 @@ public class PRSGui extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxMethodRecommendActionPerformed
 
     private void jComboBoxMethodEvaluationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxMethodEvaluationActionPerformed
-        // TODO add your handling code here:
         if (jComboBoxMethodEvaluation.getSelectedIndex() == 0) {
             controller.methodEvaluation = 0;
         } else if (jComboBoxMethodEvaluation.getSelectedIndex() == 1) {
@@ -2117,13 +2095,17 @@ public class PRSGui extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonEvaluationActionPerformed
 
     private void visualizeMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizeMenuItemActionPerformed
-        try {
-            VisualizeGui visualizeGui = new VisualizeGui(this, rootPaneCheckingEnabled);
-            visualizeGui.setLocationRelativeTo(this);
-            visualizeGui.show();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(rootPane, "Occured error...Please try again!", "Warning", JOptionPane.WARNING_MESSAGE);
+        if (step4) {
+            try {
+                VisualizeGui visualizeGui = new VisualizeGui(this, rootPaneCheckingEnabled);
+                visualizeGui.setLocationRelativeTo(this);
+                visualizeGui.show();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                JOptionPane.showMessageDialog(rootPane, "Occured error...Please try again!", "Warning", JOptionPane.WARNING_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Haven't evaluated, yet!", "Notice", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_visualizeMenuItemActionPerformed
 
@@ -2217,7 +2199,8 @@ public class PRSGui extends javax.swing.JFrame {
                 jTabbedPaneStep.setEnabledAt(3, false);
 
                 step1 = false;
-                step2 = false;
+                step21 = false;
+                step22 = false;
                 step3 = false;
                 step4 = false;
             } catch (Exception e) {
@@ -2259,6 +2242,8 @@ public class PRSGui extends javax.swing.JFrame {
 
     private void jButtonContructUserProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonContructUserProfileActionPerformed
         if (jTabbedPaneStep.getSelectedIndex() == 1) {
+            jTabbedPaneDataPreparation.setEnabledAt(0, true);
+            jTabbedPaneDataPreparation.setSelectedIndex(0);
             jTextAreaConsole.append("\nBegin construct author's profile....\n");
             long begin = System.currentTimeMillis();
             controller.guiHanderResquest(Options.CONSTRUCT_AUTHOR_PROFILE);
@@ -2269,7 +2254,7 @@ public class PRSGui extends javax.swing.JFrame {
             controller.guiHanderResquest(Options.CONSTRUCT_PAPER_FV);
             jTextAreaConsole.append("End construct feature vector of papers....\n");
             jTextAreaConsole.append("Time elapsed: " + String.valueOf(System.currentTimeMillis() - begin) + "s");
-            step2 = true;
+            step21 = true;
         } else {
             JOptionPane.showMessageDialog(rootPane, "Please choose data preparation!", "Notice", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -2363,7 +2348,6 @@ public class PRSGui extends javax.swing.JFrame {
             manageJTablePane(1);
             jTabbedPaneDataPreparation.setEnabledAt(0, true);
             jTabbedPaneDataPreparation.setSelectedIndex(0);
-            jTabbedPaneDataPreparation.setEnabledAt(1, false);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Haven't import data, yet!", "Notice", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -2373,10 +2357,6 @@ public class PRSGui extends javax.swing.JFrame {
         if (!NumericUtility.isNum(jTextFieldIdAuthor.getText().trim().toString()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE && evt.getKeyChar() != KeyEvent.VK_ENTER) {
             JOptionPane.showMessageDialog(rootPane, "Please input number...", "Warning", JOptionPane.WARNING_MESSAGE);
         }
-//        else if(evt.getKeyChar()==KeyEvent.VK_ENTER){
-//            ActionEvent ActionEvent=null;
-//            jButtonFindUserActionPerformed(ActionEvent);
-//        }
     }//GEN-LAST:event_jTextFieldIdAuthorKeyReleased
 
     private void jButtonFindUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFindUserActionPerformed
@@ -2434,7 +2414,6 @@ public class PRSGui extends javax.swing.JFrame {
             manageJTablePane(1);
             jTabbedPaneDataPreparation.setEnabledAt(1, true);
             jTabbedPaneDataPreparation.setSelectedIndex(1);
-            jTabbedPaneDataPreparation.setEnabledAt(0, false);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Haven't import data, yet!", "Notice", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -2442,19 +2421,31 @@ public class PRSGui extends javax.swing.JFrame {
 
     private void ComputeMatrixCFButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComputeMatrixCFButtonActionPerformed
         if (jTabbedPaneStep.getSelectedIndex() == 1) {
+            jTabbedPaneDataPreparation.setEnabledAt(1, true);
+            jTabbedPaneDataPreparation.setSelectedIndex(1);
             jTextAreaConsole.append("\nBegin compute Matrix Collaborative Filtering....\n");
             long begin = System.currentTimeMillis();
             controller.guiHanderResquest(Options.CONSTRUCT_MATRIX_CF);
             jTextAreaConsole.append("End compute Matrix Collaborative Filtering....\n");
             jTextAreaConsole.append("Time elapsed: " + String.valueOf(((System.currentTimeMillis() - begin)) / 1000) + "s" + "\n");
-            step2 = true;
+            step22 = true;
+
+            columLabel.setText(columLabel.getText() + " " + controller.authors.keySet().size());
+            rowLabel.setText(rowLabel.getText() + " " + controller.papers.keySet().size());
+            try {
+                missingValueLabel.setText(missingValueLabel.getText() + " " + String.valueOf(GuiUtilities.missingValueInMatrixCF(
+                        controller.MahoutCFDir + "\\CFRatingMatrixOriginal.txt", controller.authors.keySet().size(),
+                        controller.papers.keySet().size())) + " %");
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Please choose data preparation!", "Notice", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_ComputeMatrixCFButtonActionPerformed
 
     private void jMenuItemRecContentBasedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRecContentBasedActionPerformed
-        if (step2) {
+        if (step21) {
             manageJTablePane(2);
             jComboBoxMethodRecommend.setSelectedIndex(0);
         } else {
@@ -2463,7 +2454,7 @@ public class PRSGui extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemRecContentBasedActionPerformed
 
     private void jMenuItemRecCFPearsonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRecCFPearsonActionPerformed
-        if (step2) {
+        if (step22) {
             manageJTablePane(2);
             jComboBoxMethodRecommend.setSelectedIndex(1);
         } else {
@@ -2472,7 +2463,7 @@ public class PRSGui extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemRecCFPearsonActionPerformed
 
     private void jMenuItemRecCFCosineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRecCFCosineActionPerformed
-        if (step2) {
+        if (step22) {
             manageJTablePane(2);
             jComboBoxMethodRecommend.setSelectedIndex(2);
         } else {
@@ -2481,7 +2472,7 @@ public class PRSGui extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemRecCFCosineActionPerformed
 
     private void jMenuItemRecCFSVDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRecCFSVDActionPerformed
-        if (step2) {
+        if (step22) {
             manageJTablePane(2);
             jComboBoxMethodRecommend.setSelectedIndex(3);
         } else {
@@ -2675,6 +2666,17 @@ public class PRSGui extends javax.swing.JFrame {
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         GuiUtilities.deleteFile("Temp\\ResultEvaluation.txt");
     }//GEN-LAST:event_formWindowClosed
+
+    private void kNeighborKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kNeighborKeyReleased
+        if (!NumericUtility.isNum(kNeighbor.getText().trim().toString()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE && evt.getKeyChar() != KeyEvent.VK_ENTER) {
+            JOptionPane.showMessageDialog(rootPane, "Please input number...", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            int num = Integer.parseInt(kNeighbor.getText().trim().toString());
+            if ((num < 1 || num > 100) && evt.getKeyChar() != KeyEvent.VK_ENTER) {
+                JOptionPane.showMessageDialog(rootPane, "Please input number >0 and <=101...", "Warning", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_kNeighborKeyReleased
 //<editor-fold defaultstate="collapsed" desc="GuiUtilities">
 
     public void enableComponents(Container container, boolean enable) {
@@ -2724,13 +2726,15 @@ public class PRSGui extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel AuthorCombinationMethodLabel;
-    private javax.swing.JLabel AuthorWeightingComibationLabel;
+    private javax.swing.JTextPane CMAuthorTextPane;
+    private javax.swing.JTextPane CMPaperTextPane;
     private javax.swing.JButton ComputeMatrixCFButton;
+    private javax.swing.JTextPane WCAuthorTextPane;
+    private javax.swing.JTextPane WCPaperTextPane;
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenuItem buildTFIDFFilesMenuItem;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton constructMatrixCFButton;
+    private javax.swing.JLabel columLabel;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
@@ -2764,18 +2768,13 @@ public class PRSGui extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBoxMethodRecommend;
     private javax.swing.JComboBox jComboBoxWeightingPaper;
     private javax.swing.JComboBox jComboBoxWeightingUser;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabelKnn;
     private javax.swing.JList jListEvaluation;
     private javax.swing.JList jListRecAlgorithm;
@@ -2802,7 +2801,6 @@ public class PRSGui extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
-    private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
@@ -2842,11 +2840,15 @@ public class PRSGui extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JScrollPane jScrollPane14;
+    private javax.swing.JScrollPane jScrollPane15;
     private javax.swing.JScrollPane jScrollPane16;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTabbedPane jTabbedPaneDataPreparation;
     private javax.swing.JTabbedPane jTabbedPaneStep;
@@ -2863,10 +2865,11 @@ public class PRSGui extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldTopNRecommend;
     private javax.swing.JTextField jTextFieldtopRank;
     private javax.swing.JTextField kNeighbor;
-    private javax.swing.JButton loadExistenMatrixtCFButton;
     private javax.swing.JMenuItem loadExistentModelMenuItem;
     private javax.swing.JMenuBar menuMenuBar;
+    private javax.swing.JLabel missingValueLabel;
     private javax.swing.JMenuItem resetMenuItem;
+    private javax.swing.JLabel rowLabel;
     private javax.swing.JMenuItem saveModelMenuItem;
     private javax.swing.JMenu toolsMenu;
     private javax.swing.JMenuItem visualizeMenuItem;

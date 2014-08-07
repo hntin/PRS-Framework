@@ -178,20 +178,18 @@ public class GuiUtilities {
     }
 
     //Doc so hang va so cot cua mot file matran va tra ve missing value
-    public static double missingValueInMatrixCF(String pathMatrixCF, int numAuthors, int numPapers) throws FileNotFoundException {
-        double missingValue = 0;
+    public static float missingValueInMatrixCF(String pathMatrixCF, int numAuthors, int numPapers) throws FileNotFoundException {
+        float missingValue = 0;
         BufferedReader reader = new BufferedReader(new FileReader(pathMatrixCF));
-        String line = null;
         int numLine = 0;
         try {
-            while ((line = reader.readLine()) != null) {
+            while (reader.readLine() != null) {
                 numLine++;
             }
-            missingValue = numLine / (numAuthors * numPapers);
+            missingValue = (float) numLine / (numAuthors * numPapers);
         } catch (IOException ex) {
             Logger.getLogger(GuiUtilities.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return missingValue * 100;
     }
 
