@@ -20,6 +20,7 @@ import uit.tkorg.pr.datapreparation.CBFAuthorFVComputation;
 import uit.tkorg.pr.datapreparation.CBFPaperFVComputation;
 import uit.tkorg.pr.evaluation.Evaluator;
 import uit.tkorg.pr.method.cbf.FeatureVectorSimilarity;
+import uit.tkorg.pr.method.cf.CF;
 import uit.tkorg.pr.model.Author;
 import uit.tkorg.pr.model.Paper;
 import uit.tkorg.utility.textvectorization.TextPreprocessUtility;
@@ -33,7 +34,7 @@ public class CentralGuiHanderRequest {
 
     public double gama;// tham so gama cho 
     public double pruning;//tham so deu chinh cho pruning cho paper
-    public int weightingAuthor = 0;// trong so author
+    public int timeAwareScheme = 0;// trong so author
     public int weightingPaper = 0;// trong so paper
     public int combiningAuthor = 0;// phuong thuc combining author
     public int combiningPaper = 0; // phuong thuc combining paper
@@ -55,8 +56,8 @@ public class CentralGuiHanderRequest {
     public String sequenceDir = "Temp\\Sequence";
     public String vectorDir = "Temp\\VectorDir";
     public String MahoutCFDir = "Temp\\MahoutDir";
-    public String fileNameEvaluationResult="Temp\\ResultEvaluation.txt";// ten file ket qua danh gia
-    public String fileNameRecommenList="Temp\\RecommendationList.txt";// ten file danh sach RECOMMEND
+    public String fileNameEvaluationResult = "Temp\\ResultEvaluation.txt";// ten file ket qua danh gia
+    public String fileNameRecommenList = "Temp\\RecommendationList.txt";// ten file danh sach RECOMMEND
     public String fileNameMatrixExistent;
     public HashMap<String, Paper> papers = new HashMap<>();
     public HashMap<String, Author> authors = new HashMap<>();
@@ -65,7 +66,7 @@ public class CentralGuiHanderRequest {
     public CentralGuiHanderRequest() {
         gama = 0;// tham so gama cho 
         pruning = 0;//tham so deu chinh cho pruning cho paper
-        weightingAuthor = 0;// trong so author
+        timeAwareScheme = 0;// trong so author
         weightingPaper = 0;// trong so paper
         combiningAuthor = 0;// phuong thuc combining author
         combiningPaper = 0; // phuong thuc combining paper
@@ -73,7 +74,7 @@ public class CentralGuiHanderRequest {
         cfMethod = 1;//1: KNN Pearson, 2: KNN Cosine, 3: SVD
         topNRecommend = 0;// topNRecommend RECOMMEND
         topRank = 0;// topRank K EVALUATE
-        kNeighbor = 0;// so hang xom
+        //  kNeighbor = 8;// so hang xom
         methodEvaluation = 0;// phuong phap danh gia
         SaveDataFolder = null;//
         fileNamePapers = null; //File 1
@@ -110,7 +111,7 @@ public class CentralGuiHanderRequest {
                     HashSet<String> paperIdsOfAuthorTestSet = CBFAuthorFVComputation.getPaperIdsOfAuthors(authors);
                     //CBFPaperFVComputation.computeFeatureVectorForAllPapers(papers, paperIdsOfAuthorTestSet, combiningPaper, weightingPaper,pruning);
                     CBFPaperFVComputation.computeFeatureVectorForAllPapers(papers, paperIdsOfAuthorTestSet, combiningPaper, weightingPaper, 0.0);
-                    CBFAuthorFVComputation.computeFVForAllAuthors(authors, papers, weightingAuthor, gama);
+                    CBFAuthorFVComputation.computeFVForAllAuthors(authors, papers, timeAwareScheme, gama);
                     break;
                 case CONSTRUCT_PAPER_FV:// xay dung vector dac trung cho bai bao
                     //CBFPaperFVComputation.computeFeatureVectorForAllPapers(papers,null,combiningPaper,weightingPaper,pruning);
@@ -119,12 +120,12 @@ public class CentralGuiHanderRequest {
                 case SAVE_MODEL:// save model
                     break;
                 case CONSTRUCT_MATRIX_CF: // build matrix input
-                    CFController.cfPrepareMatrix(fileNameAuthorCitePaper,MahoutCFDir + "\\CFRatingMatrixOriginal.txt");
+                    CFController.cfPrepareMatrix(fileNameAuthorCitePaper, MahoutCFDir + "\\CFRatingMatrixOriginal.txt");
                     break;
                 case LOAD_EXISTENT_MODEL:// load mot matrix da co san
                     File userPreferencesFile = new File(fileNameMatrixExistent);
                     DataModel dataModel = new FileDataModel(userPreferencesFile);
-                   
+
                     break;
                 case LOAD_MODEL:
                     response[0] = "Scucess";
@@ -147,7 +148,7 @@ public class CentralGuiHanderRequest {
                     FileUtils.writeStringToFile(new File(fileNameRecommenList), recommendList.toString(), "UTF8", true);
                     break;
                 case SAVE_EVALUATION_RESULT:
-                      FileUtils.writeStringToFile(new File(fileNameEvaluationResult),Evaluation(authors, methodEvaluation, topRank).toString(), "UTF8", true);
+                    FileUtils.writeStringToFile(new File(fileNameEvaluationResult), Evaluation(authors, methodEvaluation, topRank).toString(), "UTF8", true);
                     break;
                 case RESET:
                     papers = new HashMap<>();
@@ -175,30 +176,32 @@ public class CentralGuiHanderRequest {
             paperIds = CBFAuthorFVComputation.getPaperIdsTestSet(authors);
             if (cfMethod == 1) {
                 //CF method with KNN Pearson
-                CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod, authors, paperIds,kNeighbor);
+                CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod, authors, paperIds, kNeighbor);
+                CF.cfRecommendToAuthorList(authors, topNRecommend);
             } else if (cfMethod == 2) {
                 //CF method with KNN Cosine
-                CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod, authors, paperIds,kNeighbor);
+                CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod, authors, paperIds, kNeighbor);
+                CF.cfRecommendToAuthorList(authors, topNRecommend);
             } else if (cfMethod == 3) {
                 //CF method with SVD
-                CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod, authors, paperIds,kNeighbor);
+                CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod, authors, paperIds, kNeighbor);
+                CF.cfRecommendToAuthorList(authors, topNRecommend);
             }
         }
     }
-   
+
     public StringBuilder Evaluation(HashMap<String, Author> authors, int method, int rank) throws Exception {
         StringBuilder evaluationResult = new StringBuilder();
         evaluationResult.append("\r\nMeasure\t").append("TopRank\t").append("Result").append("\r\n");
         if (method == 0) {
-           evaluationResult.append("Precision\t").append(rank).append("\t")
-            .append(Evaluator.computeMeanPrecisionTopN(authors,rank)).append("\r\n")
-            .append("Recall\t").append(rank).append("\t").append(Evaluator.computeMeanRecallTopN(authors,rank)).append("\r\n")
-            .append("F1\t").append("").append("\t").append(Evaluator.computeMeanFMeasure(authors, 1)).append("\r\n")
-            .append("MAP\t").append(rank).append("\t").append(Evaluator.computeMAP(authors, 10)).append("\r\n")
-            .append("NDCG\t").append(rank).append("\t").append(Evaluator.computeMeanNDCG(authors,rank)).append("\r\n")
-            .append("MRR\t").append("").append("\t").append(Evaluator.computeMRR(authors)).append("\r\n");
-        }
-        else if (method == 1) {
+            evaluationResult.append("Precision\t").append(rank).append("\t")
+                    .append(Evaluator.computeMeanPrecisionTopN(authors, rank)).append("\r\n")
+                    .append("Recall\t").append(rank).append("\t").append(Evaluator.computeMeanRecallTopN(authors, rank)).append("\r\n")
+                    .append("F1\t").append("").append("\t").append(Evaluator.computeMeanFMeasure(authors, 1)).append("\r\n")
+                    .append("MAP\t").append(rank).append("\t").append(Evaluator.computeMAP(authors, 10)).append("\r\n")
+                    .append("NDCG\t").append(rank).append("\t").append(Evaluator.computeMeanNDCG(authors, rank)).append("\r\n")
+                    .append("MRR\t").append("").append("\t").append(Evaluator.computeMRR(authors)).append("\r\n");
+        } else if (method == 1) {
             evaluationResult.append("Precision\t").append(rank).append("\t")
                     .append(Evaluator.computeMeanPrecisionTopN(authors, rank)).append("\r\n");
         } else if (method == 2) {
@@ -207,14 +210,12 @@ public class CentralGuiHanderRequest {
         } else if (method == 3) {
             evaluationResult.append("F1\t").append("").append("\t").append(Evaluator.computeMeanFMeasure(authors, 1)).append("\r\n");
         } else if (method == 4) {
-            evaluationResult.append("MAP\t").append(rank).append("\t").append(Evaluator.computeMAP(authors, 10)).append("\r\n");        
+            evaluationResult.append("MAP\t").append(rank).append("\t").append(Evaluator.computeMAP(authors, 10)).append("\r\n");
         } else if (method == 5) {
-            evaluationResult.append("NDCG\t").append(rank).append("\t").append(Evaluator.computeMeanNDCG(authors,rank)).append("\r\n");  
+            evaluationResult.append("NDCG\t").append(rank).append("\t").append(Evaluator.computeMeanNDCG(authors, rank)).append("\r\n");
         } else if (method == 6) {
             evaluationResult.append("MRR\t").append("").append("\t").append(Evaluator.computeMRR(authors)).append("\r\n");
-        } 
+        }
         return evaluationResult;
     }
-
-    
 }

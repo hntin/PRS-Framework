@@ -242,6 +242,8 @@ public class CheckError {
         while ((line = textReader.readLine()) != null) {
             final int numlineFinal = numline;
             final String[] tokens = line.split("\\|\\|\\|");
+            System.out.println(line);
+            System.out.println(tokens.length);
             executor.submit(new Runnable() {
                 @Override
                 public void run() {

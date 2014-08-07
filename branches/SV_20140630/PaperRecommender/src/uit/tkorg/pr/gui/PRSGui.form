@@ -108,7 +108,8 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="From Dataset Scource"/>
+            <Property name="text" type="java.lang.String" value="From Dataset Source"/>
+            <Property name="autoscrolls" type="boolean" value="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemDataSourceActionPerformed"/>
@@ -650,7 +651,7 @@
                             <Property name="columns" type="int" value="20"/>
                             <Property name="lineWrap" type="boolean" value="true"/>
                             <Property name="rows" type="int" value="5"/>
-                            <Property name="text" type="java.lang.String" value="File GroundTruth.csv ch&#x1ee9;a th&#xf4;ng tin t&#xe1;c gi&#x1ea3; th&#xed;ch b&#xe0;i b&#xe1;o n&#xe0;o v&#xe0; c&#xf3; &#x111;&#x1ecb;nh d&#x1ea1;ng:&#xa;IdAuthor||IdPaper&#xa;V&#xed; d&#x1ee5;:&#xa;1|||1&#xa;1|||5&#xa;1|||112&#xa;1|||134&#xa;1|||9&#xa;2|||211&#xa;2|||215&#xa;2|||214&#xa;2|||9&#xa;2|||42"/>
+                            <Property name="text" type="java.lang.String" value="File GroundTruth.csv l&#xe0; file d&#x1eef; li&#x1ec7;u test c&#x1ee7;a ch&#x1b0;&#x1a1;ng tr&#xec;nh &#x111;&#xe3; &#x111;&#x1b0;&#x1ee3;c g&#xe1;n nh&#xe3;n s&#x1eb5;n.&#xa;Ch&#x1ee9;a th&#xf4;ng t&#xe1;c gi&#x1ea3; tr&#xed;ch d&#x1eab;n b&#xe0;i b&#xe1;o n&#xe0;o. File c&#xf3; &#x111;&#x1ecb;nh d&#x1ea1;ng:&#xa;IdAuthor||IdPaper&#xa;V&#xed; d&#x1ee5;:&#xa;1|||1&#xa;1|||5&#xa;1|||112&#xa;1|||134&#xa;1|||9&#xa;2|||211&#xa;2|||215&#xa;2|||214&#xa;2|||9&#xa;2|||42"/>
                             <Property name="wrapStyleWord" type="boolean" value="true"/>
                           </Properties>
                         </Component>
@@ -705,6 +706,9 @@
                     <Property name="text" type="java.lang.String" value="From Dataset Example"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonDatasetExampleActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="jRadioButtonDatasetSource">
                   <Properties>
@@ -1044,11 +1048,9 @@
                             <Component class="javax.swing.JComboBox" name="jComboBoxWeightingUser">
                               <Properties>
                                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                                  <StringArray count="4">
+                                  <StringArray count="2">
                                     <StringItem index="0" value="Linear combination(LC)"/>
-                                    <StringItem index="1" value="Cosine similarity(SIM)"/>
-                                    <StringItem index="2" value="Reciprocal of the difference between published years(RPY)"/>
-                                    <StringItem index="3" value="Forgetting factor(FF)"/>
+                                    <StringItem index="1" value="Forgetting factor(FF)"/>
                                   </StringArray>
                                 </Property>
                               </Properties>
@@ -1384,17 +1386,17 @@
                       <SubComponents>
                         <Component class="javax.swing.JLabel" name="columLabel">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="Colums:"/>
+                            <Property name="text" type="java.lang.String" value="Number Columns:"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JLabel" name="rowLabel">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="Rows:"/>
+                            <Property name="text" type="java.lang.String" value="Number Rows:"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JLabel" name="missingValueLabel">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="Missing value:"/>
+                            <Property name="text" type="java.lang.String" value="Missing Value:"/>
                           </Properties>
                         </Component>
                       </SubComponents>

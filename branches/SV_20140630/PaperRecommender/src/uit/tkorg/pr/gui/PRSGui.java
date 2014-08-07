@@ -75,11 +75,6 @@ public class PRSGui extends javax.swing.JFrame {
         jButtonFilePaper.setEnabled(false);
         jButtonFilePaperCitePaper.setEnabled(false);
         jButtonFileGroundTruth.setEnabled(false);
-        controller.combiningAuthor = 0;
-        controller.combiningPaper = 0;
-        controller.weightingAuthor = 0;
-        controller.weightingPaper = 0;
-        controller.gama = 0.3;
 
         jTextAreaAuthor.setEditable(false);
         jTextAreaAuthorCitePaper.setEditable(false);
@@ -92,14 +87,13 @@ public class PRSGui extends javax.swing.JFrame {
         jTabbedPaneStep.setEnabledAt(1, false);
         jTabbedPaneStep.setEnabledAt(2, false);
         jTabbedPaneStep.setEnabledAt(3, false);
-        // enableComponents((Container) jTabbedPaneStep.getComponentAt(0), false);
-        redirectSystemStreams();
+        jTextAreaConsole.setText("");
+//         redirectSystemStreams();
     }
 
     private void updateTextArea(final String text) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-
                 jTextAreaConsole.append(text);
             }
         });
@@ -345,7 +339,8 @@ public class PRSGui extends javax.swing.JFrame {
         jPopupMenuImportData.add(jMenuItemExampleData);
 
         jMenuItemDataSource.setBackground(new java.awt.Color(255, 255, 255));
-        jMenuItemDataSource.setText("From Dataset Scource");
+        jMenuItemDataSource.setText("From Dataset Source");
+        jMenuItemDataSource.setAutoscrolls(true);
         jMenuItemDataSource.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemDataSourceActionPerformed(evt);
@@ -525,7 +520,7 @@ public class PRSGui extends javax.swing.JFrame {
         jTextAreaGroundTruth.setColumns(20);
         jTextAreaGroundTruth.setLineWrap(true);
         jTextAreaGroundTruth.setRows(5);
-        jTextAreaGroundTruth.setText("File GroundTruth.csv chứa thông tin tác giả thích bài báo nào và có định dạng:\nIdAuthor||IdPaper\nVí dụ:\n1|||1\n1|||5\n1|||112\n1|||134\n1|||9\n2|||211\n2|||215\n2|||214\n2|||9\n2|||42");
+        jTextAreaGroundTruth.setText("File GroundTruth.csv là file dữ liệu test của chương trình đã được gán nhãn sẵn.\nChứa thông tác giả trích dẫn bài báo nào. File có định dạng:\nIdAuthor||IdPaper\nVí dụ:\n1|||1\n1|||5\n1|||112\n1|||134\n1|||9\n2|||211\n2|||215\n2|||214\n2|||9\n2|||42");
         jTextAreaGroundTruth.setWrapStyleWord(true);
         jScrollPane14.setViewportView(jTextAreaGroundTruth);
 
@@ -547,6 +542,11 @@ public class PRSGui extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButtonDatasetExample);
         jRadioButtonDatasetExample.setText("From Dataset Example");
         jRadioButtonDatasetExample.setEnabled(false);
+        jRadioButtonDatasetExample.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonDatasetExampleActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(jRadioButtonDatasetSource);
         jRadioButtonDatasetSource.setText("From Dataset Scource");
@@ -731,7 +731,7 @@ public class PRSGui extends javax.swing.JFrame {
             }
         });
 
-        jComboBoxWeightingUser.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Linear combination(LC)", "Cosine similarity(SIM)", "Reciprocal of the difference between published years(RPY)", "Forgetting factor(FF)" }));
+        jComboBoxWeightingUser.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Linear combination(LC)", "Forgetting factor(FF)" }));
         jComboBoxWeightingUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxWeightingUserActionPerformed(evt);
@@ -919,11 +919,11 @@ public class PRSGui extends javax.swing.JFrame {
 
         jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder("Current relation"));
 
-        columLabel.setText("Colums:");
+        columLabel.setText("Number Columns:");
 
-        rowLabel.setText("Rows:");
+        rowLabel.setText("Number Rows:");
 
-        missingValueLabel.setText("Missing value:");
+        missingValueLabel.setText("Missing Value:");
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -1619,15 +1619,11 @@ public class PRSGui extends javax.swing.JFrame {
 
     private void jComboBoxWeightingUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxWeightingUserActionPerformed
         if (jComboBoxWeightingUser.getSelectedIndex() == 0) {
-            controller.weightingAuthor = 0;
+            controller.timeAwareScheme = 0;
             WCAuthorTextPane.setText("Using Linear Combination(LC) weighting to compute author's profile");
         } else if (jComboBoxWeightingUser.getSelectedIndex() == 1) {
-            controller.weightingAuthor = 1;
-            WCAuthorTextPane.setText("Using Cosine Similarity(SIM) weighting to compute author's profile");
-        } else if (jComboBoxWeightingUser.getSelectedIndex() == 2) {
-            controller.weightingAuthor = 2;
-            WCAuthorTextPane.setText("Using Reciprocal of the difference between published years(RPY) weighting to compute author's profile");
-        } else if (jComboBoxWeightingUser.getSelectedIndex() == 3) {
+            controller.timeAwareScheme = 1;
+            WCAuthorTextPane.setText("Using Forgetting Factor (FF) weighting to compute author's profile");
             String input = JOptionPane.showInputDialog("Please input gamma...");
             while (!NumericUtility.isNum(input)) {
                 input = JOptionPane.showInputDialog("Please input gamma...");
@@ -1999,7 +1995,6 @@ public class PRSGui extends javax.swing.JFrame {
             controller.weightingPaper = 2;
             WCPaperTextPane.setText("Using Reciprocal of the difference between published years(RPY) weighting to compute paper's feature vector");
         } else if (jComboBoxWeightingPaper.getSelectedIndex() == 3) {
-
             String input = JOptionPane.showInputDialog("Please input gamma...");
             while (!NumericUtility.isNum(input)) {
                 input = JOptionPane.showInputDialog("Please input gamma...");
@@ -2010,9 +2005,8 @@ public class PRSGui extends javax.swing.JFrame {
                     if (input == null) {
                         input = "-1";
                     }
-
                 }
-                controller.weightingPaper = 3;
+                controller.weightingPaper = 2;
                 controller.gama = Double.valueOf(input);
                 WCPaperTextPane.setText("Using Forgetting factor(FF) weighting to compute paper's feature vector");
             }
@@ -2022,19 +2016,33 @@ public class PRSGui extends javax.swing.JFrame {
     private void jComboBoxMethodRecommendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxMethodRecommendActionPerformed
         if (jComboBoxMethodRecommend.getSelectedIndex() == 0) {
             controller.recommendationMethod = 1;
+            jLabelKnn.setEnabled(false);
+            kNeighbor.setEnabled(false);
         } else {
-            jLabelKnn.setEnabled(true);
-            kNeighbor.setEditable(true);
-            controller.kNeighbor = Integer.parseInt(kNeighbor.getText());
+
             if (jComboBoxMethodRecommend.getSelectedIndex() == 1) {
+
                 controller.recommendationMethod = 2;
                 controller.cfMethod = 1;
+                jLabelKnn.setEnabled(true);
+                kNeighbor.setEnabled(true);
+                if (!kNeighbor.getText().isEmpty()) {
+                    controller.kNeighbor = Integer.parseInt(kNeighbor.getText());
+                }
             } else if (jComboBoxMethodRecommend.getSelectedIndex() == 2) {
                 controller.recommendationMethod = 2;
                 controller.cfMethod = 2;
+                jLabelKnn.setEnabled(true);
+                kNeighbor.setEnabled(true);
+                if (!kNeighbor.getText().isEmpty()) {
+                    controller.kNeighbor = Integer.parseInt(kNeighbor.getText());
+                }
             } else if (jComboBoxMethodRecommend.getSelectedIndex() == 3) {
                 controller.recommendationMethod = 2;
                 controller.cfMethod = 3;
+                jLabelKnn.setEnabled(true);
+                kNeighbor.setEnabled(true);
+
             }
         }
     }//GEN-LAST:event_jComboBoxMethodRecommendActionPerformed
@@ -2127,26 +2135,36 @@ public class PRSGui extends javax.swing.JFrame {
     private void jButtonRecommendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRecommendActionPerformed
         if (jTabbedPaneStep.getSelectedIndex() == 2) {
             if (!jTextFieldTopNRecommend.getText().isEmpty()) {
-                jTextAreaConsole.append("\nBegin recommend....\n");
-                long begin = System.currentTimeMillis();
-                controller.topNRecommend = Integer.parseInt(jTextFieldTopNRecommend.getText().trim().toString());
-                controller.guiHanderResquest(Options.RECOMMEND);
-                previousRecommdendation.add(controller.authors);
-                DefaultListModel model = new DefaultListModel();
-                for (int i = 0; i < jListRecAlgorithm.getModel().getSize(); i++) {
-                    model.addElement(jListRecAlgorithm.getModel().getElementAt(i));
+                int select = jComboBoxMethodRecommend.getSelectedIndex();
+                if ((select == 1 || select == 2 || select == 3) && kNeighbor.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(rootPane, "Please choose KNeighbour...", "Warning", JOptionPane.WARNING_MESSAGE);
+                    kNeighbor.requestFocus();
+                } else {
+                    jTextAreaConsole.append("\nBegin recommend....\n");
+                    long begin = System.currentTimeMillis();
+                    controller.topNRecommend = Integer.parseInt(jTextFieldTopNRecommend.getText().trim().toString());
+                    if (select == 0) {
+                    } else {
+                        controller.kNeighbor = Integer.parseInt(kNeighbor.getText());
+                    }
+                    controller.guiHanderResquest(Options.RECOMMEND);
+                    previousRecommdendation.add(controller.authors);
+                    DefaultListModel model = new DefaultListModel();
+                    for (int i = 0; i < jListRecAlgorithm.getModel().getSize(); i++) {
+                        model.addElement(jListRecAlgorithm.getModel().getElementAt(i));
+                    }
+                    Date date = new Date();
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(date);
+
+                    model.addElement(calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE) + ":" + calendar.get(Calendar.SECOND) + " - " + jComboBoxMethodRecommend.getSelectedItem());
+                    jListRecAlgorithm.setModel(model);
+                    jTextAreaConsole.append("End recommend....\n");
+                    jTextAreaConsole.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + "s" + "\n");
+
+                    jListRecAlgorithm.setSelectedIndex(jListRecAlgorithm.getModel().getSize() - 1);
+                    step3 = true;
                 }
-                Date date = new Date();
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(date);
-
-                model.addElement(calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE) + ":" + calendar.get(Calendar.SECOND) + " - " + jComboBoxMethodRecommend.getSelectedItem());
-                jListRecAlgorithm.setModel(model);
-                jTextAreaConsole.append("End recommend....\n");
-                jTextAreaConsole.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + "s" + "\n");
-
-                jListRecAlgorithm.setSelectedIndex(jListRecAlgorithm.getModel().getSize() - 1);
-                step3 = true;
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Please choose topNRecommend...", "Warning", JOptionPane.WARNING_MESSAGE);
                 jTextFieldTopNRecommend.requestFocus();
@@ -2170,28 +2188,47 @@ public class PRSGui extends javax.swing.JFrame {
     private void jButtonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResetActionPerformed
         if (step4) {
             try {
-                controller = new CentralGuiHanderRequest();
-                jTabbedPaneStep.setEnabledAt(0, true);
-                jTabbedPaneStep.setSelectedIndex(0);
                 jTextAreaConsole.setText("");
+                controller = new CentralGuiHanderRequest();
+                buttonGroup1.clearSelection();
                 jButtonFileAuthor.setEnabled(false);
-                jButtonFileAuthorCitePaper.setEnabled(false);
                 jButtonFileAuthorPaper.setEnabled(false);
+                jButtonFileAuthorCitePaper.setEnabled(false);
                 jButtonFilePaper.setEnabled(false);
                 jButtonFilePaperCitePaper.setEnabled(false);
                 jButtonFileGroundTruth.setEnabled(false);
-                controller.combiningAuthor = 0;
-                controller.combiningPaper = 0;
-                controller.weightingAuthor = 0;
-                controller.weightingPaper = 0;
-                controller.gama = 0.3;
 
-                jTextAreaAuthor.setEditable(false);
-                jTextAreaAuthorCitePaper.setEditable(false);
-                jTextAreaAuthorPaper.setEditable(false);
-                jTextAreaGroundTruth.setEditable(false);
-                jTextAreaPaper.setEditable(false);
-                jTextAreaPaperPaper.setEditable(false);
+                jTabbedPaneStep.setEnabledAt(0, true);
+                jTabbedPaneStep.setSelectedIndex(0);
+
+                jComboBoxCMUser.setSelectedIndex(0);
+                CMAuthorTextPane.setText("Compute author's profile only based on feature vector of author's paper");
+                jComboBoxCMPaper.setSelectedIndex(0);
+                CMPaperTextPane.setText("Using Linear Combination(LC) weighting to compute author's profile");
+                jComboBoxWeightingUser.setSelectedIndex(0);
+                WCAuthorTextPane.setText("Compute paper's feature vector only based on feature vector of paper");
+                jComboBoxWeightingPaper.setSelectedIndex(0);
+                WCPaperTextPane.setText("Compute paper's feature vector only based on feature vector of paper");
+
+                columLabel.setText("Number Columns:");
+                rowLabel.setText("Number Rows:");
+                missingValueLabel.setText("Missing Value:");
+
+                jComboBoxMethodRecommend.setSelectedIndex(0);
+                kNeighbor.setText("");
+                jTextFieldTopNRecommend.setText("");
+                jTextFieldIdAuthor.setText("");
+                jListRecAlgorithm.removeAll();
+                jTableRecommendationList.removeAll();
+
+                jComboBoxMethodEvaluation.setSelectedIndex(0);
+                jTextFieldtopRank.setText("");
+                jListEvaluation.removeAll();
+                jTextAreaReviewEvaluation.setText("");
+
+                previousEvaluation = new ArrayList<String>();
+                previousRecommdendation = new ArrayList<HashMap<String, Author>>();
+                count = 0;
 
                 jTabbedPaneStep.setEnabledAt(0, false);
                 jTabbedPaneStep.setEnabledAt(1, false);
@@ -2211,7 +2248,23 @@ public class PRSGui extends javax.swing.JFrame {
 
     private void jListRecAlgorithmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListRecAlgorithmMouseClicked
         try {
+            System.out.println("size " + previousRecommdendation.size());
+            System.out.println("selectindex " + jListRecAlgorithm.getSelectedIndex());
             HashMap<String, Author> hm = (HashMap<String, Author>) previousRecommdendation.get(jListRecAlgorithm.getSelectedIndex());
+//            DefaultTableModel tablemodel = (DefaultTableModel) jTableRecommendationList.getModel();
+//            tablemodel.getDataVector().removeAllElements();
+////            jTableRecommendationList.setModel(tablemodel);
+//            int i = 0;
+//            for (String AuthorId : hm.keySet()) {
+//                i++;
+//                Vector vector = new Vector();
+//                vector.addElement(i);
+//                vector.addElement(hm.get(AuthorId).getAuthorId());
+//                vector.addElement(hm.get(AuthorId).getRecommendationList());
+//                tablemodel.addRow(vector);
+//            }
+//            jTableRecommendationList.setModel(tablemodel);
+         
             DefaultTableModel tablemodel = (DefaultTableModel) jTableRecommendationList.getModel();
             tablemodel.getDataVector().removeAllElements();
             jTableRecommendationList.setModel(tablemodel);
@@ -2225,7 +2278,6 @@ public class PRSGui extends javax.swing.JFrame {
                 tablemodel.addRow(vector);
             }
             jTableRecommendationList.setModel(tablemodel);
-
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
@@ -2430,10 +2482,10 @@ public class PRSGui extends javax.swing.JFrame {
             jTextAreaConsole.append("Time elapsed: " + String.valueOf(((System.currentTimeMillis() - begin)) / 1000) + "s" + "\n");
             step22 = true;
 
-            columLabel.setText(columLabel.getText() + " " + controller.authors.keySet().size());
-            rowLabel.setText(rowLabel.getText() + " " + controller.papers.keySet().size());
+            columLabel.setText("Number Columns:" + " " + controller.authors.keySet().size());
+            rowLabel.setText("Number Rows:" + " " + controller.papers.keySet().size());
             try {
-                missingValueLabel.setText(missingValueLabel.getText() + " " + String.valueOf(GuiUtilities.missingValueInMatrixCF(
+                missingValueLabel.setText("Missing Value:" + " " + String.valueOf(GuiUtilities.missingValueInMatrixCF(
                         controller.MahoutCFDir + "\\CFRatingMatrixOriginal.txt", controller.authors.keySet().size(),
                         controller.papers.keySet().size())) + " %");
             } catch (FileNotFoundException ex) {
@@ -2448,6 +2500,8 @@ public class PRSGui extends javax.swing.JFrame {
         if (step21) {
             manageJTablePane(2);
             jComboBoxMethodRecommend.setSelectedIndex(0);
+            jLabelKnn.setEnabled(false);
+            kNeighbor.setEnabled(false);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Haven't prepared data!", "Notice", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -2457,6 +2511,8 @@ public class PRSGui extends javax.swing.JFrame {
         if (step22) {
             manageJTablePane(2);
             jComboBoxMethodRecommend.setSelectedIndex(1);
+            jLabelKnn.setEnabled(true);
+            kNeighbor.setEnabled(true);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Haven't prepared data!", "Notice", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -2466,6 +2522,8 @@ public class PRSGui extends javax.swing.JFrame {
         if (step22) {
             manageJTablePane(2);
             jComboBoxMethodRecommend.setSelectedIndex(2);
+            jLabelKnn.setEnabled(true);
+            kNeighbor.setEnabled(true);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Haven't prepared data!", "Notice", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -2475,6 +2533,8 @@ public class PRSGui extends javax.swing.JFrame {
         if (step22) {
             manageJTablePane(2);
             jComboBoxMethodRecommend.setSelectedIndex(3);
+            jLabelKnn.setEnabled(true);
+            kNeighbor.setEnabled(true);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Haven't prepared data!", "Notice", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -2600,7 +2660,6 @@ public class PRSGui extends javax.swing.JFrame {
                 tablemodel.addRow(vector);
             }
             jTableRecommendationList.setModel(tablemodel);
-
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
@@ -2677,6 +2736,10 @@ public class PRSGui extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_kNeighborKeyReleased
+
+    private void jRadioButtonDatasetExampleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDatasetExampleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButtonDatasetExampleActionPerformed
 //<editor-fold defaultstate="collapsed" desc="GuiUtilities">
 
     public void enableComponents(Container container, boolean enable) {

@@ -143,9 +143,6 @@ public class Introduction extends javax.swing.JFrame {
         pRSGui.show();
     }//GEN-LAST:event_exploreButtonActionPerformed
 
-       
-                                     
-
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
         try 
