@@ -116,55 +116,20 @@ public class CBFAuthorFVComputation {
      */
     public static HashMapVector computeAuthorFV(HashMap<String, Author> authors, String authorId, HashMap<String, Paper> papers, 
             int timeAwareScheme, double gamma) throws Exception {
-//        HashMapVector featureVector = new HashMapVector();
-//        
-//        Author author = authors.get(authorId);
-//        
-//        List<String> paperIds = author.getPaperList();
-//        
-//        if (timeAwareScheme == 0) {
-//            for (String paperId : paperIds) {
-//                featureVector.add(papers.get(paperId).getFeatureVector());
-//            }
-//        } else if (timeAwareScheme == 1) {
-//            int latestPublicationYear = getLatestPublicationYear(papers, paperIds);
-//            for (String paperId : paperIds) {
-//                double ff = WeightingUtility.computeForgettingFactor(latestPublicationYear, papers.get(paperId).getYear(), gamma);
-//                featureVector.addScaled(papers.get(paperId).getFeatureVector(), ff);
-//            }
-//        }
-//        
-//        return featureVector;
-         HashMapVector featureVector = new HashMapVector();
+        HashMapVector featureVector = new HashMapVector();
         
         Author author = authors.get(authorId);
         
         List<String> paperIds = author.getPaperList();
-        int latestPublicationYear = getLatestPublicationYear(papers, paperIds);
-        Paper paperLatestPublication= new Paper();
-         for (String paperId : paperIds) {
-             if (papers.get(paperId).getYear()==latestPublicationYear)
-                 paperLatestPublication=papers.get(paperId);
-         }
+        
         if (timeAwareScheme == 0) {
             for (String paperId : paperIds) {
                 featureVector.add(papers.get(paperId).getFeatureVector());
             }
-        } else if (timeAwareScheme == 1){
-             for (String paperId : paperIds) {
-                double ff = WeightingUtility.computeCosine(paperLatestPublication.getTfidfVector(),papers.get(paperId).getTfidfVector());
-                featureVector.addScaled(papers.get(paperId).getFeatureVector(), ff);
-            }
-        }else if(timeAwareScheme == 2)
-        {
+        } else if (timeAwareScheme == 1) {
+            int latestPublicationYear = getLatestPublicationYear(papers, paperIds);
             for (String paperId : paperIds) {
-                double ff = WeightingUtility.computeRPY(latestPublicationYear, papers.get(paperId).getYear(),0.9);
-                featureVector.addScaled(papers.get(paperId).getFeatureVector(), ff);
-            }
-        }else if(timeAwareScheme == 3)
-        {
-            for (String paperId : paperIds) {
-                double ff = WeightingUtility.computeForgettingFactor(latestPublicationYear, papers.get(paperId).getYear(),gamma);
+                double ff = WeightingUtility.computeForgettingFactor(latestPublicationYear, papers.get(paperId).getYear(), gamma);
                 featureVector.addScaled(papers.get(paperId).getFeatureVector(), ff);
             }
         }
