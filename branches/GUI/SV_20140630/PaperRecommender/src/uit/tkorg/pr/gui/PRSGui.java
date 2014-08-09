@@ -88,7 +88,7 @@ public class PRSGui extends javax.swing.JFrame {
         jTabbedPaneStep.setEnabledAt(2, false);
         jTabbedPaneStep.setEnabledAt(3, false);
         jTextAreaConsole.setText("");
-//         redirectSystemStreams();
+         redirectSystemStreams();
     }
 
     private void updateTextArea(final String text) {
@@ -551,6 +551,11 @@ public class PRSGui extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButtonDatasetSource);
         jRadioButtonDatasetSource.setText("From Dataset Scource");
         jRadioButtonDatasetSource.setEnabled(false);
+        jRadioButtonDatasetSource.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonDatasetSourceActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -1280,6 +1285,11 @@ public class PRSGui extends javax.swing.JFrame {
                 jButtonChooseDatasetMouseClicked(evt);
             }
         });
+        jButtonChooseDataset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonChooseDatasetActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel39Layout = new javax.swing.GroupLayout(jPanel39);
         jPanel39.setLayout(jPanel39Layout);
@@ -1854,9 +1864,9 @@ public class PRSGui extends javax.swing.JFrame {
                 Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        if (count == 6) {
-            jButtonStartImportData.setEnabled(true);
-        }
+//        if (count == 6) {
+//            jButtonStartImportData.setEnabled(true);
+//        }
     }//GEN-LAST:event_jButtonFileAuthorActionPerformed
 
     private void jButtonFileAuthorPaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFileAuthorPaperActionPerformed
@@ -2740,6 +2750,14 @@ public class PRSGui extends javax.swing.JFrame {
     private void jRadioButtonDatasetExampleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDatasetExampleActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButtonDatasetExampleActionPerformed
+
+    private void jRadioButtonDatasetSourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDatasetSourceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButtonDatasetSourceActionPerformed
+
+    private void jButtonChooseDatasetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonChooseDatasetActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonChooseDatasetActionPerformed
 //<editor-fold defaultstate="collapsed" desc="GuiUtilities">
 
     public void enableComponents(Container container, boolean enable) {

@@ -139,7 +139,7 @@ public class Introduction extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void exploreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exploreButtonActionPerformed
-        PRSGui pRSGui = new PRSGui();
+        MainGUI pRSGui = new MainGUI();
         pRSGui.show();
     }//GEN-LAST:event_exploreButtonActionPerformed
 

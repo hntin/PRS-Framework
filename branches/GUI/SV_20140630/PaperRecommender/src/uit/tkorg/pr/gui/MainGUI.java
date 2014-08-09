@@ -6,19 +6,34 @@
 
 package uit.tkorg.pr.gui;
 
+import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.HeadlessException;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
 import uit.tkorg.pr.constant.ImportFiles;
+import uit.tkorg.pr.constant.Options;
 import uit.tkorg.pr.controller.CentralGuiHanderRequest;
 import uit.tkorg.pr.model.Author;
 import uit.tkorg.utility.general.NumericUtility;
@@ -37,8 +52,41 @@ public class MainGUI extends javax.swing.JFrame {
     private List previousEvaluation = new ArrayList<String>();// save result EVALUATE
     private List previousRecommdendation = new ArrayList<HashMap<String, Author>>();
     private static int count = 0;// kiem tra nguoi dung co chon du so file theo yeu cau cua chuong trinh k
+    private static int status; // 0: import data, 1: choose algorithm recommend, 2: choose method evaluate
     public MainGUI() {
         initComponents();
+        controller = new CentralGuiHanderRequest();
+        redirectSystemStreams();
+
+    }
+   private void updateTextArea(final String text) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                jTextAreaConsole.append(text);
+            }
+        });
+    }
+
+    private void redirectSystemStreams() {
+        OutputStream out = new OutputStream() {
+            @Override
+            public void write(int b) throws IOException {
+                updateTextArea(String.valueOf((char) b));
+            }
+
+            @Override
+            public void write(byte[] b, int off, int len) throws IOException {
+                updateTextArea(new String(b, off, len));
+            }
+
+            @Override
+            public void write(byte[] b) throws IOException {
+                write(b, 0, b.length);
+            }
+        };
+
+        System.setOut(new PrintStream(out, true));
+        System.setErr(new PrintStream(out, true));
     }
 
     /**
@@ -54,9 +102,14 @@ public class MainGUI extends javax.swing.JFrame {
         jButtonStartImportData = new javax.swing.JButton();
         jButtonSaveEvaluation = new javax.swing.JButton();
         jButtonReset = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JToolBar.Separator();
         jButtonTFIDF = new javax.swing.JButton();
         jButtonDrawChart = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
+        jPanel13 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextAreaConsole = new javax.swing.JTextArea();
+        jPanel15 = new javax.swing.JPanel();
         jTabbedPaneStep = new javax.swing.JTabbedPane();
         jPanel6 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
@@ -92,6 +145,11 @@ public class MainGUI extends javax.swing.JFrame {
         jCheckBox3 = new javax.swing.JCheckBox();
         jCheckBox4 = new javax.swing.JCheckBox();
         jCheckBox5 = new javax.swing.JCheckBox();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel10 = new javax.swing.JPanel();
@@ -108,7 +166,8 @@ public class MainGUI extends javax.swing.JFrame {
         jTable11 = new javax.swing.JTable();
         jPanel14 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
@@ -119,8 +178,6 @@ public class MainGUI extends javax.swing.JFrame {
         jCheckBox9 = new javax.swing.JCheckBox();
         jCheckBox10 = new javax.swing.JCheckBox();
         jCheckBox11 = new javax.swing.JCheckBox();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -135,10 +192,9 @@ public class MainGUI extends javax.swing.JFrame {
         jTable5 = new javax.swing.JTable();
         jScrollPane8 = new javax.swing.JScrollPane();
         jTable6 = new javax.swing.JTable();
-        jPanel13 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jPanel15 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jButton10 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -156,8 +212,8 @@ public class MainGUI extends javax.swing.JFrame {
 
         jToolBar1.setRollover(true);
 
-        jButtonStartImportData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Play-Pressed.png"))); // NOI18N
-        jButtonStartImportData.setToolTipText("Start Import Dataset");
+        jButtonStartImportData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/window_new.png"))); // NOI18N
+        jButtonStartImportData.setToolTipText("New Project");
         jButtonStartImportData.setFocusable(false);
         jButtonStartImportData.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonStartImportData.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -169,7 +225,7 @@ public class MainGUI extends javax.swing.JFrame {
         jToolBar1.add(jButtonStartImportData);
 
         jButtonSaveEvaluation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Save.png"))); // NOI18N
-        jButtonSaveEvaluation.setToolTipText("Save Evaluation");
+        jButtonSaveEvaluation.setToolTipText("Save File");
         jButtonSaveEvaluation.setFocusable(false);
         jButtonSaveEvaluation.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonSaveEvaluation.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -181,7 +237,7 @@ public class MainGUI extends javax.swing.JFrame {
         jToolBar1.add(jButtonSaveEvaluation);
 
         jButtonReset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Button-Refresh-icon.png"))); // NOI18N
-        jButtonReset.setToolTipText("Reset System");
+        jButtonReset.setToolTipText("Reset Chooesed");
         jButtonReset.setFocusable(false);
         jButtonReset.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonReset.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -191,9 +247,10 @@ public class MainGUI extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(jButtonReset);
+        jToolBar1.add(jSeparator1);
 
         jButtonTFIDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Document-Write-icon.png"))); // NOI18N
-        jButtonTFIDF.setToolTipText("Build TFIDF Files");
+        jButtonTFIDF.setToolTipText("Create TFIDF Files");
         jButtonTFIDF.setFocusable(false);
         jButtonTFIDF.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonTFIDF.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -216,12 +273,54 @@ public class MainGUI extends javax.swing.JFrame {
         });
         jToolBar1.add(jButtonDrawChart);
 
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 365, Short.MAX_VALUE)
+        );
+
+        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder("Console"));
+
+        jTextAreaConsole.setColumns(20);
+        jTextAreaConsole.setRows(5);
+        jScrollPane3.setViewportView(jTextAreaConsole);
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 992, Short.MAX_VALUE)
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder("Status"));
+        jPanel15.setPreferredSize(new java.awt.Dimension(400, 30));
+
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 7, Short.MAX_VALUE)
+        );
+
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder("Data Description"));
 
         jTextAreaAuthor.setColumns(20);
         jTextAreaAuthor.setLineWrap(true);
         jTextAreaAuthor.setRows(5);
-        jTextAreaAuthor.setText("File Authors.csv chứa thông tin về nhà nghiên cứu và có định dạng:\nIdAuthor|||NameAuthor\nVí dụ:\n1|||John F. Young\n2|||Sule Yildirim\n3|||Elizabeth K. Reilly\n4|||Yann Le Gorrec");
+        jTextAreaAuthor.setText("File Authors.csv là file dán nhãn sẵn, mô tả thông tin nhà nghiên cứu bao gồm id va tên có định dạng:\nIdAuthor|||NameAuthor\nVí dụ:\n1|||John F. Young\n2|||Sule Yildirim\n3|||Elizabeth K. Reilly\n4|||Yann Le Gorrec");
         jTextAreaAuthor.setWrapStyleWord(true);
         jScrollPane1.setViewportView(jTextAreaAuthor);
 
@@ -280,21 +379,24 @@ public class MainGUI extends javax.swing.JFrame {
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+            .addComponent(jTabbedPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
         );
 
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder("Dataset"));
 
         jRadioButtonDatasetExample.setText("From Dataset Example");
-        jRadioButtonDatasetExample.setEnabled(false);
         jRadioButtonDatasetExample.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonDatasetExampleActionPerformed(evt);
             }
         });
 
-        jRadioButtonDatasetSource.setText("From Dataset Scource");
-        jRadioButtonDatasetSource.setEnabled(false);
+        jRadioButtonDatasetSource.setText("From Dataset Source");
+        jRadioButtonDatasetSource.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonDatasetSourceActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -325,6 +427,7 @@ public class MainGUI extends javax.swing.JFrame {
 
         jButtonFileAuthor.setText("File Authors");
         jButtonFileAuthor.setToolTipText("Import File Authors");
+        jButtonFileAuthor.setEnabled(false);
         jButtonFileAuthor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonFileAuthorActionPerformed(evt);
@@ -333,6 +436,7 @@ public class MainGUI extends javax.swing.JFrame {
 
         jButtonFilePaper.setText("File Papers");
         jButtonFilePaper.setToolTipText("Import File Papers");
+        jButtonFilePaper.setEnabled(false);
         jButtonFilePaper.setPreferredSize(new java.awt.Dimension(113, 23));
         jButtonFilePaper.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -342,6 +446,7 @@ public class MainGUI extends javax.swing.JFrame {
 
         jButtonFileAuthorPaper.setText("File Author_Paper");
         jButtonFileAuthorPaper.setToolTipText("Import File Author_Paper");
+        jButtonFileAuthorPaper.setEnabled(false);
         jButtonFileAuthorPaper.setPreferredSize(new java.awt.Dimension(89, 23));
         jButtonFileAuthorPaper.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -351,6 +456,7 @@ public class MainGUI extends javax.swing.JFrame {
 
         jButtonFilePaperCitePaper.setText("File Paper_Cited_Paper");
         jButtonFilePaperCitePaper.setToolTipText("Import File Paper_Cited_Paper");
+        jButtonFilePaperCitePaper.setEnabled(false);
         jButtonFilePaperCitePaper.setPreferredSize(new java.awt.Dimension(113, 23));
         jButtonFilePaperCitePaper.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -360,6 +466,7 @@ public class MainGUI extends javax.swing.JFrame {
 
         jButtonFileAuthorCitePaper.setText("File Author_Cited_Paper");
         jButtonFileAuthorCitePaper.setToolTipText("Import File Author_Cited_Paper");
+        jButtonFileAuthorCitePaper.setEnabled(false);
         jButtonFileAuthorCitePaper.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jButtonFileAuthorCitePaper.setPreferredSize(new java.awt.Dimension(89, 23));
         jButtonFileAuthorCitePaper.addActionListener(new java.awt.event.ActionListener() {
@@ -402,6 +509,7 @@ public class MainGUI extends javax.swing.JFrame {
 
         jButtonFileGroundTruth.setText("File GroundTruth");
         jButtonFileGroundTruth.setToolTipText("Import File GroundTruth");
+        jButtonFileGroundTruth.setEnabled(false);
         jButtonFileGroundTruth.setMaximumSize(new java.awt.Dimension(85, 23));
         jButtonFileGroundTruth.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -453,7 +561,7 @@ public class MainGUI extends javax.swing.JFrame {
                         .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 8, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -470,6 +578,11 @@ public class MainGUI extends javax.swing.JFrame {
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Choose Algorithm"));
 
         jCheckBox1.setText("Content based");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
 
         jCheckBox2.setText("CF with Pearson");
 
@@ -478,6 +591,16 @@ public class MainGUI extends javax.swing.JFrame {
         jCheckBox4.setText("CF with SVD");
 
         jCheckBox5.setText("Hybrid");
+
+        jButton5.setText("Edit");
+
+        jButton6.setText("Edit");
+
+        jButton7.setText("Edit");
+
+        jButton8.setText("Edit");
+
+        jButton9.setText("Edit");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -491,22 +614,40 @@ public class MainGUI extends javax.swing.JFrame {
                     .addComponent(jCheckBox3)
                     .addComponent(jCheckBox4)
                     .addComponent(jCheckBox5))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton7)
+                    .addComponent(jButton6)
+                    .addComponent(jButton5)
+                    .addComponent(jButton8)
+                    .addComponent(jButton9))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jCheckBox1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(30, 30, 30)
                 .addComponent(jCheckBox2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBox4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBox5)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton5)
+                    .addComponent(jCheckBox1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton7)
+                    .addComponent(jCheckBox3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton8)
+                    .addComponent(jCheckBox4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton9)
+                    .addComponent(jCheckBox5))
+                .addGap(0, 16, Short.MAX_VALUE))
         );
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Preview Choosed"));
@@ -523,19 +664,14 @@ public class MainGUI extends javax.swing.JFrame {
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
             .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel9Layout.createSequentialGroup()
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 48, Short.MAX_VALUE)))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE))
         );
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Recommend List"));
 
         jTable7.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "No", "Author Id", "Recommend List"
@@ -547,10 +683,7 @@ public class MainGUI extends javax.swing.JFrame {
 
         jTable8.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "No", "Author Id", "Recommend List"
@@ -562,10 +695,7 @@ public class MainGUI extends javax.swing.JFrame {
 
         jTable9.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "No", "Author Id", "Recommend List"
@@ -577,10 +707,7 @@ public class MainGUI extends javax.swing.JFrame {
 
         jTable10.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "No", "Author Id", "Recommend List"
@@ -592,10 +719,7 @@ public class MainGUI extends javax.swing.JFrame {
 
         jTable11.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "No", "Author Id", "Recommend List"
@@ -609,42 +733,49 @@ public class MainGUI extends javax.swing.JFrame {
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 472, Short.MAX_VALUE)
+            .addGap(0, 464, Short.MAX_VALUE)
             .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jTabbedPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 317, Short.MAX_VALUE)
+            .addGap(0, 311, Short.MAX_VALUE)
             .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE))
+                .addGroup(jPanel10Layout.createSequentialGroup()
+                    .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         jPanel14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
         jButton1.setText("Recommend");
 
-        jButton4.setText("Top N Recommend");
+        jLabel1.setText("Top N Recommend:");
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel14Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jTextField1))
                 .addContainerGap())
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel14Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton4))
-                .addContainerGap(30, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -652,9 +783,9 @@ public class MainGUI extends javax.swing.JFrame {
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -663,13 +794,16 @@ public class MainGUI extends javax.swing.JFrame {
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 3, Short.MAX_VALUE))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         jTabbedPaneStep.addTab("Recommendation", jPanel7);
@@ -690,31 +824,21 @@ public class MainGUI extends javax.swing.JFrame {
 
         jCheckBox11.setText("MRR");
 
-        jButton2.setText("Top Rank");
-
-        jButton3.setText("Evaluate");
-
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
         jPanel16Layout.setHorizontalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel16Layout.createSequentialGroup()
-                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox7)
-                            .addComponent(jCheckBox6)
-                            .addComponent(jCheckBox8))
-                        .addGap(24, 24, 24)
-                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox9)
-                            .addComponent(jCheckBox10)
-                            .addComponent(jCheckBox11)))
-                    .addGroup(jPanel16Layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton3)))
-                .addGap(0, 23, Short.MAX_VALUE))
+                    .addComponent(jCheckBox7)
+                    .addComponent(jCheckBox6)
+                    .addComponent(jCheckBox8))
+                .addGap(24, 24, 24)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBox9)
+                    .addComponent(jCheckBox10)
+                    .addComponent(jCheckBox11))
+                .addGap(0, 49, Short.MAX_VALUE))
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -731,21 +855,14 @@ public class MainGUI extends javax.swing.JFrame {
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCheckBox11)
                     .addComponent(jCheckBox8))
-                .addGap(53, 53, 53)
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Result Evaluation"));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Algorithm Recommend", "P@", "", ""
@@ -757,10 +874,7 @@ public class MainGUI extends javax.swing.JFrame {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Algorithm Recommend", "R@", "", ""
@@ -772,10 +886,7 @@ public class MainGUI extends javax.swing.JFrame {
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Algorithm", "F1"
@@ -787,10 +898,7 @@ public class MainGUI extends javax.swing.JFrame {
 
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Algorithm", "MAP@", "", ""
@@ -802,10 +910,7 @@ public class MainGUI extends javax.swing.JFrame {
 
         jTable5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Algorithm Recommend", "NDCG@", "", ""
@@ -817,10 +922,7 @@ public class MainGUI extends javax.swing.JFrame {
 
         jTable6.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Algorithm Recommend", "MRR", "", ""
@@ -834,15 +936,40 @@ public class MainGUI extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 754, Short.MAX_VALUE)
+            .addGap(0, 756, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jTabbedPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 677, Short.MAX_VALUE))
+                .addComponent(jTabbedPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addGap(0, 268, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jTabbedPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE))
+                .addComponent(jTabbedPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE))
+        );
+
+        jButton10.setText("Top Rank");
+
+        jButton11.setText("Evaluation");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jButton10)
+                .addGap(19, 19, 19)
+                .addComponent(jButton11)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -853,14 +980,16 @@ public class MainGUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2)))
-                .addContainerGap())
+                        .addComponent(jTextField2)
+                        .addContainerGap())
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -870,57 +999,16 @@ public class MainGUI extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(149, 149, 149))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(159, 159, 159))
         );
 
         jTabbedPaneStep.addTab("Evaluation", jPanel4);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jTabbedPaneStep, javax.swing.GroupLayout.PREFERRED_SIZE, 1002, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPaneStep, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-
-        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder("Console"));
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane3.setViewportView(jTextArea1);
-
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3)
-        );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-
-        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder("Status"));
-        jPanel15.setPreferredSize(new java.awt.Dimension(400, 30));
-
-        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
-        jPanel15.setLayout(jPanel15Layout);
-        jPanel15Layout.setHorizontalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel15Layout.setVerticalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 7, Short.MAX_VALUE)
-        );
 
         jMenu1.setText("File");
 
@@ -950,6 +1038,11 @@ public class MainGUI extends javax.swing.JFrame {
         jMenu4.setText("Help");
 
         jMenuItem6.setText("How to use program?");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem6);
 
         jMenuItem7.setText("Javadoc Reference");
@@ -964,18 +1057,26 @@ public class MainGUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, 1004, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTabbedPaneStep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTabbedPaneStep, javax.swing.GroupLayout.PREFERRED_SIZE, 367, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -983,36 +1084,6 @@ public class MainGUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButtonFileGroundTruthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFileGroundTruthActionPerformed
-      
-    }//GEN-LAST:event_jButtonFileGroundTruthActionPerformed
-
-    private void jButtonFileAuthorCitePaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFileAuthorCitePaperActionPerformed
-      
-    }//GEN-LAST:event_jButtonFileAuthorCitePaperActionPerformed
-
-    private void jButtonFilePaperCitePaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFilePaperCitePaperActionPerformed
-       
-   
-    }//GEN-LAST:event_jButtonFilePaperCitePaperActionPerformed
-
-    private void jButtonFileAuthorPaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFileAuthorPaperActionPerformed
-       
-    }//GEN-LAST:event_jButtonFileAuthorPaperActionPerformed
-
-    private void jButtonFilePaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFilePaperActionPerformed
-        String path = GuiUtilities.chooseFileJChooser("Choose File");
-     
-    }//GEN-LAST:event_jButtonFilePaperActionPerformed
-
-    private void jButtonFileAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFileAuthorActionPerformed
-      
-    }//GEN-LAST:event_jButtonFileAuthorActionPerformed
-
-    private void jRadioButtonDatasetExampleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDatasetExampleActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButtonDatasetExampleActionPerformed
 
     private void jButtonTFIDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTFIDFActionPerformed
     
@@ -1027,12 +1098,278 @@ public class MainGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonResetActionPerformed
 
     private void jButtonStartImportDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartImportDataActionPerformed
-      
+      controller = new CentralGuiHanderRequest();
     }//GEN-LAST:event_jButtonStartImportDataActionPerformed
 
     private void jButtonSaveEvaluationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveEvaluationActionPerformed
       
     }//GEN-LAST:event_jButtonSaveEvaluationActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        // TODO add your handling code here:
+        if (jCheckBox1.isSelected())
+        {
+            CBOption contentBased = new CBOption();
+            contentBased.show();
+        }
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void jButtonFileGroundTruthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFileGroundTruthActionPerformed
+          String path = GuiUtilities.chooseFileJChooser("Choose File");
+        if (path != null) {
+            try {
+                CheckError.CheckImportData(ImportFiles.FILE_GROUNDTRUTH, path);
+                String fileLog = "Temp\\log.txt";
+                if (!new File(fileLog).exists()) {
+                    controller.fileNameGroundTruth = path;
+                    jTextAreaConsole.append(path + "\n");
+                    count++;
+                } else {
+                    FileReader file = new FileReader(new File(fileLog));
+                    BufferedReader textReader = new BufferedReader(file);
+                    StringBuilder error = new StringBuilder();
+                    String line = null;
+                    while ((line = textReader.readLine()) != null) {
+                        error.append(line).append("\n");
+                    }
+                    file.close();
+                    JOptionPane.showMessageDialog(rootPane, error, "Error", JOptionPane.ERROR_MESSAGE);
+                    GuiUtilities.deleteFile(fileLog);
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jButtonFileGroundTruthActionPerformed
+
+    private void jButtonFileAuthorCitePaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFileAuthorCitePaperActionPerformed
+          String path = GuiUtilities.chooseFileJChooser("Choose File");
+        if (path != null) {
+            try {
+                CheckError.CheckImportData(ImportFiles.FILE_AUTHOR_CITE_PAPER, path);
+                String fileLog = "Temp\\log.txt";
+                if (!new File(fileLog).exists()) {
+                    controller.fileNameAuthorCitePaper = path;
+                    jTextAreaConsole.append(path + "\n");
+                    count++;
+                } else {
+                    FileReader file = new FileReader(new File(fileLog));
+                    BufferedReader textReader = new BufferedReader(file);
+                    StringBuilder error = new StringBuilder();
+                    String line = null;
+                    while ((line = textReader.readLine()) != null) {
+                        error.append(line).append("\n");
+                    }
+                    file.close();
+                    JOptionPane.showMessageDialog(rootPane, error, "Error", JOptionPane.ERROR_MESSAGE);
+                    GuiUtilities.deleteFile(fileLog);
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jButtonFileAuthorCitePaperActionPerformed
+
+    private void jButtonFilePaperCitePaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFilePaperCitePaperActionPerformed
+         String path = GuiUtilities.chooseFileJChooser("Choose File");
+        if (path != null) {
+            try {
+                CheckError.CheckImportData(ImportFiles.FILE_PAPER_CITE_PAPER, path);
+                String fileLog = "Temp\\log.txt";
+                if (!new File(fileLog).exists()) {
+                    controller.fileNamePaperCitePaper = path;
+                    jTextAreaConsole.append(path + "\n");
+                    count++;
+                } else {
+                    FileReader file = new FileReader(new File(fileLog));
+                    BufferedReader textReader = new BufferedReader(file);
+                    StringBuilder error = new StringBuilder();
+                    String line = null;
+                    while ((line = textReader.readLine()) != null) {
+                        error.append(line).append("\n");
+                    }
+                    file.close();
+                    JOptionPane.showMessageDialog(rootPane, error, "Error", JOptionPane.ERROR_MESSAGE);
+                    GuiUtilities.deleteFile(fileLog);
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jButtonFilePaperCitePaperActionPerformed
+
+    private void jButtonFileAuthorPaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFileAuthorPaperActionPerformed
+        String path = GuiUtilities.chooseFileJChooser("Choose File");
+        if (path != null) {
+            try {
+                CheckError.CheckImportData(ImportFiles.FILE_AUTHOR_PAPER, path);
+                String fileLog = "Temp\\log.txt";
+                if (!new File(fileLog).exists()) {
+                    controller.fileNameAuthorPaper = path;
+                    jTextAreaConsole.append(path + "\n");
+                    count++;
+                } else {
+                    StringBuilder error;
+                    try (FileReader file = new FileReader(new File(fileLog))) {
+                        BufferedReader textReader = new BufferedReader(file);
+                        error = new StringBuilder();
+                        String line = null;
+                        while ((line = textReader.readLine()) != null) {
+                            error.append(line).append("\n");
+                        }
+                    }
+                    JOptionPane.showMessageDialog(rootPane, error, "Error", JOptionPane.ERROR_MESSAGE);
+                    GuiUtilities.deleteFile(fileLog);
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jButtonFileAuthorPaperActionPerformed
+
+    private void jButtonFilePaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFilePaperActionPerformed
+             String path = GuiUtilities.chooseFileJChooser("Choose File");
+        if (path != null) {
+            try {
+                CheckError.CheckImportData(ImportFiles.FILE_PAPERS, path);
+                String fileLog = "Temp\\log.txt";
+                if (!new File(fileLog).exists()) {
+                    controller.fileNamePapers = path;
+                    jTextAreaConsole.append(path + "\n");
+                    count++;
+                } else {
+                    FileReader file = new FileReader(new File(fileLog));
+                    BufferedReader textReader = new BufferedReader(file);
+                    StringBuilder error = new StringBuilder();
+                    String line = null;
+                    while ((line = textReader.readLine()) != null) {
+                        error.append(line).append("\n");
+                    }
+                    file.close();
+                    JOptionPane.showMessageDialog(rootPane, error, "Error", JOptionPane.ERROR_MESSAGE);
+                    GuiUtilities.deleteFile(fileLog);
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }//GEN-LAST:event_jButtonFilePaperActionPerformed
+
+    private void jButtonFileAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFileAuthorActionPerformed
+           String path = GuiUtilities.chooseFileJChooser("Choose File");
+        if (path != null) {
+            try {
+                CheckError.CheckImportData(ImportFiles.FILE_AUTHORS, path);
+                String fileLog = "Temp\\log.txt";
+
+                if (!new File(fileLog).exists()) {
+                    controller.fileNameAuthors = path;
+                    jTextAreaConsole.append(path + "\n");
+                    count++;
+                } else {
+                    StringBuilder error;
+                    try (FileReader file = new FileReader(new File(fileLog))) {
+                        BufferedReader textReader = new BufferedReader(file);
+                        error = new StringBuilder();
+                        String line = null;
+                        while ((line = textReader.readLine()) != null) {
+                            error.append(line).append("\n");
+                        }
+                    }
+                    JOptionPane.showMessageDialog(rootPane, error, "Error", JOptionPane.ERROR_MESSAGE);
+                    GuiUtilities.deleteFile(fileLog);
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jButtonFileAuthorActionPerformed
+
+    private void jRadioButtonDatasetExampleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDatasetExampleActionPerformed
+        // TODO add your handling code here:
+        if (jRadioButtonDatasetExample.isSelected()) {
+            ExampleDatasetGui datasetExample = new ExampleDatasetGui(this, rootPaneCheckingEnabled);
+            datasetExample.setLocationRelativeTo(this);
+            datasetExample.show();
+            boolean check = datasetExample.check;
+            if (check) {
+                controller.fileNameAuthors = "ExampleDataset\\Authors.csv";
+                controller.fileNameAuthorPaper = "ExampleDataset\\AuthorPaper.csv";
+                controller.fileNameAuthorCitePaper = "ExampleDataset\\AuthorCitePaper.csv";
+                controller.fileNamePapers = "ExampleDataset\\Paper.csv";
+                controller.fileNamePaperCitePaper = "ExampleDataset\\PaperCitePaper.csv";
+                controller.fileNameGroundTruth = "ExampleDataset\\GroundTruth.csv";
+
+                final JDialog loading = new JDialog(this);
+                JPanel panel = new JPanel(new BorderLayout());
+                panel.setSize(100, 100);
+                Icon icon = new ImageIcon("src\\uit\\tkorg\\pr\\gui\\Icon\\wait.png");
+                JLabel label = new JLabel("Please wait...", icon, 10);
+                label.setFont(new Font("Times New Roman", Font.ITALIC, 32));
+                panel.add(label, BorderLayout.CENTER);
+
+                loading.setUndecorated(true);
+                loading.getContentPane().add(panel);
+                loading.pack();
+                loading.setLocationRelativeTo(this);
+                loading.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+                loading.setModal(true);
+
+                SwingWorker swingWorker;
+                swingWorker = new SwingWorker() {
+
+                    @Override
+                    protected Object doInBackground() throws Exception {
+                        controller.guiHanderResquest(Options.IMPORT_DATA);
+                        return null;
+                    }
+
+                    @Override
+                    protected void done() {
+                        loading.dispose();
+                        JOptionPane.showMessageDialog(rootPane, "Import is completed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                    }
+
+                };
+
+                jTextAreaConsole.append("\nBegin import dataset....\n");
+                long begin = System.currentTimeMillis();
+                swingWorker.execute();
+                loading.setVisible(true);
+                jTextAreaConsole.append("End import dataset....\n");
+                jTextAreaConsole.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + "s" + "\n");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "No import data...", "Notice", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jRadioButtonDatasetExampleActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        // TODO add your handling code here:
+          try {
+            String path = new File("").getAbsolutePath() + "\\Paper Recommendation Framework\\Paper Recommendation Framework.chm";
+            File file = new File(path);
+
+            if (file.exists()) {
+                Runtime.getRuntime().exec("rundll32 url.dll, FileProtocolHandler " + path);
+            } else {
+                throw new Exception("File \"Help.chm\" not found!");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Notice", JOptionPane.OK_OPTION);
+        }
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jRadioButtonDatasetSourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDatasetSourceActionPerformed
+        // TODO add your handling code here:
+        jButtonFileAuthor.setEnabled(true);
+        jButtonFileAuthorCitePaper.setEnabled(true);
+        jButtonFileAuthorPaper.setEnabled(true);
+        jButtonFilePaper.setEnabled(true);
+        jButtonFilePaperCitePaper.setEnabled(true);
+        jButtonFileGroundTruth.setEnabled(true);
+    }//GEN-LAST:event_jRadioButtonDatasetSourceActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1071,9 +1408,13 @@ public class MainGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JButton jButtonDrawChart;
     private javax.swing.JButton jButtonFileAuthor;
     private javax.swing.JButton jButtonFileAuthorCitePaper;
@@ -1096,6 +1437,7 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBox7;
     private javax.swing.JCheckBox jCheckBox8;
     private javax.swing.JCheckBox jCheckBox9;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -1118,6 +1460,7 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel24;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -1145,6 +1488,7 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
+    private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
@@ -1161,13 +1505,14 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JTable jTable7;
     private javax.swing.JTable jTable8;
     private javax.swing.JTable jTable9;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextAreaAuthor;
     private javax.swing.JTextArea jTextAreaAuthorCitePaper;
     private javax.swing.JTextArea jTextAreaAuthorPaper;
+    private javax.swing.JTextArea jTextAreaConsole;
     private javax.swing.JTextArea jTextAreaGroundTruth;
     private javax.swing.JTextArea jTextAreaPaper;
     private javax.swing.JTextArea jTextAreaPaperPaper;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
