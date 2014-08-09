@@ -1249,11 +1249,7 @@ public class MainGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void config_CFP_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_config_CFP_ButtonActionPerformed
-        if (CFP_CheckBox.isSelected()) {
-            NewJDialog jdiaglog = new NewJDialog(this, rootPaneCheckingEnabled);
-            jdiaglog.setLocationRelativeTo(this);
-            jdiaglog.show();
-        }
+       
     }//GEN-LAST:event_config_CFP_ButtonActionPerformed
 
     private void config_CB_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_config_CB_ButtonActionPerformed
