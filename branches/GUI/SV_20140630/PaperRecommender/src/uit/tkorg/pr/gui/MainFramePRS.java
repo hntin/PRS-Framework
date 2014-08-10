@@ -42,10 +42,10 @@ import uit.tkorg.utility.general.NumericUtility;
  *
  * @author Zoe
  */
-public class MainGUI extends javax.swing.JFrame {
+public class MainFramePRS extends javax.swing.JFrame {
 
     /**
-     * Creates new form MainGUI
+     * Creates new form MainFramePRS
      */
     private CentralGuiHanderRequest controller;
     private String[] response;
@@ -54,7 +54,7 @@ public class MainGUI extends javax.swing.JFrame {
     private static int count = 0;// kiem tra nguoi dung co chon du so file theo yeu cau cua chuong trinh k
     private static int status; // 0: import data, 1: choose algorithm recommend, 2: choose method evaluate
 
-    public MainGUI() {
+    public MainFramePRS() {
         initComponents();
         controller = new CentralGuiHanderRequest();
         config_CB_Button.setVisible(false);
@@ -1051,10 +1051,7 @@ public class MainGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_resetButtonActionPerformed
 
     private void CB_CheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_CheckBoxActionPerformed
-        // TODO add your handling code here:
         if (CB_CheckBox.isSelected()) {
-//            CBOption contentBased = new CBOption();
-//            contentBased.show();
             config_CB_Button.setVisible(true);
         } else {
             config_CB_Button.setVisible(false);
@@ -1084,7 +1081,7 @@ public class MainGUI extends javax.swing.JFrame {
                     GuiUtilities.deleteFile(fileLog);
                 }
             } catch (IOException ex) {
-                Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainFrameTempPRS.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_fileGroundTruth_ButtonActionPerformed
@@ -1112,7 +1109,7 @@ public class MainGUI extends javax.swing.JFrame {
                     GuiUtilities.deleteFile(fileLog);
                 }
             } catch (IOException ex) {
-                Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainFrameTempPRS.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_fileAuthorCitePaper_ButtonActionPerformed
@@ -1140,7 +1137,7 @@ public class MainGUI extends javax.swing.JFrame {
                     GuiUtilities.deleteFile(fileLog);
                 }
             } catch (IOException ex) {
-                Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainFrameTempPRS.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_filePaperCitePaper_ButtonActionPerformed
@@ -1169,7 +1166,7 @@ public class MainGUI extends javax.swing.JFrame {
                     GuiUtilities.deleteFile(fileLog);
                 }
             } catch (IOException ex) {
-                Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainFrameTempPRS.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_fileAuthorPaper_ButtonActionPerformed
@@ -1197,7 +1194,7 @@ public class MainGUI extends javax.swing.JFrame {
                     GuiUtilities.deleteFile(fileLog);
                 }
             } catch (IOException ex) {
-                Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainFrameTempPRS.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -1228,7 +1225,7 @@ public class MainGUI extends javax.swing.JFrame {
                     GuiUtilities.deleteFile(fileLog);
                 }
             } catch (IOException ex) {
-                Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainFrameTempPRS.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_fileAuthor_ButtonActionPerformed
@@ -1308,7 +1305,7 @@ public class MainGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainGUI().setVisible(true);
+                new MainFramePRS().setVisible(true);
             }
         });
     }

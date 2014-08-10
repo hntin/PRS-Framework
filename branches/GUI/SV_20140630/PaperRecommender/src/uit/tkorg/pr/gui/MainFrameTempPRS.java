@@ -49,10 +49,10 @@ import uit.tkorg.utility.general.NumericUtility;
  *
  * @author Vinh
  */
-public class PRSGui extends javax.swing.JFrame {
+public class MainFrameTempPRS extends javax.swing.JFrame {
 
     /**
-     * Creates new form PRSGui
+     * Creates new form MainFrameTempPRS
      */
     private CentralGuiHanderRequest controller;
     private String[] response;
@@ -66,7 +66,7 @@ public class PRSGui extends javax.swing.JFrame {
     public boolean step3 = false;
     public boolean step4 = false;
 
-    public PRSGui() {
+    public MainFrameTempPRS() {
         initComponents();
         controller = new CentralGuiHanderRequest();
         jButtonFileAuthor.setEnabled(false);
@@ -1675,7 +1675,7 @@ public class PRSGui extends javax.swing.JFrame {
                     GuiUtilities.deleteFile(fileLog);
                 }
             } catch (IOException ex) {
-                Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainFrameTempPRS.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         if (count == 6) {
@@ -1770,7 +1770,7 @@ public class PRSGui extends javax.swing.JFrame {
 
     private void jButtonTFIDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTFIDFActionPerformed
         try {
-            TFIDFGui tfidfGui = new TFIDFGui(this, rootPaneCheckingEnabled);
+            DialogBuildTFIDF tfidfGui = new DialogBuildTFIDF(this, rootPaneCheckingEnabled);
             tfidfGui.setLocationRelativeTo(this);
             tfidfGui.show();
         } catch (Exception ex) {
@@ -1797,7 +1797,7 @@ public class PRSGui extends javax.swing.JFrame {
 
     private void buildTFIDFFilesMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buildTFIDFFilesMenuItemActionPerformed
         try {
-            TFIDFGui tfidfGui = new TFIDFGui(this, rootPaneCheckingEnabled);
+            DialogBuildTFIDF tfidfGui = new DialogBuildTFIDF(this, rootPaneCheckingEnabled);
             tfidfGui.setLocationRelativeTo(this);
             tfidfGui.show();
         } catch (Exception ex) {
@@ -1829,7 +1829,7 @@ public class PRSGui extends javax.swing.JFrame {
                     GuiUtilities.deleteFile(fileLog);
                 }
             } catch (IOException ex) {
-                Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainFrameTempPRS.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         if (count == 6) {
@@ -1861,7 +1861,7 @@ public class PRSGui extends javax.swing.JFrame {
                     GuiUtilities.deleteFile(fileLog);
                 }
             } catch (IOException ex) {
-                Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainFrameTempPRS.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 //        if (count == 6) {
@@ -1892,7 +1892,7 @@ public class PRSGui extends javax.swing.JFrame {
                     GuiUtilities.deleteFile(fileLog);
                 }
             } catch (IOException ex) {
-                Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainFrameTempPRS.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         if (count == 6) {
@@ -1923,7 +1923,7 @@ public class PRSGui extends javax.swing.JFrame {
                     GuiUtilities.deleteFile(fileLog);
                 }
             } catch (IOException ex) {
-                Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainFrameTempPRS.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         if (count == 6) {
@@ -1954,7 +1954,7 @@ public class PRSGui extends javax.swing.JFrame {
                     GuiUtilities.deleteFile(fileLog);
                 }
             } catch (IOException ex) {
-                Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainFrameTempPRS.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         if (count == 6) {
@@ -2086,7 +2086,7 @@ public class PRSGui extends javax.swing.JFrame {
                 try {
                     GuiUtilities.writeToFileText("Temp\\ResultEvaluation.txt", response[1]);
                 } catch (IOException ex) {
-                    Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(MainFrameTempPRS.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 DefaultListModel model = new DefaultListModel();
                 for (int i = 0; i < jListEvaluation.getModel().getSize(); i++) {
@@ -2115,7 +2115,7 @@ public class PRSGui extends javax.swing.JFrame {
     private void visualizeMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizeMenuItemActionPerformed
         if (step4) {
             try {
-                VisualizeGui visualizeGui = new VisualizeGui(this, rootPaneCheckingEnabled);
+                DialogVisualize visualizeGui = new DialogVisualize(this, rootPaneCheckingEnabled);
                 visualizeGui.setLocationRelativeTo(this);
                 visualizeGui.show();
             } catch (Exception e) {
@@ -2130,7 +2130,7 @@ public class PRSGui extends javax.swing.JFrame {
     private void jButtonDrawChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDrawChartActionPerformed
         if (step4) {
             try {
-                VisualizeGui visualizeGui = new VisualizeGui(this, rootPaneCheckingEnabled);
+                DialogVisualize visualizeGui = new DialogVisualize(this, rootPaneCheckingEnabled);
                 visualizeGui.setLocationRelativeTo(this);
                 visualizeGui.show();
             } catch (Exception e) {
@@ -2335,7 +2335,7 @@ public class PRSGui extends javax.swing.JFrame {
         jButtonFileGroundTruth.setEnabled(false);
 
         if (jRadioButtonDatasetExample.isSelected()) {
-            ExampleDatasetGui datasetExample = new ExampleDatasetGui(this, rootPaneCheckingEnabled);
+            DialogDatasetExample datasetExample = new DialogDatasetExample(this, rootPaneCheckingEnabled);
             datasetExample.setLocationRelativeTo(this);
             datasetExample.show();
             boolean check = datasetExample.check;
@@ -2451,7 +2451,7 @@ public class PRSGui extends javax.swing.JFrame {
 
     private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
         try {
-            AboutGui aboutGui = new AboutGui(this, rootPaneCheckingEnabled);
+            DiaglogAbout aboutGui = new DiaglogAbout(this, rootPaneCheckingEnabled);
             aboutGui.setLocationRelativeTo(this);
             aboutGui.show();
         } catch (Exception ex) {
@@ -2499,7 +2499,7 @@ public class PRSGui extends javax.swing.JFrame {
                         controller.MahoutCFDir + "\\CFRatingMatrixOriginal.txt", controller.authors.keySet().size(),
                         controller.papers.keySet().size())) + " %");
             } catch (FileNotFoundException ex) {
-                Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainFrameTempPRS.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Please choose data preparation!", "Notice", JOptionPane.INFORMATION_MESSAGE);
@@ -2638,7 +2638,7 @@ public class PRSGui extends javax.swing.JFrame {
                             FileUtils.writeStringToFile(new File(path + "\\" + path1), stringBuilder.toString(), "UTF8", false);
                             JOptionPane.showMessageDialog(rootPane, "Save Evaluation completed...", "Notice", JOptionPane.INFORMATION_MESSAGE);
                         } catch (IOException ex) {
-                            Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(MainFrameTempPRS.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
                     step4 = true;
@@ -2716,7 +2716,7 @@ public class PRSGui extends javax.swing.JFrame {
                             FileUtils.writeStringToFile(new File(path + "\\" + path1), stringBuilder.toString(), "UTF8", false);
                             JOptionPane.showMessageDialog(rootPane, "Save Recommendation List completed...", "Notice", JOptionPane.INFORMATION_MESSAGE);
                         } catch (IOException ex) {
-                            Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(MainFrameTempPRS.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
                     step3 = true;
@@ -2800,7 +2800,7 @@ public class PRSGui extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PRSGui().setVisible(true);
+                new MainFrameTempPRS().setVisible(true);
 
             }
         });

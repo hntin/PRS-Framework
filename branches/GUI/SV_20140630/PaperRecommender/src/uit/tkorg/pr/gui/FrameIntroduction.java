@@ -13,12 +13,12 @@ import javax.swing.UIManager;
  *
  * @author Zoe
  */
-public class Introduction extends javax.swing.JFrame {
+public class FrameIntroduction extends javax.swing.JFrame {
 
     /**
      * Creates new form NewJFrame1
      */
-    public Introduction() {
+    public FrameIntroduction() {
         initComponents();
         exploreButton.requestFocusInWindow();
     }
@@ -139,7 +139,7 @@ public class Introduction extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void exploreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exploreButtonActionPerformed
-        MainGUI pRSGui = new MainGUI();
+        MainFramePRS pRSGui = new MainFramePRS();
         pRSGui.show();
         
     }//GEN-LAST:event_exploreButtonActionPerformed
@@ -169,7 +169,7 @@ public class Introduction extends javax.swing.JFrame {
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         // TODO add your handling code here:
-        PRSGui pRSGui = new PRSGui();
+        MainFrameTempPRS pRSGui = new MainFrameTempPRS();
         pRSGui.show();
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
@@ -196,7 +196,7 @@ public class Introduction extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Introduction().setVisible(true);
+                new FrameIntroduction().setVisible(true);
             }
         });
     }

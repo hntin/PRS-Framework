@@ -20,12 +20,12 @@ import javax.swing.UIManager;
  *
  * @author Vinh
  */
-public class TFIDFGui extends javax.swing.JDialog {
+public class DialogBuildTFIDF extends javax.swing.JDialog {
 
     /**
      * Creates new form TFIDFGUI
      */
-    public TFIDFGui(java.awt.Frame parent, boolean modal) {
+    public DialogBuildTFIDF(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
 
@@ -231,7 +231,7 @@ public class TFIDFGui extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TFIDFGui dialog = new TFIDFGui(new javax.swing.JFrame(), true);
+                DialogBuildTFIDF dialog = new DialogBuildTFIDF(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

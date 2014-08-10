@@ -29,12 +29,12 @@ import org.jfree.data.xy.XYSeriesCollection;
  *
  * @author Vinh
  */
-public class VisualizeGui extends javax.swing.JDialog {
+public class DialogVisualize extends javax.swing.JDialog {
 
     /**
      * Creates new form Visualized
      */
-    public VisualizeGui(java.awt.Frame parent, boolean modal) throws IOException {
+    public DialogVisualize(java.awt.Frame parent, boolean modal) throws IOException {
         super(parent, modal);
         initComponents();
         final XYDataset dataset = createDataset();
@@ -169,11 +169,11 @@ public class VisualizeGui extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                VisualizeGui dialog = null;
+                DialogVisualize dialog = null;
                 try {
-                    dialog = new VisualizeGui(new javax.swing.JFrame(), true);
+                    dialog = new DialogVisualize(new javax.swing.JFrame(), true);
                 } catch (IOException ex) {
-                    Logger.getLogger(VisualizeGui.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(DialogVisualize.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override

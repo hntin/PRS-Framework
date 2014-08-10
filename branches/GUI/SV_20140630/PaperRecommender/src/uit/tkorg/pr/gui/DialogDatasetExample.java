@@ -13,14 +13,14 @@ import javax.swing.UIManager;
  *
  * @author Vinh
  */
-public class ExampleDatasetGui extends javax.swing.JDialog {
+public class DialogDatasetExample extends javax.swing.JDialog {
 
     boolean check = false;
 
     /**
      * Creates new form DatasetExample
      */
-    public ExampleDatasetGui(java.awt.Frame parent, boolean modal) {
+    public DialogDatasetExample(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -236,7 +236,7 @@ public class ExampleDatasetGui extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ExampleDatasetGui dialog = new ExampleDatasetGui(new javax.swing.JFrame(), true);
+                DialogDatasetExample dialog = new DialogDatasetExample(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

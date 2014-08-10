@@ -173,7 +173,7 @@ public class GuiUtilities {
                 }
             }
         } catch (Exception ex) {
-            Logger.getLogger(Introduction.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FrameIntroduction.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
