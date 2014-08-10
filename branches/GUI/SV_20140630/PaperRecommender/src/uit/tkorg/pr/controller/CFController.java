@@ -32,7 +32,7 @@ public class CFController {
             String fileNameAuthorCitePaper, 
             String MahoutCFDir, 
             int cfMethod,
-            HashMap<String, Author> authorTestSet, HashSet<String> paperIdsInTestSet,int k) throws Exception {
+            HashMap<String, Author> authorTestSet, HashSet<String> paperIdsInTestSet,int k, int f, double l, int i) throws Exception {
         String algorithmName = null;
         
         // Step 1: Prepare CF matrix.
@@ -56,9 +56,9 @@ public class CFController {
         } else if (cfMethod == 3) {
             // SVD ALSWRFactorizer.
             // f features, normalize by l, i iterations.
-            int f = 5;
-            double l = 0.001;
-            int i = 100;
+//            int f = 5;
+//            double l = 0.001;
+//            int i = 100;
             algorithmName = "CF SVD ALSWRFactorizer " + "f" + f + "l" + l + "i" + i;
             // Recommend for authors in author test set.
             System.out.println("Begin calculating CF-SVD Recommending Score");

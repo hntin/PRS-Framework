@@ -254,6 +254,9 @@ public class PRCentralController {
         // howToTrustPaper: 1: average trust value of authors, 2: max trust value of authors.
         int howToTrustPaper;
         int k =8;
+        int f =5;
+        double l =0.001;
+        int i =100;
         // Recommendation.
         if (recommendationMethod == 1) {
             //<editor-fold defaultstate="collapsed" desc="CONTENT BASED METHOD">
@@ -278,7 +281,7 @@ public class PRCentralController {
             startTime = System.nanoTime();
 
             algorithmName = CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod,
-                    authorTestSet, paperIdsInTestSet,k);
+                    authorTestSet, paperIdsInTestSet,k,f,l,i);
             CF.cfRecommendToAuthorList(authorTestSet, topNRecommend);
 
             estimatedTime = System.nanoTime() - startTime;
@@ -294,7 +297,7 @@ public class PRCentralController {
                     combiningSchemePaperTestSet, weightingSchemePaperTestSet, similarityScheme,
                     pruning);
             CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir,
-                    cfMethod, authorTestSet, paperIdsInTestSet,k);
+                    cfMethod, authorTestSet, paperIdsInTestSet,k,f,l,i);
             combinationScheme = 1;
             alpha = (float) 0.9;
             CBFCF.computeCBFCFCombinationAndPutIntoModelForAuthorList(authorTestSet, alpha, combinationScheme);

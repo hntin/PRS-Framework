@@ -21,6 +21,7 @@ import uit.tkorg.pr.datapreparation.CBFPaperFVComputation;
 import uit.tkorg.pr.evaluation.Evaluator;
 import uit.tkorg.pr.method.cbf.FeatureVectorSimilarity;
 import uit.tkorg.pr.method.cf.CF;
+import uit.tkorg.pr.method.hybrid.CBFCF;
 import uit.tkorg.pr.model.Author;
 import uit.tkorg.pr.model.Paper;
 import uit.tkorg.utility.textvectorization.TextPreprocessUtility;
@@ -34,15 +35,20 @@ public class CentralGuiHanderRequest {
 
     public double gama;// tham so gama cho 
     public double pruning;//tham so deu chinh cho pruning cho paper
-    public int timeAwareScheme = 0;// trong so author
-    public int weightingPaper = 0;// trong so paper
-    public int combiningAuthor = 0;// phuong thuc combining author
-    public int combiningPaper = 0; // phuong thuc combining paper
-    public int recommendationMethod = 1; //1: CBF, 2: CF
+    public int timeAwareScheme;// trong so author
+    public int weightingPaper;// trong so paper
+    public int combiningAuthor;// phuong thuc combining author
+    public int combiningPaper; // phuong thuc combining paper
+    public int recommendationMethod; //1: CBF, 2: CF
     public int cfMethod;//1: KNN Pearson, 2: KNN Cosine, 3: SVD
     public int topNRecommend;// topNRecommend RECOMMEND
     public int topRank;// topRank K EVALUATE
     public int kNeighbor;// so hang xom
+    public int f;
+    public double l;
+    public int i;
+    public float alpha;
+    public int combinationScheme;
     public int methodEvaluation;// phuong phap danh gia
     public String SaveDataFolder;//
     public String fileNamePapers; //File 1
@@ -65,7 +71,7 @@ public class CentralGuiHanderRequest {
 
     public CentralGuiHanderRequest() {
         gama = 0;// tham so gama cho 
-        pruning = 0;//tham so deu chinh cho pruning cho paper
+        pruning = 0.0;//tham so deu chinh cho pruning cho paper
         timeAwareScheme = 0;// trong so author
         weightingPaper = 0;// trong so paper
         combiningAuthor = 0;// phuong thuc combining author
@@ -74,8 +80,10 @@ public class CentralGuiHanderRequest {
         cfMethod = 1;//1: KNN Pearson, 2: KNN Cosine, 3: SVD
         topNRecommend = 0;// topNRecommend RECOMMEND
         topRank = 0;// topRank K EVALUATE
-        //  kNeighbor = 8;// so hang xom
+        kNeighbor = 8;// so hang xom
         methodEvaluation = 0;// phuong phap danh gia
+        alpha = 0.9f;
+        combinationScheme =1;
         SaveDataFolder = null;//
         fileNamePapers = null; //File 1
         fileNamePaperCitePaper = null;// File 2
@@ -109,8 +117,8 @@ public class CentralGuiHanderRequest {
                     break;
                 case CONSTRUCT_AUTHOR_PROFILE: // xay dung profile nguoi dung
                     HashSet<String> paperIdsOfAuthorTestSet = CBFAuthorFVComputation.getPaperIdsOfAuthors(authors);
-                    //CBFPaperFVComputation.computeFeatureVectorForAllPapers(papers, paperIdsOfAuthorTestSet, combiningPaper, weightingPaper,pruning);
-                    CBFPaperFVComputation.computeFeatureVectorForAllPapers(papers, paperIdsOfAuthorTestSet, combiningPaper, weightingPaper, 0.0);
+                    CBFPaperFVComputation.computeFeatureVectorForAllPapers(papers, paperIdsOfAuthorTestSet, combiningPaper, weightingPaper,pruning);
+                   // CBFPaperFVComputation.computeFeatureVectorForAllPapers(papers, paperIdsOfAuthorTestSet, combiningPaper, weightingPaper, 0.0);
                     CBFAuthorFVComputation.computeFVForAllAuthors(authors, papers, timeAwareScheme, gama);
                     break;
                 case CONSTRUCT_PAPER_FV:// xay dung vector dac trung cho bai bao
@@ -176,17 +184,19 @@ public class CentralGuiHanderRequest {
             paperIds = CBFAuthorFVComputation.getPaperIdsTestSet(authors);
             if (cfMethod == 1) {
                 //CF method with KNN Pearson
-                CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod, authors, paperIds, kNeighbor);
+                CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod, authors, paperIds, kNeighbor,f,l,i);
                 CF.cfRecommendToAuthorList(authors, topNRecommend);
             } else if (cfMethod == 2) {
                 //CF method with KNN Cosine
-                CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod, authors, paperIds, kNeighbor);
+                CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod, authors, paperIds, kNeighbor,f,l,i);
                 CF.cfRecommendToAuthorList(authors, topNRecommend);
             } else if (cfMethod == 3) {
                 //CF method with SVD
-                CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod, authors, paperIds, kNeighbor);
+                CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod, authors, paperIds, kNeighbor,f,l,i);
                 CF.cfRecommendToAuthorList(authors, topNRecommend);
             }
+        }else if (recommendationMethod == 3){
+               CBFCF.computeCBFCFCombinationAndPutIntoModelForAuthorList(authors, alpha, combinationScheme);
         }
     }
 
