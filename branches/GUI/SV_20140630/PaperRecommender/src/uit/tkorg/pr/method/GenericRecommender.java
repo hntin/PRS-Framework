@@ -4,6 +4,7 @@
  */
 package uit.tkorg.pr.method;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -23,16 +24,18 @@ public class GenericRecommender {
 
     public static Integer count = 0;
 
-    private GenericRecommender() {}
-    
+    private GenericRecommender() {
+    }
+
     /**
-     * 
+     *
      * @param authors
      * @param topNRecommend
-     * @param method: 0: cbf, 1: cf, 2: cbf and cf linear combination, 3: cbf, cf, and trust hybrid
-     * @throws Exception 
+     * @param method: 0: cbf, 1: cf, 2: cbf and cf linear combination, 3: cbf,
+     * cf, and trust hybrid
+     * @throws Exception
      */
-    public static void generateRecommendationForAuthorList(final HashMap<String, Author> authors, 
+    public static void generateRecommendationForAuthorList(final HashMap<String, Author> authors,
             final int topNRecommend, final int method) throws Exception {
         Runtime runtime = Runtime.getRuntime();
         int numOfProcessors = runtime.availableProcessors();
@@ -59,9 +62,9 @@ public class GenericRecommender {
         }
     }
 
-    private static void generateRecommendation(Author author, int topNRecommend, 
+    private static void generateRecommendation(Author author, int topNRecommend,
             final int method) throws Exception {
-
+        author.setRecommendationList(new ArrayList());
         HashMap<String, Float> recommendingScoreHM = null;
         if (method == 0) {
             recommendingScoreHM = author.getCbfSimHM();

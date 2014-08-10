@@ -30,6 +30,7 @@ import uit.tkorg.pr.constant.ImportFiles;
 import uit.tkorg.pr.constant.Options;
 import uit.tkorg.pr.controller.PRSCentralController;
 import uit.tkorg.pr.method.cbf.FeatureVectorSimilarity;
+import uit.tkorg.pr.method.cf.CF;
 import uit.tkorg.pr.method.hybrid.CBFCF;
 import uit.tkorg.pr.model.Author;
 
@@ -815,6 +816,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         jLabel1.setText("Top Recommendation:");
 
+        top_Recommend_TextField.setText("100");
         top_Recommend_TextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 top_Recommend_TextFieldKeyTyped(evt);
@@ -971,6 +973,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         jLabel3.setText("Top Rank");
 
+        topRank_TextField.setText("10");
         topRank_TextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 topRank_TextFieldKeyTyped(evt);
@@ -1585,6 +1588,13 @@ public class MainFramePRS extends javax.swing.JFrame {
                     }
                     contentbased_Table.setModel(tablemodel);
                 } else if (alg == 2) {
+                    try {
+                        CF.cfRecommendToAuthorList(controller.authorsCFP, controller.topRecommend);
+                    } catch (TasteException ex) {
+                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (Exception ex) {
+                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     DefaultTableModel tablemodel = (DefaultTableModel) cfp_Table.getModel();
                     tablemodel.getDataVector().removeAllElements();
                     cfp_Table.setModel(tablemodel);
@@ -1599,6 +1609,13 @@ public class MainFramePRS extends javax.swing.JFrame {
                     }
                     cfp_Table.setModel(tablemodel);
                 } else if (alg == 3) {
+                    try {
+                        CF.cfRecommendToAuthorList(controller.authorsCFC, controller.topRecommend);
+                    } catch (TasteException ex) {
+                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (Exception ex) {
+                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     DefaultTableModel tablemodel = (DefaultTableModel) cfc_Table.getModel();
                     tablemodel.getDataVector().removeAllElements();
                     cfc_Table.setModel(tablemodel);
@@ -1613,6 +1630,13 @@ public class MainFramePRS extends javax.swing.JFrame {
                     }
                     cfc_Table.setModel(tablemodel);
                 } else if (alg == 4) {
+                    try {
+                        CF.cfRecommendToAuthorList(controller.authorsCFSVD, controller.topRecommend);
+                    } catch (TasteException ex) {
+                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (Exception ex) {
+                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     DefaultTableModel tablemodel = (DefaultTableModel) cfsvd_Table.getModel();
                     tablemodel.getDataVector().removeAllElements();
                     cfsvd_Table.setModel(tablemodel);
@@ -1667,7 +1691,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 }
                 try {
                     FileUtils.writeStringToFile(new File(path), recList.toString(), "UTF8", false);
-                    JOptionPane.showMessageDialog(rootPane, "Saving complete...", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, "Saving completed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException ex) {
                     Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
                 }
