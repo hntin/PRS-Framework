@@ -19,12 +19,12 @@ public class DialogConfigCB extends javax.swing.JDialog {
     //<editor-fold defaultstate="collapsed" desc="variables of DiaglogConfigCB">
     int combineAuthor = 0;
     int weightingAuthor = 0;
-    float gammaAuthor = 0;
+    int timeAware = 0;
+    float gamma = 0;
     int combinePaper = 0;
     int weightingPaper = 0;
-    float gammaPaper = 0;
-    float prunning = 0;
-//</editor-fold>
+    float pruning = 0;
+    //</editor-fold>
 
     public DialogConfigCB(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -46,6 +46,9 @@ public class DialogConfigCB extends javax.swing.JDialog {
         jLabel13 = new javax.swing.JLabel();
         combineAuthor_ComboBox = new javax.swing.JComboBox();
         weightingAuthor_ComboBox = new javax.swing.JComboBox();
+        timeAware_CheckBox = new javax.swing.JCheckBox();
+        jLabel1 = new javax.swing.JLabel();
+        gamma_TextField = new javax.swing.JTextField();
         jPanel23 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         CMAuthorTextPane = new javax.swing.JTextPane();
@@ -56,10 +59,10 @@ public class DialogConfigCB extends javax.swing.JDialog {
         combinePaper_ComboBox = new javax.swing.JComboBox();
         jLabel16 = new javax.swing.JLabel();
         weightingPaper_ComboBox = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
+        ok_Button = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        prunning_TextField = new javax.swing.JTextField();
+        pruning_TextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Configuration of Content Based Algorithm");
@@ -67,7 +70,7 @@ public class DialogConfigCB extends javax.swing.JDialog {
 
         jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder("Author Profile Construction"));
 
-        jPanel28.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Option"));
+        jPanel28.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Paper of Author"));
 
         jLabel12.setText("Combination Method");
 
@@ -80,7 +83,7 @@ public class DialogConfigCB extends javax.swing.JDialog {
             }
         });
 
-        weightingAuthor_ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Linear combination(LC)", "Forgetting factor(FF)" }));
+        weightingAuthor_ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Linear combination(LC)", "Cosine similarity(SIM)", "Reciprocal of the difference between published years(RPY)" }));
         weightingAuthor_ComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 weightingAuthor_ComboBoxActionPerformed(evt);
@@ -92,15 +95,11 @@ public class DialogConfigCB extends javax.swing.JDialog {
         jPanel28Layout.setHorizontalGroup(
             jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel28Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel28Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel28Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel13)
-                        .addGap(18, 18, 18)))
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel13))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(combineAuthor_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(weightingAuthor_ComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -114,28 +113,52 @@ public class DialogConfigCB extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(weightingAuthor_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(weightingAuthor_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
+
+        timeAware_CheckBox.setText("TimeAware");
+        timeAware_CheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                timeAware_CheckBoxActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Gamma:");
+
+        gamma_TextField.setEditable(false);
+        gamma_TextField.setBackground(new java.awt.Color(255, 255, 255));
+        gamma_TextField.setText("0.0");
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(timeAware_CheckBox)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(gamma_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(timeAware_CheckBox)
+                    .addComponent(jLabel1)
+                    .addComponent(gamma_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder("Discription Option"));
 
         CMAuthorTextPane.setEditable(false);
-        CMAuthorTextPane.setText("In here, we have to set up coefficients for author's profiles construction and feature vector\nconstruction for papers.This seems to prepared data for recommendation.\n");
+        CMAuthorTextPane.setText("In here, we have to set up coefficients for author's profiles construction and feature vector construction for papers.This seems to prepared data for recommendation.\n");
         jScrollPane6.setViewportView(CMAuthorTextPane);
 
         jButton3.setText("More");
@@ -150,22 +173,21 @@ public class DialogConfigCB extends javax.swing.JDialog {
         jPanel23Layout.setHorizontalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel23Layout.createSequentialGroup()
-                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton3)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3))
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(jPanel23Layout.createSequentialGroup()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(20, 20, 20)
                 .addComponent(jButton3))
         );
 
         jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder("Feature Vector Construction for Paper"));
 
-        jPanel29.setBorder(javax.swing.BorderFactory.createTitledBorder("Option"));
+        jPanel29.setBorder(javax.swing.BorderFactory.createTitledBorder("Candiate Paper "));
 
         jLabel15.setText("Combination Method");
 
@@ -178,7 +200,7 @@ public class DialogConfigCB extends javax.swing.JDialog {
 
         jLabel16.setText("Weighting Combination");
 
-        weightingPaper_ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Linear combination(LC)", "Cosine similarity(SIM)", "Reciprocal of the difference between published years(RPY)", "Forgetting factor(FF)" }));
+        weightingPaper_ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Linear combination(LC)", "Cosine similarity(SIM)", "Reciprocal of the difference between published years(RPY)" }));
         weightingPaper_ComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 weightingPaper_ComboBoxActionPerformed(evt);
@@ -196,9 +218,9 @@ public class DialogConfigCB extends javax.swing.JDialog {
                     .addComponent(jLabel16))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(combinePaper_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(weightingPaper_ComboBox, 0, 1, Short.MAX_VALUE))
-                .addGap(39, 39, 39))
+                    .addComponent(combinePaper_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(weightingPaper_ComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(23, 23, 23))
         );
         jPanel29Layout.setVerticalGroup(
             jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,17 +239,17 @@ public class DialogConfigCB extends javax.swing.JDialog {
         jPanel25.setLayout(jPanel25Layout);
         jPanel25Layout.setHorizontalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel29, javax.swing.GroupLayout.PREFERRED_SIZE, 455, Short.MAX_VALUE)
+            .addComponent(jPanel29, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         jPanel25Layout.setVerticalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        jButton1.setText("OK");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        ok_Button.setText("OK");
+        ok_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                ok_ButtonActionPerformed(evt);
             }
         });
 
@@ -235,7 +257,7 @@ public class DialogConfigCB extends javax.swing.JDialog {
 
         jLabel2.setText("Prunning");
 
-        prunning_TextField.setText("0.0");
+        pruning_TextField.setText("0.0");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -244,8 +266,8 @@ public class DialogConfigCB extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
-                .addComponent(prunning_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pruning_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,7 +275,7 @@ public class DialogConfigCB extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(prunning_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pruning_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -261,35 +283,30 @@ public class DialogConfigCB extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(ok_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(100, 100, 100))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(1, 1, 1)
+                .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addGap(22, 22, 22))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ok_Button)
+                .addContainerGap())
         );
 
         pack();
@@ -308,7 +325,7 @@ public class DialogConfigCB extends javax.swing.JDialog {
     }//GEN-LAST:event_combineAuthor_ComboBoxActionPerformed
 
     private void weightingAuthor_ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_weightingAuthor_ComboBoxActionPerformed
-if (weightingAuthor_ComboBox.getSelectedIndex() == 0) {
+        if (weightingAuthor_ComboBox.getSelectedIndex() == 0) {
             weightingAuthor = 0;
         } else if (weightingAuthor_ComboBox.getSelectedIndex() == 1) {
             weightingAuthor = 1;
@@ -316,7 +333,7 @@ if (weightingAuthor_ComboBox.getSelectedIndex() == 0) {
     }//GEN-LAST:event_weightingAuthor_ComboBoxActionPerformed
 
     private void combinePaper_ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combinePaper_ComboBoxActionPerformed
-if (combinePaper_ComboBox.getSelectedIndex() == 0) {
+        if (combinePaper_ComboBox.getSelectedIndex() == 0) {
             combinePaper = 0;
         } else if (combinePaper_ComboBox.getSelectedIndex() == 1) {
             combinePaper = 1;
@@ -328,7 +345,7 @@ if (combinePaper_ComboBox.getSelectedIndex() == 0) {
     }//GEN-LAST:event_combinePaper_ComboBoxActionPerformed
 
     private void weightingPaper_ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_weightingPaper_ComboBoxActionPerformed
-if (weightingPaper_ComboBox.getSelectedIndex() == 0) {
+        if (weightingPaper_ComboBox.getSelectedIndex() == 0) {
             weightingPaper = 0;
         } else if (weightingPaper_ComboBox.getSelectedIndex() == 1) {
             weightingPaper = 1;
@@ -344,7 +361,7 @@ if (weightingPaper_ComboBox.getSelectedIndex() == 0) {
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void ok_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ok_ButtonActionPerformed
         if (combineAuthor_ComboBox.getSelectedIndex() == 0) {
             combineAuthor = 0;
         } else if (combineAuthor_ComboBox.getSelectedIndex() == 1) {
@@ -379,9 +396,24 @@ if (weightingPaper_ComboBox.getSelectedIndex() == 0) {
             weightingPaper = 2;
         }
 
-        prunning = Float.valueOf(prunning_TextField.getText());
+        if (timeAware_CheckBox.isSelected()) {
+            timeAware = 1;
+            gamma = Float.valueOf(gamma_TextField.getText().trim());
+        } else {
+            timeAware = 0;
+            gamma = 0;
+        }
+        pruning = Float.valueOf(pruning_TextField.getText());
         this.hide();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_ok_ButtonActionPerformed
+
+    private void timeAware_CheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeAware_CheckBoxActionPerformed
+        if (timeAware_CheckBox.isSelected()) {
+            gamma_TextField.setEditable(true);
+        } else {
+            gamma_TextField.setEditable(false);
+        }
+    }//GEN-LAST:event_timeAware_CheckBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -419,8 +451,9 @@ if (weightingPaper_ComboBox.getSelectedIndex() == 0) {
     private javax.swing.JTextPane CMAuthorTextPane;
     private javax.swing.JComboBox combineAuthor_ComboBox;
     private javax.swing.JComboBox combinePaper_ComboBox;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextField gamma_TextField;
     private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
@@ -433,7 +466,9 @@ if (weightingPaper_ComboBox.getSelectedIndex() == 0) {
     private javax.swing.JPanel jPanel28;
     private javax.swing.JPanel jPanel29;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JTextField prunning_TextField;
+    private javax.swing.JButton ok_Button;
+    private javax.swing.JTextField pruning_TextField;
+    private javax.swing.JCheckBox timeAware_CheckBox;
     private javax.swing.JComboBox weightingAuthor_ComboBox;
     private javax.swing.JComboBox weightingPaper_ComboBox;
     // End of variables declaration//GEN-END:variables

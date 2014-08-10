@@ -51,49 +51,49 @@ public class PRSCentralController {
 
     public HashMap<String, Paper> papers = new HashMap<>();
     public HashMap<String, Author> authors = new HashMap<>();
-    public HashMap<String, Paper> papersOfAuthors = new HashMap<>();
     HashSet<String> paperIdsOfAuthorTestSet = new HashSet<>();
     HashSet<String> paperIdsInTestSet = new HashSet<>();
 
-    public int measure_Evaluation;
+    public int algorithm_Recommendation; //1: CBF, 2: CF, 3: CBFCFHybrid
 
-    //</editor-fold>
-    public double gama;// tham so gama cho 
-    public double pruning;//tham so deu chinh cho pruning cho paper
-    public int timeAwareScheme;// trong so author
-    public int weightingPaper;// trong so paper
-    public int combiningAuthor;// phuong thuc combining author
-    public int combiningPaper; // phuong thuc combining paper
-    public int recommendationMethod; //1: CBF, 2: CF
+    public int combineAuthor;
+    public int weightingAuthor;
+    public int timeAware;
+    public double gamma;
+    public int combinePaper;
+    public int weightingPaper;
+    public double pruning;
+
     public int cfMethod;//1: KNN Pearson, 2: KNN Cosine, 3: SVD
-    public int topNRecommend;// topNRecommend RECOMMEND
-    public int topRank;// topRank K EVALUATE
-    public int kNeighbor;// so hang xom
+    public int kNeighbourhood;
     public int f;
     public double l;
     public int i;
-    public float alpha;
-    public int combinationScheme;
-    public String SaveDataFolder;//
 
-    public String fileNameMatrixExistent;
+    public double alpha;
+    public int combineHybrid;
 
+    public int topRecommend;
+
+    public int measure_Evaluation;
+    public int topRank;
+
+    //</editor-fold>
     public PRSCentralController() {
-        gama = 0;// tham so gama cho 
+        gamma = 0;// tham so gamma cho 
         pruning = 0.0;//tham so deu chinh cho pruning cho paper
-        timeAwareScheme = 0;// trong so author
+        timeAware = 0;// trong so author
         weightingPaper = 0;// trong so paper
-        combiningAuthor = 0;// phuong thuc combining author
-        combiningPaper = 0; // phuong thuc combining paper
-        recommendationMethod = 1; //1: CBF, 2: CF
+        combineAuthor = 0;// phuong thuc combining author
+        combinePaper = 0; // phuong thuc combining paper
+        algorithm_Recommendation = 1; //1: CBF, 2: CF
         cfMethod = 1;//1: KNN Pearson, 2: KNN Cosine, 3: SVD
-        topNRecommend = 0;// topNRecommend RECOMMEND
+        topRecommend = 0;// topRecommend RECOMMEND
         topRank = 0;// topRank K EVALUATE
-        kNeighbor = 8;// so hang xom
+        kNeighbourhood = 8;// so hang xom
         measure_Evaluation = 0;// phuong phap danh gia
         alpha = 0.9f;
-        combinationScheme = 1;
-        SaveDataFolder = null;//
+        combineHybrid = 1;
         fileNamePapers = null; //File 1
         fileNamePaperCitePaper = null;// File 2
         fileNameAuthors = null;// File 3
@@ -104,7 +104,8 @@ public class PRSCentralController {
         _fileName_RecommendationList = null;// ten file danh sach RECOMMEND
         papers = new HashMap<>();
         authors = new HashMap<>();
-        papersOfAuthors = new HashMap<>();
+        paperIdsOfAuthorTestSet = new HashSet<>();
+        paperIdsInTestSet = new HashSet<>();
     }
 
     public String[] guiHandlerRequest(Options request) {
@@ -178,32 +179,56 @@ public class PRSCentralController {
     }
 
     public void recommend() throws Exception {
-        if (recommendationMethod == 1) {
-            //Content - based method
-            FeatureVectorSimilarity.computeCBFSimAndPutIntoModelForAuthorList(authors, papers, 0);
-            FeatureVectorSimilarity.generateRecommendationForAuthorList(authors, topNRecommend);
-        } else if (recommendationMethod == 2) {
+        if (algorithm_Recommendation == 1) {
+            //Content - based
+//            FeatureVectorSimilarity.computeCBFSimAndPutIntoModelForAuthorList(authors, papers, 0);
+//            FeatureVectorSimilarity.generateRecommendationForAuthorList(authors, topRecommend);
+            long startTime;
+            long estimatedTime;
+            System.out.println("Begin CBF recommendation...");
+            startTime = System.nanoTime();
+
+            CBFController.cbfComputeRecommendingScore(authors, papers,
+                    paperIdsOfAuthorTestSet, paperIdsInTestSet,
+                    combineAuthor, weightingAuthor,
+                    timeAware, gamma,
+                    combinePaper, weightingPaper, 0,
+                    pruning);
+//            FeatureVectorSimilarity.generateRecommendationForAuthorList(authorTestSet, topNRecommend);
+
+            estimatedTime = System.nanoTime() - startTime;
+            System.out.println("CBF recommendation elapsed time: " + estimatedTime / 1000000000 + " seconds");
+            System.out.println("End CBF recommendation.");
+        } else if (algorithm_Recommendation == 2) {
             //CF method
-            HashSet<String> paperIds = new HashSet<>();
-            paperIds = CBFAuthorFVComputation.getPaperIdsTestSet(authors);
-            if (cfMethod == 1) {
-                //CF method with KNN Pearson
-                CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod, authors, paperIds, kNeighbor, f, l, i);
-                CF.cfRecommendToAuthorList(authors, topNRecommend);
-            } else if (cfMethod == 2) {
-                //CF method with KNN Cosine
-                CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod, authors, paperIds, kNeighbor, f, l, i);
-                CF.cfRecommendToAuthorList(authors, topNRecommend);
-            } else if (cfMethod == 3) {
-                //CF method with SVD
-                CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod, authors, paperIds, kNeighbor, f, l, i);
-                CF.cfRecommendToAuthorList(authors, topNRecommend);
-            }
-        } else if (recommendationMethod == 3) {
-            CBFCF.computeCBFCFCombinationAndPutIntoModelForAuthorList(authors, alpha, combinationScheme);
+            long startTime;
+            long estimatedTime;
+            System.out.println("Begin CF recommendation...");
+            startTime = System.nanoTime();
+
+            CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod,
+                    authors, paperIdsInTestSet, kNeighbourhood, f, l, i);
+            CF.cfRecommendToAuthorList(authors, topRecommend);
+
+            estimatedTime = System.nanoTime() - startTime;
+            System.out.println("CF recommendation elapsed time: " + estimatedTime / 1000000000 + " seconds");
+            System.out.println("End CF recommendation.");
+        } else if (algorithm_Recommendation == 3) {
+            float alpha_temp = (float) alpha;
+            CBFController.cbfComputeRecommendingScore(authors, papers,
+                    paperIdsOfAuthorTestSet, paperIdsInTestSet,
+                    combineAuthor, weightingAuthor,
+                    timeAware, gamma,
+                    combinePaper, weightingPaper, 0,
+                    pruning);
+            CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir,
+                    cfMethod, authors, paperIdsInTestSet, kNeighbourhood, f, l, i);
+            alpha = (float) 0.9;
+            CBFCF.computeCBFCFCombinationAndPutIntoModelForAuthorList(authors, alpha_temp, combineHybrid);
+            CBFCF.cbfcfHybridRecommendToAuthorList(authors, topRecommend);
         }
     }
-    
+
     //evaluation accuracy of recommendation algorithm
     public StringBuilder evaluate(HashMap<String, Author> authors, int measure_Evaluation, int topRank) throws Exception {
         StringBuilder evaluationResult = new StringBuilder();

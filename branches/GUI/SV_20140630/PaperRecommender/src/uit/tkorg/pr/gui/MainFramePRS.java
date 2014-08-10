@@ -56,7 +56,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
     //<editor-fold defaultstate="collapsed" desc="Dialog Config Algorithm">
     private DialogConfigCB dialogConfigCB = new DialogConfigCB(this, rootPaneCheckingEnabled);
-    private DialogConfigCFCosine dialogConfigCosine = new DialogConfigCFCosine(this, rootPaneCheckingEnabled);
+    private DialogConfigCFCosine dialogConfigCFCosine = new DialogConfigCFCosine(this, rootPaneCheckingEnabled);
     private DialogConfigCFPearson dialogConfigCFPearson = new DialogConfigCFPearson(this, rootPaneCheckingEnabled);
     private DialogConfigCFSVD dialogConfigCFSVD = new DialogConfigCFSVD(this, rootPaneCheckingEnabled);
     private DialogConfigHybrid dialogConfigHybrid = new DialogConfigHybrid(this, rootPaneCheckingEnabled);
@@ -185,7 +185,7 @@ public class MainFramePRS extends javax.swing.JFrame {
         jPanel14 = new javax.swing.JPanel();
         recommend_Button = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        topN_Recommend_TextField = new javax.swing.JTextField();
+        top_Recommend_TextField = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         recommended_algorithm_TextField = new javax.swing.JTextField();
@@ -812,9 +812,9 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         jLabel1.setText("Top Recommendation:");
 
-        topN_Recommend_TextField.addKeyListener(new java.awt.event.KeyAdapter() {
+        top_Recommend_TextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                topN_Recommend_TextFieldKeyTyped(evt);
+                top_Recommend_TextFieldKeyTyped(evt);
             }
         });
 
@@ -826,7 +826,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(recommend_Button, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(topN_Recommend_TextField)
+                    .addComponent(top_Recommend_TextField)
                     .addGroup(jPanel14Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -838,7 +838,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 .addGap(4, 4, 4)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(topN_Recommend_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(top_Recommend_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(recommend_Button)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1433,8 +1433,8 @@ public class MainFramePRS extends javax.swing.JFrame {
     }//GEN-LAST:event_import_DatasetExample_ButtonActionPerformed
 
     private void config_CFC_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_config_CFC_ButtonActionPerformed
-        dialogConfigCosine.setLocationRelativeTo(this);
-        dialogConfigCosine.show();
+        dialogConfigCFCosine.setLocationRelativeTo(this);
+        dialogConfigCFCosine.show();
     }//GEN-LAST:event_config_CFC_ButtonActionPerformed
 
     private void config_CFS_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_config_CFS_ButtonActionPerformed
@@ -1447,12 +1447,12 @@ public class MainFramePRS extends javax.swing.JFrame {
         dialogConfigHybrid.show();
     }//GEN-LAST:event_config_HB_ButtonActionPerformed
 
-    private void topN_Recommend_TextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_topN_Recommend_TextFieldKeyTyped
+    private void top_Recommend_TextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_top_Recommend_TextFieldKeyTyped
         if (!Character.isDigit(evt.getKeyChar()) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE
                 && evt.getKeyCode() != KeyEvent.VK_ENTER) {
             evt.consume();
         }
-    }//GEN-LAST:event_topN_Recommend_TextFieldKeyTyped
+    }//GEN-LAST:event_top_Recommend_TextFieldKeyTyped
 
     private void topRank_TextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_topRank_TextFieldKeyTyped
         if (!Character.isDigit(evt.getKeyChar()) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE
@@ -1485,7 +1485,7 @@ public class MainFramePRS extends javax.swing.JFrame {
             //</editor-fold>
             //an algorithm with measure evaluate Set
             for (int i = 0; i < measure_Evaluation.size(); i++) {
-                
+
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Please input Top Rank...", "Notice", JOptionPane.INFORMATION_MESSAGE);
@@ -1494,10 +1494,10 @@ public class MainFramePRS extends javax.swing.JFrame {
     }//GEN-LAST:event_evaluate_ButtonActionPerformed
 
     private void recommend_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recommend_ButtonActionPerformed
-        if (!topN_Recommend_TextField.getText().isEmpty()) {
+        if (!top_Recommend_TextField.getText().isEmpty()) {
             //<editor-fold defaultstate="collapsed" desc="get algorithm_Recommendation Set">
             if (CB_CheckBox.isSelected()) {
-               algorithm_Recommendation.add(1);
+                algorithm_Recommendation.add(1);
             }
             if (CFP_CheckBox.isSelected()) {
                 algorithm_Recommendation.add(2);
@@ -1512,11 +1512,48 @@ public class MainFramePRS extends javax.swing.JFrame {
                 algorithm_Recommendation.add(5);
             }
             //</editor-fold>
-            
-            
+
+            controller.topRecommend = Integer.parseInt(top_Recommend_TextField.getText());
+            for (Integer alg : algorithm_Recommendation) {
+                if (alg == 1) {
+                    //content - based
+                    controller.algorithm_Recommendation = 1;
+                    controller.combineAuthor = dialogConfigCB.combineAuthor;
+                    controller.weightingAuthor = dialogConfigCB.weightingAuthor;
+                    controller.timeAware = dialogConfigCB.timeAware;
+                    controller.gamma = dialogConfigCB.gamma;
+                    controller.combinePaper = dialogConfigCB.combinePaper;
+                    controller.weightingPaper = dialogConfigCB.weightingPaper;
+                    controller.pruning = dialogConfigCB.pruning;
+                    controller.guiHandlerRequest(Options.RECOMMEND);
+                } else if (alg == 2) {
+                    //CF using KNN Pearson
+                    controller.algorithm_Recommendation = 2;
+                    controller.cfMethod = 1;
+                    controller.kNeighbourhood = dialogConfigCFPearson.kNeighbourhood;
+                } else if (alg == 3) {
+                    //CF using KNN Cosine
+                    controller.algorithm_Recommendation = 2;
+                    controller.cfMethod = 2;
+                    controller.kNeighbourhood = dialogConfigCFCosine.kNeighbourhood;
+                } else if (alg == 4) {
+                    //CF using SVD
+                    controller.algorithm_Recommendation = 2;
+                    controller.cfMethod = 3;
+                    controller.kNeighbourhood = dialogConfigCFSVD.kNeighbourhood;
+                    controller.f = dialogConfigCFSVD.f;
+                    controller.l = dialogConfigCFSVD.l;
+                    controller.i = dialogConfigCFSVD.i;
+                } else if (alg == 5) {
+                    //CBFCFHybrid
+                    controller.algorithm_Recommendation = 3;
+                    controller.alpha=dialogConfigHybrid.alpha;
+                    controller.combineHybrid=dialogConfigHybrid.combineHybrid;
+                }
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Please input Top Recommendation...", "Notice", JOptionPane.INFORMATION_MESSAGE);
-            topN_Recommend_TextField.requestFocus();
+            top_Recommend_TextField.requestFocus();
         }
     }//GEN-LAST:event_recommend_ButtonActionPerformed
 
@@ -1645,8 +1682,8 @@ public class MainFramePRS extends javax.swing.JFrame {
     private javax.swing.JButton resetButton;
     private javax.swing.JLabel status_Label;
     private javax.swing.JPanel status_Panel;
-    private javax.swing.JTextField topN_Recommend_TextField;
     private javax.swing.JTextField topRank_TextField;
+    private javax.swing.JTextField top_Recommend_TextField;
     private javax.swing.JButton visualizeButton;
     // End of variables declaration//GEN-END:variables
 }

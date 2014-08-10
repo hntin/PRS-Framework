@@ -1629,10 +1629,10 @@ public class MainFrameTempPRS extends javax.swing.JFrame {
 
     private void jComboBoxWeightingUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxWeightingUserActionPerformed
         if (jComboBoxWeightingUser.getSelectedIndex() == 0) {
-            controller.timeAwareScheme = 0;
+            controller.timeAware = 0;
             WCAuthorTextPane.setText("Using Linear Combination(LC) weighting to compute author's profile");
         } else if (jComboBoxWeightingUser.getSelectedIndex() == 1) {
-            controller.timeAwareScheme = 1;
+            controller.timeAware = 1;
             WCAuthorTextPane.setText("Using Forgetting Factor (FF) weighting to compute author's profile");
             String input = JOptionPane.showInputDialog("Please input gamma...");
             while (!NumericUtility.isNum(input)) {
@@ -1646,7 +1646,7 @@ public class MainFrameTempPRS extends javax.swing.JFrame {
                     }
                 }
                 controller.weightingPaper = 3;
-                controller.gama = Double.valueOf(input);
+                controller.gamma = Double.valueOf(input);
                 WCAuthorTextPane.setText("Using Forgetting factor(FF) weighting to compute author's profile");
             }
         }
@@ -1964,32 +1964,32 @@ public class MainFrameTempPRS extends javax.swing.JFrame {
 
     private void jComboBoxCMUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCMUserActionPerformed
         if (jComboBoxCMUser.getSelectedIndex() == 0) {
-            controller.combiningAuthor = 0;
+            controller.combineAuthor = 0;
             CMAuthorTextPane.setText("Compute author's profile only based on feature vector of author's paper");
         } else if (jComboBoxCMUser.getSelectedIndex() == 1) {
-            controller.combiningAuthor = 1;
+            controller.combineAuthor = 1;
             CMAuthorTextPane.setText("Compute author's profile based on feature vector of author's paper and author's citation paper");
         } else if (jComboBoxCMUser.getSelectedIndex() == 2) {
-            controller.combiningAuthor = 2;
+            controller.combineAuthor = 2;
             CMAuthorTextPane.setText("Compute author's profile based on feature vector of author's paper and author's preference paper");
         } else if (jComboBoxCMUser.getSelectedIndex() == 3) {
-            controller.combiningAuthor = 3;
+            controller.combineAuthor = 3;
             CMAuthorTextPane.setText("Compute author's profile only based on feature vector of author's paper, author's citation paper and author's preference paper");
         }
     }//GEN-LAST:event_jComboBoxCMUserActionPerformed
 
     private void jComboBoxCMPaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCMPaperActionPerformed
         if (jComboBoxCMPaper.getSelectedIndex() == 0) {
-            controller.combiningPaper = 0;
+            controller.combinePaper = 0;
             CMPaperTextPane.setText("Compute paper's feature vector only based on feature vector of paper");
         } else if (jComboBoxCMPaper.getSelectedIndex() == 1) {
-            controller.combiningPaper = 1;
+            controller.combinePaper = 1;
             CMPaperTextPane.setText("Compute paper's feature vector based on feature vector of paper and paper's citation paper");
         } else if (jComboBoxCMPaper.getSelectedIndex() == 2) {
-            controller.combiningPaper = 2;
+            controller.combinePaper = 2;
             CMPaperTextPane.setText("Compute paper's feature vector based on feature vector of paper and paper's preference paper");
         } else if (jComboBoxCMPaper.getSelectedIndex() == 3) {
-            controller.combiningPaper = 3;
+            controller.combinePaper = 3;
             CMPaperTextPane.setText("Compute paper's feature vector based on feature vector of paper, paper's citation paper and preference paper");
         }
     }//GEN-LAST:event_jComboBoxCMPaperActionPerformed
@@ -2017,7 +2017,7 @@ public class MainFrameTempPRS extends javax.swing.JFrame {
                     }
                 }
                 controller.weightingPaper = 2;
-                controller.gama = Double.valueOf(input);
+                controller.gamma = Double.valueOf(input);
                 WCPaperTextPane.setText("Using Forgetting factor(FF) weighting to compute paper's feature vector");
             }
         }
@@ -2025,30 +2025,30 @@ public class MainFrameTempPRS extends javax.swing.JFrame {
 
     private void jComboBoxMethodRecommendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxMethodRecommendActionPerformed
         if (jComboBoxMethodRecommend.getSelectedIndex() == 0) {
-            controller.recommendationMethod = 1;
+            controller.algorithm_Recommendation = 1;
             jLabelKnn.setEnabled(false);
             kNeighbor.setEnabled(false);
         } else {
 
             if (jComboBoxMethodRecommend.getSelectedIndex() == 1) {
 
-                controller.recommendationMethod = 2;
+                controller.algorithm_Recommendation = 2;
                 controller.cfMethod = 1;
                 jLabelKnn.setEnabled(true);
                 kNeighbor.setEnabled(true);
                 if (!kNeighbor.getText().isEmpty()) {
-                    controller.kNeighbor = Integer.parseInt(kNeighbor.getText());
+                    controller.kNeighbourhood = Integer.parseInt(kNeighbor.getText());
                 }
             } else if (jComboBoxMethodRecommend.getSelectedIndex() == 2) {
-                controller.recommendationMethod = 2;
+                controller.algorithm_Recommendation = 2;
                 controller.cfMethod = 2;
                 jLabelKnn.setEnabled(true);
                 kNeighbor.setEnabled(true);
                 if (!kNeighbor.getText().isEmpty()) {
-                    controller.kNeighbor = Integer.parseInt(kNeighbor.getText());
+                    controller.kNeighbourhood = Integer.parseInt(kNeighbor.getText());
                 }
             } else if (jComboBoxMethodRecommend.getSelectedIndex() == 3) {
-                controller.recommendationMethod = 2;
+                controller.algorithm_Recommendation = 2;
                 controller.cfMethod = 3;
                 jLabelKnn.setEnabled(true);
                 kNeighbor.setEnabled(true);
@@ -2152,10 +2152,10 @@ public class MainFrameTempPRS extends javax.swing.JFrame {
                 } else {
                     jTextAreaConsole.append("\nBegin recommend....\n");
                     long begin = System.currentTimeMillis();
-                    controller.topNRecommend = Integer.parseInt(jTextFieldTopNRecommend.getText().trim().toString());
+                    controller.topRecommend = Integer.parseInt(jTextFieldTopNRecommend.getText().trim().toString());
                     if (select == 0) {
                     } else {
-                        controller.kNeighbor = Integer.parseInt(kNeighbor.getText());
+                        controller.kNeighbourhood = Integer.parseInt(kNeighbor.getText());
                     }
                     controller.guiHandlerRequest(Options.RECOMMEND);
                     previousRecommdendation.add(controller.authors);
