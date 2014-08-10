@@ -7,8 +7,6 @@ package uit.tkorg.pr.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
-import java.awt.HeadlessException;
-import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.File;
@@ -18,8 +16,8 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
@@ -31,10 +29,9 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
-import javax.swing.table.DefaultTableModel;
 import uit.tkorg.pr.constant.ImportFiles;
 import uit.tkorg.pr.constant.Options;
-import uit.tkorg.pr.controller.CentralGuiHanderRequest;
+import uit.tkorg.pr.controller.PRSCentralController;
 import uit.tkorg.pr.model.Author;
 import uit.tkorg.utility.general.NumericUtility;
 
@@ -47,23 +44,33 @@ public class MainFramePRS extends javax.swing.JFrame {
     /**
      * Creates new form MainFramePRS
      */
-    private CentralGuiHanderRequest controller;
+    private PRSCentralController controller;
     private String[] response;
-    private List previousEvaluation = new ArrayList<String>();// save result EVALUATE
+    private List previousEvaluation = new ArrayList<String>();
     private List previousRecommdendation = new ArrayList<HashMap<String, Author>>();
-    private static int count = 0;// kiem tra nguoi dung co chon du so file theo yeu cau cua chuong trinh k
+    private static int numOfFiles = 0;// kiem tra nguoi dung co chon du so file theo yeu cau cua chuong trinh k
     private static int status; // 0: import data, 1: choose algorithm recommend, 2: choose method evaluate
+
+    private HashSet<Integer> algorithm_Recommendation = new HashSet<>();
+    private HashSet<Integer> measure_Evaluation = new HashSet<>();
+
+    //<editor-fold defaultstate="collapsed" desc="Dialog Config Algorithm">
+    private DialogConfigCB dialogConfigCB = new DialogConfigCB(this, rootPaneCheckingEnabled);
+    private DialogConfigCFCosine dialogConfigCosine = new DialogConfigCFCosine(this, rootPaneCheckingEnabled);
+    private DialogConfigCFPearson dialogConfigCFPearson = new DialogConfigCFPearson(this, rootPaneCheckingEnabled);
+    private DialogConfigCFSVD dialogConfigCFSVD = new DialogConfigCFSVD(this, rootPaneCheckingEnabled);
+    private DialogConfigHybrid dialogConfigHybrid = new DialogConfigHybrid(this, rootPaneCheckingEnabled);
+    //</editor-fold>
 
     public MainFramePRS() {
         initComponents();
-        controller = new CentralGuiHanderRequest();
+        controller = new PRSCentralController();
         config_CB_Button.setVisible(false);
         config_CFC_Button.setVisible(false);
         config_CFP_Button.setVisible(false);
         config_CFS_Button.setVisible(false);
         config_HB_Button.setVisible(false);
         redirectSystemStreams();
-
     }
 
     private void updateTextArea(final String text) {
@@ -116,7 +123,7 @@ public class MainFramePRS extends javax.swing.JFrame {
         console_TextArea = new javax.swing.JTextArea();
         status_Panel = new javax.swing.JPanel();
         status_Label = new javax.swing.JLabel();
-        jTabbedPaneStep = new javax.swing.JTabbedPane();
+        Steps_TabbedPane = new javax.swing.JTabbedPane();
         jPanel6 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jTabbedPane4 = new javax.swing.JTabbedPane();
@@ -147,9 +154,9 @@ public class MainFramePRS extends javax.swing.JFrame {
         jPanel24 = new javax.swing.JPanel();
         fileGroundTruth_Button = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        runImportData_Button = new javax.swing.JButton();
+        import_DataSource_Button = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
-        runImportDataSemple_Button = new javax.swing.JButton();
+        import_DatasetExample_Button = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         CB_CheckBox = new javax.swing.JCheckBox();
@@ -176,12 +183,12 @@ public class MainFramePRS extends javax.swing.JFrame {
         jTable11 = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jPanel14 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        recommend_Button = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        topN_Recommend_TextField = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        recommended_algorithm_TextField = new javax.swing.JTextField();
         jPanel16 = new javax.swing.JPanel();
         precision_CheckBox = new javax.swing.JCheckBox();
         recall_CheckBox = new javax.swing.JCheckBox();
@@ -501,8 +508,13 @@ public class MainFramePRS extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        runImportData_Button.setText("Run");
-        runImportData_Button.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        import_DataSource_Button.setText("Run");
+        import_DataSource_Button.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        import_DataSource_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                import_DataSource_ButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
         jPanel17.setLayout(jPanel17Layout);
@@ -513,7 +525,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(runImportData_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(import_DataSource_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel17Layout.setVerticalGroup(
@@ -522,25 +534,30 @@ public class MainFramePRS extends javax.swing.JFrame {
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(runImportData_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(import_DataSource_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(11, 11, 11))
         );
 
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder("Dataset Example"));
 
-        runImportDataSemple_Button.setText("Using Dataset Example");
+        import_DatasetExample_Button.setText("Using Dataset Example");
+        import_DatasetExample_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                import_DatasetExample_ButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(runImportDataSemple_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(import_DatasetExample_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(runImportDataSemple_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(import_DatasetExample_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -564,7 +581,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPaneStep.addTab("Import Data", jPanel6);
+        Steps_TabbedPane.addTab("Import Data", jPanel6);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Choose Algorithm"));
 
@@ -618,10 +635,25 @@ public class MainFramePRS extends javax.swing.JFrame {
         });
 
         config_CFC_Button.setText("Configuration");
+        config_CFC_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                config_CFC_ButtonActionPerformed(evt);
+            }
+        });
 
         config_CFS_Button.setText("Configuration");
+        config_CFS_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                config_CFS_ButtonActionPerformed(evt);
+            }
+        });
 
         config_HB_Button.setText("Configuration");
+        config_HB_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                config_HB_ButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -673,7 +705,10 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         jTable7.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
                 "No", "Author Id", "Recommend List"
@@ -685,7 +720,10 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         jTable8.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
                 "No", "Author Id", "Recommend List"
@@ -697,7 +735,10 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         jTable9.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
                 "No", "Author Id", "Recommend List"
@@ -709,7 +750,10 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         jTable10.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
                 "No", "Author Id", "Recommend List"
@@ -721,7 +765,10 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         jTable11.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
                 "No", "Author Id", "Recommend List"
@@ -756,9 +803,20 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         jPanel14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
-        jButton1.setText("Recommend");
+        recommend_Button.setText("Recommend");
+        recommend_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                recommend_ButtonActionPerformed(evt);
+            }
+        });
 
-        jLabel1.setText("Top N Recommend:");
+        jLabel1.setText("Top Recommendation:");
+
+        topN_Recommend_TextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                topN_Recommend_TextFieldKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
@@ -767,8 +825,8 @@ public class MainFramePRS extends javax.swing.JFrame {
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField1)
+                    .addComponent(recommend_Button, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(topN_Recommend_TextField)
                     .addGroup(jPanel14Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -780,9 +838,9 @@ public class MainFramePRS extends javax.swing.JFrame {
                 .addGap(4, 4, 4)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(topN_Recommend_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(recommend_Button)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -809,9 +867,13 @@ public class MainFramePRS extends javax.swing.JFrame {
                 .addGap(0, 0, 0))
         );
 
-        jTabbedPaneStep.addTab("Recommendation", jPanel7);
+        Steps_TabbedPane.addTab("Recommendation", jPanel7);
 
         jLabel2.setText("Recommended Algorithms");
+
+        recommended_algorithm_TextField.setEditable(false);
+        recommended_algorithm_TextField.setBackground(new java.awt.Color(255, 255, 255));
+        recommended_algorithm_TextField.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder("Method Evaluation"));
 
@@ -898,8 +960,19 @@ public class MainFramePRS extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
         evaluate_Button.setText("Evaluation");
+        evaluate_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                evaluate_ButtonActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Top Rank");
+
+        topRank_TextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                topRank_TextFieldKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -943,7 +1016,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 784, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(recommended_algorithm_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 784, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 6, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -952,7 +1025,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(recommended_algorithm_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -963,7 +1036,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 .addGap(159, 159, 159))
         );
 
-        jTabbedPaneStep.addTab("Evaluation", jPanel4);
+        Steps_TabbedPane.addTab("Evaluation", jPanel4);
 
         jMenu1.setText("File");
 
@@ -1015,7 +1088,7 @@ public class MainFramePRS extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPaneStep, javax.swing.GroupLayout.PREFERRED_SIZE, 932, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(Steps_TabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 932, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(status_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, 928, Short.MAX_VALUE)
@@ -1028,7 +1101,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTabbedPaneStep, javax.swing.GroupLayout.PREFERRED_SIZE, 367, Short.MAX_VALUE))
+                    .addComponent(Steps_TabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 367, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1067,7 +1140,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 if (!new File(fileLog).exists()) {
                     controller.fileNameGroundTruth = path;
                     console_TextArea.append(path + "\n");
-                    count++;
+                    numOfFiles++;
                 } else {
                     FileReader file = new FileReader(new File(fileLog));
                     BufferedReader textReader = new BufferedReader(file);
@@ -1081,7 +1154,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                     GuiUtilities.deleteFile(fileLog);
                 }
             } catch (IOException ex) {
-                Logger.getLogger(MainFrameTempPRS.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_fileGroundTruth_ButtonActionPerformed
@@ -1095,7 +1168,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 if (!new File(fileLog).exists()) {
                     controller.fileNameAuthorCitePaper = path;
                     console_TextArea.append(path + "\n");
-                    count++;
+                    numOfFiles++;
                 } else {
                     FileReader file = new FileReader(new File(fileLog));
                     BufferedReader textReader = new BufferedReader(file);
@@ -1109,7 +1182,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                     GuiUtilities.deleteFile(fileLog);
                 }
             } catch (IOException ex) {
-                Logger.getLogger(MainFrameTempPRS.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_fileAuthorCitePaper_ButtonActionPerformed
@@ -1123,7 +1196,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 if (!new File(fileLog).exists()) {
                     controller.fileNamePaperCitePaper = path;
                     console_TextArea.append(path + "\n");
-                    count++;
+                    numOfFiles++;
                 } else {
                     FileReader file = new FileReader(new File(fileLog));
                     BufferedReader textReader = new BufferedReader(file);
@@ -1137,7 +1210,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                     GuiUtilities.deleteFile(fileLog);
                 }
             } catch (IOException ex) {
-                Logger.getLogger(MainFrameTempPRS.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_filePaperCitePaper_ButtonActionPerformed
@@ -1151,7 +1224,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 if (!new File(fileLog).exists()) {
                     controller.fileNameAuthorPaper = path;
                     console_TextArea.append(path + "\n");
-                    count++;
+                    numOfFiles++;
                 } else {
                     StringBuilder error;
                     try (FileReader file = new FileReader(new File(fileLog))) {
@@ -1166,7 +1239,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                     GuiUtilities.deleteFile(fileLog);
                 }
             } catch (IOException ex) {
-                Logger.getLogger(MainFrameTempPRS.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_fileAuthorPaper_ButtonActionPerformed
@@ -1180,7 +1253,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 if (!new File(fileLog).exists()) {
                     controller.fileNamePapers = path;
                     console_TextArea.append(path + "\n");
-                    count++;
+                    numOfFiles++;
                 } else {
                     FileReader file = new FileReader(new File(fileLog));
                     BufferedReader textReader = new BufferedReader(file);
@@ -1194,7 +1267,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                     GuiUtilities.deleteFile(fileLog);
                 }
             } catch (IOException ex) {
-                Logger.getLogger(MainFrameTempPRS.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -1210,7 +1283,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 if (!new File(fileLog).exists()) {
                     controller.fileNameAuthors = path;
                     console_TextArea.append(path + "\n");
-                    count++;
+                    numOfFiles++;
                 } else {
                     StringBuilder error;
                     try (FileReader file = new FileReader(new File(fileLog))) {
@@ -1225,7 +1298,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                     GuiUtilities.deleteFile(fileLog);
                 }
             } catch (IOException ex) {
-                Logger.getLogger(MainFrameTempPRS.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_fileAuthor_ButtonActionPerformed
@@ -1247,11 +1320,13 @@ public class MainFramePRS extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void config_CFP_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_config_CFP_ButtonActionPerformed
-       
+        dialogConfigCFPearson.setLocationRelativeTo(this);
+        dialogConfigCFPearson.show();
     }//GEN-LAST:event_config_CFP_ButtonActionPerformed
 
     private void config_CB_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_config_CB_ButtonActionPerformed
-      
+        dialogConfigCB.setLocationRelativeTo(this);
+        dialogConfigCB.show();
     }//GEN-LAST:event_config_CB_ButtonActionPerformed
 
     private void CFP_CheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CFP_CheckBoxActionPerformed
@@ -1286,6 +1361,165 @@ public class MainFramePRS extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_HB_CheckBoxActionPerformed
 
+    private void import_DataSource_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_import_DataSource_ButtonActionPerformed
+        if (numOfFiles == 6) {
+            SwingWorker swingWorker;
+            swingWorker = new SwingWorker() {
+
+                @Override
+                protected Object doInBackground() throws Exception {
+                    import_DataSource_Button.setEnabled(false);
+                    console_TextArea.append("\nBegin import dataset....\n");
+                    long begin = System.currentTimeMillis();
+                    controller.guiHandlerRequest(Options.IMPORT_DATA);
+                    console_TextArea.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + " seconds" + "\n");
+                    console_TextArea.append("End import dataset....\n");
+                    return null;
+                }
+
+                @Override
+                protected void done() {
+                    import_DataSource_Button.setEnabled(true);
+                    JOptionPane.showMessageDialog(rootPane, "Importing process is completed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                }
+
+            };
+
+            swingWorker.execute();
+
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "There are some files which haven't choosed", "Notice", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_import_DataSource_ButtonActionPerformed
+
+    private void import_DatasetExample_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_import_DatasetExample_ButtonActionPerformed
+        DialogDatasetExample datasetExample = new DialogDatasetExample(this, rootPaneCheckingEnabled);
+        datasetExample.setLocationRelativeTo(this);
+        datasetExample.show();
+        boolean check = datasetExample.check;
+        if (check) {
+            controller.fileNameAuthors = "ExampleDataset\\Authors.csv";
+            controller.fileNameAuthorPaper = "ExampleDataset\\AuthorPaper.csv";
+            controller.fileNameAuthorCitePaper = "ExampleDataset\\AuthorCitePaper.csv";
+            controller.fileNamePapers = "ExampleDataset\\Paper.csv";
+            controller.fileNamePaperCitePaper = "ExampleDataset\\PaperCitePaper.csv";
+            controller.fileNameGroundTruth = "ExampleDataset\\GroundTruth.csv";
+
+            SwingWorker swingWorker;
+            swingWorker = new SwingWorker() {
+
+                @Override
+                protected Object doInBackground() throws Exception {
+                    console_TextArea.append("\nBegin import dataset....\n");
+                    long begin = System.currentTimeMillis();
+                    controller.guiHandlerRequest(Options.IMPORT_DATA);
+                    console_TextArea.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + " seconds" + "\n");
+                    console_TextArea.append("End import dataset....\n");
+                    return null;
+                }
+
+                @Override
+                protected void done() {
+                    JOptionPane.showMessageDialog(rootPane, "Importing process is completed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                }
+
+            };
+
+            swingWorker.execute();
+
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "No import data...", "Notice", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_import_DatasetExample_ButtonActionPerformed
+
+    private void config_CFC_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_config_CFC_ButtonActionPerformed
+        dialogConfigCosine.setLocationRelativeTo(this);
+        dialogConfigCosine.show();
+    }//GEN-LAST:event_config_CFC_ButtonActionPerformed
+
+    private void config_CFS_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_config_CFS_ButtonActionPerformed
+        dialogConfigCFSVD.setLocationRelativeTo(this);
+        dialogConfigCFSVD.show();
+    }//GEN-LAST:event_config_CFS_ButtonActionPerformed
+
+    private void config_HB_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_config_HB_ButtonActionPerformed
+        dialogConfigHybrid.setLocationRelativeTo(this);
+        dialogConfigHybrid.show();
+    }//GEN-LAST:event_config_HB_ButtonActionPerformed
+
+    private void topN_Recommend_TextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_topN_Recommend_TextFieldKeyTyped
+        if (!Character.isDigit(evt.getKeyChar()) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE
+                && evt.getKeyCode() != KeyEvent.VK_ENTER) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_topN_Recommend_TextFieldKeyTyped
+
+    private void topRank_TextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_topRank_TextFieldKeyTyped
+        if (!Character.isDigit(evt.getKeyChar()) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE
+                && evt.getKeyCode() != KeyEvent.VK_ENTER) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_topRank_TextFieldKeyTyped
+
+    private void evaluate_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_evaluate_ButtonActionPerformed
+        if (!topRank_TextField.getText().isEmpty()) {
+            //<editor-fold defaultstate="collapsed" desc="get measure_Evaluation Set">
+            if (precision_CheckBox.isSelected()) {
+                measure_Evaluation.add(1);
+            }
+            if (recall_CheckBox.isSelected()) {
+                measure_Evaluation.add(2);
+            }
+            if (f1_CheckBox.isSelected()) {
+                measure_Evaluation.add(3);
+            }
+            if (map_CheckBox.isSelected()) {
+                measure_Evaluation.add(4);
+            }
+            if (ndcg_CheckBox.isSelected()) {
+                measure_Evaluation.add(5);
+            }
+            if (mrr_CheckBox.isSelected()) {
+                measure_Evaluation.add(6);
+            }
+            //</editor-fold>
+            //an algorithm with measure evaluate Set
+            for (int i = 0; i < measure_Evaluation.size(); i++) {
+                
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Please input Top Rank...", "Notice", JOptionPane.INFORMATION_MESSAGE);
+            topRank_TextField.requestFocus();
+        }
+    }//GEN-LAST:event_evaluate_ButtonActionPerformed
+
+    private void recommend_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recommend_ButtonActionPerformed
+        if (!topN_Recommend_TextField.getText().isEmpty()) {
+            //<editor-fold defaultstate="collapsed" desc="get algorithm_Recommendation Set">
+            if (CB_CheckBox.isSelected()) {
+               algorithm_Recommendation.add(1);
+            }
+            if (CFP_CheckBox.isSelected()) {
+                algorithm_Recommendation.add(2);
+            }
+            if (CFC_CheckBox.isSelected()) {
+                algorithm_Recommendation.add(3);
+            }
+            if (CFS_CheckBox.isSelected()) {
+                algorithm_Recommendation.add(4);
+            }
+            if (HB_CheckBox.isSelected()) {
+                algorithm_Recommendation.add(5);
+            }
+            //</editor-fold>
+            
+            
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Please input Top Recommendation...", "Notice", JOptionPane.INFORMATION_MESSAGE);
+            topN_Recommend_TextField.requestFocus();
+        }
+    }//GEN-LAST:event_recommend_ButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1316,6 +1550,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     private javax.swing.JCheckBox CFP_CheckBox;
     private javax.swing.JCheckBox CFS_CheckBox;
     private javax.swing.JCheckBox HB_CheckBox;
+    private javax.swing.JTabbedPane Steps_TabbedPane;
     private javax.swing.JButton TF_IDFButton;
     private javax.swing.JButton config_CB_Button;
     private javax.swing.JButton config_CFC_Button;
@@ -1331,7 +1566,8 @@ public class MainFramePRS extends javax.swing.JFrame {
     private javax.swing.JButton fileGroundTruth_Button;
     private javax.swing.JButton filePaperCitePaper_Button;
     private javax.swing.JButton filePaper_Button;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton import_DataSource_Button;
+    private javax.swing.JButton import_DatasetExample_Button;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
@@ -1386,7 +1622,6 @@ public class MainFramePRS extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane4;
-    private javax.swing.JTabbedPane jTabbedPaneStep;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable10;
     private javax.swing.JTable jTable11;
@@ -1399,19 +1634,18 @@ public class MainFramePRS extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextAreaGroundTruth;
     private javax.swing.JTextArea jTextAreaPaper;
     private javax.swing.JTextArea jTextAreaPaperPaper;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JCheckBox map_CheckBox;
     private javax.swing.JCheckBox mrr_CheckBox;
     private javax.swing.JCheckBox ndcg_CheckBox;
     private javax.swing.JCheckBox precision_CheckBox;
     private javax.swing.JCheckBox recall_CheckBox;
+    private javax.swing.JButton recommend_Button;
+    private javax.swing.JTextField recommended_algorithm_TextField;
     private javax.swing.JButton resetButton;
-    private javax.swing.JButton runImportDataSemple_Button;
-    private javax.swing.JButton runImportData_Button;
     private javax.swing.JLabel status_Label;
     private javax.swing.JPanel status_Panel;
+    private javax.swing.JTextField topN_Recommend_TextField;
     private javax.swing.JTextField topRank_TextField;
     private javax.swing.JButton visualizeButton;
     // End of variables declaration//GEN-END:variables

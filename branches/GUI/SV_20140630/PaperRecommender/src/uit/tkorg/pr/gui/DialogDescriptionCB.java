@@ -12,12 +12,12 @@ import javax.swing.UIManager;
  *
  * @author Zoe
  */
-public class discriptionConfigurationCB extends javax.swing.JDialog {
+public class DialogDescriptionCB extends javax.swing.JDialog {
 
     /**
      * Creates new form NewJDialog
      */
-    public discriptionConfigurationCB(java.awt.Frame parent, boolean modal) {
+    public DialogDescriptionCB(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -103,7 +103,7 @@ public class discriptionConfigurationCB extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                discriptionConfigurationCB dialog = new discriptionConfigurationCB(new javax.swing.JFrame(), true);
+                DialogDescriptionCB dialog = new DialogDescriptionCB(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

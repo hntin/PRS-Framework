@@ -100,7 +100,7 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="jPanel1" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTabbedPaneStep" min="-2" pref="932" max="-2" attributes="0"/>
+              <Component id="Steps_TabbedPane" min="-2" pref="932" max="-2" attributes="0"/>
           </Group>
           <Component id="jPanel13" alignment="0" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
@@ -116,7 +116,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTabbedPaneStep" pref="367" max="32767" attributes="0"/>
+                  <Component id="Steps_TabbedPane" pref="367" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="jPanel13" min="-2" max="-2" attributes="0"/>
@@ -263,7 +263,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JTabbedPane" name="jTabbedPaneStep">
+    <Container class="javax.swing.JTabbedPane" name="Steps_TabbedPane">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
@@ -501,7 +501,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel24" min="-2" pref="92" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="runImportData_Button" min="-2" pref="61" max="-2" attributes="0"/>
+                          <Component id="import_DataSource_Button" min="-2" pref="61" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -512,7 +512,7 @@
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jPanel8" alignment="0" max="32767" attributes="0"/>
                               <Component id="jPanel24" alignment="0" max="32767" attributes="0"/>
-                              <Component id="runImportData_Button" max="32767" attributes="0"/>
+                              <Component id="import_DataSource_Button" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       </Group>
@@ -725,11 +725,14 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JButton" name="runImportData_Button">
+                <Component class="javax.swing.JButton" name="import_DataSource_Button">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Run"/>
                     <Property name="horizontalTextPosition" type="int" value="0"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="import_DataSource_ButtonActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -745,24 +748,27 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="runImportDataSemple_Button" alignment="0" max="32767" attributes="0"/>
+                      <Component id="import_DatasetExample_Button" alignment="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="runImportDataSemple_Button" min="-2" pref="56" max="-2" attributes="0"/>
+                          <Component id="import_DatasetExample_Button" min="-2" pref="56" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JButton" name="runImportDataSemple_Button">
+                <Component class="javax.swing.JButton" name="import_DatasetExample_Button">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Using Dataset Example"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="import_DatasetExample_ButtonActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -933,16 +939,25 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Configuration"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="config_CFC_ButtonActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="config_CFS_Button">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Configuration"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="config_CFS_ButtonActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="config_HB_Button">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Configuration"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="config_HB_ButtonActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -1004,7 +1019,7 @@
                         <Component class="javax.swing.JTable" name="jTable7">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="3" rowCount="0">
+                              <Table columnCount="3" rowCount="4">
                                 <Column editable="true" title="No" type="java.lang.Object"/>
                                 <Column editable="true" title="Author Id" type="java.lang.Object"/>
                                 <Column editable="true" title="Recommend List" type="java.lang.Object"/>
@@ -1053,7 +1068,7 @@
                         <Component class="javax.swing.JTable" name="jTable8">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="3" rowCount="0">
+                              <Table columnCount="3" rowCount="4">
                                 <Column editable="true" title="No" type="java.lang.Object"/>
                                 <Column editable="true" title="Author Id" type="java.lang.Object"/>
                                 <Column editable="true" title="Recommend List" type="java.lang.Object"/>
@@ -1102,7 +1117,7 @@
                         <Component class="javax.swing.JTable" name="jTable9">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="3" rowCount="0">
+                              <Table columnCount="3" rowCount="4">
                                 <Column editable="true" title="No" type="java.lang.Object"/>
                                 <Column editable="true" title="Author Id" type="java.lang.Object"/>
                                 <Column editable="true" title="Recommend List" type="java.lang.Object"/>
@@ -1151,7 +1166,7 @@
                         <Component class="javax.swing.JTable" name="jTable10">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="3" rowCount="0">
+                              <Table columnCount="3" rowCount="4">
                                 <Column editable="true" title="No" type="java.lang.Object"/>
                                 <Column editable="true" title="Author Id" type="java.lang.Object"/>
                                 <Column editable="true" title="Recommend List" type="java.lang.Object"/>
@@ -1200,7 +1215,7 @@
                         <Component class="javax.swing.JTable" name="jTable11">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="3" rowCount="0">
+                              <Table columnCount="3" rowCount="4">
                                 <Column editable="true" title="No" type="java.lang.Object"/>
                                 <Column editable="true" title="Author Id" type="java.lang.Object"/>
                                 <Column editable="true" title="Recommend List" type="java.lang.Object"/>
@@ -1258,8 +1273,8 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jButton1" alignment="1" max="32767" attributes="0"/>
-                              <Component id="jTextField1" max="32767" attributes="0"/>
+                              <Component id="recommend_Button" alignment="1" max="32767" attributes="0"/>
+                              <Component id="topN_Recommend_TextField" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -1275,26 +1290,32 @@
                           <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jTextField1" min="-2" max="-2" attributes="0"/>
+                          <Component id="topN_Recommend_TextField" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                          <Component id="recommend_Button" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JButton" name="jButton1">
+                <Component class="javax.swing.JButton" name="recommend_Button">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Recommend"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="recommend_ButtonActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel1">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Top N Recommend:"/>
+                    <Property name="text" type="java.lang.String" value="Top Recommendation:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField1">
+                <Component class="javax.swing.JTextField" name="topN_Recommend_TextField">
+                  <Events>
+                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="topN_Recommend_TextFieldKeyTyped"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -1326,7 +1347,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jTextField2" min="-2" pref="784" max="-2" attributes="0"/>
+                              <Component id="recommended_algorithm_TextField" min="-2" pref="784" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="0" pref="6" max="32767" attributes="0"/>
@@ -1339,7 +1360,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="recommended_algorithm_TextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -1361,7 +1382,16 @@
                 <Property name="text" type="java.lang.String" value="Recommended Algorithms"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField2">
+            <Component class="javax.swing.JTextField" name="recommended_algorithm_TextField">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Default Cursor"/>
+                </Property>
+              </Properties>
             </Component>
             <Container class="javax.swing.JPanel" name="jPanel16">
               <Properties>
@@ -1552,6 +1582,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Evaluation"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="evaluate_ButtonActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel3">
                   <Properties>
@@ -1559,6 +1592,9 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="topRank_TextField">
+                  <Events>
+                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="topRank_TextFieldKeyTyped"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

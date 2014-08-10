@@ -75,7 +75,7 @@ public class CheckError {
                 @Override
                 public void run() {
                     if (tokens.length != 2 || !NumericUtility.isNum(tokens[0])) {
-                        String error = "File '" + path + "' not correct format\nReason:\nError at line " + String.valueOf(numlineFinal + 1);
+                        String error = "\nFile '" + path + "' not correct format\nReason:\nError at line " + String.valueOf(numlineFinal + 1);
                         try {
                             FileUtils.writeStringToFile(fileLog, error, "UTF8", false);
                         } catch (IOException ex) {
@@ -109,7 +109,7 @@ public class CheckError {
                 @Override
                 public void run() {
                     if (tokens.length != 2 || !NumericUtility.isNum(tokens[0]) || !NumericUtility.isNum(tokens[1])) {
-                        String error = "File '" + path + "' not correct format\nReason:\nError at line " + numlineFinal;
+                        String error = "\nFile '" + path + "' not correct format\nReason:\nError at line " + numlineFinal;
                         try {
                             FileUtils.writeStringToFile(fileLog, error, "UTF8", true);
                         } catch (IOException ex) {
@@ -142,9 +142,8 @@ public class CheckError {
             executor.submit(new Runnable() {
                 @Override
                 public void run() {
-                    if (tokens.length != 3 || !NumericUtility.isNum(tokens[0]) || !NumericUtility.isNum(tokens[1])
-                            || !NumericUtility.isNum(tokens[2])) {
-                        String error = "File '" + path + "' not correct format\nReason:\nError at line " + numlineFinal;
+                    if (tokens.length != 3 || !NumericUtility.isNum(tokens[0]) || !NumericUtility.isNum(tokens[1])) {
+                        String error = "\nFile '" + path + "' not correct format\nReason:\nError at line " + numlineFinal;
                         try {
                             FileUtils.writeStringToFile(fileLog, error, "UTF8", true);
                         } catch (IOException ex) {
@@ -176,8 +175,8 @@ public class CheckError {
             executor.submit(new Runnable() {
                 @Override
                 public void run() {
-                    if (tokens.length != 4 || !NumericUtility.isNum(tokens[0]) || !NumericUtility.isNum(tokens[3])) {
-                        String error = "File '" + path + "' not correct format\nReason:\nError at line " + numlineFinal;
+                    if (tokens.length != 4 || !NumericUtility.isNum(tokens[0])) {
+                        String error = "\nFile '" + path + "' not correct format\nReason:\nError at line " + numlineFinal;
                         try {
                             FileUtils.writeStringToFile(fileLog, error, "UTF8", true);
                         } catch (IOException ex) {
@@ -212,7 +211,7 @@ public class CheckError {
                 public void run() {
                     if (tokens.length != 2 || !NumericUtility.isNum(tokens[0]) || !NumericUtility.isNum(tokens[1])
                             || tokens[0].equals(tokens[1])) {
-                        String error = "File '" + path + "' not correct format\nReason:\nError at line " + numlineFinal;
+                        String error = "\nFile '" + path + "' not correct format\nReason:\nError at line " + numlineFinal;
                         try {
                             FileUtils.writeStringToFile(fileLog, error, "UTF8", true);
                         } catch (IOException ex) {
@@ -242,13 +241,11 @@ public class CheckError {
         while ((line = textReader.readLine()) != null) {
             final int numlineFinal = numline;
             final String[] tokens = line.split("\\|\\|\\|");
-            System.out.println(line);
-            System.out.println(tokens.length);
             executor.submit(new Runnable() {
                 @Override
                 public void run() {
                     if (tokens.length != 2 || !NumericUtility.isNum(tokens[0]) || !NumericUtility.isNum(tokens[1])) {
-                        String error = "File '" + path + "' not correct format\nReason:\nError at line " + numlineFinal;
+                        String error = "\nFile '" + path + "' not correct format\nReason:\nError at line " + numlineFinal;
                         try {
                             FileUtils.writeStringToFile(fileLog, error, "UTF8", true);
                         } catch (IOException ex) {

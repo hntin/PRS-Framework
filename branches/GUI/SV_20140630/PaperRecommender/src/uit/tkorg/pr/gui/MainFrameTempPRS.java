@@ -41,7 +41,7 @@ import javax.swing.table.DefaultTableModel;
 import org.apache.commons.io.FileUtils;
 import uit.tkorg.pr.constant.ImportFiles;
 import uit.tkorg.pr.constant.Options;
-import uit.tkorg.pr.controller.CentralGuiHanderRequest;
+import uit.tkorg.pr.controller.PRSCentralController;
 import uit.tkorg.pr.model.Author;
 import uit.tkorg.utility.general.NumericUtility;
 
@@ -54,7 +54,7 @@ public class MainFrameTempPRS extends javax.swing.JFrame {
     /**
      * Creates new form MainFrameTempPRS
      */
-    private CentralGuiHanderRequest controller;
+    private PRSCentralController controller;
     private String[] response;
     private List previousEvaluation = new ArrayList<String>();// save result EVALUATE
     private List previousRecommdendation = new ArrayList<HashMap<String, Author>>();
@@ -68,7 +68,7 @@ public class MainFrameTempPRS extends javax.swing.JFrame {
 
     public MainFrameTempPRS() {
         initComponents();
-        controller = new CentralGuiHanderRequest();
+        controller = new PRSCentralController();
         jButtonFileAuthor.setEnabled(false);
         jButtonFileAuthorCitePaper.setEnabled(false);
         jButtonFileAuthorPaper.setEnabled(false);
@@ -1712,7 +1712,7 @@ public class MainFrameTempPRS extends javax.swing.JFrame {
                     @Override
                     protected Object doInBackground() throws Exception {
                         jButtonStartImportData.setEnabled(false);
-                        controller.guiHanderResquest(Options.IMPORT_DATA);
+                        controller.guiHandlerRequest(Options.IMPORT_DATA);
                         return null;
                     }
 
@@ -2059,19 +2059,19 @@ public class MainFrameTempPRS extends javax.swing.JFrame {
 
     private void jComboBoxMethodEvaluationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxMethodEvaluationActionPerformed
         if (jComboBoxMethodEvaluation.getSelectedIndex() == 0) {
-            controller.methodEvaluation = 0;
+            controller.measure_Evaluation = 0;
         } else if (jComboBoxMethodEvaluation.getSelectedIndex() == 1) {
-            controller.methodEvaluation = 1;
+            controller.measure_Evaluation = 1;
         } else if (jComboBoxMethodEvaluation.getSelectedIndex() == 2) {
-            controller.methodEvaluation = 2;
+            controller.measure_Evaluation = 2;
         } else if (jComboBoxMethodEvaluation.getSelectedIndex() == 3) {
-            controller.methodEvaluation = 3;
+            controller.measure_Evaluation = 3;
         } else if (jComboBoxMethodEvaluation.getSelectedIndex() == 4) {
-            controller.methodEvaluation = 4;
+            controller.measure_Evaluation = 4;
         } else if (jComboBoxMethodEvaluation.getSelectedIndex() == 5) {
-            controller.methodEvaluation = 5;
+            controller.measure_Evaluation = 5;
         } else if (jComboBoxMethodEvaluation.getSelectedIndex() == 6) {
-            controller.methodEvaluation = 6;
+            controller.measure_Evaluation = 6;
         }
     }//GEN-LAST:event_jComboBoxMethodEvaluationActionPerformed
 
@@ -2081,7 +2081,7 @@ public class MainFrameTempPRS extends javax.swing.JFrame {
                 jTextAreaConsole.append("\nBegin evaluate....\n");
                 long begin = System.currentTimeMillis();
                 controller.topRank = Integer.parseInt(jTextFieldtopRank.getText().trim().toString());
-                response = controller.guiHanderResquest(Options.EVALUATE);
+                response = controller.guiHandlerRequest(Options.EVALUATE);
                 previousEvaluation.add(response[1]);
                 try {
                     GuiUtilities.writeToFileText("Temp\\ResultEvaluation.txt", response[1]);
@@ -2157,7 +2157,7 @@ public class MainFrameTempPRS extends javax.swing.JFrame {
                     } else {
                         controller.kNeighbor = Integer.parseInt(kNeighbor.getText());
                     }
-                    controller.guiHanderResquest(Options.RECOMMEND);
+                    controller.guiHandlerRequest(Options.RECOMMEND);
                     previousRecommdendation.add(controller.authors);
                     DefaultListModel model = new DefaultListModel();
                     for (int i = 0; i < jListRecAlgorithm.getModel().getSize(); i++) {
@@ -2199,7 +2199,7 @@ public class MainFrameTempPRS extends javax.swing.JFrame {
         if (step4) {
             try {
                 jTextAreaConsole.setText("");
-                controller = new CentralGuiHanderRequest();
+                controller = new PRSCentralController();
                 buttonGroup1.clearSelection();
                 jButtonFileAuthor.setEnabled(false);
                 jButtonFileAuthorPaper.setEnabled(false);
@@ -2308,12 +2308,10 @@ public class MainFrameTempPRS extends javax.swing.JFrame {
             jTabbedPaneDataPreparation.setSelectedIndex(0);
             jTextAreaConsole.append("\nBegin construct author's profile....\n");
             long begin = System.currentTimeMillis();
-            controller.guiHanderResquest(Options.CONSTRUCT_AUTHOR_PROFILE);
             jTextAreaConsole.append("End construct author's profile....\n");
             jTextAreaConsole.append("Time elapsed: " + String.valueOf(((System.currentTimeMillis() - begin)) / 1000) + "s" + "\n");
             jTextAreaConsole.append("Begin construct feature vector of papers....\n");
             begin = System.currentTimeMillis();
-            controller.guiHanderResquest(Options.CONSTRUCT_PAPER_FV);
             jTextAreaConsole.append("End construct feature vector of papers....\n");
             jTextAreaConsole.append("Time elapsed: " + String.valueOf(System.currentTimeMillis() - begin) + "s");
             step21 = true;
@@ -2367,7 +2365,7 @@ public class MainFrameTempPRS extends javax.swing.JFrame {
 
                     @Override
                     protected Object doInBackground() throws Exception {
-                        controller.guiHanderResquest(Options.IMPORT_DATA);
+                        controller.guiHandlerRequest(Options.IMPORT_DATA);
                         return null;
                     }
 
@@ -2462,7 +2460,7 @@ public class MainFrameTempPRS extends javax.swing.JFrame {
 
     private void resetMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetMenuItemActionPerformed
         try {
-            controller = new CentralGuiHanderRequest();
+            controller = new PRSCentralController();
             jTabbedPaneStep.setEnabledAt(0, true);
             jTabbedPaneStep.setSelectedIndex(0);
             jTextAreaConsole.setText("");
@@ -2487,7 +2485,6 @@ public class MainFrameTempPRS extends javax.swing.JFrame {
             jTabbedPaneDataPreparation.setSelectedIndex(1);
             jTextAreaConsole.append("\nBegin compute Matrix Collaborative Filtering....\n");
             long begin = System.currentTimeMillis();
-            controller.guiHanderResquest(Options.CONSTRUCT_MATRIX_CF);
             jTextAreaConsole.append("End compute Matrix Collaborative Filtering....\n");
             jTextAreaConsole.append("Time elapsed: " + String.valueOf(((System.currentTimeMillis() - begin)) / 1000) + "s" + "\n");
             step22 = true;
@@ -2553,7 +2550,7 @@ public class MainFrameTempPRS extends javax.swing.JFrame {
     private void jMenuItemAllEvalutionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAllEvalutionsActionPerformed
         if (step3) {
             manageJTablePane(3);
-            controller.methodEvaluation = 0;
+            controller.measure_Evaluation = 0;
             jComboBoxMethodEvaluation.setSelectedIndex(0);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Haven't recommended, yet!", "Notice", JOptionPane.INFORMATION_MESSAGE);
@@ -2563,7 +2560,7 @@ public class MainFrameTempPRS extends javax.swing.JFrame {
     private void jMenuItemPrecisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPrecisionActionPerformed
         if (step3) {
             manageJTablePane(3);
-            controller.methodEvaluation = 1;
+            controller.measure_Evaluation = 1;
             jComboBoxMethodEvaluation.setSelectedIndex(1);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Haven't recommended, yet!", "Notice", JOptionPane.INFORMATION_MESSAGE);
@@ -2573,7 +2570,7 @@ public class MainFrameTempPRS extends javax.swing.JFrame {
     private void jMenuItemRecallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRecallActionPerformed
         if (step3) {
             manageJTablePane(3);
-            controller.methodEvaluation = 2;
+            controller.measure_Evaluation = 2;
             jComboBoxMethodEvaluation.setSelectedIndex(2);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Haven't recommended, yet!", "Notice", JOptionPane.INFORMATION_MESSAGE);
@@ -2583,7 +2580,7 @@ public class MainFrameTempPRS extends javax.swing.JFrame {
     private void jMenuItemF1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemF1ActionPerformed
         if (step3) {
             manageJTablePane(3);
-            controller.methodEvaluation = 3;
+            controller.measure_Evaluation = 3;
             jComboBoxMethodEvaluation.setSelectedIndex(3);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Haven't recommended, yet!", "Notice", JOptionPane.INFORMATION_MESSAGE);
@@ -2593,7 +2590,7 @@ public class MainFrameTempPRS extends javax.swing.JFrame {
     private void jMenuItemMAPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMAPActionPerformed
         if (step3) {
             manageJTablePane(3);
-            controller.methodEvaluation = 4;
+            controller.measure_Evaluation = 4;
             jComboBoxMethodEvaluation.setSelectedIndex(4);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Haven't recommended, yet!", "Notice", JOptionPane.INFORMATION_MESSAGE);
@@ -2603,7 +2600,7 @@ public class MainFrameTempPRS extends javax.swing.JFrame {
     private void jMenuItemNDCGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNDCGActionPerformed
         if (step3) {
             manageJTablePane(3);
-            controller.methodEvaluation = 5;
+            controller.measure_Evaluation = 5;
             jComboBoxMethodEvaluation.setSelectedIndex(5);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Haven't recommended, yet!", "Notice", JOptionPane.INFORMATION_MESSAGE);
@@ -2613,7 +2610,7 @@ public class MainFrameTempPRS extends javax.swing.JFrame {
     private void jMenuItemMRRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMRRActionPerformed
         if (step3) {
             manageJTablePane(3);
-            controller.methodEvaluation = 6;
+            controller.measure_Evaluation = 6;
             jComboBoxMethodEvaluation.setSelectedIndex(6);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Haven't recommended, yet!", "Notice", JOptionPane.INFORMATION_MESSAGE);

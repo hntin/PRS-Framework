@@ -194,9 +194,12 @@ public class DialogDatasetExample extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void importButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importButtonActionPerformed
-       int comfirm = JOptionPane.showConfirmDialog(rootPane,"Do you want to import example dataset ?", null,JOptionPane.YES_NO_OPTION);
-       if (comfirm== JOptionPane.YES_OPTION) check =true;
-       else check = false;
+        int comfirm = JOptionPane.showConfirmDialog(rootPane, "Do you want to import example dataset?", "Confirm", JOptionPane.YES_NO_OPTION);
+        if (comfirm == JOptionPane.YES_OPTION) {
+            check = true;
+        } else {
+            check = false;
+        }
         this.dispose();
     }//GEN-LAST:event_importButtonActionPerformed
 

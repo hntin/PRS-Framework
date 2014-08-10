@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package uit.tkorg.pr.gui;
 
 import javax.swing.UIManager;
@@ -12,12 +11,22 @@ import javax.swing.UIManager;
  *
  * @author Zoe
  */
-public class configurationCBGui extends javax.swing.JDialog {
+public class DialogConfigCB extends javax.swing.JDialog {
 
     /**
      * Creates new form NewJDialog
      */
-    public configurationCBGui(java.awt.Frame parent, boolean modal) {
+    //<editor-fold defaultstate="collapsed" desc="variables of DiaglogConfigCB">
+    int combineAuthor = 0;
+    int weightingAuthor = 0;
+    float gammaAuthor = 0;
+    int combinePaper = 0;
+    int weightingPaper = 0;
+    float gammaPaper = 0;
+    float prunning = 0;
+//</editor-fold>
+
+    public DialogConfigCB(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -35,8 +44,8 @@ public class configurationCBGui extends javax.swing.JDialog {
         jPanel28 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jComboBoxCMUser = new javax.swing.JComboBox();
-        jComboBoxWeightingUser = new javax.swing.JComboBox();
+        combineAuthor_ComboBox = new javax.swing.JComboBox();
+        weightingAuthor_ComboBox = new javax.swing.JComboBox();
         jPanel23 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         CMAuthorTextPane = new javax.swing.JTextPane();
@@ -44,14 +53,13 @@ public class configurationCBGui extends javax.swing.JDialog {
         jPanel25 = new javax.swing.JPanel();
         jPanel29 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
-        jComboBoxCMPaper = new javax.swing.JComboBox();
+        combinePaper_ComboBox = new javax.swing.JComboBox();
         jLabel16 = new javax.swing.JLabel();
-        jComboBoxWeightingPaper = new javax.swing.JComboBox();
+        weightingPaper_ComboBox = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        prunning_TextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Configuration of Content Based Algorithm");
@@ -65,17 +73,17 @@ public class configurationCBGui extends javax.swing.JDialog {
 
         jLabel13.setText("Weighting Combination");
 
-        jComboBoxCMUser.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Feature Vector Of Paper", "Feature Vector Of Paper+ Citation Papers", "Feature Vector Of Paper+ Reference Papers", "Feature Vector Of Paper+ Citation Papers + Reference Papers" }));
-        jComboBoxCMUser.addActionListener(new java.awt.event.ActionListener() {
+        combineAuthor_ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Feature Vector Of Paper", "Feature Vector Of Paper+ Citation Papers", "Feature Vector Of Paper+ Reference Papers", "Feature Vector Of Paper+ Citation Papers + Reference Papers" }));
+        combineAuthor_ComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxCMUserActionPerformed(evt);
+                combineAuthor_ComboBoxActionPerformed(evt);
             }
         });
 
-        jComboBoxWeightingUser.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Linear combination(LC)", "Forgetting factor(FF)" }));
-        jComboBoxWeightingUser.addActionListener(new java.awt.event.ActionListener() {
+        weightingAuthor_ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Linear combination(LC)", "Forgetting factor(FF)" }));
+        weightingAuthor_ComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxWeightingUserActionPerformed(evt);
+                weightingAuthor_ComboBoxActionPerformed(evt);
             }
         });
 
@@ -94,19 +102,19 @@ public class configurationCBGui extends javax.swing.JDialog {
                         .addComponent(jLabel13)
                         .addGap(18, 18, 18)))
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBoxCMUser, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxWeightingUser, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(combineAuthor_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(weightingAuthor_ComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel28Layout.setVerticalGroup(
             jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel28Layout.createSequentialGroup()
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(jComboBoxCMUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(combineAuthor_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(jComboBoxWeightingUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(weightingAuthor_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -161,19 +169,19 @@ public class configurationCBGui extends javax.swing.JDialog {
 
         jLabel15.setText("Combination Method");
 
-        jComboBoxCMPaper.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Feature Vector Of Paper", "Feature Vector Of Paper+ Citation Papers", "Feature Vector Of Paper+ Reference Papers", "Feature Vector Of Paper+ Citation Papers + Reference Papers" }));
-        jComboBoxCMPaper.addActionListener(new java.awt.event.ActionListener() {
+        combinePaper_ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Feature Vector Of Paper", "Feature Vector Of Paper+ Citation Papers", "Feature Vector Of Paper+ Reference Papers", "Feature Vector Of Paper+ Citation Papers + Reference Papers" }));
+        combinePaper_ComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxCMPaperActionPerformed(evt);
+                combinePaper_ComboBoxActionPerformed(evt);
             }
         });
 
         jLabel16.setText("Weighting Combination");
 
-        jComboBoxWeightingPaper.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Linear combination(LC)", "Cosine similarity(SIM)", "Reciprocal of the difference between published years(RPY)", "Forgetting factor(FF)" }));
-        jComboBoxWeightingPaper.addActionListener(new java.awt.event.ActionListener() {
+        weightingPaper_ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Linear combination(LC)", "Cosine similarity(SIM)", "Reciprocal of the difference between published years(RPY)", "Forgetting factor(FF)" }));
+        weightingPaper_ComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxWeightingPaperActionPerformed(evt);
+                weightingPaper_ComboBoxActionPerformed(evt);
             }
         });
 
@@ -188,8 +196,8 @@ public class configurationCBGui extends javax.swing.JDialog {
                     .addComponent(jLabel16))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBoxCMPaper, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxWeightingPaper, 0, 1, Short.MAX_VALUE))
+                    .addComponent(combinePaper_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(weightingPaper_ComboBox, 0, 1, Short.MAX_VALUE))
                 .addGap(39, 39, 39))
         );
         jPanel29Layout.setVerticalGroup(
@@ -197,11 +205,11 @@ public class configurationCBGui extends javax.swing.JDialog {
             .addGroup(jPanel29Layout.createSequentialGroup()
                 .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(jComboBoxCMPaper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(combinePaper_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
-                    .addComponent(jComboBoxWeightingPaper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(weightingPaper_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -217,14 +225,17 @@ public class configurationCBGui extends javax.swing.JDialog {
         );
 
         jButton1.setText("OK");
-
-        jButton2.setText("Cancel");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Threshold "));
 
         jLabel2.setText("Prunning");
 
-        jTextField2.setText("0.0");
+        prunning_TextField.setText("0.0");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -234,7 +245,7 @@ public class configurationCBGui extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(prunning_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,7 +253,7 @@ public class configurationCBGui extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(prunning_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -258,9 +269,7 @@ public class configurationCBGui extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addGap(29, 29, 29))
+                .addGap(100, 100, 100))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -279,45 +288,108 @@ public class configurationCBGui extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                .addComponent(jButton1)
                 .addGap(22, 22, 22))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBoxCMUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCMUserActionPerformed
+    private void combineAuthor_ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combineAuthor_ComboBoxActionPerformed
+        if (combineAuthor_ComboBox.getSelectedIndex() == 0) {
+            combineAuthor = 0;
+        } else if (combineAuthor_ComboBox.getSelectedIndex() == 1) {
+            combineAuthor = 1;
+        } else if (combineAuthor_ComboBox.getSelectedIndex() == 2) {
+            combineAuthor = 2;
+        } else if (combineAuthor_ComboBox.getSelectedIndex() == 3) {
+            combineAuthor = 3;
+        }
+    }//GEN-LAST:event_combineAuthor_ComboBoxActionPerformed
 
-    }//GEN-LAST:event_jComboBoxCMUserActionPerformed
+    private void weightingAuthor_ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_weightingAuthor_ComboBoxActionPerformed
+if (weightingAuthor_ComboBox.getSelectedIndex() == 0) {
+            weightingAuthor = 0;
+        } else if (weightingAuthor_ComboBox.getSelectedIndex() == 1) {
+            weightingAuthor = 1;
+        }
+    }//GEN-LAST:event_weightingAuthor_ComboBoxActionPerformed
 
-    private void jComboBoxWeightingUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxWeightingUserActionPerformed
+    private void combinePaper_ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combinePaper_ComboBoxActionPerformed
+if (combinePaper_ComboBox.getSelectedIndex() == 0) {
+            combinePaper = 0;
+        } else if (combinePaper_ComboBox.getSelectedIndex() == 1) {
+            combinePaper = 1;
+        } else if (combinePaper_ComboBox.getSelectedIndex() == 2) {
+            combinePaper = 2;
+        } else if (combinePaper_ComboBox.getSelectedIndex() == 3) {
+            combinePaper = 3;
+        }
+    }//GEN-LAST:event_combinePaper_ComboBoxActionPerformed
 
-    }//GEN-LAST:event_jComboBoxWeightingUserActionPerformed
-
-    private void jComboBoxCMPaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCMPaperActionPerformed
-
-    }//GEN-LAST:event_jComboBoxCMPaperActionPerformed
-
-    private void jComboBoxWeightingPaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxWeightingPaperActionPerformed
-
-    }//GEN-LAST:event_jComboBoxWeightingPaperActionPerformed
+    private void weightingPaper_ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_weightingPaper_ComboBoxActionPerformed
+if (weightingPaper_ComboBox.getSelectedIndex() == 0) {
+            weightingPaper = 0;
+        } else if (weightingPaper_ComboBox.getSelectedIndex() == 1) {
+            weightingPaper = 1;
+        } else if (weightingPaper_ComboBox.getSelectedIndex() == 2) {
+            weightingPaper = 2;
+        }
+    }//GEN-LAST:event_weightingPaper_ComboBoxActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-      discriptionConfigurationCB discriptionCB = new discriptionConfigurationCB(null, rootPaneCheckingEnabled);
-      discriptionCB.show();
-        
+        DialogDescriptionCB discriptionCB = new DialogDescriptionCB(null, rootPaneCheckingEnabled);
+        discriptionCB.show();
+
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (combineAuthor_ComboBox.getSelectedIndex() == 0) {
+            combineAuthor = 0;
+        } else if (combineAuthor_ComboBox.getSelectedIndex() == 1) {
+            combineAuthor = 1;
+        } else if (combineAuthor_ComboBox.getSelectedIndex() == 2) {
+            combineAuthor = 2;
+        } else if (combineAuthor_ComboBox.getSelectedIndex() == 3) {
+            combineAuthor = 3;
+        }
+
+        if (weightingAuthor_ComboBox.getSelectedIndex() == 0) {
+            weightingAuthor = 0;
+        } else if (weightingAuthor_ComboBox.getSelectedIndex() == 1) {
+            weightingAuthor = 1;
+        }
+
+        if (combinePaper_ComboBox.getSelectedIndex() == 0) {
+            combinePaper = 0;
+        } else if (combinePaper_ComboBox.getSelectedIndex() == 1) {
+            combinePaper = 1;
+        } else if (combinePaper_ComboBox.getSelectedIndex() == 2) {
+            combinePaper = 2;
+        } else if (combinePaper_ComboBox.getSelectedIndex() == 3) {
+            combinePaper = 3;
+        }
+
+        if (weightingPaper_ComboBox.getSelectedIndex() == 0) {
+            weightingPaper = 0;
+        } else if (weightingPaper_ComboBox.getSelectedIndex() == 1) {
+            weightingPaper = 1;
+        } else if (weightingPaper_ComboBox.getSelectedIndex() == 2) {
+            weightingPaper = 2;
+        }
+
+        prunning = Float.valueOf(prunning_TextField.getText());
+        this.hide();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-     
-  //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
@@ -331,7 +403,7 @@ public class configurationCBGui extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                configurationCBGui dialog = new configurationCBGui(new javax.swing.JFrame(), true);
+                DialogConfigCB dialog = new DialogConfigCB(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -345,13 +417,10 @@ public class configurationCBGui extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextPane CMAuthorTextPane;
+    private javax.swing.JComboBox combineAuthor_ComboBox;
+    private javax.swing.JComboBox combinePaper_ComboBox;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox jComboBoxCMPaper;
-    private javax.swing.JComboBox jComboBoxCMUser;
-    private javax.swing.JComboBox jComboBoxWeightingPaper;
-    private javax.swing.JComboBox jComboBoxWeightingUser;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
@@ -364,6 +433,8 @@ public class configurationCBGui extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel28;
     private javax.swing.JPanel jPanel29;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField prunning_TextField;
+    private javax.swing.JComboBox weightingAuthor_ComboBox;
+    private javax.swing.JComboBox weightingPaper_ComboBox;
     // End of variables declaration//GEN-END:variables
 }
