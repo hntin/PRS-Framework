@@ -104,7 +104,7 @@
           </Group>
           <Component id="jPanel13" alignment="0" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
-              <Component id="jPanel15" pref="928" max="32767" attributes="0"/>
+              <Component id="status_Panel" pref="928" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -121,7 +121,7 @@
               <EmptySpace max="32767" attributes="0"/>
               <Component id="jPanel13" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel15" min="-2" pref="41" max="-2" attributes="0"/>
+              <Component id="status_Panel" min="-2" pref="41" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -134,7 +134,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="jButtonReset">
+        <Component class="javax.swing.JButton" name="resetButton">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/Button-Refresh-icon.png"/>
@@ -145,12 +145,12 @@
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonResetActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resetButtonActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JToolBar$Separator" name="jSeparator1">
         </Component>
-        <Component class="javax.swing.JButton" name="jButtonTFIDF">
+        <Component class="javax.swing.JButton" name="TF_IDFButton">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/Document-Write-icon.png"/>
@@ -161,10 +161,10 @@
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonTFIDFActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TF_IDFButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButtonDrawChart">
+        <Component class="javax.swing.JButton" name="visualizeButton">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/chart-bar.png"/>
@@ -175,7 +175,7 @@
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonDrawChartActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="visualizeButtonActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
@@ -224,7 +224,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTextArea" name="jTextAreaConsole">
+            <Component class="javax.swing.JTextArea" name="console_TextArea">
               <Properties>
                 <Property name="columns" type="int" value="20"/>
                 <Property name="rows" type="int" value="5"/>
@@ -234,7 +234,7 @@
         </Container>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="jPanel15">
+    <Container class="javax.swing.JPanel" name="status_Panel">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -249,15 +249,19 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Component id="status_Label" alignment="1" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="18" max="32767" attributes="0"/>
+              <Component id="status_Label" alignment="0" pref="18" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="status_Label">
+        </Component>
+      </SubComponents>
     </Container>
     <Container class="javax.swing.JTabbedPane" name="jTabbedPaneStep">
 
@@ -497,7 +501,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel24" min="-2" pref="92" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButton10" min="-2" pref="61" max="-2" attributes="0"/>
+                          <Component id="runImportData_Button" min="-2" pref="61" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -508,7 +512,7 @@
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jPanel8" alignment="0" max="32767" attributes="0"/>
                               <Component id="jPanel24" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jButton10" max="32767" attributes="0"/>
+                              <Component id="runImportData_Button" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       </Group>
@@ -534,12 +538,12 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="jButtonFilePaper" min="-2" pref="81" max="-2" attributes="0"/>
+                                      <Component id="filePaper_Button" min="-2" pref="81" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jButtonFileAuthor" min="-2" pref="82" max="-2" attributes="0"/>
+                                      <Component id="fileAuthor_Button" min="-2" pref="82" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -554,13 +558,13 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jButtonFileAuthorPaper" pref="0" max="32767" attributes="0"/>
-                                  <Component id="jButtonFilePaperCitePaper" min="-2" pref="86" max="-2" attributes="0"/>
+                                  <Component id="fileAuthorPaper_Button" pref="0" max="32767" attributes="0"/>
+                                  <Component id="filePaperCitePaper_Button" min="-2" pref="86" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButtonFileAuthorCitePaper" min="-2" pref="79" max="-2" attributes="0"/>
+                              <Component id="fileAuthorCitePaper_Button" min="-2" pref="79" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -570,18 +574,18 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButtonFileAuthor" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="fileAuthor_Button" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButtonFileAuthorPaper" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="fileAuthorPaper_Button" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButtonFileAuthorCitePaper" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="fileAuthorCitePaper_Button" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButtonFilePaper" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="filePaper_Button" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButtonFilePaperCitePaper" alignment="3" max="-2" attributes="0"/>
+                                  <Component id="filePaperCitePaper_Button" alignment="3" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="7" max="32767" attributes="0"/>
                           </Group>
@@ -589,16 +593,16 @@
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JButton" name="jButtonFileAuthor">
+                    <Component class="javax.swing.JButton" name="fileAuthor_Button">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Browse..."/>
                         <Property name="toolTipText" type="java.lang.String" value="Import File Authors"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonFileAuthorActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fileAuthor_ButtonActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButtonFilePaper">
+                    <Component class="javax.swing.JButton" name="filePaper_Button">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Browse..."/>
                         <Property name="toolTipText" type="java.lang.String" value="Import File Papers"/>
@@ -607,10 +611,10 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonFilePaperActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="filePaper_ButtonActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButtonFileAuthorPaper">
+                    <Component class="javax.swing.JButton" name="fileAuthorPaper_Button">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Browse..."/>
                         <Property name="toolTipText" type="java.lang.String" value="Import File Author_Paper"/>
@@ -619,10 +623,10 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonFileAuthorPaperActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fileAuthorPaper_ButtonActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButtonFilePaperCitePaper">
+                    <Component class="javax.swing.JButton" name="filePaperCitePaper_Button">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Browse..."/>
                         <Property name="toolTipText" type="java.lang.String" value="Import File Paper_Cited_Paper"/>
@@ -631,10 +635,10 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonFilePaperCitePaperActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="filePaperCitePaper_ButtonActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButtonFileAuthorCitePaper">
+                    <Component class="javax.swing.JButton" name="fileAuthorCitePaper_Button">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Browse..."/>
                         <Property name="toolTipText" type="java.lang.String" value="Import File Author_Cited_Paper"/>
@@ -644,7 +648,7 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonFileAuthorCitePaperActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fileAuthorCitePaper_ButtonActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel4">
@@ -687,7 +691,7 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButtonFileGroundTruth" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="fileGroundTruth_Button" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -695,14 +699,14 @@
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButtonFileGroundTruth" min="-2" max="-2" attributes="0"/>
+                              <Component id="fileGroundTruth_Button" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JButton" name="jButtonFileGroundTruth">
+                    <Component class="javax.swing.JButton" name="fileGroundTruth_Button">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Browse..."/>
                         <Property name="toolTipText" type="java.lang.String" value="Import File GroundTruth"/>
@@ -711,7 +715,7 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonFileGroundTruthActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fileGroundTruth_ButtonActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel9">
@@ -721,7 +725,7 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JButton" name="jButton10">
+                <Component class="javax.swing.JButton" name="runImportData_Button">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Run"/>
                     <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -741,21 +745,21 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jButton4" alignment="0" max="32767" attributes="0"/>
+                      <Component id="runImportDataSemple_Button" alignment="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jButton4" min="-2" pref="56" max="-2" attributes="0"/>
+                          <Component id="runImportDataSemple_Button" min="-2" pref="56" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JButton" name="jButton4">
+                <Component class="javax.swing.JButton" name="runImportDataSemple_Button">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Using Dataset Example"/>
                   </Properties>
@@ -1373,15 +1377,15 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jCheckBox7" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jCheckBox6" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jCheckBox8" min="-2" max="-2" attributes="0"/>
+                              <Component id="recall_CheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="precision_CheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="f1_CheckBox" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="47" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jCheckBox9" min="-2" max="-2" attributes="0"/>
-                              <Component id="jCheckBox10" min="-2" max="-2" attributes="0"/>
-                              <Component id="jCheckBox11" min="-2" max="-2" attributes="0"/>
+                              <Component id="map_CheckBox" min="-2" max="-2" attributes="0"/>
+                              <Component id="ndcg_CheckBox" min="-2" max="-2" attributes="0"/>
+                              <Component id="mrr_CheckBox" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                       </Group>
@@ -1392,18 +1396,18 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jCheckBox6" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jCheckBox9" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="precision_CheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="map_CheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jCheckBox7" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jCheckBox10" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="recall_CheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="ndcg_CheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="29" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jCheckBox8" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jCheckBox11" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="f1_CheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="mrr_CheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                       </Group>
@@ -1411,32 +1415,32 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JCheckBox" name="jCheckBox6">
+                <Component class="javax.swing.JCheckBox" name="precision_CheckBox">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Precision"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JCheckBox" name="jCheckBox7">
+                <Component class="javax.swing.JCheckBox" name="recall_CheckBox">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Recall"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JCheckBox" name="jCheckBox8">
+                <Component class="javax.swing.JCheckBox" name="f1_CheckBox">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="F1"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JCheckBox" name="jCheckBox9">
+                <Component class="javax.swing.JCheckBox" name="map_CheckBox">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="MAP"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JCheckBox" name="jCheckBox10">
+                <Component class="javax.swing.JCheckBox" name="ndcg_CheckBox">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="NDCG"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JCheckBox" name="jCheckBox11">
+                <Component class="javax.swing.JCheckBox" name="mrr_CheckBox">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="MRR"/>
                   </Properties>
@@ -1518,12 +1522,12 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jButton11" max="32767" attributes="0"/>
+                              <Component id="evaluate_Button" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="jTextField3" max="32767" attributes="0"/>
+                              <Component id="topRank_TextField" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -1535,16 +1539,16 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jTextField3" min="-2" max="-2" attributes="0"/>
+                          <Component id="topRank_TextField" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                          <Component id="jButton11" min="-2" max="-2" attributes="0"/>
+                          <Component id="evaluate_Button" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JButton" name="jButton11">
+                <Component class="javax.swing.JButton" name="evaluate_Button">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Evaluation"/>
                   </Properties>
@@ -1554,7 +1558,7 @@
                     <Property name="text" type="java.lang.String" value="Top Rank"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField3">
+                <Component class="javax.swing.JTextField" name="topRank_TextField">
                 </Component>
               </SubComponents>
             </Container>

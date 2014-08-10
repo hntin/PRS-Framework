@@ -133,12 +133,12 @@ public class CBFPaperFVComputation {
      * @param weightingScheme   0: linear; 1: cosine; 2: rpy
      * @param pruning : Threshold of similarity between the main paper and combining papers.
      */
-    public static void computeFeatureVectorForAllPapers(HashMap<String, Paper> papers, Set<String> paperIds, 
+    public static void computeFeatureVectorForAllPapers(HashMap<String, Paper> papers, HashSet<String> paperIds, 
             int combiningScheme, int weightingScheme,
             double pruning) throws Exception {
         
         if (paperIds == null) {
-            paperIds = papers.keySet();
+            paperIds = (HashSet) papers.keySet();
         }
         
         // Current paper.

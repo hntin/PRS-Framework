@@ -32,17 +32,17 @@ public class CFController {
             String fileNameAuthorCitePaper, 
             String MahoutCFDir, 
             int cfMethod,
-            HashMap<String, Author> authorTestSet, HashSet<String> paperIdsInTestSet, int k) throws Exception {
+            HashMap<String, Author> authorTestSet, HashSet<String> paperIdsInTestSet,int k) throws Exception {
         String algorithmName = null;
         
         // Step 1: Prepare CF matrix.
         String MahoutCFFileOriginalFile = MahoutCFDir + "\\CFRatingMatrixOriginal.txt";
-//        cfPrepareMatrix(fileNameAuthorCitePaper, MahoutCFFileOriginalFile);
+        cfPrepareMatrix(fileNameAuthorCitePaper, MahoutCFFileOriginalFile);
         
         // Step 2: Predict ratings.
         if ((cfMethod == 1) || (cfMethod == 2)) {
             // KNN. k neighbors.
-          
+           // int k = 8;
             if (cfMethod == 1) {
                 // kNNCF co-pearson.
                 algorithmName = "CF KNN Pearson " + "k" + k;
@@ -76,7 +76,7 @@ public class CFController {
         System.out.println("Begin Reading raw rating matrix");
         HashMap<String, HashMap<String, Double>> authorPaperRating = MASDataset1.readAuthorCitePaperMatrix(fileNameAuthorCitePaper);
         System.out.println("End Reading raw rating matrix");
-        
+
         // Normalize
         System.out.println("Begin Normalize reating values in Citation Matrix");
         CFRatingMatrixComputation.normalizeAuthorRatingVector(authorPaperRating);

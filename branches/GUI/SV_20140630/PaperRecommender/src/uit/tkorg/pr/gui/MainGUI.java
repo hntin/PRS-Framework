@@ -69,7 +69,7 @@ public class MainGUI extends javax.swing.JFrame {
     private void updateTextArea(final String text) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                jTextAreaConsole.append(text);
+                console_TextArea.append(text);
             }
         });
     }
@@ -106,15 +106,16 @@ public class MainGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jToolBar1 = new javax.swing.JToolBar();
-        jButtonReset = new javax.swing.JButton();
+        resetButton = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
-        jButtonTFIDF = new javax.swing.JButton();
-        jButtonDrawChart = new javax.swing.JButton();
+        TF_IDFButton = new javax.swing.JButton();
+        visualizeButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextAreaConsole = new javax.swing.JTextArea();
-        jPanel15 = new javax.swing.JPanel();
+        console_TextArea = new javax.swing.JTextArea();
+        status_Panel = new javax.swing.JPanel();
+        status_Label = new javax.swing.JLabel();
         jTabbedPaneStep = new javax.swing.JTabbedPane();
         jPanel6 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
@@ -133,22 +134,22 @@ public class MainGUI extends javax.swing.JFrame {
         jTextAreaGroundTruth = new javax.swing.JTextArea();
         jPanel17 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
-        jButtonFileAuthor = new javax.swing.JButton();
-        jButtonFilePaper = new javax.swing.JButton();
-        jButtonFileAuthorPaper = new javax.swing.JButton();
-        jButtonFilePaperCitePaper = new javax.swing.JButton();
-        jButtonFileAuthorCitePaper = new javax.swing.JButton();
+        fileAuthor_Button = new javax.swing.JButton();
+        filePaper_Button = new javax.swing.JButton();
+        fileAuthorPaper_Button = new javax.swing.JButton();
+        filePaperCitePaper_Button = new javax.swing.JButton();
+        fileAuthorCitePaper_Button = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jPanel24 = new javax.swing.JPanel();
-        jButtonFileGroundTruth = new javax.swing.JButton();
+        fileGroundTruth_Button = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        jButton10 = new javax.swing.JButton();
+        runImportData_Button = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
+        runImportDataSemple_Button = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         CB_CheckBox = new javax.swing.JCheckBox();
@@ -182,20 +183,20 @@ public class MainGUI extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jPanel16 = new javax.swing.JPanel();
-        jCheckBox6 = new javax.swing.JCheckBox();
-        jCheckBox7 = new javax.swing.JCheckBox();
-        jCheckBox8 = new javax.swing.JCheckBox();
-        jCheckBox9 = new javax.swing.JCheckBox();
-        jCheckBox10 = new javax.swing.JCheckBox();
-        jCheckBox11 = new javax.swing.JCheckBox();
+        precision_CheckBox = new javax.swing.JCheckBox();
+        recall_CheckBox = new javax.swing.JCheckBox();
+        f1_CheckBox = new javax.swing.JCheckBox();
+        map_CheckBox = new javax.swing.JCheckBox();
+        ndcg_CheckBox = new javax.swing.JCheckBox();
+        mrr_CheckBox = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jButton11 = new javax.swing.JButton();
+        evaluate_Button = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        topRank_TextField = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -213,42 +214,42 @@ public class MainGUI extends javax.swing.JFrame {
 
         jToolBar1.setRollover(true);
 
-        jButtonReset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Button-Refresh-icon.png"))); // NOI18N
-        jButtonReset.setToolTipText("Reset Chooesed");
-        jButtonReset.setFocusable(false);
-        jButtonReset.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonReset.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonReset.addActionListener(new java.awt.event.ActionListener() {
+        resetButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Button-Refresh-icon.png"))); // NOI18N
+        resetButton.setToolTipText("Reset Chooesed");
+        resetButton.setFocusable(false);
+        resetButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        resetButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        resetButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonResetActionPerformed(evt);
+                resetButtonActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButtonReset);
+        jToolBar1.add(resetButton);
         jToolBar1.add(jSeparator1);
 
-        jButtonTFIDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Document-Write-icon.png"))); // NOI18N
-        jButtonTFIDF.setToolTipText("Create TFIDF Files");
-        jButtonTFIDF.setFocusable(false);
-        jButtonTFIDF.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonTFIDF.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonTFIDF.addActionListener(new java.awt.event.ActionListener() {
+        TF_IDFButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Document-Write-icon.png"))); // NOI18N
+        TF_IDFButton.setToolTipText("Create TFIDF Files");
+        TF_IDFButton.setFocusable(false);
+        TF_IDFButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        TF_IDFButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        TF_IDFButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonTFIDFActionPerformed(evt);
+                TF_IDFButtonActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButtonTFIDF);
+        jToolBar1.add(TF_IDFButton);
 
-        jButtonDrawChart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/chart-bar.png"))); // NOI18N
-        jButtonDrawChart.setToolTipText("Visualize");
-        jButtonDrawChart.setFocusable(false);
-        jButtonDrawChart.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonDrawChart.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonDrawChart.addActionListener(new java.awt.event.ActionListener() {
+        visualizeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/chart-bar.png"))); // NOI18N
+        visualizeButton.setToolTipText("Visualize");
+        visualizeButton.setFocusable(false);
+        visualizeButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        visualizeButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        visualizeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDrawChartActionPerformed(evt);
+                visualizeButtonActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButtonDrawChart);
+        jToolBar1.add(visualizeButton);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -263,9 +264,9 @@ public class MainGUI extends javax.swing.JFrame {
 
         jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder("Console"));
 
-        jTextAreaConsole.setColumns(20);
-        jTextAreaConsole.setRows(5);
-        jScrollPane3.setViewportView(jTextAreaConsole);
+        console_TextArea.setColumns(20);
+        console_TextArea.setRows(5);
+        jScrollPane3.setViewportView(console_TextArea);
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -278,18 +279,18 @@ public class MainGUI extends javax.swing.JFrame {
             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder("Status"));
-        jPanel15.setPreferredSize(new java.awt.Dimension(400, 30));
+        status_Panel.setBorder(javax.swing.BorderFactory.createTitledBorder("Status"));
+        status_Panel.setPreferredSize(new java.awt.Dimension(400, 30));
 
-        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
-        jPanel15.setLayout(jPanel15Layout);
-        jPanel15Layout.setHorizontalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        javax.swing.GroupLayout status_PanelLayout = new javax.swing.GroupLayout(status_Panel);
+        status_Panel.setLayout(status_PanelLayout);
+        status_PanelLayout.setHorizontalGroup(
+            status_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(status_Label, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel15Layout.setVerticalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 18, Short.MAX_VALUE)
+        status_PanelLayout.setVerticalGroup(
+            status_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(status_Label, javax.swing.GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
         );
 
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder("Data Description"));
@@ -365,48 +366,48 @@ public class MainGUI extends javax.swing.JFrame {
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("Training Data"));
 
-        jButtonFileAuthor.setText("Browse...");
-        jButtonFileAuthor.setToolTipText("Import File Authors");
-        jButtonFileAuthor.addActionListener(new java.awt.event.ActionListener() {
+        fileAuthor_Button.setText("Browse...");
+        fileAuthor_Button.setToolTipText("Import File Authors");
+        fileAuthor_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFileAuthorActionPerformed(evt);
+                fileAuthor_ButtonActionPerformed(evt);
             }
         });
 
-        jButtonFilePaper.setText("Browse...");
-        jButtonFilePaper.setToolTipText("Import File Papers");
-        jButtonFilePaper.setPreferredSize(new java.awt.Dimension(113, 23));
-        jButtonFilePaper.addActionListener(new java.awt.event.ActionListener() {
+        filePaper_Button.setText("Browse...");
+        filePaper_Button.setToolTipText("Import File Papers");
+        filePaper_Button.setPreferredSize(new java.awt.Dimension(113, 23));
+        filePaper_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFilePaperActionPerformed(evt);
+                filePaper_ButtonActionPerformed(evt);
             }
         });
 
-        jButtonFileAuthorPaper.setText("Browse...");
-        jButtonFileAuthorPaper.setToolTipText("Import File Author_Paper");
-        jButtonFileAuthorPaper.setPreferredSize(new java.awt.Dimension(89, 23));
-        jButtonFileAuthorPaper.addActionListener(new java.awt.event.ActionListener() {
+        fileAuthorPaper_Button.setText("Browse...");
+        fileAuthorPaper_Button.setToolTipText("Import File Author_Paper");
+        fileAuthorPaper_Button.setPreferredSize(new java.awt.Dimension(89, 23));
+        fileAuthorPaper_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFileAuthorPaperActionPerformed(evt);
+                fileAuthorPaper_ButtonActionPerformed(evt);
             }
         });
 
-        jButtonFilePaperCitePaper.setText("Browse...");
-        jButtonFilePaperCitePaper.setToolTipText("Import File Paper_Cited_Paper");
-        jButtonFilePaperCitePaper.setPreferredSize(new java.awt.Dimension(113, 23));
-        jButtonFilePaperCitePaper.addActionListener(new java.awt.event.ActionListener() {
+        filePaperCitePaper_Button.setText("Browse...");
+        filePaperCitePaper_Button.setToolTipText("Import File Paper_Cited_Paper");
+        filePaperCitePaper_Button.setPreferredSize(new java.awt.Dimension(113, 23));
+        filePaperCitePaper_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFilePaperCitePaperActionPerformed(evt);
+                filePaperCitePaper_ButtonActionPerformed(evt);
             }
         });
 
-        jButtonFileAuthorCitePaper.setText("Browse...");
-        jButtonFileAuthorCitePaper.setToolTipText("Import File Author_Cited_Paper");
-        jButtonFileAuthorCitePaper.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jButtonFileAuthorCitePaper.setPreferredSize(new java.awt.Dimension(89, 23));
-        jButtonFileAuthorCitePaper.addActionListener(new java.awt.event.ActionListener() {
+        fileAuthorCitePaper_Button.setText("Browse...");
+        fileAuthorCitePaper_Button.setToolTipText("Import File Author_Cited_Paper");
+        fileAuthorCitePaper_Button.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        fileAuthorCitePaper_Button.setPreferredSize(new java.awt.Dimension(89, 23));
+        fileAuthorCitePaper_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFileAuthorCitePaperActionPerformed(evt);
+                fileAuthorCitePaper_ButtonActionPerformed(evt);
             }
         });
 
@@ -430,11 +431,11 @@ public class MainGUI extends javax.swing.JFrame {
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonFilePaper, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(filePaper_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonFileAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(fileAuthor_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGap(4, 4, 4)
@@ -444,12 +445,12 @@ public class MainGUI extends javax.swing.JFrame {
                         .addComponent(jLabel5)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButtonFileAuthorPaper, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                    .addComponent(jButtonFilePaperCitePaper, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fileAuthorPaper_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                    .addComponent(filePaperCitePaper_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonFileAuthorCitePaper, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(fileAuthorCitePaper_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
         jPanel8Layout.setVerticalGroup(
@@ -457,28 +458,28 @@ public class MainGUI extends javax.swing.JFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jButtonFileAuthor)
+                    .addComponent(fileAuthor_Button)
                     .addComponent(jLabel5)
-                    .addComponent(jButtonFileAuthorPaper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fileAuthorPaper_Button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(jButtonFileAuthorCitePaper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fileAuthorCitePaper_Button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jButtonFilePaper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(filePaper_Button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(jButtonFilePaperCitePaper, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(filePaperCitePaper_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 7, Short.MAX_VALUE))
         );
 
         jPanel24.setBorder(javax.swing.BorderFactory.createTitledBorder("Testing Data"));
 
-        jButtonFileGroundTruth.setText("Browse...");
-        jButtonFileGroundTruth.setToolTipText("Import File GroundTruth");
-        jButtonFileGroundTruth.setMaximumSize(new java.awt.Dimension(85, 23));
-        jButtonFileGroundTruth.addActionListener(new java.awt.event.ActionListener() {
+        fileGroundTruth_Button.setText("Browse...");
+        fileGroundTruth_Button.setToolTipText("Import File GroundTruth");
+        fileGroundTruth_Button.setMaximumSize(new java.awt.Dimension(85, 23));
+        fileGroundTruth_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFileGroundTruthActionPerformed(evt);
+                fileGroundTruth_ButtonActionPerformed(evt);
             }
         });
 
@@ -489,19 +490,19 @@ public class MainGUI extends javax.swing.JFrame {
         jPanel24Layout.setHorizontalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel9)
-            .addComponent(jButtonFileGroundTruth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(fileGroundTruth_Button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel24Layout.createSequentialGroup()
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonFileGroundTruth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(fileGroundTruth_Button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton10.setText("Run");
-        jButton10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        runImportData_Button.setText("Run");
+        runImportData_Button.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
         jPanel17.setLayout(jPanel17Layout);
@@ -512,7 +513,7 @@ public class MainGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(runImportData_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel17Layout.setVerticalGroup(
@@ -521,25 +522,25 @@ public class MainGUI extends javax.swing.JFrame {
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(runImportData_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(11, 11, 11))
         );
 
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder("Dataset Example"));
 
-        jButton4.setText("Using Dataset Example");
+        runImportDataSemple_Button.setText("Using Dataset Example");
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(runImportDataSemple_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(runImportDataSemple_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -814,17 +815,17 @@ public class MainGUI extends javax.swing.JFrame {
 
         jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder("Method Evaluation"));
 
-        jCheckBox6.setText("Precision");
+        precision_CheckBox.setText("Precision");
 
-        jCheckBox7.setText("Recall");
+        recall_CheckBox.setText("Recall");
 
-        jCheckBox8.setText("F1");
+        f1_CheckBox.setText("F1");
 
-        jCheckBox9.setText("MAP");
+        map_CheckBox.setText("MAP");
 
-        jCheckBox10.setText("NDCG");
+        ndcg_CheckBox.setText("NDCG");
 
-        jCheckBox11.setText("MRR");
+        mrr_CheckBox.setText("MRR");
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
@@ -832,14 +833,14 @@ public class MainGUI extends javax.swing.JFrame {
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox7)
-                    .addComponent(jCheckBox6)
-                    .addComponent(jCheckBox8))
+                    .addComponent(recall_CheckBox)
+                    .addComponent(precision_CheckBox)
+                    .addComponent(f1_CheckBox))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox9)
-                    .addComponent(jCheckBox10)
-                    .addComponent(jCheckBox11))
+                    .addComponent(map_CheckBox)
+                    .addComponent(ndcg_CheckBox)
+                    .addComponent(mrr_CheckBox))
                 .addGap(36, 36, 36))
         );
         jPanel16Layout.setVerticalGroup(
@@ -847,16 +848,16 @@ public class MainGUI extends javax.swing.JFrame {
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox6)
-                    .addComponent(jCheckBox9))
+                    .addComponent(precision_CheckBox)
+                    .addComponent(map_CheckBox))
                 .addGap(32, 32, 32)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox7)
-                    .addComponent(jCheckBox10))
+                    .addComponent(recall_CheckBox)
+                    .addComponent(ndcg_CheckBox))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox8)
-                    .addComponent(jCheckBox11))
+                    .addComponent(f1_CheckBox)
+                    .addComponent(mrr_CheckBox))
                 .addGap(17, 17, 17))
         );
 
@@ -896,7 +897,7 @@ public class MainGUI extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
-        jButton11.setText("Evaluation");
+        evaluate_Button.setText("Evaluation");
 
         jLabel3.setText("Top Rank");
 
@@ -907,11 +908,11 @@ public class MainGUI extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(evaluate_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jTextField3))
+                    .addComponent(topRank_TextField))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -920,9 +921,9 @@ public class MainGUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(topRank_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addComponent(jButton11)
+                .addComponent(evaluate_Button)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1017,7 +1018,7 @@ public class MainGUI extends javax.swing.JFrame {
                 .addComponent(jTabbedPaneStep, javax.swing.GroupLayout.PREFERRED_SIZE, 932, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, 928, Short.MAX_VALUE)
+                .addComponent(status_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, 928, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -1031,23 +1032,23 @@ public class MainGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(status_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonTFIDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTFIDFActionPerformed
+    private void TF_IDFButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_IDFButtonActionPerformed
 
-    }//GEN-LAST:event_jButtonTFIDFActionPerformed
+    }//GEN-LAST:event_TF_IDFButtonActionPerformed
 
-    private void jButtonDrawChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDrawChartActionPerformed
+    private void visualizeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizeButtonActionPerformed
 
-    }//GEN-LAST:event_jButtonDrawChartActionPerformed
+    }//GEN-LAST:event_visualizeButtonActionPerformed
 
-    private void jButtonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResetActionPerformed
+    private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
 
-    }//GEN-LAST:event_jButtonResetActionPerformed
+    }//GEN-LAST:event_resetButtonActionPerformed
 
     private void CB_CheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_CheckBoxActionPerformed
         // TODO add your handling code here:
@@ -1060,7 +1061,7 @@ public class MainGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_CB_CheckBoxActionPerformed
 
-    private void jButtonFileGroundTruthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFileGroundTruthActionPerformed
+    private void fileGroundTruth_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileGroundTruth_ButtonActionPerformed
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
             try {
@@ -1068,7 +1069,7 @@ public class MainGUI extends javax.swing.JFrame {
                 String fileLog = "Temp\\log.txt";
                 if (!new File(fileLog).exists()) {
                     controller.fileNameGroundTruth = path;
-                    jTextAreaConsole.append(path + "\n");
+                    console_TextArea.append(path + "\n");
                     count++;
                 } else {
                     FileReader file = new FileReader(new File(fileLog));
@@ -1086,9 +1087,9 @@ public class MainGUI extends javax.swing.JFrame {
                 Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    }//GEN-LAST:event_jButtonFileGroundTruthActionPerformed
+    }//GEN-LAST:event_fileGroundTruth_ButtonActionPerformed
 
-    private void jButtonFileAuthorCitePaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFileAuthorCitePaperActionPerformed
+    private void fileAuthorCitePaper_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileAuthorCitePaper_ButtonActionPerformed
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
             try {
@@ -1096,7 +1097,7 @@ public class MainGUI extends javax.swing.JFrame {
                 String fileLog = "Temp\\log.txt";
                 if (!new File(fileLog).exists()) {
                     controller.fileNameAuthorCitePaper = path;
-                    jTextAreaConsole.append(path + "\n");
+                    console_TextArea.append(path + "\n");
                     count++;
                 } else {
                     FileReader file = new FileReader(new File(fileLog));
@@ -1114,9 +1115,9 @@ public class MainGUI extends javax.swing.JFrame {
                 Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    }//GEN-LAST:event_jButtonFileAuthorCitePaperActionPerformed
+    }//GEN-LAST:event_fileAuthorCitePaper_ButtonActionPerformed
 
-    private void jButtonFilePaperCitePaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFilePaperCitePaperActionPerformed
+    private void filePaperCitePaper_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filePaperCitePaper_ButtonActionPerformed
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
             try {
@@ -1124,7 +1125,7 @@ public class MainGUI extends javax.swing.JFrame {
                 String fileLog = "Temp\\log.txt";
                 if (!new File(fileLog).exists()) {
                     controller.fileNamePaperCitePaper = path;
-                    jTextAreaConsole.append(path + "\n");
+                    console_TextArea.append(path + "\n");
                     count++;
                 } else {
                     FileReader file = new FileReader(new File(fileLog));
@@ -1142,9 +1143,9 @@ public class MainGUI extends javax.swing.JFrame {
                 Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    }//GEN-LAST:event_jButtonFilePaperCitePaperActionPerformed
+    }//GEN-LAST:event_filePaperCitePaper_ButtonActionPerformed
 
-    private void jButtonFileAuthorPaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFileAuthorPaperActionPerformed
+    private void fileAuthorPaper_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileAuthorPaper_ButtonActionPerformed
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
             try {
@@ -1152,7 +1153,7 @@ public class MainGUI extends javax.swing.JFrame {
                 String fileLog = "Temp\\log.txt";
                 if (!new File(fileLog).exists()) {
                     controller.fileNameAuthorPaper = path;
-                    jTextAreaConsole.append(path + "\n");
+                    console_TextArea.append(path + "\n");
                     count++;
                 } else {
                     StringBuilder error;
@@ -1171,9 +1172,9 @@ public class MainGUI extends javax.swing.JFrame {
                 Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    }//GEN-LAST:event_jButtonFileAuthorPaperActionPerformed
+    }//GEN-LAST:event_fileAuthorPaper_ButtonActionPerformed
 
-    private void jButtonFilePaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFilePaperActionPerformed
+    private void filePaper_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filePaper_ButtonActionPerformed
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
             try {
@@ -1181,7 +1182,7 @@ public class MainGUI extends javax.swing.JFrame {
                 String fileLog = "Temp\\log.txt";
                 if (!new File(fileLog).exists()) {
                     controller.fileNamePapers = path;
-                    jTextAreaConsole.append(path + "\n");
+                    console_TextArea.append(path + "\n");
                     count++;
                 } else {
                     FileReader file = new FileReader(new File(fileLog));
@@ -1200,9 +1201,9 @@ public class MainGUI extends javax.swing.JFrame {
             }
         }
 
-    }//GEN-LAST:event_jButtonFilePaperActionPerformed
+    }//GEN-LAST:event_filePaper_ButtonActionPerformed
 
-    private void jButtonFileAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFileAuthorActionPerformed
+    private void fileAuthor_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileAuthor_ButtonActionPerformed
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
             try {
@@ -1211,7 +1212,7 @@ public class MainGUI extends javax.swing.JFrame {
 
                 if (!new File(fileLog).exists()) {
                     controller.fileNameAuthors = path;
-                    jTextAreaConsole.append(path + "\n");
+                    console_TextArea.append(path + "\n");
                     count++;
                 } else {
                     StringBuilder error;
@@ -1230,7 +1231,7 @@ public class MainGUI extends javax.swing.JFrame {
                 Logger.getLogger(PRSGui.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    }//GEN-LAST:event_jButtonFileAuthorActionPerformed
+    }//GEN-LAST:event_fileAuthor_ButtonActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         // TODO add your handling code here:
@@ -1321,32 +1322,24 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JCheckBox CFP_CheckBox;
     private javax.swing.JCheckBox CFS_CheckBox;
     private javax.swing.JCheckBox HB_CheckBox;
+    private javax.swing.JButton TF_IDFButton;
     private javax.swing.JButton config_CB_Button;
     private javax.swing.JButton config_CFC_Button;
     private javax.swing.JButton config_CFP_Button;
     private javax.swing.JButton config_CFS_Button;
     private javax.swing.JButton config_HB_Button;
+    private javax.swing.JTextArea console_TextArea;
+    private javax.swing.JButton evaluate_Button;
+    private javax.swing.JCheckBox f1_CheckBox;
+    private javax.swing.JButton fileAuthorCitePaper_Button;
+    private javax.swing.JButton fileAuthorPaper_Button;
+    private javax.swing.JButton fileAuthor_Button;
+    private javax.swing.JButton fileGroundTruth_Button;
+    private javax.swing.JButton filePaperCitePaper_Button;
+    private javax.swing.JButton filePaper_Button;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButtonDrawChart;
-    private javax.swing.JButton jButtonFileAuthor;
-    private javax.swing.JButton jButtonFileAuthorCitePaper;
-    private javax.swing.JButton jButtonFileAuthorPaper;
-    private javax.swing.JButton jButtonFileGroundTruth;
-    private javax.swing.JButton jButtonFilePaper;
-    private javax.swing.JButton jButtonFilePaperCitePaper;
-    private javax.swing.JButton jButtonReset;
-    private javax.swing.JButton jButtonTFIDF;
-    private javax.swing.JCheckBox jCheckBox10;
-    private javax.swing.JCheckBox jCheckBox11;
-    private javax.swing.JCheckBox jCheckBox6;
-    private javax.swing.JCheckBox jCheckBox7;
-    private javax.swing.JCheckBox jCheckBox8;
-    private javax.swing.JCheckBox jCheckBox9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1373,7 +1366,6 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel2;
@@ -1410,13 +1402,23 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextAreaAuthor;
     private javax.swing.JTextArea jTextAreaAuthorCitePaper;
     private javax.swing.JTextArea jTextAreaAuthorPaper;
-    private javax.swing.JTextArea jTextAreaConsole;
     private javax.swing.JTextArea jTextAreaGroundTruth;
     private javax.swing.JTextArea jTextAreaPaper;
     private javax.swing.JTextArea jTextAreaPaperPaper;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JCheckBox map_CheckBox;
+    private javax.swing.JCheckBox mrr_CheckBox;
+    private javax.swing.JCheckBox ndcg_CheckBox;
+    private javax.swing.JCheckBox precision_CheckBox;
+    private javax.swing.JCheckBox recall_CheckBox;
+    private javax.swing.JButton resetButton;
+    private javax.swing.JButton runImportDataSemple_Button;
+    private javax.swing.JButton runImportData_Button;
+    private javax.swing.JLabel status_Label;
+    private javax.swing.JPanel status_Panel;
+    private javax.swing.JTextField topRank_TextField;
+    private javax.swing.JButton visualizeButton;
     // End of variables declaration//GEN-END:variables
 }

@@ -141,6 +141,7 @@ public class Introduction extends javax.swing.JFrame {
     private void exploreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exploreButtonActionPerformed
         MainGUI pRSGui = new MainGUI();
         pRSGui.show();
+        
     }//GEN-LAST:event_exploreButtonActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
