@@ -1254,10 +1254,7 @@ public class MainGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_config_CFP_ButtonActionPerformed
 
     private void config_CB_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_config_CB_ButtonActionPerformed
-        if (CB_CheckBox.isSelected()) {
-            CBOption contentBased = new CBOption();
-            contentBased.show();
-        }
+      
     }//GEN-LAST:event_config_CB_ButtonActionPerformed
 
     private void CFP_CheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CFP_CheckBoxActionPerformed
