@@ -6,6 +6,8 @@
 
 package uit.tkorg.pr.gui;
 
+import javax.swing.UIManager;
+
 /**
  *
  * @author Zoe
@@ -49,6 +51,8 @@ public class configurationCFSVDGui extends javax.swing.JDialog {
 
         jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder("Discription Option"));
 
+        CMAuthorTextPane.setEditable(false);
+        CMAuthorTextPane.setText("In here, we use  SVD ALSWRFactorize  of Apache Mahou. (https://mahout.apache.org/users/dim-reduction/dimensional-reduction.html)\nWe have to input k_Neighbor, f, l, i coefficient to use this algorithm (f features, normalize by l, i iterations ).\nIf you don't enter nothing, defaut's system is: k_neighbor =8,f=5, l= 0.001, i =100.\n");
         jScrollPane6.setViewportView(CMAuthorTextPane);
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
@@ -164,22 +168,12 @@ public class configurationCFSVDGui extends javax.swing.JDialog {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(configurationCFSVDGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(configurationCFSVDGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(configurationCFSVDGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(configurationCFSVDGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (Exception e) {
+            System.out.println("Unable to load Windows look and feel");
         }
         //</editor-fold>
+
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {

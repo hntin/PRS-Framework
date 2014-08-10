@@ -83,6 +83,10 @@
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
             <Component class="javax.swing.JTextPane" name="CMAuthorTextPane">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+                <Property name="text" type="java.lang.String" value="In here, we use  SVD ALSWRFactorize  of Apache Mahou. (https://mahout.apache.org/users/dim-reduction/dimensional-reduction.html)&#xa;We have to input k_Neighbor, f, l, i coefficient to use this algorithm (f features, normalize by l, i iterations ).&#xa;If you don&apos;t enter nothing, defaut&apos;s system is: k_neighbor =8,f=5, l= 0.001, i =100.&#xa;"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

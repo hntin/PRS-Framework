@@ -83,6 +83,10 @@
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
             <Component class="javax.swing.JTextPane" name="CMAuthorTextPane">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+                <Property name="text" type="java.lang.String" value="Hybrid is combinted between content based algorithm and collaborative filtering algorithm.&#xa;"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
