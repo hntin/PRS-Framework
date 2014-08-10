@@ -53,6 +53,10 @@ public class PRSCentralController {
     public HashMap<String, Author> authors = new HashMap<>();
     HashSet<String> paperIdsOfAuthorTestSet = new HashSet<>();
     HashSet<String> paperIdsInTestSet = new HashSet<>();
+    
+    public HashMap<String, Author> authorsCFP = new HashMap<>();
+    public HashMap<String, Author> authorsCFC = new HashMap<>();
+    public HashMap<String, Author> authorsCFSVD = new HashMap<>();
 
     public int algorithm_Recommendation; //1: CBF, 2: CF, 3: CBFCFHybrid
 
@@ -181,8 +185,6 @@ public class PRSCentralController {
     public void recommend() throws Exception {
         if (algorithm_Recommendation == 1) {
             //Content - based
-//            FeatureVectorSimilarity.computeCBFSimAndPutIntoModelForAuthorList(authors, papers, 0);
-//            FeatureVectorSimilarity.generateRecommendationForAuthorList(authors, topRecommend);
             long startTime;
             long estimatedTime;
             System.out.println("Begin CBF recommendation...");
@@ -194,7 +196,6 @@ public class PRSCentralController {
                     timeAware, gamma,
                     combinePaper, weightingPaper, 0,
                     pruning);
-//            FeatureVectorSimilarity.generateRecommendationForAuthorList(authorTestSet, topNRecommend);
 
             estimatedTime = System.nanoTime() - startTime;
             System.out.println("CBF recommendation elapsed time: " + estimatedTime / 1000000000 + " seconds");
