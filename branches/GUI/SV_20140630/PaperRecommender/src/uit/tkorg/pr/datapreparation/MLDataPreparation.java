@@ -137,10 +137,13 @@ public class MLDataPreparation {
         int weightingSchemePaperTestSet = 0;
         int similarityScheme = 0;
         double pruning = 0.0;
-
+        
         // parameters for cf method: 1: KNN Pearson, 2: KNN Cosine, 3: SVD
         int cfMethod = 1;
         int k =8;
+        int f = 5;
+        double l =0.001;
+        int i = 100;
         // parameters for hybrid method: 1: combine linear, 2: combine based on confidence, 
         // 3: combine based on confidence and linear
         int combinationScheme;
@@ -160,7 +163,7 @@ public class MLDataPreparation {
         // Compute CF value
         CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir,
                 cfMethod,
-                authorTestSet, paperIdsInTestSet,k);
+                authorTestSet, paperIdsInTestSet,k,f,l,i);
         // Compute Trust paper value.
         TrustDataModelPreparation.computeCoAuthorRSSHM(authorTestSet,
                 fileNameAuthorship, fileNamePapers);
