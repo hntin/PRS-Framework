@@ -116,8 +116,8 @@ public class MainFramePRS extends javax.swing.JFrame {
         jToolBar1 = new javax.swing.JToolBar();
         resetButton = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
-        TF_IDFButton = new javax.swing.JButton();
-        visualizeButton = new javax.swing.JButton();
+        TFIDF_Button = new javax.swing.JButton();
+        visualize_Button = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -235,29 +235,29 @@ public class MainFramePRS extends javax.swing.JFrame {
         jToolBar1.add(resetButton);
         jToolBar1.add(jSeparator1);
 
-        TF_IDFButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Document-Write-icon.png"))); // NOI18N
-        TF_IDFButton.setToolTipText("Create TFIDF Files");
-        TF_IDFButton.setFocusable(false);
-        TF_IDFButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        TF_IDFButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        TF_IDFButton.addActionListener(new java.awt.event.ActionListener() {
+        TFIDF_Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Document-Write-icon.png"))); // NOI18N
+        TFIDF_Button.setToolTipText("Create TFIDF Files");
+        TFIDF_Button.setFocusable(false);
+        TFIDF_Button.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        TFIDF_Button.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        TFIDF_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TF_IDFButtonActionPerformed(evt);
+                TFIDF_ButtonActionPerformed(evt);
             }
         });
-        jToolBar1.add(TF_IDFButton);
+        jToolBar1.add(TFIDF_Button);
 
-        visualizeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/chart-bar.png"))); // NOI18N
-        visualizeButton.setToolTipText("Visualize");
-        visualizeButton.setFocusable(false);
-        visualizeButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        visualizeButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        visualizeButton.addActionListener(new java.awt.event.ActionListener() {
+        visualize_Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/chart-bar.png"))); // NOI18N
+        visualize_Button.setToolTipText("Visualize");
+        visualize_Button.setFocusable(false);
+        visualize_Button.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        visualize_Button.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        visualize_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                visualizeButtonActionPerformed(evt);
+                visualize_ButtonActionPerformed(evt);
             }
         });
-        jToolBar1.add(visualizeButton);
+        jToolBar1.add(visualize_Button);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -306,7 +306,7 @@ public class MainFramePRS extends javax.swing.JFrame {
         jTextAreaAuthor.setColumns(20);
         jTextAreaAuthor.setLineWrap(true);
         jTextAreaAuthor.setRows(5);
-        jTextAreaAuthor.setText("File Authors.csv là file dán nhãn sẵn, mô tả thông tin nhà nghiên cứu bao gồm id va tên có định dạng:\nIdAuthor|||NameAuthor\nVí dụ:\n1|||John F. Young\n2|||Sule Yildirim\n3|||Elizabeth K. Reilly\n4|||Yann Le Gorrec");
+        jTextAreaAuthor.setText("File Authors.csv is one of file training data of program. It's assigned mark. This file descrips unformation about researcher which containts id researcher and his name.\nThe file is formated IdAuthor|||NameAuthor\nExample:\n1|||John F. Young\n2|||Sule Yildirim\n3|||Elizabeth K. Reilly\n4|||Yann Le Gorrec");
         jTextAreaAuthor.setWrapStyleWord(true);
         jScrollPane1.setViewportView(jTextAreaAuthor);
 
@@ -315,7 +315,7 @@ public class MainFramePRS extends javax.swing.JFrame {
         jTextAreaAuthorPaper.setColumns(20);
         jTextAreaAuthorPaper.setLineWrap(true);
         jTextAreaAuthorPaper.setRows(5);
-        jTextAreaAuthorPaper.setText("File AuthorPaper.csv chứa thông tin về những bài báo tác giả đã viết và có định dạng:\nIdAuthor|||IdPaper\nVí dụ:\n1|||11\n1|||12\n1|||13\n1|||14\n2|||21\n2|||22\n3|||31\n4|||41\n4|||42");
+        jTextAreaAuthorPaper.setText("File AuthorPaper.csv is one of the file training data of program. It's assigned mark. The file is formated IdAuthor|||IdPaper which means papers of reseacher.\nExample:\n1|||11\n1|||12\n1|||13\n1|||14\n2|||21\n2|||22\n3|||31\n4|||41\n4|||42");
         jTextAreaAuthorPaper.setWrapStyleWord(true);
         jScrollPane10.setViewportView(jTextAreaAuthorPaper);
 
@@ -324,7 +324,7 @@ public class MainFramePRS extends javax.swing.JFrame {
         jTextAreaAuthorCitePaper.setColumns(20);
         jTextAreaAuthorCitePaper.setLineWrap(true);
         jTextAreaAuthorCitePaper.setRows(5);
-        jTextAreaAuthorCitePaper.setText("File AuthorCitePape.csv chứa thông tin về những bài báo mà tác giả đã trích dẫn và có định dạng:\nIdAuthor|||IdPaper|||YearCited\nVí dụ:\n1|||11\n1|||12\n1|||13\n1|||14\n2|||21\n2|||22\n3|||31\n4|||41\n4|||42");
+        jTextAreaAuthorCitePaper.setText("File AuthorCitePape.csv is one of file training data of program. It's assigned mark. The file is formated IdAuthor|||IdPaper|||YearCited.\nWe know information about reseacher cite paper and citation time of researcher in here.They are used to construct input matrix for collaborative filtering algorithm.\n\nExample:\n1|||11\n1|||12\n1|||13\n1|||14\n2|||21\n2|||22\n3|||31\n4|||41\n4|||42");
         jTextAreaAuthorCitePaper.setWrapStyleWord(true);
         jScrollPane11.setViewportView(jTextAreaAuthorCitePaper);
 
@@ -333,7 +333,7 @@ public class MainFramePRS extends javax.swing.JFrame {
         jTextAreaPaper.setColumns(20);
         jTextAreaPaper.setLineWrap(true);
         jTextAreaPaper.setRows(5);
-        jTextAreaPaper.setText("File Paper.csv chứa thông tin của những bài báo và có định dạng:\nIdPaper|||TitlePaper|||ContentPaper|||YearPaper\nVí dụ:\n11|||Knowledge Discovery from Sparse Pharmacokinetic Data|||In this research effort, we show that the following hypothesis is true: The independently verified sparse information secured from the scientific literature regarding the effects of methyl mercury on mice enables us to predict the effects of the methyl mercury on humans. The Rough Sets methodology is used in this endeavor|||2000\n111|||A fusion of rough sets, modified rough sets, and genetic algorithms for hybrid diagnostic systems|||A hybrid classification system is a system composed of several intelligent techniques such that the inherent limitations of one individual technique be compensated for by the strengths of another technique. In this paper, we investigate the outline of a hybrid diagnostic system for Attention Deficit Disorder (ADD) in children. This system uses Rough Sets (RS) and Modified Rough Sets (MRS) to induce rules from examples and then uses our modified genetic algorithms to globalize the rules. Also, the classification capability of this hybrid system was compared with the behavior of (a) another hybrid classification system using RS, MRS, and the “dropping condition” approach, (b) the Interactive Dichotomizer 3 (ID3) approach, and (c) a basic genetic algorithm. The results revealed that the global rules generated by the hybrid system are more effective in classification of the testing dataset than the rules generated by the above approaches.|||1997\n112|||Rough Classification|||This article contains a new concept of approximate analysis of data, based on the idea of a “rough” set. The notion of approximate (rough) description of a set is introduced and investigated. The application to medical data analysis is shown as an example.|||1984\n113|||Developmental toxicity risk assessment: a rough sets approach|||A rough sets approach was applied to a data set consisting of animal study results and other compound characteristics to generate local and global (certain/possible) sets of rules for prediction of developmental toxicity in human subjects. A modified version of the rough sets approach is proposed to allow the construction of an approximate set of rules to use for prediction in a manner similar to that of discriminant analysis. The modified rough sets approach is superior in predictability to the original form of rough-sets methodology. In comparison to discriminant analysis, modified rough sets (approximate rules) appear to be better in overall classification, sensitivity, positive and negative predictive values. The findings were supported by applying the modified rough sets and discriminant analysis on a test data set generated from the original data set by using a resampling plan.|||1993\n114|||A Theory and Methodology of Inductive Learning|||A theory of inductive learning is presented that characterizes it as a heuristic search through a space of symbolic descriptions, generated by an application of certain inference rules to the initial observational statements (the teacher-provided examples of some concepts, or facts about a class of objects or a phenomenon). The inference rules include generalization rules, which perform generalizing transformations on descriptions, and conventional truth-preserving deductive rules (specialization and reformulation rules). The application of the inference rules to descriptions is constrained by problem background knowledge, and guided by criteria evaluating the ‘quality’ of generated inductive assertions.Based on this theory, a general methodology for learning structural descriptions from examples, called star, is described and illustrated by a problem from the area of conceptual data analysis|||1983\n115|||Rough classification|||This article contains a new concept of approximate analysis of data, based on the idea of a “rough” set. The notion of approximate (rough) description of a set is introduced and investigated. The application to medical data analysis is shown as an example.|||1999\n116|||LERS-a system for learning from examples based on rough sets|||The paper presents the system LERS for rule induction. The system handles inconsistencies in the input data due to its usage of rough set theory principle. Rough set theory is especially well suited to deal with inconsistencies. In this approach, inconsistencies are not corrected. Instead, system LERS computes lower and upper approximations of each concept. Then it induces certain rules and possible rules. The user has the choice to use the machine learning approach or the knowledge acquisition approach. In the first case, the system induces a single minimal discriminant description for each concept. In the second case, the system induces all rules, each in the minimal form, that can be induced from the input data. In both cases, the user has a choice between the local or global approach.|||1992\n12|||The Investigation of Mercury Presence in Human Blood: An Extrapolation from Animal Data Using Neural Networks|||In this research effort a neural network approach was used as a method of extrapolating the presence of mercury in human blood from animal data. We also investigated the effect of different data representations (As-is, Category, Simple binary, Thermometer, and Flag) on the model performance. In addition, we used the Rough Sets methodology to identify the redundant independent variables and then examined the proposed extrapolation model performance for a reduced set of independent variables. Moreover, a quality measure was introduced that revealed that the proposed extrapolation model performed extremely well for the Thermometer data representation.|||2002\n121|||Pattern development for vessel accidents: a comparison of statistical and neural computing techniques|||This paper describes a sample of over 900 vessel accidents that occurred on the lower Mississippi River. Two different techniques, one statistical and the other based on a neural network model, were used to build logical groups of accidents. The objective in building the groups was to maximize between-group variation and minimize within-group variation. The result was groups whose records were as homogenous as possible.A clustering algorithm (i.e., a non-inferential statistical technique) generated sets of three, four and five groups. A Kohenen neural network model (i.e., a self-organizing map) also generated sets of three, four and five groups. The two sets of parallel groups were radically different as to the relative number of records in each group. In other words, when the two sets of groups were constructed by the respective techniques, the membership of each comparable group within the two different sets was substantially different. Not only was the respective record count in each group substantially different, so were the descriptive statistics describing each comparable set of groups.These results have significant implications for marine policy makers. Important policy variables include safety factors such as weather, speed of current, time of operation, and location of accidents, but mandatory utilization of a voluntary vessel tracking service may be subject to debate.|||2001\n122|||An Introduction to Computing with Neural Nets|||Artificial neural net models have been studied for many years in the hope of achieving human-like performance in the fields of speech and image recognition. These models are composed of many nonlinear computational elements operating in parallel and arranged in patterns reminiscent of biological neural nets. Computational elements or nodes are connected via weights that are typically adapted during use to improve performance. There has been a recent resurgence in the field of artificial neural nets caused by new net topologies and algorithms, analog VLSI implementation techniques, and the belief that massive parallelism is essential for high performance speech and image recognition. This paper provides an introduction to the field of artificial neural nets by reviewing six important neural net models that can be used for pattern classification. These nets are highly parallel building blocks that illustrate neural net components and design principles and can be used to construct more complex systems. In addition to describing these nets, a major emphasis is placed on exploring how some existing classification and clustering algorithms can be performed using simple neuron-like components. Single-layer nets can implement algorithms required by Gaussian maximum-likelihood classifiers and optimum minimum-error classifiers for binary patterns corrupted by noise. More generally, the decision regions required by any classification algorithm can be generated in a straightforward manner by three-layer feed-forward nets|||1987");
+        jTextAreaPaper.setText("File Paper.csv containt information about papers and is one of the file training data of program. The file is formated IdPaper|||TitlePaper|||ContentPaper|||YearPaper\nVí dụ:\n11|||Knowledge Discovery from Sparse Pharmacokinetic Data|||In this research effort, we show that the following hypothesis is true: The independently verified sparse information secured from the scientific literature regarding the effects of methyl mercury on mice enables us to predict the effects of the methyl mercury on humans. The Rough Sets methodology is used in this endeavor|||2000\n111|||A fusion of rough sets, modified rough sets, and genetic algorithms for hybrid diagnostic systems|||A hybrid classification system is a system composed of several intelligent techniques such that the inherent limitations of one individual technique be compensated for by the strengths of another technique. In this paper, we investigate the outline of a hybrid diagnostic system for Attention Deficit Disorder (ADD) in children. This system uses Rough Sets (RS) and Modified Rough Sets (MRS) to induce rules from examples and then uses our modified genetic algorithms to globalize the rules. Also, the classification capability of this hybrid system was compared with the behavior of (a) another hybrid classification system using RS, MRS, and the “dropping condition” approach, (b) the Interactive Dichotomizer 3 (ID3) approach, and (c) a basic genetic algorithm. The results revealed that the global rules generated by the hybrid system are more effective in classification of the testing dataset than the rules generated by the above approaches.|||1997\n112|||Rough Classification|||This article contains a new concept of approximate analysis of data, based on the idea of a “rough” set. The notion of approximate (rough) description of a set is introduced and investigated. The application to medical data analysis is shown as an example.|||1984\n113|||Developmental toxicity risk assessment: a rough sets approach|||A rough sets approach was applied to a data set consisting of animal study results and other compound characteristics to generate local and global (certain/possible) sets of rules for prediction of developmental toxicity in human subjects. A modified version of the rough sets approach is proposed to allow the construction of an approximate set of rules to use for prediction in a manner similar to that of discriminant analysis. The modified rough sets approach is superior in predictability to the original form of rough-sets methodology. In comparison to discriminant analysis, modified rough sets (approximate rules) appear to be better in overall classification, sensitivity, positive and negative predictive values. The findings were supported by applying the modified rough sets and discriminant analysis on a test data set generated from the original data set by using a resampling plan.|||1993\n114|||A Theory and Methodology of Inductive Learning|||A theory of inductive learning is presented that characterizes it as a heuristic search through a space of symbolic descriptions, generated by an application of certain inference rules to the initial observational statements (the teacher-provided examples of some concepts, or facts about a class of objects or a phenomenon). The inference rules include generalization rules, which perform generalizing transformations on descriptions, and conventional truth-preserving deductive rules (specialization and reformulation rules). The application of the inference rules to descriptions is constrained by problem background knowledge, and guided by criteria evaluating the ‘quality’ of generated inductive assertions.Based on this theory, a general methodology for learning structural descriptions from examples, called star, is described and illustrated by a problem from the area of conceptual data analysis|||1983\n115|||Rough classification|||This article contains a new concept of approximate analysis of data, based on the idea of a “rough” set. The notion of approximate (rough) description of a set is introduced and investigated. The application to medical data analysis is shown as an example.|||1999\n116|||LERS-a system for learning from examples based on rough sets|||The paper presents the system LERS for rule induction. The system handles inconsistencies in the input data due to its usage of rough set theory principle. Rough set theory is especially well suited to deal with inconsistencies. In this approach, inconsistencies are not corrected. Instead, system LERS computes lower and upper approximations of each concept. Then it induces certain rules and possible rules. The user has the choice to use the machine learning approach or the knowledge acquisition approach. In the first case, the system induces a single minimal discriminant description for each concept. In the second case, the system induces all rules, each in the minimal form, that can be induced from the input data. In both cases, the user has a choice between the local or global approach.|||1992\n12|||The Investigation of Mercury Presence in Human Blood: An Extrapolation from Animal Data Using Neural Networks|||In this research effort a neural network approach was used as a method of extrapolating the presence of mercury in human blood from animal data. We also investigated the effect of different data representations (As-is, Category, Simple binary, Thermometer, and Flag) on the model performance. In addition, we used the Rough Sets methodology to identify the redundant independent variables and then examined the proposed extrapolation model performance for a reduced set of independent variables. Moreover, a quality measure was introduced that revealed that the proposed extrapolation model performed extremely well for the Thermometer data representation.|||2002\n121|||Pattern development for vessel accidents: a comparison of statistical and neural computing techniques|||This paper describes a sample of over 900 vessel accidents that occurred on the lower Mississippi River. Two different techniques, one statistical and the other based on a neural network model, were used to build logical groups of accidents. The objective in building the groups was to maximize between-group variation and minimize within-group variation. The result was groups whose records were as homogenous as possible.A clustering algorithm (i.e., a non-inferential statistical technique) generated sets of three, four and five groups. A Kohenen neural network model (i.e., a self-organizing map) also generated sets of three, four and five groups. The two sets of parallel groups were radically different as to the relative number of records in each group. In other words, when the two sets of groups were constructed by the respective techniques, the membership of each comparable group within the two different sets was substantially different. Not only was the respective record count in each group substantially different, so were the descriptive statistics describing each comparable set of groups.These results have significant implications for marine policy makers. Important policy variables include safety factors such as weather, speed of current, time of operation, and location of accidents, but mandatory utilization of a voluntary vessel tracking service may be subject to debate.|||2001\n122|||An Introduction to Computing with Neural Nets|||Artificial neural net models have been studied for many years in the hope of achieving human-like performance in the fields of speech and image recognition. These models are composed of many nonlinear computational elements operating in parallel and arranged in patterns reminiscent of biological neural nets. Computational elements or nodes are connected via weights that are typically adapted during use to improve performance. There has been a recent resurgence in the field of artificial neural nets caused by new net topologies and algorithms, analog VLSI implementation techniques, and the belief that massive parallelism is essential for high performance speech and image recognition. This paper provides an introduction to the field of artificial neural nets by reviewing six important neural net models that can be used for pattern classification. These nets are highly parallel building blocks that illustrate neural net components and design principles and can be used to construct more complex systems. In addition to describing these nets, a major emphasis is placed on exploring how some existing classification and clustering algorithms can be performed using simple neuron-like components. Single-layer nets can implement algorithms required by Gaussian maximum-likelihood classifiers and optimum minimum-error classifiers for binary patterns corrupted by noise. More generally, the decision regions required by any classification algorithm can be generated in a straightforward manner by three-layer feed-forward nets|||1987");
         jTextAreaPaper.setWrapStyleWord(true);
         jScrollPane12.setViewportView(jTextAreaPaper);
 
@@ -342,7 +342,7 @@ public class MainFramePRS extends javax.swing.JFrame {
         jTextAreaPaperPaper.setColumns(20);
         jTextAreaPaperPaper.setLineWrap(true);
         jTextAreaPaperPaper.setRows(5);
-        jTextAreaPaperPaper.setText("File PaperCitePaper.csv cho biết thông tin bài báo nào trích dẫn bài báo nào và có định dạng:\nIdPaper|||IdPaperCited\nVí dụ:\n11|||111\n11|||112\n11|||113\n11|||114\n11|||115\n11|||116\n12|||121\n12|||122\n12|||123\n13|||131");
+        jTextAreaPaperPaper.setText("File PaperCitePaper.csv is assigned mark.It's one of the file training data of program. They seem citation network between paper and paper. The file is formated IdPaper|||IdPaperCited.\nExample:\n11|||111\n11|||112\n11|||113\n11|||114\n11|||115\n11|||116\n12|||121\n12|||122\n12|||123\n13|||131");
         jTextAreaPaperPaper.setWrapStyleWord(true);
         jScrollPane13.setViewportView(jTextAreaPaperPaper);
 
@@ -351,7 +351,7 @@ public class MainFramePRS extends javax.swing.JFrame {
         jTextAreaGroundTruth.setColumns(20);
         jTextAreaGroundTruth.setLineWrap(true);
         jTextAreaGroundTruth.setRows(5);
-        jTextAreaGroundTruth.setText("File GroundTruth.csv là file dữ liệu test của chương trình đã được gán nhãn sẵn.\nChứa thông tác giả trích dẫn bài báo nào. File có định dạng:\nIdAuthor||IdPaper\nVí dụ:\n1|||1\n1|||5\n1|||112\n1|||134\n1|||9\n2|||211\n2|||215\n2|||214\n2|||9\n2|||42");
+        jTextAreaGroundTruth.setText("File GroundTruth.csv is file testing data of program.The file is assigned mark which is formated \nIdAuthor||IdPaper\nExample:\n1|||1\n1|||5\n1|||112\n1|||134\n1|||9\n2|||211\n2|||215\n2|||214\n2|||9\n2|||42");
         jTextAreaGroundTruth.setWrapStyleWord(true);
         jScrollPane14.setViewportView(jTextAreaGroundTruth);
 
@@ -570,7 +570,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, 766, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 927, Short.MAX_VALUE)
+            .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, 927, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1114,7 +1114,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Steps_TabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 367, Short.MAX_VALUE))
+                    .addComponent(Steps_TabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1124,13 +1124,21 @@ public class MainFramePRS extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TF_IDFButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_IDFButtonActionPerformed
+    private void TFIDF_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFIDF_ButtonActionPerformed
+        DialogBuildTFIDF tf_idf = new DialogBuildTFIDF(this, rootPaneCheckingEnabled);
+        tf_idf.show();
+    }//GEN-LAST:event_TFIDF_ButtonActionPerformed
 
-    }//GEN-LAST:event_TF_IDFButtonActionPerformed
+    private void visualize_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualize_ButtonActionPerformed
 
-    private void visualizeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizeButtonActionPerformed
+        try {
+            DialogVisualize visualize = new DialogVisualize(this, rootPaneCheckingEnabled);
+            visualize.show();
+        } catch (IOException ex) {
+            Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-    }//GEN-LAST:event_visualizeButtonActionPerformed
+    }//GEN-LAST:event_visualize_ButtonActionPerformed
 
     private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
 
@@ -1477,6 +1485,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     private void evaluate_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_evaluate_ButtonActionPerformed
         if (!topRank_TextField.getText().isEmpty()) {
             //<editor-fold defaultstate="collapsed" desc="get measure_Evaluation Set">
+            measure_Evaluation.clear();
             if (precision_CheckBox.isSelected()) {
                 measure_Evaluation.add(1);
             }
@@ -1511,22 +1520,31 @@ public class MainFramePRS extends javax.swing.JFrame {
                         evaluationResult.append("\nContent - based\t" + controller.guiHandlerRequest(Options.EVALUATE)[1]);
                     }
                 } else if (alg == 2) {
-                    controller.authors = controller.authorsCFP;
                     for (Integer measure : measure_Evaluation) {
                         controller.measure_Evaluation = measure;
-                        evaluationResult.append("\nCF using KNN Pearson\t" + controller.guiHandlerRequest(Options.EVALUATE)[1]);
+                        try {
+                            evaluationResult.append("\nCF using KNN Pearson\t" + controller.evaluate(controller.authorsCFP, measure, controller.topRank));
+                        } catch (Exception ex) {
+                            Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 } else if (alg == 3) {
-                    controller.authors = controller.authorsCFC;
                     for (Integer measure : measure_Evaluation) {
                         controller.measure_Evaluation = measure;
-                        evaluationResult.append("\nCF using KNN Cosine\t" + controller.guiHandlerRequest(Options.EVALUATE)[1]);
+                        try {
+                            evaluationResult.append("\nCF using KNN Cosine\t" + controller.evaluate(controller.authorsCFC, measure, controller.topRank));
+                        } catch (Exception ex) {
+                            Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 } else if (alg == 4) {
-                    controller.authors = controller.authorsCFSVD;
                     for (Integer measure : measure_Evaluation) {
                         controller.measure_Evaluation = measure;
-                        evaluationResult.append("\nCF using SVD\t" + controller.guiHandlerRequest(Options.EVALUATE)[1]);
+                        try {
+                            evaluationResult.append("\nCF using SVD\t" + controller.evaluate(controller.authorsCFSVD, measure, controller.topRank));
+                        } catch (Exception ex) {
+                            Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 } else if (alg == 5) {
                     try {
@@ -1577,7 +1595,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                     Logger.getLogger(JTable.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
+            JOptionPane.showMessageDialog(rootPane, "Evaluating is completed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Please input Top Rank...", "Notice", JOptionPane.INFORMATION_MESSAGE);
             topRank_TextField.requestFocus();
@@ -1587,6 +1605,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     private void recommend_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recommend_ButtonActionPerformed
         if (!top_Recommend_TextField.getText().isEmpty()) {
             //<editor-fold defaultstate="collapsed" desc="get algorithm_Recommendation Set">
+            algorithm_Recommendation.clear();
             if (CB_CheckBox.isSelected()) {
                 algorithm_Recommendation.add(1);
             }
@@ -1771,6 +1790,35 @@ public class MainFramePRS extends javax.swing.JFrame {
             }
             recommended_algorithm_TextField.setText(algorithm.toString());
             recommended_algorithm_TextField.setToolTipText(recommended_algorithm_TextField.getText());
+
+            //<editor-fold defaultstate="collapsed" desc="reset table">
+            if (!CB_CheckBox.isSelected()) {
+                DefaultTableModel tablemodel = (DefaultTableModel) contentbased_Table.getModel();
+                tablemodel.getDataVector().removeAllElements();
+                contentbased_Table.setModel(tablemodel);
+            }
+            if (!CFP_CheckBox.isSelected()) {
+                DefaultTableModel tablemodel = (DefaultTableModel) cfp_Table.getModel();
+                tablemodel.getDataVector().removeAllElements();
+                cfp_Table.setModel(tablemodel);
+            }
+            if (!CFC_CheckBox.isSelected()) {
+                DefaultTableModel tablemodel = (DefaultTableModel) cfc_Table.getModel();
+                tablemodel.getDataVector().removeAllElements();
+                cfc_Table.setModel(tablemodel);
+            }
+            if (!CFS_CheckBox.isSelected()) {
+                DefaultTableModel tablemodel = (DefaultTableModel) cfsvd_Table.getModel();
+                tablemodel.getDataVector().removeAllElements();
+                cfsvd_Table.setModel(tablemodel);
+            }
+            if (!HB_CheckBox.isSelected()) {
+                DefaultTableModel tablemodel = (DefaultTableModel) hybrid_Table.getModel();
+                tablemodel.getDataVector().removeAllElements();
+                hybrid_Table.setModel(tablemodel);
+            }
+            //</editor-fold>
+            JOptionPane.showMessageDialog(rootPane, "Recommending is completed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Please input Top Recommendation...", "Notice", JOptionPane.INFORMATION_MESSAGE);
             top_Recommend_TextField.requestFocus();
@@ -1789,7 +1837,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 }
                 try {
                     FileUtils.writeStringToFile(new File(path), recList.toString(), "UTF8", false);
-                    JOptionPane.showMessageDialog(rootPane, "Saving completed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, "Saving is completed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException ex) {
                     Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -1858,7 +1906,7 @@ public class MainFramePRS extends javax.swing.JFrame {
             }
             try {
                 FileUtils.writeStringToFile(new File(path), recList.toString(), "UTF8", false);
-                JOptionPane.showMessageDialog(rootPane, "Saving completed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "Saving is completed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException ex) {
                 Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1897,7 +1945,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     private javax.swing.JCheckBox CFS_CheckBox;
     private javax.swing.JCheckBox HB_CheckBox;
     private javax.swing.JTabbedPane Steps_TabbedPane;
-    private javax.swing.JButton TF_IDFButton;
+    private javax.swing.JButton TFIDF_Button;
     private javax.swing.JTable cfc_Table;
     private javax.swing.JTable cfp_Table;
     private javax.swing.JTable cfsvd_Table;
@@ -1993,6 +2041,6 @@ public class MainFramePRS extends javax.swing.JFrame {
     private javax.swing.JPanel status_Panel;
     private javax.swing.JTextField topRank_TextField;
     private javax.swing.JTextField top_Recommend_TextField;
-    private javax.swing.JButton visualizeButton;
+    private javax.swing.JButton visualize_Button;
     // End of variables declaration//GEN-END:variables
 }
