@@ -52,7 +52,7 @@ public class DialogConfigCB extends javax.swing.JDialog {
         jPanel23 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         CMAuthorTextPane = new javax.swing.JTextPane();
-        jButton3 = new javax.swing.JButton();
+        moreInformation_Button = new javax.swing.JButton();
         jPanel25 = new javax.swing.JPanel();
         jPanel29 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
@@ -161,10 +161,10 @@ public class DialogConfigCB extends javax.swing.JDialog {
         CMAuthorTextPane.setText("In here, we have to set up coefficients for author's profiles construction and feature vector construction for papers.This seems to prepared data for recommendation.\n");
         jScrollPane6.setViewportView(CMAuthorTextPane);
 
-        jButton3.setText("More");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        moreInformation_Button.setText("More");
+        moreInformation_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                moreInformation_ButtonActionPerformed(evt);
             }
         });
 
@@ -175,14 +175,14 @@ public class DialogConfigCB extends javax.swing.JDialog {
             .addGroup(jPanel23Layout.createSequentialGroup()
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3))
+                .addComponent(moreInformation_Button))
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel23Layout.createSequentialGroup()
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(moreInformation_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder("Feature Vector Construction for Paper"));
@@ -354,12 +354,13 @@ public class DialogConfigCB extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_weightingPaper_ComboBoxActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void moreInformation_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moreInformation_ButtonActionPerformed
         // TODO add your handling code here:
-        DialogDescriptionCB discriptionCB = new DialogDescriptionCB(null, rootPaneCheckingEnabled);
-        discriptionCB.show();
+        DialogDescriptionCB descriptionCB = new DialogDescriptionCB(null, rootPaneCheckingEnabled);
+        descriptionCB.setLocationRelativeTo(this);
+        descriptionCB.show();
 
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_moreInformation_ButtonActionPerformed
 
     private void ok_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ok_ButtonActionPerformed
         if (combineAuthor_ComboBox.getSelectedIndex() == 0) {
@@ -452,7 +453,6 @@ public class DialogConfigCB extends javax.swing.JDialog {
     private javax.swing.JComboBox combineAuthor_ComboBox;
     private javax.swing.JComboBox combinePaper_ComboBox;
     private javax.swing.JTextField gamma_TextField;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -466,6 +466,7 @@ public class DialogConfigCB extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel28;
     private javax.swing.JPanel jPanel29;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JButton moreInformation_Button;
     private javax.swing.JButton ok_Button;
     private javax.swing.JTextField pruning_TextField;
     private javax.swing.JCheckBox timeAware_CheckBox;

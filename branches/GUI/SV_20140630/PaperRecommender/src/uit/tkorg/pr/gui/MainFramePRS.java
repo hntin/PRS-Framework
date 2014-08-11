@@ -217,12 +217,14 @@ public class MainFramePRS extends javax.swing.JFrame {
         jMenuItem8 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Paper Recommendation System");
+        setAlwaysOnTop(true);
         setResizable(false);
 
         jToolBar1.setRollover(true);
 
         resetButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Button-Refresh-icon.png"))); // NOI18N
-        resetButton.setToolTipText("Reset Chooesed");
+        resetButton.setToolTipText("Reset System");
         resetButton.setFocusable(false);
         resetButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         resetButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -1416,7 +1418,6 @@ public class MainFramePRS extends javax.swing.JFrame {
                 protected void done() {
                     JOptionPane.showMessageDialog(rootPane, "Importing process is completed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                     import_DataSource_Button.setEnabled(true);
-
                 }
 
             };

@@ -225,7 +225,7 @@
               <Group type="102" attributes="0">
                   <Component id="jScrollPane6" min="-2" pref="401" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                  <Component id="moreInformation_Button" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -235,7 +235,7 @@
                   <Component id="jScrollPane6" min="-2" pref="68" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
-              <Component id="jButton3" alignment="0" max="32767" attributes="0"/>
+              <Component id="moreInformation_Button" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -255,12 +255,12 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="jButton3">
+        <Component class="javax.swing.JButton" name="moreInformation_Button">
           <Properties>
             <Property name="text" type="java.lang.String" value="More"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="moreInformation_ButtonActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
