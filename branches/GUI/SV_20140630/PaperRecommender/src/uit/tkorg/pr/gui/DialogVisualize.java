@@ -41,11 +41,12 @@ public class DialogVisualize extends javax.swing.JDialog {
 
     }
 
-    private XYDataset createDataset() throws FileNotFoundException, IOException {
-        final XYSeries series1 = new XYSeries("Precison");
-        final XYSeries series2 = new XYSeries("Recall");
-        final XYSeries series3 = new XYSeries("MAP");
-        final XYSeries series4 = new XYSeries("NDCG");
+    private XYDataset createDataset(String measure) throws FileNotFoundException, IOException {
+        final XYSeries series1 = new XYSeries("Content - based");
+        final XYSeries series2 = new XYSeries("CF using KNN Pearson");
+        final XYSeries series3 = new XYSeries("CF using KNN Cosine");
+        final XYSeries series4 = new XYSeries("CF using SVD");
+        final XYSeries series5 = new XYSeries("Hybrid");
 
         String path = path_TextField.getText().trim();
 //        String path = "Temp\\ResultEvaluation.txt";
@@ -55,16 +56,20 @@ public class DialogVisualize extends javax.swing.JDialog {
         String line = null;
         String[] tokens;
         while ((line = textReader.readLine()) != null) {
-            tokens = line.split("\t");
-            if (tokens.length == 3) {
-                if (tokens[0].equals("Precision")) {
-                    series1.add(Double.parseDouble(tokens[1]), Double.parseDouble(tokens[2]));
-                } else if (tokens[0].equals("Recall")) {
-                    series2.add(Double.parseDouble(tokens[1]), Double.parseDouble(tokens[2]));
-                } else if (tokens[0].equals("MAP")) {
-                    series3.add(Double.parseDouble(tokens[1]), Double.parseDouble(tokens[2]));
-                } else if (tokens[0].equals("NDCG")) {
-                    series4.add(Double.parseDouble(tokens[1]), Double.parseDouble(tokens[2]));
+            tokens = line.split(",");
+            if (tokens.length == 4) {
+                if (tokens[1].equals(measure)) {
+                    if (tokens[0].equals("Content - based")) {
+                        series1.add(Double.parseDouble(tokens[2]), Double.parseDouble(tokens[3]));
+                    } else if (tokens[0].equals("CF using KNN Pearson")) {
+                        series2.add(Double.parseDouble(tokens[2]), Double.parseDouble(tokens[3]));
+                    } else if (tokens[0].equals("CF using KNN Cosine")) {
+                        series3.add(Double.parseDouble(tokens[2]), Double.parseDouble(tokens[3]));
+                    } else if (tokens[0].equals("CF using SVD")) {
+                        series4.add(Double.parseDouble(tokens[2]), Double.parseDouble(tokens[3]));
+                    } else if (tokens[0].equals("Hybrid")) {
+                        series5.add(Double.parseDouble(tokens[2]), Double.parseDouble(tokens[3]));
+                    }
                 }
             }
         }
@@ -74,16 +79,17 @@ public class DialogVisualize extends javax.swing.JDialog {
         dataset.addSeries(series2);
         dataset.addSeries(series3);
         dataset.addSeries(series4);
+        dataset.addSeries(series5);
 
         return dataset;
 
     }
 
-    private JFreeChart createChart(final XYDataset dataset) {
+    private JFreeChart createChart(final XYDataset dataset, String measure) {
 
         // create the chart...
         final JFreeChart chart = ChartFactory.createXYLineChart(
-                "Evaluation Chart", // chart title
+                measure, // chart title
                 "TopRank", // x axis label
                 "Accuracy", // y axis label
                 dataset, // data
@@ -135,6 +141,9 @@ public class DialogVisualize extends javax.swing.JDialog {
         path_TextField = new javax.swing.JTextField();
         browse_Button = new javax.swing.JButton();
         chart_Panel = new javax.swing.JPanel();
+        measureEvaluation_ComboBox = new javax.swing.JComboBox();
+        jLabel2 = new javax.swing.JLabel();
+        close_Button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Visualize");
@@ -154,12 +163,28 @@ public class DialogVisualize extends javax.swing.JDialog {
         chart_Panel.setLayout(chart_PanelLayout);
         chart_PanelLayout.setHorizontalGroup(
             chart_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 643, Short.MAX_VALUE)
         );
         chart_PanelLayout.setVerticalGroup(
             chart_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 469, Short.MAX_VALUE)
+            .addGap(0, 410, Short.MAX_VALUE)
         );
+
+        measureEvaluation_ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Precision", "Recall", "F1", "MAP", "NDCG", "MRR" }));
+        measureEvaluation_ComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                measureEvaluation_ComboBoxActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Choose Evaluation Measure:");
+
+        close_Button.setText("Close");
+        close_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                close_ButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -168,11 +193,17 @@ public class DialogVisualize extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(path_TextField, javax.swing.GroupLayout.DEFAULT_SIZE, 642, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(browse_Button)
-                .addGap(6, 6, 6))
-            .addComponent(chart_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(path_TextField)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(browse_Button))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(chart_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(measureEvaluation_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(close_Button))
+                    .addComponent(jLabel2)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,8 +213,16 @@ public class DialogVisualize extends javax.swing.JDialog {
                     .addComponent(jLabel1)
                     .addComponent(path_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(browse_Button))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(chart_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(measureEvaluation_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(close_Button))
+                    .addComponent(chart_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
@@ -194,18 +233,62 @@ public class DialogVisualize extends javax.swing.JDialog {
         if (path != null) {
             try {
                 path_TextField.setText(path);
-                final XYDataset dataset = createDataset();
-                final JFreeChart chart = createChart(dataset);
-                final ChartPanel chartPanel = new ChartPanel(chart);
-                chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
-                chart_Panel.add(chartPanel);
-//                setContentPane(chartPanel);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(rootPane, "Can't draw chart from this file!", "Warning", JOptionPane.WARNING_MESSAGE);
             }
         }
 
     }//GEN-LAST:event_browse_ButtonActionPerformed
+    public void drawChart(String measure) throws IOException {
+        final XYDataset dataset = createDataset(measure);
+        final JFreeChart chart = createChart(dataset, measure);
+        final ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setPreferredSize(new java.awt.Dimension(chart_Panel.getWidth(), chart_Panel.getHeight()));
+        chart_Panel.add(chartPanel);
+    }
+    private void close_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_close_ButtonActionPerformed
+        this.hide();
+    }//GEN-LAST:event_close_ButtonActionPerformed
+
+    private void measureEvaluation_ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_measureEvaluation_ComboBoxActionPerformed
+        if (measureEvaluation_ComboBox.getSelectedIndex() == 0) {
+            try {
+                drawChart("Precision");
+            } catch (IOException ex) {
+                Logger.getLogger(DialogVisualize.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (measureEvaluation_ComboBox.getSelectedIndex() == 1) {
+            try {
+                drawChart("Recall");
+            } catch (IOException ex) {
+                Logger.getLogger(DialogVisualize.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (measureEvaluation_ComboBox.getSelectedIndex() == 2) {
+            try {
+                drawChart("F1");
+            } catch (IOException ex) {
+                Logger.getLogger(DialogVisualize.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (measureEvaluation_ComboBox.getSelectedIndex() == 3) {
+            try {
+                drawChart("MAP");
+            } catch (IOException ex) {
+                Logger.getLogger(DialogVisualize.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (measureEvaluation_ComboBox.getSelectedIndex() == 4) {
+            try {
+                drawChart("NDCG");
+            } catch (IOException ex) {
+                Logger.getLogger(DialogVisualize.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (measureEvaluation_ComboBox.getSelectedIndex() == 5) {
+            try {
+                drawChart("MRR");
+            } catch (IOException ex) {
+                Logger.getLogger(DialogVisualize.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_measureEvaluation_ComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -246,7 +329,10 @@ public class DialogVisualize extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton browse_Button;
     private javax.swing.JPanel chart_Panel;
+    private javax.swing.JButton close_Button;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JComboBox measureEvaluation_ComboBox;
     private javax.swing.JTextField path_TextField;
     // End of variables declaration//GEN-END:variables
 }

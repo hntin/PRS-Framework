@@ -711,6 +711,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Recommend List"));
 
+        contentbased_Table.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         contentbased_Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -726,6 +727,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         recList_TabbedPane.addTab("Content based", jScrollPane9);
 
+        cfp_Table.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         cfp_Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -741,6 +743,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         recList_TabbedPane.addTab("CF with Pearson", jScrollPane15);
 
+        cfc_Table.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         cfc_Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -756,6 +759,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         recList_TabbedPane.addTab("CF with Cosine", jScrollPane16);
 
+        cfsvd_Table.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         cfsvd_Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -771,6 +775,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         recList_TabbedPane.addTab("CF with SVD", jScrollPane17);
 
+        hybrid_Table.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         hybrid_Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -938,6 +943,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Result Evaluation"));
 
+        evaluationResult_Table.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         evaluationResult_Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -1408,8 +1414,9 @@ public class MainFramePRS extends javax.swing.JFrame {
 
                 @Override
                 protected void done() {
-                    import_DataSource_Button.setEnabled(true);
                     JOptionPane.showMessageDialog(rootPane, "Importing process is completed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                    import_DataSource_Button.setEnabled(true);
+
                 }
 
             };
@@ -1439,6 +1446,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
                 @Override
                 protected Object doInBackground() throws Exception {
+                    import_DatasetExample_Button.setEnabled(false);
                     console_TextArea.append("\nBegin import dataset....\n");
                     long begin = System.currentTimeMillis();
                     controller.guiHandlerRequest(Options.IMPORT_DATA);
@@ -1450,6 +1458,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 @Override
                 protected void done() {
                     JOptionPane.showMessageDialog(rootPane, "Importing process is completed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                    import_DatasetExample_Button.setEnabled(true);
                 }
 
             };
