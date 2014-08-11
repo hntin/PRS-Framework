@@ -46,11 +46,10 @@ public class MainFramePRS extends javax.swing.JFrame {
      * Creates new form MainFramePRS
      */
     private PRSCentralController controller;
-    private String[] response;
+    //private String[] response;
     private List previousEvaluation = new ArrayList<String>();
     private List previousRecommdendation = new ArrayList<HashMap<String, Author>>();
     private static int numOfFiles = 0;// kiem tra nguoi dung co chon du so file theo yeu cau cua chuong trinh k
-    private static int status; // 0: import data, 1: choose algorithm recommend, 2: choose method evaluate
 
     private HashSet<Integer> algorithm_Recommendation = new HashSet<>();
     private HashSet<Integer> measure_Evaluation = new HashSet<>();
@@ -272,6 +271,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder("Console"));
 
+        console_TextArea.setEditable(false);
         console_TextArea.setColumns(20);
         console_TextArea.setRows(5);
         jScrollPane3.setViewportView(console_TextArea);
@@ -303,6 +303,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder("Data Description"));
 
+        jTextAreaAuthor.setEditable(false);
         jTextAreaAuthor.setColumns(20);
         jTextAreaAuthor.setLineWrap(true);
         jTextAreaAuthor.setRows(5);
@@ -312,6 +313,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         jTabbedPane4.addTab("File Authors", jScrollPane1);
 
+        jTextAreaAuthorPaper.setEditable(false);
         jTextAreaAuthorPaper.setColumns(20);
         jTextAreaAuthorPaper.setLineWrap(true);
         jTextAreaAuthorPaper.setRows(5);
@@ -321,6 +323,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         jTabbedPane4.addTab("File Author_ Paper", jScrollPane10);
 
+        jTextAreaAuthorCitePaper.setEditable(false);
         jTextAreaAuthorCitePaper.setColumns(20);
         jTextAreaAuthorCitePaper.setLineWrap(true);
         jTextAreaAuthorCitePaper.setRows(5);
@@ -330,6 +333,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         jTabbedPane4.addTab("File Author_Cited_ paper", jScrollPane11);
 
+        jTextAreaPaper.setEditable(false);
         jTextAreaPaper.setColumns(20);
         jTextAreaPaper.setLineWrap(true);
         jTextAreaPaper.setRows(5);
@@ -339,6 +343,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         jTabbedPane4.addTab("File Papers", jScrollPane12);
 
+        jTextAreaPaperPaper.setEditable(false);
         jTextAreaPaperPaper.setColumns(20);
         jTextAreaPaperPaper.setLineWrap(true);
         jTextAreaPaperPaper.setRows(5);
@@ -348,6 +353,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         jTabbedPane4.addTab("File Paper_Cited_Paper", jScrollPane13);
 
+        jTextAreaGroundTruth.setEditable(false);
         jTextAreaGroundTruth.setColumns(20);
         jTextAreaGroundTruth.setLineWrap(true);
         jTextAreaGroundTruth.setRows(5);
@@ -1487,6 +1493,10 @@ public class MainFramePRS extends javax.swing.JFrame {
     private void evaluate_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_evaluate_ButtonActionPerformed
         if (!topRank_TextField.getText().isEmpty()) {
             //<editor-fold defaultstate="collapsed" desc="get measure_Evaluation Set">
+            DefaultTableModel tablemodelReset = (DefaultTableModel) evaluationResult_Table.getModel();
+            tablemodelReset.getDataVector().removeAllElements();
+            evaluationResult_Table.setModel(tablemodelReset);
+
             measure_Evaluation.clear();
             if (precision_CheckBox.isSelected()) {
                 measure_Evaluation.add(1);
@@ -1519,9 +1529,20 @@ public class MainFramePRS extends javax.swing.JFrame {
                     }
                     for (Integer measure : measure_Evaluation) {
                         controller.measure_Evaluation = measure;
-                        evaluationResult.append("\nContent - based\t" + controller.guiHandlerRequest(Options.EVALUATE)[1]);
+                        try {
+                            evaluationResult.append("\nContent - based\t" + controller.evaluate(controller.authors, measure, controller.topRank));
+                        } catch (Exception ex) {
+                            Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 } else if (alg == 2) {
+                    try {
+                        CF.cfRecommendToAuthorList(controller.authorsCFP, controller.topRecommend);
+                    } catch (TasteException ex) {
+                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (Exception ex) {
+                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     for (Integer measure : measure_Evaluation) {
                         controller.measure_Evaluation = measure;
                         try {
@@ -1531,6 +1552,13 @@ public class MainFramePRS extends javax.swing.JFrame {
                         }
                     }
                 } else if (alg == 3) {
+                    try {
+                        CF.cfRecommendToAuthorList(controller.authorsCFC, controller.topRecommend);
+                    } catch (TasteException ex) {
+                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (Exception ex) {
+                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     for (Integer measure : measure_Evaluation) {
                         controller.measure_Evaluation = measure;
                         try {
@@ -1540,6 +1568,13 @@ public class MainFramePRS extends javax.swing.JFrame {
                         }
                     }
                 } else if (alg == 4) {
+                    try {
+                        CF.cfRecommendToAuthorList(controller.authorsCFSVD, controller.topRecommend);
+                    } catch (TasteException ex) {
+                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (Exception ex) {
+                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     for (Integer measure : measure_Evaluation) {
                         controller.measure_Evaluation = measure;
                         try {
@@ -1558,7 +1593,11 @@ public class MainFramePRS extends javax.swing.JFrame {
                     }
                     for (Integer measure : measure_Evaluation) {
                         controller.measure_Evaluation = measure;
-                        evaluationResult.append("\nHybrid\t" + controller.guiHandlerRequest(Options.EVALUATE)[1]);
+                        try {
+                            evaluationResult.append("\nHybrid\t" + controller.evaluate(controller.authors, measure, controller.topRank));
+                        } catch (Exception ex) {
+                            Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 }
             }
@@ -1667,6 +1706,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                     controller.algorithm_Recommendation = 3;
                     controller.alpha = dialogConfigHybrid.alpha;
                     controller.combineHybrid = dialogConfigHybrid.combineHybrid;
+                    controller.guiHandlerRequest(Options.RECOMMEND);
                 }
             }
 
@@ -1776,6 +1816,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                     hybrid_Table.setModel(tablemodel);
                 }
             }
+
             StringBuilder algorithm = new StringBuilder();
             for (Integer alg : algorithm_Recommendation) {
                 if (alg == 1) {

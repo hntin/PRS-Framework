@@ -52,20 +52,20 @@ public class GuiUtilities {
                     if (file.isDirectory()) {
                         return true;
                     } else {
-                        return file.getName().toLowerCase().endsWith(".dat");
+                        return file.getName().toLowerCase().endsWith(".txt");
                     }
                 }
 
                 @Override
                 public String getDescription() {
-                    return "Text Files (*.dat)";
+                    return "Text Files (*.txt)";
                 }
             });
             int userSelection = fileChooser.showSaveDialog(null);
             if (userSelection == JFileChooser.APPROVE_OPTION) {
                 File fileToSave = fileChooser.getSelectedFile();
-                if (!fileChooser.getFileFilter().accept(fileToSave) || !fileToSave.getName().toLowerCase().endsWith(".dat")) {
-                    fileToSave = new File(fileToSave.getAbsolutePath() + ".dat");
+                if (!fileChooser.getFileFilter().accept(fileToSave) || !fileToSave.getName().toLowerCase().endsWith(".txt")) {
+                    fileToSave = new File(fileToSave.getAbsolutePath() + ".txt");
                 }
                 path = fileToSave.getAbsolutePath();
             }

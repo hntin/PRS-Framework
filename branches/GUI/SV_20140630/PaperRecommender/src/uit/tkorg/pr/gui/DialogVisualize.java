@@ -13,6 +13,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -37,11 +38,7 @@ public class DialogVisualize extends javax.swing.JDialog {
     public DialogVisualize(java.awt.Frame parent, boolean modal) throws IOException {
         super(parent, modal);
         initComponents();
-        final XYDataset dataset = createDataset();
-        final JFreeChart chart = createChart(dataset);
-        final ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
-        setContentPane(chartPanel);
+
     }
 
     private XYDataset createDataset() throws FileNotFoundException, IOException {
@@ -50,7 +47,8 @@ public class DialogVisualize extends javax.swing.JDialog {
         final XYSeries series3 = new XYSeries("MAP");
         final XYSeries series4 = new XYSeries("NDCG");
 
-        String path = "Temp\\ResultEvaluation.txt";
+        String path = path_TextField.getText().trim();
+//        String path = "Temp\\ResultEvaluation.txt";
 
         FileReader file = new FileReader(new File(path));
         BufferedReader textReader = new BufferedReader(file);
@@ -133,22 +131,81 @@ public class DialogVisualize extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        path_TextField = new javax.swing.JTextField();
+        browse_Button = new javax.swing.JButton();
+        chart_Panel = new javax.swing.JPanel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Visualize");
+
+        jLabel1.setText("Choose File:");
+
+        browse_Button.setText("Browse...");
+        browse_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                browse_ButtonActionPerformed(evt);
+            }
+        });
+
+        chart_Panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout chart_PanelLayout = new javax.swing.GroupLayout(chart_Panel);
+        chart_Panel.setLayout(chart_PanelLayout);
+        chart_PanelLayout.setHorizontalGroup(
+            chart_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        chart_PanelLayout.setVerticalGroup(
+            chart_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 469, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(path_TextField, javax.swing.GroupLayout.DEFAULT_SIZE, 642, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(browse_Button)
+                .addGap(6, 6, 6))
+            .addComponent(chart_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(path_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(browse_Button))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chart_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void browse_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browse_ButtonActionPerformed
+        String path = GuiUtilities.chooseFileJChooser("Choose File");
+        if (path != null) {
+            try {
+                path_TextField.setText(path);
+                final XYDataset dataset = createDataset();
+                final JFreeChart chart = createChart(dataset);
+                final ChartPanel chartPanel = new ChartPanel(chart);
+                chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
+                chart_Panel.add(chartPanel);
+//                setContentPane(chartPanel);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(rootPane, "Can't draw chart from this file!", "Warning", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+
+    }//GEN-LAST:event_browse_ButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -187,5 +244,9 @@ public class DialogVisualize extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton browse_Button;
+    private javax.swing.JPanel chart_Panel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTextField path_TextField;
     // End of variables declaration//GEN-END:variables
 }

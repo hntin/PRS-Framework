@@ -52,6 +52,7 @@ public class DialogBuildTFIDF extends javax.swing.JDialog {
         jButtonOpenResultFolder = new javax.swing.JButton();
         jButtonCreateTFIDF = new javax.swing.JButton();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Create TFIDF Files");
         setResizable(false);
 
