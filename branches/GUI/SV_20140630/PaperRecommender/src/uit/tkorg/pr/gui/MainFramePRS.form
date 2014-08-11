@@ -1498,7 +1498,7 @@
                       <Component id="jScrollPane2" pref="688" max="32767" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="jButton3" min="-2" pref="180" max="-2" attributes="0"/>
+                          <Component id="saveEvaluation_Button" min="-2" pref="180" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1507,7 +1507,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jScrollPane2" pref="239" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                          <Component id="saveEvaluation_Button" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1520,24 +1520,27 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTable" name="jTable1">
+                    <Component class="javax.swing.JTable" name="evaluationResult_Table">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="4" rowCount="4">
                             <Column editable="true" title="Recommendation Algorithm" type="java.lang.Object"/>
                             <Column editable="true" title="Evaluation Measure" type="java.lang.Object"/>
-                            <Column editable="true" title="Evaluated Result" type="java.lang.Object"/>
                             <Column editable="true" title="Top Rank" type="java.lang.Object"/>
+                            <Column editable="true" title="Evaluated Result" type="java.lang.Object"/>
                           </Table>
                         </Property>
                       </Properties>
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JButton" name="jButton3">
+                <Component class="javax.swing.JButton" name="saveEvaluation_Button">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Save"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveEvaluation_ButtonActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

@@ -8,6 +8,7 @@ package uit.tkorg.pr.gui;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -20,6 +21,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
@@ -197,8 +199,8 @@ public class MainFramePRS extends javax.swing.JFrame {
         mrr_CheckBox = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton3 = new javax.swing.JButton();
+        evaluationResult_Table = new javax.swing.JTable();
+        saveEvaluation_Button = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         evaluate_Button = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -930,7 +932,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Result Evaluation"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        evaluationResult_Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -938,12 +940,17 @@ public class MainFramePRS extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Recommendation Algorithm", "Evaluation Measure", "Evaluated Result", "Top Rank"
+                "Recommendation Algorithm", "Evaluation Measure", "Top Rank", "Evaluated Result"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(evaluationResult_Table);
 
-        jButton3.setText("Save");
+        saveEvaluation_Button.setText("Save");
+        saveEvaluation_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveEvaluation_ButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -952,14 +959,14 @@ public class MainFramePRS extends javax.swing.JFrame {
             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(saveEvaluation_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3))
+                .addComponent(saveEvaluation_Button))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
@@ -1489,10 +1496,85 @@ public class MainFramePRS extends javax.swing.JFrame {
                 measure_Evaluation.add(6);
             }
             //</editor-fold>
-            for (Integer alg : algorithm_Recommendation) {
-                //an algorithm with measure evaluate Set
-                for (Integer measure : measure_Evaluation) {
 
+            controller.topRank = Integer.parseInt(topRank_TextField.getText().trim());
+            StringBuilder evaluationResult = new StringBuilder();
+            for (Integer alg : algorithm_Recommendation) {
+                if (alg == 1) {
+                    try {
+                        FeatureVectorSimilarity.generateRecommendationForAuthorList(controller.authors, controller.topRecommend);
+                    } catch (Exception ex) {
+                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    for (Integer measure : measure_Evaluation) {
+                        controller.measure_Evaluation = measure;
+                        evaluationResult.append("\nContent - based\t" + controller.guiHandlerRequest(Options.EVALUATE)[1]);
+                    }
+                } else if (alg == 2) {
+                    controller.authors = controller.authorsCFP;
+                    for (Integer measure : measure_Evaluation) {
+                        controller.measure_Evaluation = measure;
+                        evaluationResult.append("\nCF using KNN Pearson\t" + controller.guiHandlerRequest(Options.EVALUATE)[1]);
+                    }
+                } else if (alg == 3) {
+                    controller.authors = controller.authorsCFC;
+                    for (Integer measure : measure_Evaluation) {
+                        controller.measure_Evaluation = measure;
+                        evaluationResult.append("\nCF using KNN Cosine\t" + controller.guiHandlerRequest(Options.EVALUATE)[1]);
+                    }
+                } else if (alg == 4) {
+                    controller.authors = controller.authorsCFSVD;
+                    for (Integer measure : measure_Evaluation) {
+                        controller.measure_Evaluation = measure;
+                        evaluationResult.append("\nCF using SVD\t" + controller.guiHandlerRequest(Options.EVALUATE)[1]);
+                    }
+                } else if (alg == 5) {
+                    try {
+                        CBFCF.cbfcfHybridRecommendToAuthorList(controller.authors, controller.topRecommend);
+                    } catch (TasteException ex) {
+                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (Exception ex) {
+                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    for (Integer measure : measure_Evaluation) {
+                        controller.measure_Evaluation = measure;
+                        evaluationResult.append("\nHybrid\t" + controller.guiHandlerRequest(Options.EVALUATE)[1]);
+                    }
+                }
+            }
+            try {
+                FileUtils.writeStringToFile(new File("Temp\\evaluationResult.txt"), evaluationResult.toString(), "UTF8", false);
+            } catch (IOException ex) {
+                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            BufferedReader reader = null;
+            try {
+                reader = new BufferedReader(new FileReader("Temp\\evaluationResult.txt"));
+                String line = null;
+                DefaultTableModel tablemodel = (DefaultTableModel) evaluationResult_Table.getModel();
+                tablemodel.getDataVector().removeAllElements();
+                evaluationResult_Table.setModel(tablemodel);
+                while ((line = reader.readLine()) != null) {
+                    Vector vector = new Vector();
+                    String[] str = line.split("\t");
+                    if (str.length == 4) {
+                        for (int i = 0; i < str.length; i++) {
+                            vector.addElement(str[i]);
+                        }
+                        tablemodel.addRow(vector);
+                    }
+                }
+                evaluationResult_Table.setModel(tablemodel);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(JTable.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(JTable.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                try {
+                    reader.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(JTable.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
@@ -1673,6 +1755,22 @@ public class MainFramePRS extends javax.swing.JFrame {
                     hybrid_Table.setModel(tablemodel);
                 }
             }
+            StringBuilder algorithm = new StringBuilder();
+            for (Integer alg : algorithm_Recommendation) {
+                if (alg == 1) {
+                    algorithm.append("Content - based").append(";");
+                } else if (alg == 2) {
+                    algorithm.append("CF using KNN Pearson").append(";");
+                } else if (alg == 3) {
+                    algorithm.append("CF using KNN Cosine").append(";");
+                } else if (alg == 4) {
+                    algorithm.append("CF using SVD").append(";");
+                } else if (alg == 5) {
+                    algorithm.append("Hybrid").append(";");
+                }
+            }
+            recommended_algorithm_TextField.setText(algorithm.toString());
+            recommended_algorithm_TextField.setToolTipText(recommended_algorithm_TextField.getText());
         } else {
             JOptionPane.showMessageDialog(rootPane, "Please input Top Recommendation...", "Notice", JOptionPane.INFORMATION_MESSAGE);
             top_Recommend_TextField.requestFocus();
@@ -1745,7 +1843,28 @@ public class MainFramePRS extends javax.swing.JFrame {
                 }
             }
         }
+
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void saveEvaluation_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveEvaluation_ButtonActionPerformed
+        String path = GuiUtilities.saveToFileJChooser();
+        if (path != null) {
+            StringBuilder recList = new StringBuilder();
+            for (int i = 0; i < evaluationResult_Table.getRowCount(); i++) {
+                recList.append(evaluationResult_Table.getValueAt(i, 0)).append(",")
+                        .append(evaluationResult_Table.getValueAt(i, 1)).append(",")
+                        .append(evaluationResult_Table.getValueAt(i, 2)).append(",")
+                        .append(evaluationResult_Table.getValueAt(i, 3)).append("\r\n");
+            }
+            try {
+                FileUtils.writeStringToFile(new File(path), recList.toString(), "UTF8", false);
+                JOptionPane.showMessageDialog(rootPane, "Saving completed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+            } catch (IOException ex) {
+                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }//GEN-LAST:event_saveEvaluation_ButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1790,6 +1909,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     private javax.swing.JTextArea console_TextArea;
     private javax.swing.JTable contentbased_Table;
     private javax.swing.JButton evaluate_Button;
+    private javax.swing.JTable evaluationResult_Table;
     private javax.swing.JCheckBox f1_CheckBox;
     private javax.swing.JButton fileAuthorCitePaper_Button;
     private javax.swing.JButton fileAuthorPaper_Button;
@@ -1801,7 +1921,6 @@ public class MainFramePRS extends javax.swing.JFrame {
     private javax.swing.JButton import_DataSource_Button;
     private javax.swing.JButton import_DatasetExample_Button;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1853,7 +1972,6 @@ public class MainFramePRS extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane4;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextAreaAuthor;
     private javax.swing.JTextArea jTextAreaAuthorCitePaper;
     private javax.swing.JTextArea jTextAreaAuthorPaper;
@@ -1870,6 +1988,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     private javax.swing.JButton recommend_Button;
     private javax.swing.JTextField recommended_algorithm_TextField;
     private javax.swing.JButton resetButton;
+    private javax.swing.JButton saveEvaluation_Button;
     private javax.swing.JLabel status_Label;
     private javax.swing.JPanel status_Panel;
     private javax.swing.JTextField topRank_TextField;
