@@ -77,9 +77,9 @@ public class DialogConfigCB extends javax.swing.JDialog {
 
         jLabel1.setText("Gamma:");
 
-        gamma_TextField.setEditable(false);
         gamma_TextField.setBackground(new java.awt.Color(255, 255, 255));
         gamma_TextField.setText("0.0");
+        gamma_TextField.setEnabled(false);
 
         jLabel12.setText("Combination Method");
 
@@ -126,7 +126,7 @@ public class DialogConfigCB extends javax.swing.JDialog {
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(combineAuthor_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -231,7 +231,7 @@ public class DialogConfigCB extends javax.swing.JDialog {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Threshold "));
 
-        jLabel2.setText("Prunning");
+        jLabel2.setText("Pruning");
 
         pruning_TextField.setText("0.0");
 
@@ -289,7 +289,7 @@ public class DialogConfigCB extends javax.swing.JDialog {
 
     private void moreInformation_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moreInformation_ButtonActionPerformed
         // TODO add your handling code here:
-        DialogDescriptionCB descriptionCB = new DialogDescriptionCB(null, rootPaneCheckingEnabled);
+        DialogDescriptionCB descriptionCB = new DialogDescriptionCB(this, rootPaneCheckingEnabled);
         descriptionCB.setLocationRelativeTo(this);
         descriptionCB.show();
 
@@ -343,9 +343,9 @@ public class DialogConfigCB extends javax.swing.JDialog {
 
     private void timeAware_CheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeAware_CheckBoxActionPerformed
         if (timeAware_CheckBox.isSelected()) {
-            gamma_TextField.setEditable(true);
+            gamma_TextField.setEnabled(true);
         } else {
-            gamma_TextField.setEditable(false);
+            gamma_TextField.setEnabled(false);
         }
     }//GEN-LAST:event_timeAware_CheckBoxActionPerformed
 

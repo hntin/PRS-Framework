@@ -57,7 +57,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     //<editor-fold defaultstate="collapsed" desc="Dialog Config Algorithm">
     private DialogConfigCB dialogConfigCB = new DialogConfigCB(this, rootPaneCheckingEnabled);
     private DialogConfigCF dialogConfigCFCosine = new DialogConfigCF(this, rootPaneCheckingEnabled);
-   // private DialogConfigCFPearson dialogConfigCFPearson = new DialogConfigCFPearson(this, rootPaneCheckingEnabled);
+    // private DialogConfigCFPearson dialogConfigCFPearson = new DialogConfigCFPearson(this, rootPaneCheckingEnabled);
     private DialogConfigCFSVD dialogConfigCFSVD = new DialogConfigCFSVD(this, rootPaneCheckingEnabled);
     private DialogConfigHybrid dialogConfigHybrid = new DialogConfigHybrid(this, rootPaneCheckingEnabled);
     //</editor-fold>
@@ -165,17 +165,7 @@ public class MainFramePRS extends javax.swing.JFrame {
         config_HB_Button = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         recList_TabbedPane = new javax.swing.JTabbedPane();
-        jScrollPane9 = new javax.swing.JScrollPane();
-        contentbased_Table = new javax.swing.JTable();
-        jScrollPane15 = new javax.swing.JScrollPane();
-        cfp_Table = new javax.swing.JTable();
-        jScrollPane16 = new javax.swing.JScrollPane();
-        cfc_Table = new javax.swing.JTable();
-        jScrollPane17 = new javax.swing.JScrollPane();
-        cfsvd_Table = new javax.swing.JTable();
-        jScrollPane18 = new javax.swing.JScrollPane();
-        hybrid_Table = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
+        saveRecList_Button = new javax.swing.JButton();
         jPanel14 = new javax.swing.JPanel();
         recommend_Button = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -590,7 +580,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Choose Algorithm"));
 
-        CB_CheckBox.setText("Content based");
+        CB_CheckBox.setText("Content - based");
         CB_CheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CB_CheckBoxActionPerformed(evt);
@@ -643,119 +633,45 @@ public class MainFramePRS extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(CB_CheckBox)
-                    .addComponent(CFP_CheckBox)
-                    .addComponent(HB_CheckBox))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(config_CFP_Button)
-                    .addComponent(config_CB_Button)
-                    .addComponent(config_HB_Button))
-                .addGap(36, 36, 36))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(CB_CheckBox)
+                            .addComponent(HB_CheckBox))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(config_HB_Button, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(config_CB_Button, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(CFP_CheckBox)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(config_CFP_Button)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(config_CB_Button)
                     .addComponent(CB_CheckBox))
-                .addGap(19, 19, 19)
+                .addGap(26, 26, 26)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CFP_CheckBox)
                     .addComponent(config_CFP_Button))
-                .addGap(22, 22, 22)
+                .addGap(28, 28, 28)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(HB_CheckBox)
-                    .addComponent(config_HB_Button))
-                .addContainerGap(48, Short.MAX_VALUE))
+                    .addComponent(config_HB_Button)
+                    .addComponent(HB_CheckBox))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Recommend List"));
 
-        contentbased_Table.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        contentbased_Table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "No", "Author Id", "Recommend List"
-            }
-        ));
-        jScrollPane9.setViewportView(contentbased_Table);
-
-        recList_TabbedPane.addTab("Content based", jScrollPane9);
-
-        cfp_Table.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        cfp_Table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "No", "Author Id", "Recommend List"
-            }
-        ));
-        jScrollPane15.setViewportView(cfp_Table);
-
-        recList_TabbedPane.addTab("CF with Pearson", jScrollPane15);
-
-        cfc_Table.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        cfc_Table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "No", "Author Id", "Recommend List"
-            }
-        ));
-        jScrollPane16.setViewportView(cfc_Table);
-
-        recList_TabbedPane.addTab("CF with Cosine", jScrollPane16);
-
-        cfsvd_Table.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        cfsvd_Table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "No", "Author Id", "Recommend List"
-            }
-        ));
-        jScrollPane17.setViewportView(cfsvd_Table);
-
-        recList_TabbedPane.addTab("CF with SVD", jScrollPane17);
-
-        hybrid_Table.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        hybrid_Table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "No", "Author Id", "Recommend List"
-            }
-        ));
-        jScrollPane18.setViewportView(hybrid_Table);
-
-        recList_TabbedPane.addTab("Hybrid", jScrollPane18);
-
-        jButton2.setText("Save");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        saveRecList_Button.setText("Save");
+        saveRecList_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                saveRecList_ButtonActionPerformed(evt);
             }
         });
 
@@ -765,7 +681,7 @@ public class MainFramePRS extends javax.swing.JFrame {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                 .addGap(0, 480, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(saveRecList_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(recList_TabbedPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE))
         );
@@ -773,7 +689,7 @@ public class MainFramePRS extends javax.swing.JFrame {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                 .addGap(0, 264, Short.MAX_VALUE)
-                .addComponent(jButton2))
+                .addComponent(saveRecList_Button))
             .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel10Layout.createSequentialGroup()
                     .addComponent(recList_TabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -839,9 +755,9 @@ public class MainFramePRS extends javax.swing.JFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(5, 5, 5))
@@ -1319,7 +1235,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void config_CFP_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_config_CFP_ButtonActionPerformed
-       // dialogConfigCFPearson.setLocationRelativeTo(this);
+        // dialogConfigCFPearson.setLocationRelativeTo(this);
         //dialogConfigCFPearson.show();
     }//GEN-LAST:event_config_CFP_ButtonActionPerformed
 
@@ -1433,11 +1349,10 @@ public class MainFramePRS extends javax.swing.JFrame {
 
     private void evaluate_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_evaluate_ButtonActionPerformed
         if (!topRank_TextField.getText().isEmpty()) {
-            //<editor-fold defaultstate="collapsed" desc="get measure_Evaluation Set">
-            DefaultTableModel tablemodelReset = (DefaultTableModel) evaluationResult_Table.getModel();
-            tablemodelReset.getDataVector().removeAllElements();
-            evaluationResult_Table.setModel(tablemodelReset);
 
+            controller.topRank = Integer.parseInt(topRank_TextField.getText().trim());
+
+            //<editor-fold defaultstate="collapsed" desc="Step 1: get measure_Evaluation Set">
             measure_Evaluation.clear();
             if (precision_CheckBox.isSelected()) {
                 measure_Evaluation.add(1);
@@ -1459,7 +1374,7 @@ public class MainFramePRS extends javax.swing.JFrame {
             }
             //</editor-fold>
 
-            controller.topRank = Integer.parseInt(topRank_TextField.getText().trim());
+            //<editor-fold defaultstate="collapsed" desc="Step 2: evaluate for algorithms">
             StringBuilder evaluationResult = new StringBuilder();
             for (Integer alg : algorithm_Recommendation) {
                 if (alg == 1) {
@@ -1494,38 +1409,6 @@ public class MainFramePRS extends javax.swing.JFrame {
                     }
                 } else if (alg == 3) {
                     try {
-                        CF.cfRecommendToAuthorList(controller.authorsCFC, controller.topRecommend);
-                    } catch (TasteException ex) {
-                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (Exception ex) {
-                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    for (Integer measure : measure_Evaluation) {
-                        controller.measure_Evaluation = measure;
-                        try {
-                            evaluationResult.append("\nCF using KNN Cosine\t" + controller.evaluate(controller.authorsCFC, measure, controller.topRank));
-                        } catch (Exception ex) {
-                            Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                } else if (alg == 4) {
-                    try {
-                        CF.cfRecommendToAuthorList(controller.authorsCFSVD, controller.topRecommend);
-                    } catch (TasteException ex) {
-                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (Exception ex) {
-                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    for (Integer measure : measure_Evaluation) {
-                        controller.measure_Evaluation = measure;
-                        try {
-                            evaluationResult.append("\nCF using SVD\t" + controller.evaluate(controller.authorsCFSVD, measure, controller.topRank));
-                        } catch (Exception ex) {
-                            Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                } else if (alg == 5) {
-                    try {
                         CBFCF.cbfcfHybridRecommendToAuthorList(controller.authors, controller.topRecommend);
                     } catch (TasteException ex) {
                         Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
@@ -1542,12 +1425,18 @@ public class MainFramePRS extends javax.swing.JFrame {
                     }
                 }
             }
+
             try {
                 FileUtils.writeStringToFile(new File("Temp\\evaluationResult.txt"), evaluationResult.toString(), "UTF8", false);
             } catch (IOException ex) {
                 Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
             }
+            //</editor-fold>
 
+            //<editor-fold defaultstate="collapsed" desc="Step 3: load evaluated result to table">
+            DefaultTableModel tablemodelReset = (DefaultTableModel) evaluationResult_Table.getModel();
+            tablemodelReset.getDataVector().removeAllElements();
+            evaluationResult_Table.setModel(tablemodelReset);
             BufferedReader reader = null;
             try {
                 reader = new BufferedReader(new FileReader("Temp\\evaluationResult.txt"));
@@ -1577,6 +1466,8 @@ public class MainFramePRS extends javax.swing.JFrame {
                     Logger.getLogger(JTable.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            //</editor-fold>
+
             JOptionPane.showMessageDialog(rootPane, "Evaluating is completed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Please input Top Rank...", "Notice", JOptionPane.INFORMATION_MESSAGE);
@@ -1586,7 +1477,10 @@ public class MainFramePRS extends javax.swing.JFrame {
 
     private void recommend_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recommend_ButtonActionPerformed
         if (!top_Recommend_TextField.getText().isEmpty()) {
-            //<editor-fold defaultstate="collapsed" desc="get algorithm_Recommendation Set">
+
+            controller.topRecommend = Integer.parseInt(top_Recommend_TextField.getText());
+
+            //<editor-fold defaultstate="collapsed" desc="Step 1: get algorithm_Recommendation Set">
             algorithm_Recommendation.clear();
             if (CB_CheckBox.isSelected()) {
                 algorithm_Recommendation.add(1);
@@ -1594,50 +1488,29 @@ public class MainFramePRS extends javax.swing.JFrame {
             if (CFP_CheckBox.isSelected()) {
                 algorithm_Recommendation.add(2);
             }
-           
             if (HB_CheckBox.isSelected()) {
-                algorithm_Recommendation.add(5);
+                algorithm_Recommendation.add(3);
             }
             //</editor-fold>
 
-            controller.topRecommend = Integer.parseInt(top_Recommend_TextField.getText());
+            //<editor-fold defaultstate="collapsed" desc="Step 2: recommend with choosed algorithms">
             for (Integer alg : algorithm_Recommendation) {
                 if (alg == 1) {
                     //content - based
                     controller.algorithm_Recommendation = 1;
-                    controller.combineAuthor = dialogConfigCB.combineAuthor;
-                    controller.weightingAuthor = dialogConfigCB.weightingAuthor;
+                    controller.combinePaperOfAuthor = dialogConfigCB.combineAuthor;
+                    controller.weightingPaperOfAuthor = dialogConfigCB.weightingAuthor;
                     controller.timeAware = dialogConfigCB.timeAware;
                     controller.gamma = dialogConfigCB.gamma;
-                    controller.combinePaper = dialogConfigCB.combinePaper;
-                    controller.weightingPaper = dialogConfigCB.weightingPaper;
+                    controller.combineCandiatePaper = dialogConfigCB.combinePaper;
+                    controller.weightingCandidatePaper = dialogConfigCB.weightingPaper;
                     controller.pruning = dialogConfigCB.pruning;
                     controller.guiHandlerRequest(Options.RECOMMEND);
                 } else if (alg == 2) {
-                    //CF using KNN Pearson
+                    //CF
                     controller.algorithm_Recommendation = 2;
-                    controller.cfMethod = 1;
-                  //  controller.kNeighbourhood = dialogConfigCFPearson.kNeighbourhood;
                     controller.guiHandlerRequest(Options.RECOMMEND);
-                    controller.authorsCFP = controller.authors;
                 } else if (alg == 3) {
-                    //CF using KNN Cosine
-                    controller.algorithm_Recommendation = 2;
-                    controller.cfMethod = 2;
-                    controller.kNeighbourhood = dialogConfigCFCosine.kNeighbourhood;
-                    controller.guiHandlerRequest(Options.RECOMMEND);
-                    controller.authorsCFC = controller.authors;
-                } else if (alg == 4) {
-                    //CF using SVD
-                    controller.algorithm_Recommendation = 2;
-                    controller.cfMethod = 3;
-                    controller.kNeighbourhood = dialogConfigCFSVD.kNeighbourhood;
-                    controller.f = dialogConfigCFSVD.f;
-                    controller.l = dialogConfigCFSVD.l;
-                    controller.i = dialogConfigCFSVD.i;
-                    controller.guiHandlerRequest(Options.RECOMMEND);
-                    controller.authorsCFSVD = controller.authors;
-                } else if (alg == 5) {
                     //CBFCFHybrid
                     controller.algorithm_Recommendation = 3;
                     controller.alpha = dialogConfigHybrid.alpha;
@@ -1645,224 +1518,161 @@ public class MainFramePRS extends javax.swing.JFrame {
                     controller.guiHandlerRequest(Options.RECOMMEND);
                 }
             }
-
-            for (Integer alg : algorithm_Recommendation) {
-                if (alg == 1) {
-                    try {
-                        FeatureVectorSimilarity.generateRecommendationForAuthorList(controller.authors, controller.topRecommend);
-                    } catch (Exception ex) {
-                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    DefaultTableModel tablemodel = (DefaultTableModel) contentbased_Table.getModel();
-                    tablemodel.getDataVector().removeAllElements();
-                    contentbased_Table.setModel(tablemodel);
-                    int i = 0;
-                    for (String AuthorId : controller.authors.keySet()) {
-                        i++;
-                        Vector vector = new Vector();
-                        vector.addElement(i);
-                        vector.addElement(controller.authors.get(AuthorId).getAuthorId());
-                        vector.addElement(controller.authors.get(AuthorId).getRecommendationList());
-                        tablemodel.addRow(vector);
-                    }
-                    contentbased_Table.setModel(tablemodel);
-                } else if (alg == 2) {
-                    try {
-                        CF.cfRecommendToAuthorList(controller.authorsCFP, controller.topRecommend);
-                    } catch (TasteException ex) {
-                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (Exception ex) {
-                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    DefaultTableModel tablemodel = (DefaultTableModel) cfp_Table.getModel();
-                    tablemodel.getDataVector().removeAllElements();
-                    cfp_Table.setModel(tablemodel);
-                    int i = 0;
-                    for (String AuthorId : controller.authorsCFP.keySet()) {
-                        i++;
-                        Vector vector = new Vector();
-                        vector.addElement(i);
-                        vector.addElement(controller.authorsCFP.get(AuthorId).getAuthorId());
-                        vector.addElement(controller.authorsCFP.get(AuthorId).getRecommendationList());
-                        tablemodel.addRow(vector);
-                    }
-                    cfp_Table.setModel(tablemodel);
-                } else if (alg == 3) {
-                    try {
-                        CF.cfRecommendToAuthorList(controller.authorsCFC, controller.topRecommend);
-                    } catch (TasteException ex) {
-                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (Exception ex) {
-                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    DefaultTableModel tablemodel = (DefaultTableModel) cfc_Table.getModel();
-                    tablemodel.getDataVector().removeAllElements();
-                    cfc_Table.setModel(tablemodel);
-                    int i = 0;
-                    for (String AuthorId : controller.authorsCFC.keySet()) {
-                        i++;
-                        Vector vector = new Vector();
-                        vector.addElement(i);
-                        vector.addElement(controller.authorsCFC.get(AuthorId).getAuthorId());
-                        vector.addElement(controller.authorsCFC.get(AuthorId).getRecommendationList());
-                        tablemodel.addRow(vector);
-                    }
-                    cfc_Table.setModel(tablemodel);
-                } else if (alg == 4) {
-                    try {
-                        CF.cfRecommendToAuthorList(controller.authorsCFSVD, controller.topRecommend);
-                    } catch (TasteException ex) {
-                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (Exception ex) {
-                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    DefaultTableModel tablemodel = (DefaultTableModel) cfsvd_Table.getModel();
-                    tablemodel.getDataVector().removeAllElements();
-                    cfsvd_Table.setModel(tablemodel);
-                    int i = 0;
-                    for (String AuthorId : controller.authorsCFSVD.keySet()) {
-                        i++;
-                        Vector vector = new Vector();
-                        vector.addElement(i);
-                        vector.addElement(controller.authorsCFSVD.get(AuthorId).getAuthorId());
-                        vector.addElement(controller.authorsCFSVD.get(AuthorId).getRecommendationList());
-                        tablemodel.addRow(vector);
-                    }
-                    cfsvd_Table.setModel(tablemodel);
-                } else if (alg == 5) {
-                    try {
-                        CBFCF.cbfcfHybridRecommendToAuthorList(controller.authors, controller.topRecommend);
-                    } catch (TasteException ex) {
-                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (Exception ex) {
-                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    DefaultTableModel tablemodel = (DefaultTableModel) hybrid_Table.getModel();
-                    tablemodel.getDataVector().removeAllElements();
-                    hybrid_Table.setModel(tablemodel);
-                    int i = 0;
-                    for (String AuthorId : controller.authors.keySet()) {
-                        i++;
-                        Vector vector = new Vector();
-                        vector.addElement(i);
-                        vector.addElement(controller.authors.get(AuthorId).getAuthorId());
-                        vector.addElement(controller.authors.get(AuthorId).getRecommendationList());
-                        tablemodel.addRow(vector);
-                    }
-                    hybrid_Table.setModel(tablemodel);
-                }
-            }
-
-            StringBuilder algorithm = new StringBuilder();
-            for (Integer alg : algorithm_Recommendation) {
-                if (alg == 1) {
-                    algorithm.append("Content - based").append(";");
-                } else if (alg == 2) {
-                    algorithm.append("CF using KNN Pearson").append(";");
-                } else if (alg == 3) {
-                    algorithm.append("CF using KNN Cosine").append(";");
-                } else if (alg == 4) {
-                    algorithm.append("CF using SVD").append(";");
-                } else if (alg == 5) {
-                    algorithm.append("Hybrid").append(";");
-                }
-            }
-            recommended_algorithm_TextField.setText(algorithm.toString());
-            recommended_algorithm_TextField.setToolTipText(recommended_algorithm_TextField.getText());
-
-            //<editor-fold defaultstate="collapsed" desc="reset table">
-            if (!CB_CheckBox.isSelected()) {
-                DefaultTableModel tablemodel = (DefaultTableModel) contentbased_Table.getModel();
-                tablemodel.getDataVector().removeAllElements();
-                contentbased_Table.setModel(tablemodel);
-            }
-            if (!CFP_CheckBox.isSelected()) {
-                DefaultTableModel tablemodel = (DefaultTableModel) cfp_Table.getModel();
-                tablemodel.getDataVector().removeAllElements();
-                cfp_Table.setModel(tablemodel);
-            }
-          
-            if (!HB_CheckBox.isSelected()) {
-                DefaultTableModel tablemodel = (DefaultTableModel) hybrid_Table.getModel();
-                tablemodel.getDataVector().removeAllElements();
-                hybrid_Table.setModel(tablemodel);
-            }
             //</editor-fold>
+//
+//            //<editor-fold defaultstate="collapsed" desc="Step 3: load recommendation list to table">
+//            for (Integer alg : algorithm_Recommendation) {
+//                if (alg == 1) {
+//                    try {
+//                        FeatureVectorSimilarity.generateRecommendationForAuthorList(controller.authors, controller.topRecommend);
+//                    } catch (Exception ex) {
+//                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                    DefaultTableModel tablemodel = (DefaultTableModel) contentbased_Table.getModel();
+//                    tablemodel.getDataVector().removeAllElements();
+//                    contentbased_Table.setModel(tablemodel);
+//                    int i = 0;
+//                    for (String AuthorId : controller.authors.keySet()) {
+//                        i++;
+//                        Vector vector = new Vector();
+//                        vector.addElement(i);
+//                        vector.addElement(controller.authors.get(AuthorId).getAuthorId());
+//                        vector.addElement(controller.authors.get(AuthorId).getRecommendationList());
+//                        tablemodel.addRow(vector);
+//                    }
+//                    contentbased_Table.setModel(tablemodel);
+//                } else if (alg == 2) {
+//                    try {
+//                        CF.cfRecommendToAuthorList(controller.authorsCFP, controller.topRecommend);
+//                    } catch (TasteException ex) {
+//                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+//                    } catch (Exception ex) {
+//                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                    DefaultTableModel tablemodel = (DefaultTableModel) cfp_Table.getModel();
+//                    tablemodel.getDataVector().removeAllElements();
+//                    cfp_Table.setModel(tablemodel);
+//                    int i = 0;
+//                    for (String AuthorId : controller.authorsCFP.keySet()) {
+//                        i++;
+//                        Vector vector = new Vector();
+//                        vector.addElement(i);
+//                        vector.addElement(controller.authorsCFP.get(AuthorId).getAuthorId());
+//                        vector.addElement(controller.authorsCFP.get(AuthorId).getRecommendationList());
+//                        tablemodel.addRow(vector);
+//                    }
+//                    cfp_Table.setModel(tablemodel);
+//                } else if (alg == 3) {
+//                    try {
+//                        CF.cfRecommendToAuthorList(controller.authorsCFC, controller.topRecommend);
+//                    } catch (TasteException ex) {
+//                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+//                    } catch (Exception ex) {
+//                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                    DefaultTableModel tablemodel = (DefaultTableModel) cfc_Table.getModel();
+//                    tablemodel.getDataVector().removeAllElements();
+//                    cfc_Table.setModel(tablemodel);
+//                    int i = 0;
+//                    for (String AuthorId : controller.authorsCFC.keySet()) {
+//                        i++;
+//                        Vector vector = new Vector();
+//                        vector.addElement(i);
+//                        vector.addElement(controller.authorsCFC.get(AuthorId).getAuthorId());
+//                        vector.addElement(controller.authorsCFC.get(AuthorId).getRecommendationList());
+//                        tablemodel.addRow(vector);
+//                    }
+//                    cfc_Table.setModel(tablemodel);
+//                } else if (alg == 4) {
+//                    try {
+//                        CF.cfRecommendToAuthorList(controller.authorsCFSVD, controller.topRecommend);
+//                    } catch (TasteException ex) {
+//                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+//                    } catch (Exception ex) {
+//                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                    DefaultTableModel tablemodel = (DefaultTableModel) cfsvd_Table.getModel();
+//                    tablemodel.getDataVector().removeAllElements();
+//                    cfsvd_Table.setModel(tablemodel);
+//                    int i = 0;
+//                    for (String AuthorId : controller.authorsCFSVD.keySet()) {
+//                        i++;
+//                        Vector vector = new Vector();
+//                        vector.addElement(i);
+//                        vector.addElement(controller.authorsCFSVD.get(AuthorId).getAuthorId());
+//                        vector.addElement(controller.authorsCFSVD.get(AuthorId).getRecommendationList());
+//                        tablemodel.addRow(vector);
+//                    }
+//                    cfsvd_Table.setModel(tablemodel);
+//                } else if (alg == 5) {
+//                    try {
+//                        CBFCF.cbfcfHybridRecommendToAuthorList(controller.authors, controller.topRecommend);
+//                    } catch (TasteException ex) {
+//                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+//                    } catch (Exception ex) {
+//                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                    DefaultTableModel tablemodel = (DefaultTableModel) hybrid_Table.getModel();
+//                    tablemodel.getDataVector().removeAllElements();
+//                    hybrid_Table.setModel(tablemodel);
+//                    int i = 0;
+//                    for (String AuthorId : controller.authors.keySet()) {
+//                        i++;
+//                        Vector vector = new Vector();
+//                        vector.addElement(i);
+//                        vector.addElement(controller.authors.get(AuthorId).getAuthorId());
+//                        vector.addElement(controller.authors.get(AuthorId).getRecommendationList());
+//                        tablemodel.addRow(vector);
+//                    }
+//                    hybrid_Table.setModel(tablemodel);
+//                }
+//            }
+//            //</editor-fold>
+//
+            //<editor-fold defaultstate="collapsed" desc="Step 4: list choosed algorithms">
+            StringBuilder algorithms = new StringBuilder();
+            for (Integer alg : algorithm_Recommendation) {
+                if (alg == 1) {
+                    algorithms.append("Content - based").append(";");
+                } else if (alg == 2) {
+                    algorithms.append("CF using KNN Pearson").append(";");
+                } else if (alg == 3) {
+                    algorithms.append("CF using KNN Cosine").append(";");
+                } else if (alg == 4) {
+                    algorithms.append("CF using SVD").append(";");
+                } else if (alg == 5) {
+                    algorithms.append("Hybrid").append(";");
+                }
+            }
+            recommended_algorithm_TextField.setText(algorithms.toString());
+            recommended_algorithm_TextField.setToolTipText(recommended_algorithm_TextField.getText());
+            //</editor-fold>
+//
+//            //<editor-fold defaultstate="collapsed" desc="Step 5: reset table when recommend">
+//            if (!CB_CheckBox.isSelected()) {
+//                DefaultTableModel tablemodel = (DefaultTableModel) contentbased_Table.getModel();
+//                tablemodel.getDataVector().removeAllElements();
+//                contentbased_Table.setModel(tablemodel);
+//            }
+//            if (!CFP_CheckBox.isSelected()) {
+//                DefaultTableModel tablemodel = (DefaultTableModel) cfp_Table.getModel();
+//                tablemodel.getDataVector().removeAllElements();
+//                cfp_Table.setModel(tablemodel);
+//            }
+//
+//            if (!HB_CheckBox.isSelected()) {
+//                DefaultTableModel tablemodel = (DefaultTableModel) hybrid_Table.getModel();
+//                tablemodel.getDataVector().removeAllElements();
+//                hybrid_Table.setModel(tablemodel);
+//            }
+//            //</editor-fold>
+//
             JOptionPane.showMessageDialog(rootPane, "Recommending is completed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Please input Top Recommendation...", "Notice", JOptionPane.INFORMATION_MESSAGE);
             top_Recommend_TextField.requestFocus();
         }
     }//GEN-LAST:event_recommend_ButtonActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String path = GuiUtilities.saveToFileJChooser();
-        if (path != null) {
-            if (recList_TabbedPane.getSelectedIndex() == 0) {
-                StringBuilder recList = new StringBuilder();
-                for (int i = 0; i < contentbased_Table.getRowCount(); i++) {
-                    recList.append(contentbased_Table.getValueAt(i, 0)).append("|||")
-                            .append(contentbased_Table.getValueAt(i, 1)).append("|||")
-                            .append(contentbased_Table.getValueAt(i, 2)).append("\r\n");
-                }
-                try {
-                    FileUtils.writeStringToFile(new File(path), recList.toString(), "UTF8", false);
-                    JOptionPane.showMessageDialog(rootPane, "Saving is completed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
-                } catch (IOException ex) {
-                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else if (recList_TabbedPane.getSelectedIndex() == 1) {
-                StringBuilder recList = new StringBuilder();
-                for (int i = 0; i < cfp_Table.getRowCount(); i++) {
-                    recList.append(cfp_Table.getValueAt(i, 0)).append("|||")
-                            .append(cfp_Table.getValueAt(i, 1)).append("|||")
-                            .append(cfp_Table.getValueAt(i, 2)).append("\r\n");
-                }
-                try {
-                    FileUtils.writeStringToFile(new File(path), recList.toString(), "UTF8", false);
-                } catch (IOException ex) {
-                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else if (recList_TabbedPane.getSelectedIndex() == 2) {
-                StringBuilder recList = new StringBuilder();
-                for (int i = 0; i < cfc_Table.getRowCount(); i++) {
-                    recList.append(cfc_Table.getValueAt(i, 0)).append("|||")
-                            .append(cfc_Table.getValueAt(i, 1)).append("|||")
-                            .append(cfc_Table.getValueAt(i, 2)).append("\r\n");
-                }
-                try {
-                    FileUtils.writeStringToFile(new File(path), recList.toString(), "UTF8", false);
-                } catch (IOException ex) {
-                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else if (recList_TabbedPane.getSelectedIndex() == 3) {
-                StringBuilder recList = new StringBuilder();
-                for (int i = 0; i < cfsvd_Table.getRowCount(); i++) {
-                    recList.append(cfsvd_Table.getValueAt(i, 0)).append("|||")
-                            .append(cfsvd_Table.getValueAt(i, 1)).append("|||")
-                            .append(cfsvd_Table.getValueAt(i, 2)).append("\r\n");
-                }
-                try {
-                    FileUtils.writeStringToFile(new File(path), recList.toString(), "UTF8", false);
-                } catch (IOException ex) {
-                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else if (recList_TabbedPane.getSelectedIndex() == 4) {
-                StringBuilder recList = new StringBuilder();
-                for (int i = 0; i < hybrid_Table.getRowCount(); i++) {
-                    recList.append(hybrid_Table.getValueAt(i, 0)).append("|||")
-                            .append(hybrid_Table.getValueAt(i, 1)).append("|||")
-                            .append(hybrid_Table.getValueAt(i, 2)).append("\r\n");
-                }
-                try {
-                    FileUtils.writeStringToFile(new File(path), recList.toString(), "UTF8", false);
-                } catch (IOException ex) {
-                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void saveEvaluation_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveEvaluation_ButtonActionPerformed
         String path = GuiUtilities.saveToFileJChooser();
@@ -1881,13 +1691,84 @@ public class MainFramePRS extends javax.swing.JFrame {
                 Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
     }//GEN-LAST:event_saveEvaluation_ButtonActionPerformed
 
     private void config_HB_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_config_HB_ButtonActionPerformed
         dialogConfigHybrid.setLocationRelativeTo(this);
         dialogConfigHybrid.show();
     }//GEN-LAST:event_config_HB_ButtonActionPerformed
+
+    private void saveRecList_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveRecList_ButtonActionPerformed
+//        
+////<editor-fold defaultstate="collapsed" desc="save Recommendation List">
+//        String path = GuiUtilities.saveToFileJChooser();
+//        if (path != null) {
+//            if (recList_TabbedPane.getSelectedIndex() == 0) {
+//                StringBuilder recList = new StringBuilder();
+//                for (int i = 0; i < contentbased_Table.getRowCount(); i++) {
+//                    recList.append(contentbased_Table.getValueAt(i, 0)).append("|||")
+//                            .append(contentbased_Table.getValueAt(i, 1)).append("|||")
+//                            .append(contentbased_Table.getValueAt(i, 2)).append("\r\n");
+//                }
+//                try {
+//                    FileUtils.writeStringToFile(new File(path), recList.toString(), "UTF8", false);
+//                    JOptionPane.showMessageDialog(rootPane, "Saving is completed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+//                } catch (IOException ex) {
+//                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            } else if (recList_TabbedPane.getSelectedIndex() == 1) {
+//                StringBuilder recList = new StringBuilder();
+//                for (int i = 0; i < cfp_Table.getRowCount(); i++) {
+//                    recList.append(cfp_Table.getValueAt(i, 0)).append("|||")
+//                            .append(cfp_Table.getValueAt(i, 1)).append("|||")
+//                            .append(cfp_Table.getValueAt(i, 2)).append("\r\n");
+//                }
+//                try {
+//                    FileUtils.writeStringToFile(new File(path), recList.toString(), "UTF8", false);
+//                } catch (IOException ex) {
+//                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            } else if (recList_TabbedPane.getSelectedIndex() == 2) {
+//                StringBuilder recList = new StringBuilder();
+//                for (int i = 0; i < cfc_Table.getRowCount(); i++) {
+//                    recList.append(cfc_Table.getValueAt(i, 0)).append("|||")
+//                            .append(cfc_Table.getValueAt(i, 1)).append("|||")
+//                            .append(cfc_Table.getValueAt(i, 2)).append("\r\n");
+//                }
+//                try {
+//                    FileUtils.writeStringToFile(new File(path), recList.toString(), "UTF8", false);
+//                } catch (IOException ex) {
+//                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            } else if (recList_TabbedPane.getSelectedIndex() == 3) {
+//                StringBuilder recList = new StringBuilder();
+//                for (int i = 0; i < cfsvd_Table.getRowCount(); i++) {
+//                    recList.append(cfsvd_Table.getValueAt(i, 0)).append("|||")
+//                            .append(cfsvd_Table.getValueAt(i, 1)).append("|||")
+//                            .append(cfsvd_Table.getValueAt(i, 2)).append("\r\n");
+//                }
+//                try {
+//                    FileUtils.writeStringToFile(new File(path), recList.toString(), "UTF8", false);
+//                } catch (IOException ex) {
+//                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            } else if (recList_TabbedPane.getSelectedIndex() == 4) {
+//                StringBuilder recList = new StringBuilder();
+//                for (int i = 0; i < hybrid_Table.getRowCount(); i++) {
+//                    recList.append(hybrid_Table.getValueAt(i, 0)).append("|||")
+//                            .append(hybrid_Table.getValueAt(i, 1)).append("|||")
+//                            .append(hybrid_Table.getValueAt(i, 2)).append("\r\n");
+//                }
+//                try {
+//                    FileUtils.writeStringToFile(new File(path), recList.toString(), "UTF8", false);
+//                } catch (IOException ex) {
+//                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//        }
+//        //</editor-fold>
+//        
+    }//GEN-LAST:event_saveRecList_ButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1919,14 +1800,10 @@ public class MainFramePRS extends javax.swing.JFrame {
     private javax.swing.JCheckBox HB_CheckBox;
     private javax.swing.JTabbedPane Steps_TabbedPane;
     private javax.swing.JButton TFIDF_Button;
-    private javax.swing.JTable cfc_Table;
-    private javax.swing.JTable cfp_Table;
-    private javax.swing.JTable cfsvd_Table;
     private javax.swing.JButton config_CB_Button;
     private javax.swing.JButton config_CFP_Button;
     private javax.swing.JButton config_HB_Button;
     private javax.swing.JTextArea console_TextArea;
-    private javax.swing.JTable contentbased_Table;
     private javax.swing.JButton evaluate_Button;
     private javax.swing.JTable evaluationResult_Table;
     private javax.swing.JCheckBox f1_CheckBox;
@@ -1936,10 +1813,8 @@ public class MainFramePRS extends javax.swing.JFrame {
     private javax.swing.JButton fileGroundTruth_Button;
     private javax.swing.JButton filePaperCitePaper_Button;
     private javax.swing.JButton filePaper_Button;
-    private javax.swing.JTable hybrid_Table;
     private javax.swing.JButton import_DataSource_Button;
     private javax.swing.JButton import_DatasetExample_Button;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1982,13 +1857,8 @@ public class MainFramePRS extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JScrollPane jScrollPane14;
-    private javax.swing.JScrollPane jScrollPane15;
-    private javax.swing.JScrollPane jScrollPane16;
-    private javax.swing.JScrollPane jScrollPane17;
-    private javax.swing.JScrollPane jScrollPane18;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTextArea jTextAreaAuthor;
@@ -2008,6 +1878,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     private javax.swing.JTextField recommended_algorithm_TextField;
     private javax.swing.JButton resetButton;
     private javax.swing.JButton saveEvaluation_Button;
+    private javax.swing.JButton saveRecList_Button;
     private javax.swing.JLabel status_Label;
     private javax.swing.JPanel status_Panel;
     private javax.swing.JTextField topRank_TextField;

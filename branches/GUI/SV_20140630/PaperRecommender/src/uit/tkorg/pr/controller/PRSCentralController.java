@@ -5,27 +5,19 @@
  */
 package uit.tkorg.pr.controller;
 
-import ir.vsr.HashMapVector;
 import java.io.File;
 import java.util.HashMap;
 import java.util.HashSet;
 import org.apache.commons.io.FileUtils;
-import org.apache.mahout.cf.taste.impl.model.file.FileDataModel;
-import org.apache.mahout.cf.taste.model.DataModel;
 import uit.tkorg.pr.constant.Options;
 import uit.tkorg.pr.dataimex.MASDataset1;
-import uit.tkorg.pr.dataimex.MahoutFile;
-import uit.tkorg.pr.dataimex.PRGeneralFile;
 import uit.tkorg.pr.datapreparation.CBFAuthorFVComputation;
 import uit.tkorg.pr.datapreparation.CBFPaperFVComputation;
 import uit.tkorg.pr.evaluation.Evaluator;
-import uit.tkorg.pr.method.cbf.FeatureVectorSimilarity;
 import uit.tkorg.pr.method.cf.CF;
 import uit.tkorg.pr.method.hybrid.CBFCF;
 import uit.tkorg.pr.model.Author;
 import uit.tkorg.pr.model.Paper;
-import uit.tkorg.utility.textvectorization.TextPreprocessUtility;
-import uit.tkorg.utility.textvectorization.TextVectorizationByMahoutTerminalUtility;
 
 /**
  *
@@ -53,19 +45,19 @@ public class PRSCentralController {
     public HashMap<String, Author> authors = new HashMap<>();
     HashSet<String> paperIdsOfAuthorTestSet = new HashSet<>();
     HashSet<String> paperIdsInTestSet = new HashSet<>();
-    
+
     public HashMap<String, Author> authorsCFP = new HashMap<>();
     public HashMap<String, Author> authorsCFC = new HashMap<>();
     public HashMap<String, Author> authorsCFSVD = new HashMap<>();
 
     public int algorithm_Recommendation; //1: CBF, 2: CF, 3: CBFCFHybrid
 
-    public int combineAuthor;
-    public int weightingAuthor;
+    public int combinePaperOfAuthor;
+    public int weightingPaperOfAuthor;
     public int timeAware;
     public double gamma;
-    public int combinePaper;
-    public int weightingPaper;
+    public int combineCandiatePaper;
+    public int weightingCandidatePaper;
     public double pruning;
 
     public int cfMethod;//1: KNN Pearson, 2: KNN Cosine, 3: SVD
@@ -84,28 +76,37 @@ public class PRSCentralController {
 
     //</editor-fold>
     public PRSCentralController() {
-        gamma = 0;// tham so gamma cho 
-        pruning = 0.0;//tham so deu chinh cho pruning cho paper
-        timeAware = 0;// trong so author
-        weightingPaper = 0;// trong so paper
-        combineAuthor = 0;// phuong thuc combining author
-        combinePaper = 0; // phuong thuc combining paper
-        algorithm_Recommendation = 1; //1: CBF, 2: CF
+        algorithm_Recommendation = 1; //1: CBF, 2: CF, 3: Hybrid
+
+        combinePaperOfAuthor = 0;// combine paper of author
+        weightingPaperOfAuthor = 0;// weighting combine paper of author
+        timeAware = 0;// combine paper of author
+        gamma = 0;// gamma for timeAware
+        combineCandiatePaper = 0; // combine candiate paper
+        weightingCandidatePaper = 0;// weighting combine candiate paper
+        pruning = 0.0;// pruning citation or preference paper for all paper
+
         cfMethod = 1;//1: KNN Pearson, 2: KNN Cosine, 3: SVD
-        topRecommend = 0;// topRecommend RECOMMEND
-        topRank = 0;// topRank K EVALUATE
-        kNeighbourhood = 8;// so hang xom
-        measure_Evaluation = 0;// phuong phap danh gia
-        alpha = 0.9f;
-        combineHybrid = 1;
+        kNeighbourhood = 8;// number of neighbhood
+        f = 5;//SVD
+        l = 0.001;//SVD
+        i = 100;//SVD
+
+        alpha = 0.9;//Hybrid
+        combineHybrid = 1;//Hybrid
+
+        topRecommend = 100;// top Recommmed
+
+        measure_Evaluation = 0;// evaluation method
+        topRank = 0;// top Rank
+
         fileNamePapers = null; //File 1
         fileNamePaperCitePaper = null;// File 2
         fileNameAuthors = null;// File 3
         fileNameAuthorPaper = null;// File 4
         fileNameAuthorCitePaper = null;// File 5
         fileNameGroundTruth = null;// File 6
-        _fileName_EvaluationResult = null;// ten file ket qua danh gia
-        _fileName_RecommendationList = null;// ten file danh sach RECOMMEND
+
         papers = new HashMap<>();
         authors = new HashMap<>();
         paperIdsOfAuthorTestSet = new HashSet<>();
@@ -192,9 +193,9 @@ public class PRSCentralController {
 
             CBFController.cbfComputeRecommendingScore(authors, papers,
                     paperIdsOfAuthorTestSet, paperIdsInTestSet,
-                    combineAuthor, weightingAuthor,
+                    combinePaperOfAuthor, weightingPaperOfAuthor,
                     timeAware, gamma,
-                    combinePaper, weightingPaper, 0,
+                    combineCandiatePaper, weightingCandidatePaper, 0,
                     pruning);
 
             estimatedTime = System.nanoTime() - startTime;
@@ -218,9 +219,9 @@ public class PRSCentralController {
             float alpha_temp = (float) alpha;
             CBFController.cbfComputeRecommendingScore(authors, papers,
                     paperIdsOfAuthorTestSet, paperIdsInTestSet,
-                    combineAuthor, weightingAuthor,
+                    combinePaperOfAuthor, weightingPaperOfAuthor,
                     timeAware, gamma,
-                    combinePaper, weightingPaper, 0,
+                    combineCandiatePaper, weightingCandidatePaper, 0,
                     pruning);
             CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir,
                     cfMethod, authors, paperIdsInTestSet, kNeighbourhood, f, l, i);

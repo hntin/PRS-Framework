@@ -40,9 +40,11 @@ public class DialogConfigCF extends javax.swing.JDialog {
         jCheckBox2 = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jCheckBox3 = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Configuration of CF Algorithm");
+        setResizable(false);
 
         jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder("Discription Option"));
 
@@ -78,6 +80,8 @@ public class DialogConfigCF extends javax.swing.JDialog {
         jButton2.setText("Configuration");
         jButton2.setEnabled(false);
 
+        jCheckBox3.setText("SVD approach");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -92,7 +96,8 @@ public class DialogConfigCF extends javax.swing.JDialog {
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jCheckBox2)
-                            .addComponent(jCheckBox1))
+                            .addComponent(jCheckBox1)
+                            .addComponent(jCheckBox3))
                         .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -113,7 +118,9 @@ public class DialogConfigCF extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCheckBox1)
                     .addComponent(jButton2))
-                .addGap(78, 78, 78)
+                .addGap(18, 18, 18)
+                .addComponent(jCheckBox3)
+                .addGap(24, 24, 24)
                 .addComponent(ok_Button)
                 .addContainerGap())
         );
@@ -164,6 +171,7 @@ public class DialogConfigCF extends javax.swing.JDialog {
     private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
+    private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JPanel jPanel23;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JButton ok_Button;
