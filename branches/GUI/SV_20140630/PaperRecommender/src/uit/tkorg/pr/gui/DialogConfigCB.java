@@ -288,11 +288,9 @@ public class DialogConfigCB extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void moreInformation_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moreInformation_ButtonActionPerformed
-        // TODO add your handling code here:
         DialogDescriptionCB descriptionCB = new DialogDescriptionCB(this, rootPaneCheckingEnabled);
         descriptionCB.setLocationRelativeTo(this);
         descriptionCB.show();
-
     }//GEN-LAST:event_moreInformation_ButtonActionPerformed
 
     private void ok_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ok_ButtonActionPerformed
