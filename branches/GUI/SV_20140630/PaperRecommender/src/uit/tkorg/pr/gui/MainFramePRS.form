@@ -287,7 +287,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="jPanel17" min="-2" pref="766" max="-2" attributes="0"/>
+                      <Component id="jPanel17" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                       <Component id="jPanel12" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -358,7 +358,7 @@
                             <Property name="columns" type="int" value="20"/>
                             <Property name="lineWrap" type="boolean" value="true"/>
                             <Property name="rows" type="int" value="5"/>
-                            <Property name="text" type="java.lang.String" value="File Authors.csv is one of file training data of program. It&apos;s assigned mark. This file descrips unformation about researcher which containts id researcher and his name.&#xa;The file is formated IdAuthor|||NameAuthor&#xa;Example:&#xa;1|||John F. Young&#xa;2|||Sule Yildirim&#xa;3|||Elizabeth K. Reilly&#xa;4|||Yann Le Gorrec"/>
+                            <Property name="text" type="java.lang.String" value="File Authors.csv is one of file training data of program. It&apos;s assigned mark. This file descrips information about researcher which containts id researcher and his name.&#xa;The file is formated IdAuthor|||NameAuthor&#xa;Example:&#xa;1|||John F. Young&#xa;2|||Sule Yildirim&#xa;3|||Elizabeth K. Reilly&#xa;4|||Yann Le Gorrec"/>
                             <Property name="wrapStyleWord" type="boolean" value="true"/>
                           </Properties>
                         </Component>
@@ -515,7 +515,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel24" min="-2" pref="92" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="import_DataSource_Button" min="-2" pref="61" max="-2" attributes="0"/>
+                          <Component id="import_DataSource_Button" pref="55" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -526,7 +526,7 @@
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jPanel8" alignment="0" max="32767" attributes="0"/>
                               <Component id="jPanel24" alignment="0" max="32767" attributes="0"/>
-                              <Component id="import_DataSource_Button" max="32767" attributes="0"/>
+                              <Component id="import_DataSource_Button" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       </Group>
@@ -741,8 +741,10 @@
                 </Container>
                 <Component class="javax.swing.JButton" name="import_DataSource_Button">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Run"/>
-                    <Property name="horizontalTextPosition" type="int" value="0"/>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/uit/tkorg/pr/gui/Icon/play-icon.png"/>
+                    </Property>
+                    <Property name="toolTipText" type="java.lang.String" value="Run Import Dataset"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="import_DataSource_ButtonActionPerformed"/>
@@ -779,6 +781,7 @@
                 <Component class="javax.swing.JButton" name="import_DatasetExample_Button">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Using Dataset Example"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Run Import Data From Example Dataset"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="import_DatasetExample_ButtonActionPerformed"/>
@@ -801,24 +804,28 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jPanel5" min="-2" pref="220" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jPanel5" pref="246" max="32767" attributes="0"/>
                           <Component id="jPanel14" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jPanel10" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jPanel10" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="jPanel5" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel14" min="-2" max="-2" attributes="0"/>
-                  </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jPanel10" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jPanel14" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jPanel10" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -842,17 +849,13 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="CB_CheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="CFP_CheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="CFC_CheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="HB_CheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="CFS_CheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="config_CFC_Button" min="-2" max="-2" attributes="0"/>
                               <Component id="config_CFP_Button" min="-2" max="-2" attributes="0"/>
                               <Component id="config_CB_Button" min="-2" max="-2" attributes="0"/>
                               <Component id="config_HB_Button" min="-2" max="-2" attributes="0"/>
-                              <Component id="config_CFS_Button" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                       </Group>
@@ -870,22 +873,12 @@
                               <Component id="CFP_CheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="config_CFP_Button" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="CFC_CheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="config_CFC_Button" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="CFS_CheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="config_CFS_Button" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="HB_CheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="config_HB_Button" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="48" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -901,26 +894,10 @@
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="CFP_CheckBox">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="CF with Pearson"/>
+                    <Property name="text" type="java.lang.String" value="Collaborative filtering"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CFP_CheckBoxActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JCheckBox" name="CFC_CheckBox">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="CF with Cosine"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CFC_CheckBoxActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JCheckBox" name="CFS_CheckBox">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="CF with SVD"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CFS_CheckBoxActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="HB_CheckBox">
@@ -934,6 +911,7 @@
                 <Component class="javax.swing.JButton" name="config_CB_Button">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Configuration"/>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="config_CB_ButtonActionPerformed"/>
@@ -942,30 +920,17 @@
                 <Component class="javax.swing.JButton" name="config_CFP_Button">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Configuration"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="config_CFP_ButtonActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="config_CFC_Button">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Configuration"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="config_CFC_ButtonActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JButton" name="config_CFS_Button">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Configuration"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="config_CFS_ButtonActionPerformed"/>
-                  </Events>
-                </Component>
                 <Component class="javax.swing.JButton" name="config_HB_Button">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Configuration"/>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="config_HB_ButtonActionPerformed"/>
@@ -986,11 +951,11 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="510" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="480" max="32767" attributes="0"/>
                           <Component id="jButton2" min="-2" pref="179" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                          <Component id="recList_TabbedPane" alignment="1" pref="688" max="32767" attributes="0"/>
+                          <Component id="recList_TabbedPane" alignment="1" pref="659" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1307,7 +1272,7 @@
                               <Component id="top_Recommend_TextField" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="117" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>

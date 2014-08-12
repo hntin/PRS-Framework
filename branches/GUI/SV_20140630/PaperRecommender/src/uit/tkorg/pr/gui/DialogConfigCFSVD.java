@@ -52,7 +52,7 @@ public class DialogConfigCFSVD extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Configuration of CF with Cosine Algorithm");
 
-        jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder("Discription Option"));
+        jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder("Description Option"));
 
         CMAuthorTextPane.setEditable(false);
         CMAuthorTextPane.setText("In here, we use  SVD ALSWRFactorize  of Apache Mahou. (https://mahout.apache.org/users/dim-reduction/dimensional-reduction.html)\nWe have to input k_Neighbor, f, l, i coefficient to use this algorithm (f features, normalize by l, i iterations ).\nIf you don't enter nothing, defaut's system is: k_neighbor =8,f=5, l= 0.001, i =100.\n");

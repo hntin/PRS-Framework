@@ -56,8 +56,8 @@ public class MainFramePRS extends javax.swing.JFrame {
 
     //<editor-fold defaultstate="collapsed" desc="Dialog Config Algorithm">
     private DialogConfigCB dialogConfigCB = new DialogConfigCB(this, rootPaneCheckingEnabled);
-    private DialogConfigCFCosine dialogConfigCFCosine = new DialogConfigCFCosine(this, rootPaneCheckingEnabled);
-    private DialogConfigCFPearson dialogConfigCFPearson = new DialogConfigCFPearson(this, rootPaneCheckingEnabled);
+    private DialogConfigCF dialogConfigCFCosine = new DialogConfigCF(this, rootPaneCheckingEnabled);
+   // private DialogConfigCFPearson dialogConfigCFPearson = new DialogConfigCFPearson(this, rootPaneCheckingEnabled);
     private DialogConfigCFSVD dialogConfigCFSVD = new DialogConfigCFSVD(this, rootPaneCheckingEnabled);
     private DialogConfigHybrid dialogConfigHybrid = new DialogConfigHybrid(this, rootPaneCheckingEnabled);
     //</editor-fold>
@@ -65,11 +65,9 @@ public class MainFramePRS extends javax.swing.JFrame {
     public MainFramePRS() {
         initComponents();
         controller = new PRSCentralController();
-        config_CB_Button.setVisible(false);
-        config_CFC_Button.setVisible(false);
-        config_CFP_Button.setVisible(false);
-        config_CFS_Button.setVisible(false);
-        config_HB_Button.setVisible(false);
+//        config_CB_Button.setVisible(false);
+//        config_CFP_Button.setVisible(false);
+//        config_HB_Button.setVisible(false);
         redirectSystemStreams();
     }
 
@@ -161,13 +159,9 @@ public class MainFramePRS extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         CB_CheckBox = new javax.swing.JCheckBox();
         CFP_CheckBox = new javax.swing.JCheckBox();
-        CFC_CheckBox = new javax.swing.JCheckBox();
-        CFS_CheckBox = new javax.swing.JCheckBox();
         HB_CheckBox = new javax.swing.JCheckBox();
         config_CB_Button = new javax.swing.JButton();
         config_CFP_Button = new javax.swing.JButton();
-        config_CFC_Button = new javax.swing.JButton();
-        config_CFS_Button = new javax.swing.JButton();
         config_HB_Button = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         recList_TabbedPane = new javax.swing.JTabbedPane();
@@ -309,7 +303,7 @@ public class MainFramePRS extends javax.swing.JFrame {
         jTextAreaAuthor.setColumns(20);
         jTextAreaAuthor.setLineWrap(true);
         jTextAreaAuthor.setRows(5);
-        jTextAreaAuthor.setText("File Authors.csv is one of file training data of program. It's assigned mark. This file descrips unformation about researcher which containts id researcher and his name.\nThe file is formated IdAuthor|||NameAuthor\nExample:\n1|||John F. Young\n2|||Sule Yildirim\n3|||Elizabeth K. Reilly\n4|||Yann Le Gorrec");
+        jTextAreaAuthor.setText("File Authors.csv is one of file training data of program. It's assigned mark. This file descrips information about researcher which containts id researcher and his name.\nThe file is formated IdAuthor|||NameAuthor\nExample:\n1|||John F. Young\n2|||Sule Yildirim\n3|||Elizabeth K. Reilly\n4|||Yann Le Gorrec");
         jTextAreaAuthor.setWrapStyleWord(true);
         jScrollPane1.setViewportView(jTextAreaAuthor);
 
@@ -517,8 +511,8 @@ public class MainFramePRS extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        import_DataSource_Button.setText("Run");
-        import_DataSource_Button.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        import_DataSource_Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/play-icon.png"))); // NOI18N
+        import_DataSource_Button.setToolTipText("Run Import Dataset");
         import_DataSource_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 import_DataSource_ButtonActionPerformed(evt);
@@ -534,7 +528,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(import_DataSource_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(import_DataSource_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 55, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel17Layout.setVerticalGroup(
@@ -550,6 +544,7 @@ public class MainFramePRS extends javax.swing.JFrame {
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder("Dataset Example"));
 
         import_DatasetExample_Button.setText("Using Dataset Example");
+        import_DatasetExample_Button.setToolTipText("Run Import Data From Example Dataset");
         import_DatasetExample_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 import_DatasetExample_ButtonActionPerformed(evt);
@@ -575,7 +570,7 @@ public class MainFramePRS extends javax.swing.JFrame {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, 766, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 927, Short.MAX_VALUE)
@@ -602,24 +597,10 @@ public class MainFramePRS extends javax.swing.JFrame {
             }
         });
 
-        CFP_CheckBox.setText("CF with Pearson");
+        CFP_CheckBox.setText("Collaborative filtering");
         CFP_CheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CFP_CheckBoxActionPerformed(evt);
-            }
-        });
-
-        CFC_CheckBox.setText("CF with Cosine");
-        CFC_CheckBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CFC_CheckBoxActionPerformed(evt);
-            }
-        });
-
-        CFS_CheckBox.setText("CF with SVD");
-        CFS_CheckBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CFS_CheckBoxActionPerformed(evt);
             }
         });
 
@@ -631,6 +612,7 @@ public class MainFramePRS extends javax.swing.JFrame {
         });
 
         config_CB_Button.setText("Configuration");
+        config_CB_Button.setEnabled(false);
         config_CB_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 config_CB_ButtonActionPerformed(evt);
@@ -638,27 +620,16 @@ public class MainFramePRS extends javax.swing.JFrame {
         });
 
         config_CFP_Button.setText("Configuration");
+        config_CFP_Button.setEnabled(false);
+        config_CFP_Button.setFocusPainted(false);
         config_CFP_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 config_CFP_ButtonActionPerformed(evt);
             }
         });
 
-        config_CFC_Button.setText("Configuration");
-        config_CFC_Button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                config_CFC_ButtonActionPerformed(evt);
-            }
-        });
-
-        config_CFS_Button.setText("Configuration");
-        config_CFS_Button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                config_CFS_ButtonActionPerformed(evt);
-            }
-        });
-
         config_HB_Button.setText("Configuration");
+        config_HB_Button.setEnabled(false);
         config_HB_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 config_HB_ButtonActionPerformed(evt);
@@ -674,16 +645,12 @@ public class MainFramePRS extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(CB_CheckBox)
                     .addComponent(CFP_CheckBox)
-                    .addComponent(CFC_CheckBox)
-                    .addComponent(HB_CheckBox)
-                    .addComponent(CFS_CheckBox))
+                    .addComponent(HB_CheckBox))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(config_CFC_Button)
                     .addComponent(config_CFP_Button)
                     .addComponent(config_CB_Button)
-                    .addComponent(config_HB_Button)
-                    .addComponent(config_CFS_Button))
+                    .addComponent(config_HB_Button))
                 .addGap(36, 36, 36))
         );
         jPanel5Layout.setVerticalGroup(
@@ -696,19 +663,11 @@ public class MainFramePRS extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CFP_CheckBox)
                     .addComponent(config_CFP_Button))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CFC_CheckBox)
-                    .addComponent(config_CFC_Button))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CFS_CheckBox)
-                    .addComponent(config_CFS_Button))
-                .addGap(18, 18, 18)
+                .addGap(22, 22, 22)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(HB_CheckBox)
                     .addComponent(config_HB_Button))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Recommend List"));
@@ -805,10 +764,10 @@ public class MainFramePRS extends javax.swing.JFrame {
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                .addGap(0, 510, Short.MAX_VALUE)
+                .addGap(0, 480, Short.MAX_VALUE)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(recList_TabbedPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE))
+                .addComponent(recList_TabbedPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -850,7 +809,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                     .addComponent(top_Recommend_TextField)
                     .addGroup(jPanel14Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 117, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel14Layout.setVerticalGroup(
@@ -870,20 +829,23 @@ public class MainFramePRS extends javax.swing.JFrame {
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 246, Short.MAX_VALUE)
                     .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5))
+                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1162,9 +1124,9 @@ public class MainFramePRS extends javax.swing.JFrame {
 
     private void CB_CheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_CheckBoxActionPerformed
         if (CB_CheckBox.isSelected()) {
-            config_CB_Button.setVisible(true);
+            config_CB_Button.setEnabled(true);
         } else {
-            config_CB_Button.setVisible(false);
+            config_CB_Button.setEnabled(false);
         }
     }//GEN-LAST:event_CB_CheckBoxActionPerformed
 
@@ -1357,8 +1319,8 @@ public class MainFramePRS extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void config_CFP_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_config_CFP_ButtonActionPerformed
-        dialogConfigCFPearson.setLocationRelativeTo(this);
-        dialogConfigCFPearson.show();
+       // dialogConfigCFPearson.setLocationRelativeTo(this);
+        //dialogConfigCFPearson.show();
     }//GEN-LAST:event_config_CFP_ButtonActionPerformed
 
     private void config_CB_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_config_CB_ButtonActionPerformed
@@ -1368,33 +1330,17 @@ public class MainFramePRS extends javax.swing.JFrame {
 
     private void CFP_CheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CFP_CheckBoxActionPerformed
         if (CFP_CheckBox.isSelected()) {
-            config_CFP_Button.setVisible(true);
+            config_CFP_Button.setEnabled(true);
         } else {
-            config_CFP_Button.setVisible(false);
+            config_CFP_Button.setEnabled(false);
         }
     }//GEN-LAST:event_CFP_CheckBoxActionPerformed
 
-    private void CFC_CheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CFC_CheckBoxActionPerformed
-        if (CFC_CheckBox.isSelected()) {
-            config_CFC_Button.setVisible(true);
-        } else {
-            config_CFC_Button.setVisible(false);
-        }
-    }//GEN-LAST:event_CFC_CheckBoxActionPerformed
-
-    private void CFS_CheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CFS_CheckBoxActionPerformed
-        if (CFS_CheckBox.isSelected()) {
-            config_CFS_Button.setVisible(true);
-        } else {
-            config_CFS_Button.setVisible(false);
-        }
-    }//GEN-LAST:event_CFS_CheckBoxActionPerformed
-
     private void HB_CheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HB_CheckBoxActionPerformed
         if (HB_CheckBox.isSelected()) {
-            config_HB_Button.setVisible(true);
+            config_HB_Button.setEnabled(true);
         } else {
-            config_HB_Button.setVisible(false);
+            config_HB_Button.setEnabled(false);
         }
     }//GEN-LAST:event_HB_CheckBoxActionPerformed
 
@@ -1470,21 +1416,6 @@ public class MainFramePRS extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "No import data...", "Notice", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_import_DatasetExample_ButtonActionPerformed
-
-    private void config_CFC_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_config_CFC_ButtonActionPerformed
-        dialogConfigCFCosine.setLocationRelativeTo(this);
-        dialogConfigCFCosine.show();
-    }//GEN-LAST:event_config_CFC_ButtonActionPerformed
-
-    private void config_CFS_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_config_CFS_ButtonActionPerformed
-        dialogConfigCFSVD.setLocationRelativeTo(this);
-        dialogConfigCFSVD.show();
-    }//GEN-LAST:event_config_CFS_ButtonActionPerformed
-
-    private void config_HB_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_config_HB_ButtonActionPerformed
-        dialogConfigHybrid.setLocationRelativeTo(this);
-        dialogConfigHybrid.show();
-    }//GEN-LAST:event_config_HB_ButtonActionPerformed
 
     private void top_Recommend_TextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_top_Recommend_TextFieldKeyTyped
         if (!Character.isDigit(evt.getKeyChar()) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE
@@ -1663,12 +1594,7 @@ public class MainFramePRS extends javax.swing.JFrame {
             if (CFP_CheckBox.isSelected()) {
                 algorithm_Recommendation.add(2);
             }
-            if (CFC_CheckBox.isSelected()) {
-                algorithm_Recommendation.add(3);
-            }
-            if (CFS_CheckBox.isSelected()) {
-                algorithm_Recommendation.add(4);
-            }
+           
             if (HB_CheckBox.isSelected()) {
                 algorithm_Recommendation.add(5);
             }
@@ -1691,7 +1617,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                     //CF using KNN Pearson
                     controller.algorithm_Recommendation = 2;
                     controller.cfMethod = 1;
-                    controller.kNeighbourhood = dialogConfigCFPearson.kNeighbourhood;
+                  //  controller.kNeighbourhood = dialogConfigCFPearson.kNeighbourhood;
                     controller.guiHandlerRequest(Options.RECOMMEND);
                     controller.authorsCFP = controller.authors;
                 } else if (alg == 3) {
@@ -1855,16 +1781,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 tablemodel.getDataVector().removeAllElements();
                 cfp_Table.setModel(tablemodel);
             }
-            if (!CFC_CheckBox.isSelected()) {
-                DefaultTableModel tablemodel = (DefaultTableModel) cfc_Table.getModel();
-                tablemodel.getDataVector().removeAllElements();
-                cfc_Table.setModel(tablemodel);
-            }
-            if (!CFS_CheckBox.isSelected()) {
-                DefaultTableModel tablemodel = (DefaultTableModel) cfsvd_Table.getModel();
-                tablemodel.getDataVector().removeAllElements();
-                cfsvd_Table.setModel(tablemodel);
-            }
+          
             if (!HB_CheckBox.isSelected()) {
                 DefaultTableModel tablemodel = (DefaultTableModel) hybrid_Table.getModel();
                 tablemodel.getDataVector().removeAllElements();
@@ -1967,6 +1884,11 @@ public class MainFramePRS extends javax.swing.JFrame {
 
     }//GEN-LAST:event_saveEvaluation_ButtonActionPerformed
 
+    private void config_HB_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_config_HB_ButtonActionPerformed
+        dialogConfigHybrid.setLocationRelativeTo(this);
+        dialogConfigHybrid.show();
+    }//GEN-LAST:event_config_HB_ButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1993,9 +1915,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox CB_CheckBox;
-    private javax.swing.JCheckBox CFC_CheckBox;
     private javax.swing.JCheckBox CFP_CheckBox;
-    private javax.swing.JCheckBox CFS_CheckBox;
     private javax.swing.JCheckBox HB_CheckBox;
     private javax.swing.JTabbedPane Steps_TabbedPane;
     private javax.swing.JButton TFIDF_Button;
@@ -2003,9 +1923,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     private javax.swing.JTable cfp_Table;
     private javax.swing.JTable cfsvd_Table;
     private javax.swing.JButton config_CB_Button;
-    private javax.swing.JButton config_CFC_Button;
     private javax.swing.JButton config_CFP_Button;
-    private javax.swing.JButton config_CFS_Button;
     private javax.swing.JButton config_HB_Button;
     private javax.swing.JTextArea console_TextArea;
     private javax.swing.JTable contentbased_Table;
