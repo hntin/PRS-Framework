@@ -5,6 +5,8 @@
  */
 package uit.tkorg.pr.gui;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import javax.swing.UIManager;
 
 /**
@@ -16,7 +18,18 @@ public class DialogConfigCF extends javax.swing.JDialog {
     /**
      * Creates new form configurationCFCosineGui
      */
-    int kNeighbourhood = 8;
+//    int cfMethod = 1;//1: KNN Pearson, 2: KNN Cosine, 3: SVD
+//    int kNeighbourhood = 8;// number of neighbhood
+    int f = 5;//SVD
+    double l = 0.001;//SVD
+    int i = 100;//SVD
+
+    DialogConfigCFPearson dialogConfigCFPearson = new DialogConfigCFPearson(null, rootPaneCheckingEnabled);
+    DialogConfigCFCosine dialogConfigCFCosine = new DialogConfigCFCosine(null, rootPaneCheckingEnabled);
+    DialogConfigCFSVD dialogConfigCFSVD = new DialogConfigCFSVD(null, rootPaneCheckingEnabled);
+
+    HashSet<Integer> cfMethodHS = new HashSet<>();
+    HashMap<Integer, Integer> kNeighborHM = new HashMap<>();
 
     public DialogConfigCF(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -38,12 +51,11 @@ public class DialogConfigCF extends javax.swing.JDialog {
         ok_Button = new javax.swing.JButton();
         knnPearson_CheckBox = new javax.swing.JCheckBox();
         knnCosine_CheckBox = new javax.swing.JCheckBox();
-        jButton = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        knnCosine_Button = new javax.swing.JButton();
+        knnPearson_Button = new javax.swing.JButton();
         svd_CheckBox = new javax.swing.JCheckBox();
-        jButton3 = new javax.swing.JButton();
+        svd_Button = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Configuration of CF Algorithm");
         setResizable(false);
 
@@ -57,7 +69,7 @@ public class DialogConfigCF extends javax.swing.JDialog {
         jPanel23.setLayout(jPanel23Layout);
         jPanel23Layout.setHorizontalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -72,19 +84,49 @@ public class DialogConfigCF extends javax.swing.JDialog {
         });
 
         knnPearson_CheckBox.setText("Pearson Correlation-based approach");
+        knnPearson_CheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                knnPearson_CheckBoxActionPerformed(evt);
+            }
+        });
 
         knnCosine_CheckBox.setText("Cosine-based approach");
+        knnCosine_CheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                knnCosine_CheckBoxActionPerformed(evt);
+            }
+        });
 
-        jButton.setText("Configuration");
-        jButton.setEnabled(false);
+        knnCosine_Button.setText("Configuration");
+        knnCosine_Button.setEnabled(false);
+        knnCosine_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                knnCosine_ButtonActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Configuration");
-        jButton2.setEnabled(false);
+        knnPearson_Button.setText("Configuration");
+        knnPearson_Button.setEnabled(false);
+        knnPearson_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                knnPearson_ButtonActionPerformed(evt);
+            }
+        });
 
         svd_CheckBox.setText("SVD approach");
+        svd_CheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                svd_CheckBoxActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Configuration");
-        jButton3.setEnabled(false);
+        svd_Button.setText("Configuration");
+        svd_Button.setEnabled(false);
+        svd_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                svd_ButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -92,50 +134,114 @@ public class DialogConfigCF extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(ok_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(knnCosine_CheckBox)
-                            .addComponent(knnPearson_CheckBox)
-                            .addComponent(svd_CheckBox))
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(knnPearson_CheckBox)
+                    .addComponent(knnCosine_CheckBox)
+                    .addComponent(svd_CheckBox))
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(knnPearson_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(svd_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(knnCosine_Button))
+                    .addComponent(ok_Button, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(knnCosine_CheckBox)
-                    .addComponent(jButton))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(knnPearson_CheckBox)
-                    .addComponent(jButton2))
-                .addGap(18, 18, 18)
+                    .addComponent(knnPearson_Button))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(knnCosine_Button)
+                    .addComponent(knnCosine_CheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(svd_CheckBox)
-                    .addComponent(jButton3))
-                .addGap(18, 18, 18)
-                .addComponent(ok_Button)
-                .addGap(17, 17, 17))
+                    .addComponent(svd_Button))
+                .addGap(14, 14, 14)
+                .addComponent(ok_Button))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void ok_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ok_ButtonActionPerformed
-     //   kNeighbourhood = Integer.parseInt(kNeighbourhood_TextField.getText());
+
+        //<editor-fold defaultstate="collapsed" desc="Step 1: get cfMethod">
+        cfMethodHS.clear();
+        if (knnPearson_CheckBox.isSelected()) {
+            cfMethodHS.add(1);
+        }
+        if (knnCosine_CheckBox.isSelected()) {
+            cfMethodHS.add(2);
+        }
+        if (svd_CheckBox.isSelected()) {
+            cfMethodHS.add(3);
+        }
+        //</editor-fold>
+
+        //<editor-fold defaultstate="collapsed" desc="Step 2: get configuration for each algorithm">
+        for (Integer cfMethod : cfMethodHS) {
+            if (cfMethod == 1) {
+                kNeighborHM.put(1, dialogConfigCFPearson.kNeighbourhood);
+            } else if (cfMethod == 2) {
+                kNeighborHM.put(2, dialogConfigCFCosine.kNeighbourhood);
+            } else if (cfMethod == 3) {
+                kNeighborHM.put(3, dialogConfigCFSVD.kNeighbourhood);
+                f = dialogConfigCFSVD.f;
+                l = dialogConfigCFSVD.l;
+                i = dialogConfigCFSVD.i;
+            }
+        }
+        //</editor-fold>
         this.hide();
     }//GEN-LAST:event_ok_ButtonActionPerformed
+
+    private void knnPearson_CheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_knnPearson_CheckBoxActionPerformed
+        if (knnPearson_CheckBox.isSelected()) {
+            knnPearson_Button.setEnabled(true);
+        } else {
+            knnPearson_Button.setEnabled(false);
+        }
+    }//GEN-LAST:event_knnPearson_CheckBoxActionPerformed
+
+    private void knnCosine_CheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_knnCosine_CheckBoxActionPerformed
+        if (knnCosine_CheckBox.isSelected()) {
+            knnCosine_Button.setEnabled(true);
+        } else {
+            knnCosine_Button.setEnabled(false);
+        }
+    }//GEN-LAST:event_knnCosine_CheckBoxActionPerformed
+
+    private void svd_CheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_svd_CheckBoxActionPerformed
+        if (svd_CheckBox.isSelected()) {
+            svd_Button.setEnabled(true);
+        } else {
+            svd_Button.setEnabled(false);
+        }
+    }//GEN-LAST:event_svd_CheckBoxActionPerformed
+
+    private void knnPearson_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_knnPearson_ButtonActionPerformed
+        dialogConfigCFPearson.setLocationRelativeTo(this);
+        dialogConfigCFPearson.show();
+    }//GEN-LAST:event_knnPearson_ButtonActionPerformed
+
+    private void knnCosine_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_knnCosine_ButtonActionPerformed
+        dialogConfigCFCosine.setLocationRelativeTo(this);
+        dialogConfigCFCosine.show();
+    }//GEN-LAST:event_knnCosine_ButtonActionPerformed
+
+    private void svd_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_svd_ButtonActionPerformed
+        dialogConfigCFSVD.setLocationRelativeTo(this);
+        dialogConfigCFSVD.show();
+    }//GEN-LAST:event_svd_ButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -171,14 +277,14 @@ public class DialogConfigCF extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextPane CMAuthorTextPane;
-    private javax.swing.JButton jButton;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel23;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JButton knnCosine_Button;
     private javax.swing.JCheckBox knnCosine_CheckBox;
+    private javax.swing.JButton knnPearson_Button;
     private javax.swing.JCheckBox knnPearson_CheckBox;
     private javax.swing.JButton ok_Button;
+    private javax.swing.JButton svd_Button;
     private javax.swing.JCheckBox svd_CheckBox;
     // End of variables declaration//GEN-END:variables
 }

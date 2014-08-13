@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -66,12 +67,10 @@ public class MainFramePRS extends javax.swing.JFrame {
     public MainFramePRS() {
         initComponents();
         controller = new PRSCentralController();
-//        config_CB_Button.setVisible(false);
-//        config_CFP_Button.setVisible(false);
-//        config_HB_Button.setVisible(false);
         redirectSystemStreams();
     }
 
+//<editor-fold defaultstate="collapsed" desc="write console to textArea">
     private void updateTextArea(final String text) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
@@ -101,6 +100,7 @@ public class MainFramePRS extends javax.swing.JFrame {
         System.setOut(new PrintStream(out, true));
         System.setErr(new PrintStream(out, true));
     }
+    //</editor-fold>
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -112,7 +112,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     private void initComponents() {
 
         jToolBar1 = new javax.swing.JToolBar();
-        resetButton = new javax.swing.JButton();
+        reset_Button = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         TFIDF_Button = new javax.swing.JButton();
         visualize_Button = new javax.swing.JButton();
@@ -201,23 +201,23 @@ public class MainFramePRS extends javax.swing.JFrame {
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Paper Recommendation System");
         setResizable(false);
 
         jToolBar1.setRollover(true);
 
-        resetButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Button-Refresh-icon.png"))); // NOI18N
-        resetButton.setToolTipText("Reset System");
-        resetButton.setFocusable(false);
-        resetButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        resetButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        resetButton.addActionListener(new java.awt.event.ActionListener() {
+        reset_Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Button-Refresh-icon.png"))); // NOI18N
+        reset_Button.setToolTipText("Reset System");
+        reset_Button.setFocusable(false);
+        reset_Button.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        reset_Button.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        reset_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                resetButtonActionPerformed(evt);
+                reset_ButtonActionPerformed(evt);
             }
         });
-        jToolBar1.add(resetButton);
+        jToolBar1.add(reset_Button);
         jToolBar1.add(jSeparator1);
 
         TFIDF_Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Document-Write-icon.png"))); // NOI18N
@@ -1072,23 +1072,27 @@ public class MainFramePRS extends javax.swing.JFrame {
 
     private void TFIDF_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFIDF_ButtonActionPerformed
         DialogBuildTFIDF tf_idf = new DialogBuildTFIDF(this, rootPaneCheckingEnabled);
+        tf_idf.setLocationRelativeTo(this);
         tf_idf.show();
     }//GEN-LAST:event_TFIDF_ButtonActionPerformed
 
     private void visualize_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualize_ButtonActionPerformed
-
         try {
             DialogVisualize visualize = new DialogVisualize(this, rootPaneCheckingEnabled);
+            visualize.setLocationRelativeTo(this);
             visualize.show();
-        } catch (IOException ex) {
-            Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
         }
-
     }//GEN-LAST:event_visualize_ButtonActionPerformed
 
-    private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
-
-    }//GEN-LAST:event_resetButtonActionPerformed
+    private void reset_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reset_ButtonActionPerformed
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new MainFramePRS().setVisible(true);
+            }
+        });
+        this.dispose();
+    }//GEN-LAST:event_reset_ButtonActionPerformed
 
     private void CB_CheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_CheckBoxActionPerformed
         if (CB_CheckBox.isSelected()) {
@@ -1561,7 +1565,30 @@ public class MainFramePRS extends javax.swing.JFrame {
                 } else if (alg == 2) {
                     //CF
                     controller.algorithm_Recommendation = 2;
-                    controller.guiHandlerRequest(Options.RECOMMEND);
+                    HashSet<Integer> cfMethodHS = new HashSet<>();
+                    HashMap<Integer, Integer> kNeighborHM = new HashMap<>();
+                    cfMethodHS = dialogConfigCF.cfMethodHS;
+                    kNeighborHM = dialogConfigCF.kNeighborHM;
+
+                    for (Integer cfMethod : cfMethodHS) {
+                        if (cfMethod == 1) {
+                            controller.cfMethod = 1;
+                            controller.kNeighbourhood = kNeighborHM.get(1);
+                            controller.guiHandlerRequest(Options.RECOMMEND);
+                            controller.authorsCFP = controller.authors;
+                        } else if (cfMethod == 2) {
+                            controller.cfMethod = 2;
+                            controller.kNeighbourhood = kNeighborHM.get(2);
+                            controller.guiHandlerRequest(Options.RECOMMEND);
+                            controller.authorsCFC = controller.authors;
+                        } else if (cfMethod == 3) {
+                            controller.cfMethod = 3;
+                            controller.kNeighbourhood = kNeighborHM.get(3);
+                            controller.guiHandlerRequest(Options.RECOMMEND);
+                            controller.authorsCFSVD = controller.authors;
+                        }
+                    }
+
                 } else if (alg == 3) {
                     //CBFCFHybrid
                     controller.algorithm_Recommendation = 3;
@@ -1580,9 +1607,9 @@ public class MainFramePRS extends javax.swing.JFrame {
 //                    } catch (Exception ex) {
 //                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
 //                    }
-//                    DefaultTableModel tablemodel = (DefaultTableModel) contentbased_Table.getModel();
-//                    tablemodel.getDataVector().removeAllElements();
-//                    contentbased_Table.setModel(tablemodel);
+//                    JTable contentbased_Table = new JTable();
+//                    Vector vTitle = new Vector(Arrays.asList(new String[]{"No.", "Id Author", "Recommendation List"}));
+//                    Vector vData = new Vector();
 //                    int i = 0;
 //                    for (String AuthorId : controller.authors.keySet()) {
 //                        i++;
@@ -1590,9 +1617,10 @@ public class MainFramePRS extends javax.swing.JFrame {
 //                        vector.addElement(i);
 //                        vector.addElement(controller.authors.get(AuthorId).getAuthorId());
 //                        vector.addElement(controller.authors.get(AuthorId).getRecommendationList());
-//                        tablemodel.addRow(vector);
+//                        vData.add(vector);
 //                    }
-//                    contentbased_Table.setModel(tablemodel);
+//                    contentbased_Table.setModel(new DefaultTableModel(vData, vTitle));
+//                    recList_TabbedPane.add(contentbased_Table);
 //                } else if (alg == 2) {
 //                    try {
 //                        CF.cfRecommendToAuthorList(controller.authorsCFP, controller.topRecommend);
@@ -1601,9 +1629,9 @@ public class MainFramePRS extends javax.swing.JFrame {
 //                    } catch (Exception ex) {
 //                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
 //                    }
-//                    DefaultTableModel tablemodel = (DefaultTableModel) cfp_Table.getModel();
-//                    tablemodel.getDataVector().removeAllElements();
-//                    cfp_Table.setModel(tablemodel);
+//                    JTable cfp_Table = new JTable();
+//                    Vector vTitle = new Vector(Arrays.asList(new String[]{"No.", "Id Author", "Recommendation List"}));
+//                    Vector vData = new Vector();
 //                    int i = 0;
 //                    for (String AuthorId : controller.authorsCFP.keySet()) {
 //                        i++;
@@ -1611,9 +1639,10 @@ public class MainFramePRS extends javax.swing.JFrame {
 //                        vector.addElement(i);
 //                        vector.addElement(controller.authorsCFP.get(AuthorId).getAuthorId());
 //                        vector.addElement(controller.authorsCFP.get(AuthorId).getRecommendationList());
-//                        tablemodel.addRow(vector);
+//                        vData.add(vector);
 //                    }
-//                    cfp_Table.setModel(tablemodel);
+//                    cfp_Table.setModel(new DefaultTableModel(vData, vTitle));
+//                    recList_TabbedPane.add(cfp_Table);
 //                } else if (alg == 3) {
 //                    try {
 //                        CF.cfRecommendToAuthorList(controller.authorsCFC, controller.topRecommend);
@@ -1656,7 +1685,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 //                        tablemodel.addRow(vector);
 //                    }
 //                    cfsvd_Table.setModel(tablemodel);
-//                } else if (alg == 5) {
+//                } else if (alg == 3) {
 //                    try {
 //                        CBFCF.cbfcfHybridRecommendToAuthorList(controller.authors, controller.topRecommend);
 //                    } catch (TasteException ex) {
@@ -1664,9 +1693,9 @@ public class MainFramePRS extends javax.swing.JFrame {
 //                    } catch (Exception ex) {
 //                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
 //                    }
-//                    DefaultTableModel tablemodel = (DefaultTableModel) hybrid_Table.getModel();
-//                    tablemodel.getDataVector().removeAllElements();
-//                    hybrid_Table.setModel(tablemodel);
+//                    JTable hybrid_Table = new JTable();
+//                    Vector vTitle = new Vector(Arrays.asList(new String[]{"No.", "Id Author", "Recommendation List"}));
+//                    Vector vData = new Vector();
 //                    int i = 0;
 //                    for (String AuthorId : controller.authors.keySet()) {
 //                        i++;
@@ -1674,9 +1703,10 @@ public class MainFramePRS extends javax.swing.JFrame {
 //                        vector.addElement(i);
 //                        vector.addElement(controller.authors.get(AuthorId).getAuthorId());
 //                        vector.addElement(controller.authors.get(AuthorId).getRecommendationList());
-//                        tablemodel.addRow(vector);
+//                        vData.add(vector);
 //                    }
-//                    hybrid_Table.setModel(tablemodel);
+//                    hybrid_Table.setModel(new DefaultTableModel(vData, vTitle));
+//                    recList_TabbedPane.add(hybrid_Table);
 //                }
 //            }
 //            //</editor-fold>
@@ -1835,7 +1865,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     }//GEN-LAST:event_fileAuthorCitePaper_TextAreaKeyPressed
 
     private void filePaper_TextAreaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_filePaper_TextAreaKeyPressed
-       evt.consume();
+        evt.consume();
     }//GEN-LAST:event_filePaper_TextAreaKeyPressed
 
     private void filePaperCitePaper_TextAreaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_filePaperCitePaper_TextAreaKeyPressed
@@ -1847,11 +1877,11 @@ public class MainFramePRS extends javax.swing.JFrame {
     }//GEN-LAST:event_fileGroundTruth_TextAreaKeyPressed
 
     private void console_TextAreaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_console_TextAreaKeyPressed
-       evt.consume();
+        evt.consume();
     }//GEN-LAST:event_console_TextAreaKeyPressed
 
     private void recommended_algorithm_TextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_recommended_algorithm_TextFieldKeyPressed
-       evt.consume();
+        evt.consume();
     }//GEN-LAST:event_recommended_algorithm_TextFieldKeyPressed
 
     private void recommended_algorithm_TextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_recommended_algorithm_TextFieldKeyTyped
@@ -1992,7 +2022,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     private javax.swing.JCheckBox recall_CheckBox;
     private javax.swing.JButton recommend_Button;
     private javax.swing.JTextField recommended_algorithm_TextField;
-    private javax.swing.JButton resetButton;
+    private javax.swing.JButton reset_Button;
     private javax.swing.JButton saveEvaluation_Button;
     private javax.swing.JButton saveRecList_Button;
     private javax.swing.JLabel status_Label;
