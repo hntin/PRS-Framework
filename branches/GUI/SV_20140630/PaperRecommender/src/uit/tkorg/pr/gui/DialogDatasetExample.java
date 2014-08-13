@@ -23,6 +23,7 @@ public class DialogDatasetExample extends javax.swing.JDialog {
     public DialogDatasetExample(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        import_Button.requestFocus();
     }
 
     /**
@@ -47,7 +48,7 @@ public class DialogDatasetExample extends javax.swing.JDialog {
         FilePaperCitePaperTable = new javax.swing.JTable();
         jScrollPane6 = new javax.swing.JScrollPane();
         FileGroundTruthTable = new javax.swing.JTable();
-        importButton = new javax.swing.JButton();
+        import_Button = new javax.swing.JButton();
         disposeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -153,10 +154,10 @@ public class DialogDatasetExample extends javax.swing.JDialog {
 
         FileGroundTruthTabbedPane.addTab("File GroundTruth", jScrollPane6);
 
-        importButton.setText("Import");
-        importButton.addActionListener(new java.awt.event.ActionListener() {
+        import_Button.setText("Import");
+        import_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                importButtonActionPerformed(evt);
+                import_ButtonActionPerformed(evt);
             }
         });
 
@@ -173,7 +174,7 @@ public class DialogDatasetExample extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(385, Short.MAX_VALUE)
-                .addComponent(importButton, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(import_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(disposeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6))
@@ -186,14 +187,14 @@ public class DialogDatasetExample extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(disposeButton)
-                    .addComponent(importButton))
+                    .addComponent(import_Button))
                 .addGap(0, 8, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void importButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importButtonActionPerformed
+    private void import_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_import_ButtonActionPerformed
         int comfirm = JOptionPane.showConfirmDialog(rootPane, "Do you want to import example dataset?", "Confirm", JOptionPane.YES_NO_OPTION);
         if (comfirm == JOptionPane.YES_OPTION) {
             check = true;
@@ -201,7 +202,7 @@ public class DialogDatasetExample extends javax.swing.JDialog {
             check = false;
         }
         this.dispose();
-    }//GEN-LAST:event_importButtonActionPerformed
+    }//GEN-LAST:event_import_ButtonActionPerformed
 
     private void disposeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disposeButtonActionPerformed
         this.dispose();
@@ -260,7 +261,7 @@ public class DialogDatasetExample extends javax.swing.JDialog {
     private javax.swing.JTable FilePaperCitePaperTable;
     private javax.swing.JTable FilePaperTable;
     private javax.swing.JButton disposeButton;
-    private javax.swing.JButton importButton;
+    private javax.swing.JButton import_Button;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

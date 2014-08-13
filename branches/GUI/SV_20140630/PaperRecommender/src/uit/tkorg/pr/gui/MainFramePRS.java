@@ -191,15 +191,15 @@ public class MainFramePRS extends javax.swing.JFrame {
         topRank_TextField = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        resetSystem_MenuItem = new javax.swing.JMenuItem();
+        exit_MenuItem = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        buildTFIDF_MenuItem = new javax.swing.JMenuItem();
+        visualize_MenuItem = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
+        about_MenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Paper Recommendation System");
@@ -1001,23 +1001,48 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         jMenu1.setText("File");
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem2.setText("Reset System");
-        jMenu1.add(jMenuItem2);
+        resetSystem_MenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
+        resetSystem_MenuItem.setText("Reset System");
+        resetSystem_MenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetSystem_MenuItemActionPerformed(evt);
+            }
+        });
+        jMenu1.add(resetSystem_MenuItem);
 
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem3.setText("Exit");
-        jMenu1.add(jMenuItem3);
+        exit_MenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
+        exit_MenuItem.setText("Exit");
+        exit_MenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exit_MenuItemActionPerformed(evt);
+            }
+        });
+        jMenu1.add(exit_MenuItem);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Tools");
+        jMenu2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu2ActionPerformed(evt);
+            }
+        });
 
-        jMenuItem1.setText("Build TF-IDF File");
-        jMenu2.add(jMenuItem1);
+        buildTFIDF_MenuItem.setText("Build TF-IDF File");
+        buildTFIDF_MenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buildTFIDF_MenuItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(buildTFIDF_MenuItem);
 
-        jMenuItem4.setText("Visualize");
-        jMenu2.add(jMenuItem4);
+        visualize_MenuItem.setText("Visualize");
+        visualize_MenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                visualize_MenuItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(visualize_MenuItem);
 
         jMenuBar1.add(jMenu2);
 
@@ -1034,8 +1059,13 @@ public class MainFramePRS extends javax.swing.JFrame {
         jMenuItem7.setText("Javadoc Reference");
         jMenu4.add(jMenuItem7);
 
-        jMenuItem8.setText("About");
-        jMenu4.add(jMenuItem8);
+        about_MenuItem.setText("About");
+        about_MenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                about_MenuItemActionPerformed(evt);
+            }
+        });
+        jMenu4.add(about_MenuItem);
 
         jMenuBar1.add(jMenu4);
 
@@ -1079,12 +1109,11 @@ public class MainFramePRS extends javax.swing.JFrame {
     }//GEN-LAST:event_TFIDF_ButtonActionPerformed
 
     private void visualize_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualize_ButtonActionPerformed
-        try {
-            DialogVisualize visualize = new DialogVisualize(this, rootPaneCheckingEnabled);
-            visualize.setLocationRelativeTo(this);
-            visualize.show();
-        } catch (Exception ex) {
-        }
+
+        DialogVisualize visualize = new DialogVisualize(this, rootPaneCheckingEnabled);
+        visualize.setLocationRelativeTo(this);
+        visualize.show();
+
     }//GEN-LAST:event_visualize_ButtonActionPerformed
 
     private void reset_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reset_ButtonActionPerformed
@@ -1277,7 +1306,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     }//GEN-LAST:event_fileAuthor_ButtonActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        // TODO add your handling code here:
+
         try {
             String path = new File("").getAbsolutePath() + "\\Paper Recommendation Framework\\Paper Recommendation Framework.chm";
             File file = new File(path);
@@ -1631,6 +1660,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                     recList_TabbedPane.addTab("Content - based", scrollPane);
                 } else if (alg == 2) {
                     HashSet<Integer> cfMethodHS = new HashSet<>();
+                    cfMethodHS = dialogConfigCF.cfMethodHS;
                     for (Integer cfMethod : cfMethodHS) {
                         if (cfMethod == 1) {
                             try {
@@ -1754,6 +1784,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                     algorithms.append("Content - based").append(";");
                 } else if (alg == 2) {
                     HashSet<Integer> cfMethodHS = new HashSet<>();
+                    cfMethodHS = dialogConfigCF.cfMethodHS;
                     for (Integer cfMethod : cfMethodHS) {
                         if (cfMethod == 1) {
                             algorithms.append("CF using KNN Pearson").append(";");
@@ -1763,7 +1794,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                             algorithms.append("CF using SVD").append(";");
                         }
                     }
-                } else if (alg == 5) {
+                } else if (alg == 3) {
                     algorithms.append("Hybrid").append(";");
                 }
             }
@@ -1895,6 +1926,46 @@ public class MainFramePRS extends javax.swing.JFrame {
         evt.consume();
     }//GEN-LAST:event_console_TextAreaKeyTyped
 
+    private void resetSystem_MenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetSystem_MenuItemActionPerformed
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new MainFramePRS().setVisible(true);
+            }
+        });
+        this.dispose();
+    }//GEN-LAST:event_resetSystem_MenuItemActionPerformed
+
+    private void exit_MenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exit_MenuItemActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_exit_MenuItemActionPerformed
+
+    private void buildTFIDF_MenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buildTFIDF_MenuItemActionPerformed
+        DialogBuildTFIDF tf_idf = new DialogBuildTFIDF(this, rootPaneCheckingEnabled);
+        tf_idf.setLocationRelativeTo(this);
+        tf_idf.show();
+    }//GEN-LAST:event_buildTFIDF_MenuItemActionPerformed
+
+    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
+        try {
+            DialogVisualize visualize = new DialogVisualize(this, rootPaneCheckingEnabled);
+            visualize.setLocationRelativeTo(this);
+            visualize.show();
+        } catch (Exception ex) {
+        }
+    }//GEN-LAST:event_jMenu2ActionPerformed
+
+    private void visualize_MenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualize_MenuItemActionPerformed
+        DialogVisualize visualize = new DialogVisualize(this, rootPaneCheckingEnabled);
+        visualize.setLocationRelativeTo(this);
+        visualize.show();
+    }//GEN-LAST:event_visualize_MenuItemActionPerformed
+
+    private void about_MenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_about_MenuItemActionPerformed
+        DiaglogAbout dialogAbout=new DiaglogAbout(this, rootPaneCheckingEnabled);
+        dialogAbout.setLocationRelativeTo(this);
+        dialogAbout.show();
+    }//GEN-LAST:event_about_MenuItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1925,12 +1996,15 @@ public class MainFramePRS extends javax.swing.JFrame {
     private javax.swing.JCheckBox HB_CheckBox;
     private javax.swing.JTabbedPane Steps_TabbedPane;
     private javax.swing.JButton TFIDF_Button;
+    private javax.swing.JMenuItem about_MenuItem;
+    private javax.swing.JMenuItem buildTFIDF_MenuItem;
     private javax.swing.JButton config_CB_Button;
     private javax.swing.JButton config_CF_Button;
     private javax.swing.JButton config_HB_Button;
     private javax.swing.JTextArea console_TextArea;
     private javax.swing.JButton evaluate_Button;
     private javax.swing.JTable evaluationResult_Table;
+    private javax.swing.JMenuItem exit_MenuItem;
     private javax.swing.JCheckBox f1_CheckBox;
     private javax.swing.JButton fileAuthorCitePaper_Button;
     private javax.swing.JTextArea fileAuthorCitePaper_TextArea;
@@ -1959,13 +2033,8 @@ public class MainFramePRS extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -2001,6 +2070,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     private javax.swing.JCheckBox recall_CheckBox;
     private javax.swing.JButton recommend_Button;
     private javax.swing.JTextField recommended_algorithm_TextField;
+    private javax.swing.JMenuItem resetSystem_MenuItem;
     private javax.swing.JButton reset_Button;
     private javax.swing.JButton saveEvaluation_Button;
     private javax.swing.JButton saveRecList_Button;
@@ -2009,5 +2079,6 @@ public class MainFramePRS extends javax.swing.JFrame {
     private javax.swing.JTextField topRank_TextField;
     private javax.swing.JTextField top_Recommend_TextField;
     private javax.swing.JButton visualize_Button;
+    private javax.swing.JMenuItem visualize_MenuItem;
     // End of variables declaration//GEN-END:variables
 }

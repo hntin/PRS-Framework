@@ -35,7 +35,7 @@ public class DialogVisualize extends javax.swing.JDialog {
     /**
      * Creates new form Visualized
      */
-    public DialogVisualize(java.awt.Frame parent, boolean modal) throws IOException {
+    public DialogVisualize(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
 
@@ -310,11 +310,9 @@ public class DialogVisualize extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 DialogVisualize dialog = null;
-                try {
+             
                     dialog = new DialogVisualize(new javax.swing.JFrame(), true);
-                } catch (IOException ex) {
-                    Logger.getLogger(DialogVisualize.class.getName()).log(Level.SEVERE, null, ex);
-                }
+               
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
