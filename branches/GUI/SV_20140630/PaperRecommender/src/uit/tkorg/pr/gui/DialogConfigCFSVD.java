@@ -49,7 +49,6 @@ public class DialogConfigCFSVD extends javax.swing.JDialog {
         i_TextField = new javax.swing.JTextField();
         ok_Button = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Configuration of CF with Cosine Algorithm");
 
         jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder("Description Option"));

@@ -235,19 +235,41 @@ public class PRSCentralController {
     public StringBuilder evaluate(HashMap<String, Author> authors, int measure_Evaluation, int topRank) throws Exception {
         StringBuilder evaluationResult = new StringBuilder();
         if (measure_Evaluation == 1) {
+            double evaluation = Evaluator.computeMeanPrecisionTopN(authors, topRank);
+            evaluation = Math.round(evaluation * 1000) / 1000.0d;
+            
             evaluationResult.append("Precision\t").append(topRank).append("\t")
-                    .append(Evaluator.computeMeanPrecisionTopN(authors, topRank)).append("\r\n");
+                    .append(evaluation).append("\r\n");
         } else if (measure_Evaluation == 2) {
+            double evaluation = Evaluator.computeMeanRecallTopN(authors, topRank);
+            evaluation = Math.round(evaluation * 1000) / 1000.0d;
+            
             evaluationResult.append("Recall\t").append(topRank).append("\t")
-                    .append(Evaluator.computeMeanRecallTopN(authors, topRank)).append("\r\n");
+                    .append(evaluation).append("\r\n");
         } else if (measure_Evaluation == 3) {
-            evaluationResult.append("F1\t").append(topRank).append("\t").append(Evaluator.computeMeanFMeasure(authors, 1)).append("\r\n");
+            double evaluation = Evaluator.computeMeanFMeasure(authors, 1);
+            evaluation = Math.round(evaluation * 1000) / 1000.0d;
+            
+            evaluationResult.append("F1\t").append(topRank).append("\t")
+                    .append(evaluation).append("\r\n");
         } else if (measure_Evaluation == 4) {
-            evaluationResult.append("MAP\t").append(topRank).append("\t").append(Evaluator.computeMAP(authors, topRank)).append("\r\n");
+            double evaluation = Evaluator.computeMAP(authors, topRank);
+            evaluation = Math.round(evaluation * 1000) / 1000.0d;
+            
+            evaluationResult.append("MAP\t").append(topRank).append("\t")
+                    .append(evaluation).append("\r\n");
         } else if (measure_Evaluation == 5) {
-            evaluationResult.append("NDCG\t").append(topRank).append("\t").append(Evaluator.computeMeanNDCG(authors, topRank)).append("\r\n");
+            double evaluation = Evaluator.computeMeanNDCG(authors, topRank);
+            evaluation = Math.round(evaluation * 1000) / 1000.0d;
+            
+            evaluationResult.append("NDCG\t").append(topRank).append("\t")
+                    .append(evaluation).append("\r\n");
         } else if (measure_Evaluation == 6) {
-            evaluationResult.append("MRR\t").append(topRank).append("\t").append(Evaluator.computeMRR(authors)).append("\r\n");
+            double evaluation = Evaluator.computeMRR(authors);
+            evaluation = Math.round(evaluation * 1000) / 1000.0d;
+            
+            evaluationResult.append("MRR\t").append(topRank).append("\t")
+                    .append(evaluation).append("\r\n");
         }
         return evaluationResult;
     }

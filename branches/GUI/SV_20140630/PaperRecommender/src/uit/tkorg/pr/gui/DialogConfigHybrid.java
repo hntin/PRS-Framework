@@ -43,7 +43,6 @@ public class DialogConfigHybrid extends javax.swing.JDialog {
         combineHybrid_TextField = new javax.swing.JTextField();
         ok_Button = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Configuration of Hybrid Algorithm");
 
         jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder("Discription Option"));

@@ -5,6 +5,7 @@
  */
 package uit.tkorg.pr.gui;
 
+import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.File;
@@ -22,7 +23,9 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JViewport;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
@@ -58,9 +61,6 @@ public class MainFramePRS extends javax.swing.JFrame {
     //<editor-fold defaultstate="collapsed" desc="Dialog Config Algorithm">
     private DialogConfigCB dialogConfigCB = new DialogConfigCB(this, rootPaneCheckingEnabled);
     private DialogConfigCF dialogConfigCF = new DialogConfigCF(this, rootPaneCheckingEnabled);
-    private DialogConfigCF dialogConfigCFCosine = new DialogConfigCF(this, rootPaneCheckingEnabled);
-    // private DialogConfigCFPearson dialogConfigCFPearson = new DialogConfigCFPearson(this, rootPaneCheckingEnabled);
-    private DialogConfigCFSVD dialogConfigCFSVD = new DialogConfigCFSVD(this, rootPaneCheckingEnabled);
     private DialogConfigHybrid dialogConfigHybrid = new DialogConfigHybrid(this, rootPaneCheckingEnabled);
     //</editor-fold>
 
@@ -258,6 +258,7 @@ public class MainFramePRS extends javax.swing.JFrame {
         jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder("Console"));
 
         console_TextArea.setColumns(20);
+        console_TextArea.setLineWrap(true);
         console_TextArea.setRows(5);
         console_TextArea.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -877,6 +878,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Result Evaluation"));
 
+        evaluationResult_Table.setAutoCreateRowSorter(true);
         evaluationResult_Table.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         evaluationResult_Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1535,6 +1537,7 @@ public class MainFramePRS extends javax.swing.JFrame {
         if (!top_Recommend_TextField.getText().isEmpty()) {
 
             controller.topRecommend = Integer.parseInt(top_Recommend_TextField.getText());
+            recList_TabbedPane.removeAll();//reset table when recommend
 
             //<editor-fold defaultstate="collapsed" desc="Step 1: get algorithm_Recommendation Set">
             algorithm_Recommendation.clear();
@@ -1598,130 +1601,168 @@ public class MainFramePRS extends javax.swing.JFrame {
                 }
             }
             //</editor-fold>
-//
-//            //<editor-fold defaultstate="collapsed" desc="Step 3: load recommendation list to table">
-//            for (Integer alg : algorithm_Recommendation) {
-//                if (alg == 1) {
-//                    try {
-//                        FeatureVectorSimilarity.generateRecommendationForAuthorList(controller.authors, controller.topRecommend);
-//                    } catch (Exception ex) {
-//                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
-//                    JTable contentbased_Table = new JTable();
-//                    Vector vTitle = new Vector(Arrays.asList(new String[]{"No.", "Id Author", "Recommendation List"}));
-//                    Vector vData = new Vector();
-//                    int i = 0;
-//                    for (String AuthorId : controller.authors.keySet()) {
-//                        i++;
-//                        Vector vector = new Vector();
-//                        vector.addElement(i);
-//                        vector.addElement(controller.authors.get(AuthorId).getAuthorId());
-//                        vector.addElement(controller.authors.get(AuthorId).getRecommendationList());
-//                        vData.add(vector);
-//                    }
-//                    contentbased_Table.setModel(new DefaultTableModel(vData, vTitle));
-//                    recList_TabbedPane.add(contentbased_Table);
-//                } else if (alg == 2) {
-//                    try {
-//                        CF.cfRecommendToAuthorList(controller.authorsCFP, controller.topRecommend);
-//                    } catch (TasteException ex) {
-//                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-//                    } catch (Exception ex) {
-//                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
-//                    JTable cfp_Table = new JTable();
-//                    Vector vTitle = new Vector(Arrays.asList(new String[]{"No.", "Id Author", "Recommendation List"}));
-//                    Vector vData = new Vector();
-//                    int i = 0;
-//                    for (String AuthorId : controller.authorsCFP.keySet()) {
-//                        i++;
-//                        Vector vector = new Vector();
-//                        vector.addElement(i);
-//                        vector.addElement(controller.authorsCFP.get(AuthorId).getAuthorId());
-//                        vector.addElement(controller.authorsCFP.get(AuthorId).getRecommendationList());
-//                        vData.add(vector);
-//                    }
-//                    cfp_Table.setModel(new DefaultTableModel(vData, vTitle));
-//                    recList_TabbedPane.add(cfp_Table);
-//                } else if (alg == 3) {
-//                    try {
-//                        CF.cfRecommendToAuthorList(controller.authorsCFC, controller.topRecommend);
-//                    } catch (TasteException ex) {
-//                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-//                    } catch (Exception ex) {
-//                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
-//                    DefaultTableModel tablemodel = (DefaultTableModel) cfc_Table.getModel();
-//                    tablemodel.getDataVector().removeAllElements();
-//                    cfc_Table.setModel(tablemodel);
-//                    int i = 0;
-//                    for (String AuthorId : controller.authorsCFC.keySet()) {
-//                        i++;
-//                        Vector vector = new Vector();
-//                        vector.addElement(i);
-//                        vector.addElement(controller.authorsCFC.get(AuthorId).getAuthorId());
-//                        vector.addElement(controller.authorsCFC.get(AuthorId).getRecommendationList());
-//                        tablemodel.addRow(vector);
-//                    }
-//                    cfc_Table.setModel(tablemodel);
-//                } else if (alg == 4) {
-//                    try {
-//                        CF.cfRecommendToAuthorList(controller.authorsCFSVD, controller.topRecommend);
-//                    } catch (TasteException ex) {
-//                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-//                    } catch (Exception ex) {
-//                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
-//                    DefaultTableModel tablemodel = (DefaultTableModel) cfsvd_Table.getModel();
-//                    tablemodel.getDataVector().removeAllElements();
-//                    cfsvd_Table.setModel(tablemodel);
-//                    int i = 0;
-//                    for (String AuthorId : controller.authorsCFSVD.keySet()) {
-//                        i++;
-//                        Vector vector = new Vector();
-//                        vector.addElement(i);
-//                        vector.addElement(controller.authorsCFSVD.get(AuthorId).getAuthorId());
-//                        vector.addElement(controller.authorsCFSVD.get(AuthorId).getRecommendationList());
-//                        tablemodel.addRow(vector);
-//                    }
-//                    cfsvd_Table.setModel(tablemodel);
-//                } else if (alg == 3) {
-//                    try {
-//                        CBFCF.cbfcfHybridRecommendToAuthorList(controller.authors, controller.topRecommend);
-//                    } catch (TasteException ex) {
-//                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-//                    } catch (Exception ex) {
-//                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
-//                    JTable hybrid_Table = new JTable();
-//                    Vector vTitle = new Vector(Arrays.asList(new String[]{"No.", "Id Author", "Recommendation List"}));
-//                    Vector vData = new Vector();
-//                    int i = 0;
-//                    for (String AuthorId : controller.authors.keySet()) {
-//                        i++;
-//                        Vector vector = new Vector();
-//                        vector.addElement(i);
-//                        vector.addElement(controller.authors.get(AuthorId).getAuthorId());
-//                        vector.addElement(controller.authors.get(AuthorId).getRecommendationList());
-//                        vData.add(vector);
-//                    }
-//                    hybrid_Table.setModel(new DefaultTableModel(vData, vTitle));
-//                    recList_TabbedPane.add(hybrid_Table);
-//                }
-//            }
-//            //</editor-fold>
-//
+
+            //<editor-fold defaultstate="collapsed" desc="Step 3: load recommendation list to table">
+            for (Integer alg : algorithm_Recommendation) {
+                if (alg == 1) {
+                    try {
+                        FeatureVectorSimilarity.generateRecommendationForAuthorList(controller.authors, controller.topRecommend);
+                    } catch (Exception ex) {
+                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    Vector vTitle = new Vector(Arrays.asList(new String[]{"No.", "Id Author", "Recommendation List"}));
+                    Vector vData = new Vector();
+                    int i = 0;
+                    for (String AuthorId : controller.authors.keySet()) {
+                        i++;
+                        Vector vector = new Vector();
+                        vector.addElement(i);
+                        vector.addElement(controller.authors.get(AuthorId).getAuthorId());
+                        vector.addElement(controller.authors.get(AuthorId).getRecommendationList());
+                        vData.add(vector);
+                    }
+                    JTable contentbased_Table = new JTable(new DefaultTableModel(vData, vTitle));
+                    contentbased_Table.setAutoCreateRowSorter(true);
+                    contentbased_Table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+                    contentbased_Table.setAutoscrolls(true);
+                    contentbased_Table.setFont(new Font("Tahoma", Font.PLAIN, 13));
+
+                    JScrollPane scrollPane = new JScrollPane(contentbased_Table);
+                    recList_TabbedPane.addTab("Content - based", scrollPane);
+                } else if (alg == 2) {
+                    HashSet<Integer> cfMethodHS = new HashSet<>();
+                    for (Integer cfMethod : cfMethodHS) {
+                        if (cfMethod == 1) {
+                            try {
+                                CF.cfRecommendToAuthorList(controller.authorsCFP, controller.topRecommend);
+                            } catch (TasteException ex) {
+                                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (Exception ex) {
+                                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            Vector vTitle = new Vector(Arrays.asList(new String[]{"No.", "Id Author", "Recommendation List"}));
+                            Vector vData = new Vector();
+                            int i = 0;
+                            for (String AuthorId : controller.authorsCFP.keySet()) {
+                                i++;
+                                Vector vector = new Vector();
+                                vector.addElement(i);
+                                vector.addElement(controller.authorsCFP.get(AuthorId).getAuthorId());
+                                vector.addElement(controller.authorsCFP.get(AuthorId).getRecommendationList());
+                                vData.add(vector);
+                            }
+                            JTable cfp_Table = new JTable(new DefaultTableModel(vData, vTitle));
+                            cfp_Table.setAutoCreateRowSorter(true);
+                            cfp_Table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+                            cfp_Table.setAutoscrolls(true);
+                            cfp_Table.setFont(new Font("Tahoma", Font.PLAIN, 13));
+
+                            JScrollPane scrollPane = new JScrollPane(cfp_Table);
+                            recList_TabbedPane.addTab("CF using KNN Pearson", scrollPane);
+                        } else if (cfMethod == 2) {
+                            try {
+                                CF.cfRecommendToAuthorList(controller.authorsCFC, controller.topRecommend);
+                            } catch (TasteException ex) {
+                                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (Exception ex) {
+                                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            Vector vTitle = new Vector(Arrays.asList(new String[]{"No.", "Id Author", "Recommendation List"}));
+                            Vector vData = new Vector();
+                            int i = 0;
+                            for (String AuthorId : controller.authorsCFC.keySet()) {
+                                i++;
+                                Vector vector = new Vector();
+                                vector.addElement(i);
+                                vector.addElement(controller.authorsCFC.get(AuthorId).getAuthorId());
+                                vector.addElement(controller.authorsCFC.get(AuthorId).getRecommendationList());
+                                vData.add(vector);
+                            }
+                            JTable cfc_Table = new JTable(new DefaultTableModel(vData, vTitle));
+                            cfc_Table.setAutoCreateRowSorter(true);
+                            cfc_Table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+                            cfc_Table.setAutoscrolls(true);
+                            cfc_Table.setFont(new Font("Tahoma", Font.PLAIN, 13));
+
+                            JScrollPane scrollPane = new JScrollPane(cfc_Table);
+                            recList_TabbedPane.addTab("CF using KNN Cosine", scrollPane);
+                        } else if (cfMethod == 3) {
+                            try {
+                                CF.cfRecommendToAuthorList(controller.authorsCFSVD, controller.topRecommend);
+                            } catch (TasteException ex) {
+                                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (Exception ex) {
+                                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            Vector vTitle = new Vector(Arrays.asList(new String[]{"No.", "Id Author", "Recommendation List"}));
+                            Vector vData = new Vector();
+                            int i = 0;
+                            for (String AuthorId : controller.authorsCFSVD.keySet()) {
+                                i++;
+                                Vector vector = new Vector();
+                                vector.addElement(i);
+                                vector.addElement(controller.authorsCFSVD.get(AuthorId).getAuthorId());
+                                vector.addElement(controller.authorsCFSVD.get(AuthorId).getRecommendationList());
+                                vData.add(vector);
+                            }
+                            JTable cfsvd_Table = new JTable(new DefaultTableModel(vData, vTitle));
+                            cfsvd_Table.setAutoCreateRowSorter(true);
+                            cfsvd_Table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+                            cfsvd_Table.setAutoscrolls(true);
+                            cfsvd_Table.setFont(new Font("Tahoma", Font.PLAIN, 13));
+
+                            JScrollPane scrollPane = new JScrollPane(cfsvd_Table);
+                            recList_TabbedPane.addTab("CF using SVD", scrollPane);
+                        }
+                    }
+                } else if (alg == 3) {
+                    try {
+                        CBFCF.cbfcfHybridRecommendToAuthorList(controller.authors, controller.topRecommend);
+                    } catch (TasteException ex) {
+                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (Exception ex) {
+                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    Vector vTitle = new Vector(Arrays.asList(new String[]{"No.", "Id Author", "Recommendation List"}));
+                    Vector vData = new Vector();
+                    int i = 0;
+                    for (String AuthorId : controller.authors.keySet()) {
+                        i++;
+                        Vector vector = new Vector();
+                        vector.addElement(i);
+                        vector.addElement(controller.authors.get(AuthorId).getAuthorId());
+                        vector.addElement(controller.authors.get(AuthorId).getRecommendationList());
+                        vData.add(vector);
+                    }
+                    JTable hybrid_Table = new JTable(new DefaultTableModel(vData, vTitle));
+                    hybrid_Table.setAutoCreateRowSorter(true);
+                    hybrid_Table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+                    hybrid_Table.setAutoscrolls(true);
+                    hybrid_Table.setFont(new Font("Tahoma", Font.PLAIN, 13));
+
+                    JScrollPane scrollPane = new JScrollPane(hybrid_Table);
+                    recList_TabbedPane.addTab("Hybrid", scrollPane);
+                }
+            }
+            //</editor-fold>
+
             //<editor-fold defaultstate="collapsed" desc="Step 4: list choosed algorithms">
             StringBuilder algorithms = new StringBuilder();
             for (Integer alg : algorithm_Recommendation) {
                 if (alg == 1) {
                     algorithms.append("Content - based").append(";");
                 } else if (alg == 2) {
-                    algorithms.append("CF using KNN Pearson").append(";");
-                } else if (alg == 3) {
-                    algorithms.append("CF using KNN Cosine").append(";");
-                } else if (alg == 4) {
-                    algorithms.append("CF using SVD").append(";");
+                    HashSet<Integer> cfMethodHS = new HashSet<>();
+                    for (Integer cfMethod : cfMethodHS) {
+                        if (cfMethod == 1) {
+                            algorithms.append("CF using KNN Pearson").append(";");
+                        } else if (cfMethod == 2) {
+                            algorithms.append("CF using KNN Cosine").append(";");
+                        } else if (cfMethod == 3) {
+                            algorithms.append("CF using SVD").append(";");
+                        }
+                    }
                 } else if (alg == 5) {
                     algorithms.append("Hybrid").append(";");
                 }
@@ -1729,26 +1770,7 @@ public class MainFramePRS extends javax.swing.JFrame {
             recommended_algorithm_TextField.setText(algorithms.toString());
             recommended_algorithm_TextField.setToolTipText(recommended_algorithm_TextField.getText());
             //</editor-fold>
-//
-//            //<editor-fold defaultstate="collapsed" desc="Step 5: reset table when recommend">
-//            if (!CB_CheckBox.isSelected()) {
-//                DefaultTableModel tablemodel = (DefaultTableModel) contentbased_Table.getModel();
-//                tablemodel.getDataVector().removeAllElements();
-//                contentbased_Table.setModel(tablemodel);
-//            }
-//            if (!CFP_CheckBox.isSelected()) {
-//                DefaultTableModel tablemodel = (DefaultTableModel) cfp_Table.getModel();
-//                tablemodel.getDataVector().removeAllElements();
-//                cfp_Table.setModel(tablemodel);
-//            }
-//
-//            if (!HB_CheckBox.isSelected()) {
-//                DefaultTableModel tablemodel = (DefaultTableModel) hybrid_Table.getModel();
-//                tablemodel.getDataVector().removeAllElements();
-//                hybrid_Table.setModel(tablemodel);
-//            }
-//            //</editor-fold>
-//
+
             JOptionPane.showMessageDialog(rootPane, "Recommending is completed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Please input Top Recommendation...", "Notice", JOptionPane.INFORMATION_MESSAGE);
@@ -1781,75 +1803,32 @@ public class MainFramePRS extends javax.swing.JFrame {
     }//GEN-LAST:event_config_HB_ButtonActionPerformed
 
     private void saveRecList_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveRecList_ButtonActionPerformed
-//        
-////<editor-fold defaultstate="collapsed" desc="save Recommendation List">
-//        String path = GuiUtilities.saveToFileJChooser();
-//        if (path != null) {
-//            if (recList_TabbedPane.getSelectedIndex() == 0) {
-//                StringBuilder recList = new StringBuilder();
-//                for (int i = 0; i < contentbased_Table.getRowCount(); i++) {
-//                    recList.append(contentbased_Table.getValueAt(i, 0)).append("|||")
-//                            .append(contentbased_Table.getValueAt(i, 1)).append("|||")
-//                            .append(contentbased_Table.getValueAt(i, 2)).append("\r\n");
-//                }
-//                try {
-//                    FileUtils.writeStringToFile(new File(path), recList.toString(), "UTF8", false);
-//                    JOptionPane.showMessageDialog(rootPane, "Saving is completed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
-//                } catch (IOException ex) {
-//                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            } else if (recList_TabbedPane.getSelectedIndex() == 1) {
-//                StringBuilder recList = new StringBuilder();
-//                for (int i = 0; i < cfp_Table.getRowCount(); i++) {
-//                    recList.append(cfp_Table.getValueAt(i, 0)).append("|||")
-//                            .append(cfp_Table.getValueAt(i, 1)).append("|||")
-//                            .append(cfp_Table.getValueAt(i, 2)).append("\r\n");
-//                }
-//                try {
-//                    FileUtils.writeStringToFile(new File(path), recList.toString(), "UTF8", false);
-//                } catch (IOException ex) {
-//                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            } else if (recList_TabbedPane.getSelectedIndex() == 2) {
-//                StringBuilder recList = new StringBuilder();
-//                for (int i = 0; i < cfc_Table.getRowCount(); i++) {
-//                    recList.append(cfc_Table.getValueAt(i, 0)).append("|||")
-//                            .append(cfc_Table.getValueAt(i, 1)).append("|||")
-//                            .append(cfc_Table.getValueAt(i, 2)).append("\r\n");
-//                }
-//                try {
-//                    FileUtils.writeStringToFile(new File(path), recList.toString(), "UTF8", false);
-//                } catch (IOException ex) {
-//                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            } else if (recList_TabbedPane.getSelectedIndex() == 3) {
-//                StringBuilder recList = new StringBuilder();
-//                for (int i = 0; i < cfsvd_Table.getRowCount(); i++) {
-//                    recList.append(cfsvd_Table.getValueAt(i, 0)).append("|||")
-//                            .append(cfsvd_Table.getValueAt(i, 1)).append("|||")
-//                            .append(cfsvd_Table.getValueAt(i, 2)).append("\r\n");
-//                }
-//                try {
-//                    FileUtils.writeStringToFile(new File(path), recList.toString(), "UTF8", false);
-//                } catch (IOException ex) {
-//                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            } else if (recList_TabbedPane.getSelectedIndex() == 4) {
-//                StringBuilder recList = new StringBuilder();
-//                for (int i = 0; i < hybrid_Table.getRowCount(); i++) {
-//                    recList.append(hybrid_Table.getValueAt(i, 0)).append("|||")
-//                            .append(hybrid_Table.getValueAt(i, 1)).append("|||")
-//                            .append(hybrid_Table.getValueAt(i, 2)).append("\r\n");
-//                }
-//                try {
-//                    FileUtils.writeStringToFile(new File(path), recList.toString(), "UTF8", false);
-//                } catch (IOException ex) {
-//                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            }
-//        }
-//        //</editor-fold>
-//        
+
+        //<editor-fold defaultstate="collapsed" desc="save Recommendation List">
+        String path = GuiUtilities.saveToFileJChooser();
+        if (path != null) {
+            if (recList_TabbedPane.getTabCount() > 0) {
+                int selected = recList_TabbedPane.getSelectedIndex();
+                StringBuilder recList = new StringBuilder();
+                JScrollPane jscrollpane = (JScrollPane) recList_TabbedPane.getComponent(selected);
+                JViewport viewport = jscrollpane.getViewport();
+                JTable tempTable = (JTable) viewport.getView();
+                for (int i = 0; i < tempTable.getRowCount(); i++) {
+                    recList.append(tempTable.getValueAt(i, 0)).append("|||")
+                            .append(tempTable.getValueAt(i, 1)).append("|||")
+                            .append(tempTable.getValueAt(i, 2)).append("\r\n");
+                }
+                try {
+                    FileUtils.writeStringToFile(new File(path), recList.toString(), "UTF8", false);
+                    JOptionPane.showMessageDialog(rootPane, "Saving is completed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                } catch (IOException ex) {
+                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "No data to save...", "Notice", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+        //</editor-fold>
     }//GEN-LAST:event_saveRecList_ButtonActionPerformed
 
     private void fileAuthor_TextAreaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fileAuthor_TextAreaKeyPressed
