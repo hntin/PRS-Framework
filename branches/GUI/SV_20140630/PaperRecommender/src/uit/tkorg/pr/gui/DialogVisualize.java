@@ -157,6 +157,8 @@ public class DialogVisualize extends javax.swing.JDialog {
             }
         });
 
+        chart_Panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
         javax.swing.GroupLayout chart_PanelLayout = new javax.swing.GroupLayout(chart_Panel);
         chart_Panel.setLayout(chart_PanelLayout);
         chart_PanelLayout.setHorizontalGroup(
@@ -231,6 +233,43 @@ public class DialogVisualize extends javax.swing.JDialog {
         if (path != null) {
             try {
                 path_TextField.setText(path);
+                if (measureEvaluation_ComboBox.getSelectedIndex() == 0) {
+                    try {
+                        drawChart("Precision");
+                    } catch (IOException ex) {
+                        Logger.getLogger(DialogVisualize.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else if (measureEvaluation_ComboBox.getSelectedIndex() == 1) {
+                    try {
+                        drawChart("Recall");
+                    } catch (IOException ex) {
+                        Logger.getLogger(DialogVisualize.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else if (measureEvaluation_ComboBox.getSelectedIndex() == 2) {
+                    try {
+                        drawChart("F1");
+                    } catch (IOException ex) {
+                        Logger.getLogger(DialogVisualize.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else if (measureEvaluation_ComboBox.getSelectedIndex() == 3) {
+                    try {
+                        drawChart("MAP");
+                    } catch (IOException ex) {
+                        Logger.getLogger(DialogVisualize.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else if (measureEvaluation_ComboBox.getSelectedIndex() == 4) {
+                    try {
+                        drawChart("NDCG");
+                    } catch (IOException ex) {
+                        Logger.getLogger(DialogVisualize.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else if (measureEvaluation_ComboBox.getSelectedIndex() == 5) {
+                    try {
+                        drawChart("MRR");
+                    } catch (IOException ex) {
+                        Logger.getLogger(DialogVisualize.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(rootPane, "Can't draw chart from this file!", "Warning", JOptionPane.WARNING_MESSAGE);
             }
@@ -238,12 +277,14 @@ public class DialogVisualize extends javax.swing.JDialog {
 
     }//GEN-LAST:event_browse_ButtonActionPerformed
     public void drawChart(String measure) throws IOException {
+        chart_Panel.removeAll();
         final XYDataset dataset = createDataset(measure);
         final JFreeChart chart = createChart(dataset, measure);
         final ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new java.awt.Dimension(chart_Panel.getWidth(), chart_Panel.getHeight()));
+        chart_Panel.setLayout(new java.awt.BorderLayout());
         //chart_Panel.add(chartPanel,BorderLayout.CENTER);
-        chart_Panel.add(chartPanel);
+        chart_Panel.add(chartPanel, BorderLayout.CENTER);
         chart_Panel.validate();
     }
     private void close_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_close_ButtonActionPerformed
@@ -251,42 +292,46 @@ public class DialogVisualize extends javax.swing.JDialog {
     }//GEN-LAST:event_close_ButtonActionPerformed
 
     private void measureEvaluation_ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_measureEvaluation_ComboBoxActionPerformed
-        if (measureEvaluation_ComboBox.getSelectedIndex() == 0) {
-            try {
-                drawChart("Precision");
-            } catch (IOException ex) {
-                Logger.getLogger(DialogVisualize.class.getName()).log(Level.SEVERE, null, ex);
+        if (!path_TextField.getText().isEmpty()) {
+            if (measureEvaluation_ComboBox.getSelectedIndex() == 0) {
+                try {
+                    drawChart("Precision");
+                } catch (IOException ex) {
+                    Logger.getLogger(DialogVisualize.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else if (measureEvaluation_ComboBox.getSelectedIndex() == 1) {
+                try {
+                    drawChart("Recall");
+                } catch (IOException ex) {
+                    Logger.getLogger(DialogVisualize.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else if (measureEvaluation_ComboBox.getSelectedIndex() == 2) {
+                try {
+                    drawChart("F1");
+                } catch (IOException ex) {
+                    Logger.getLogger(DialogVisualize.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else if (measureEvaluation_ComboBox.getSelectedIndex() == 3) {
+                try {
+                    drawChart("MAP");
+                } catch (IOException ex) {
+                    Logger.getLogger(DialogVisualize.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else if (measureEvaluation_ComboBox.getSelectedIndex() == 4) {
+                try {
+                    drawChart("NDCG");
+                } catch (IOException ex) {
+                    Logger.getLogger(DialogVisualize.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else if (measureEvaluation_ComboBox.getSelectedIndex() == 5) {
+                try {
+                    drawChart("MRR");
+                } catch (IOException ex) {
+                    Logger.getLogger(DialogVisualize.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        } else if (measureEvaluation_ComboBox.getSelectedIndex() == 1) {
-            try {
-                drawChart("Recall");
-            } catch (IOException ex) {
-                Logger.getLogger(DialogVisualize.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else if (measureEvaluation_ComboBox.getSelectedIndex() == 2) {
-            try {
-                drawChart("F1");
-            } catch (IOException ex) {
-                Logger.getLogger(DialogVisualize.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else if (measureEvaluation_ComboBox.getSelectedIndex() == 3) {
-            try {
-                drawChart("MAP");
-            } catch (IOException ex) {
-                Logger.getLogger(DialogVisualize.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else if (measureEvaluation_ComboBox.getSelectedIndex() == 4) {
-            try {
-                drawChart("NDCG");
-            } catch (IOException ex) {
-                Logger.getLogger(DialogVisualize.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else if (measureEvaluation_ComboBox.getSelectedIndex() == 5) {
-            try {
-                drawChart("MRR");
-            } catch (IOException ex) {
-                Logger.getLogger(DialogVisualize.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Please choose file to draw chart...", "Notice", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_measureEvaluation_ComboBoxActionPerformed
 
