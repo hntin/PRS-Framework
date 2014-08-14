@@ -409,6 +409,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("Training Data"));
 
+        fileAuthor_Button.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         fileAuthor_Button.setText("Browse...");
         fileAuthor_Button.setToolTipText("Import File Authors");
         fileAuthor_Button.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "File Authors", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP));
@@ -419,6 +420,7 @@ public class MainFramePRS extends javax.swing.JFrame {
             }
         });
 
+        filePaper_Button.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         filePaper_Button.setText("Browse...");
         filePaper_Button.setToolTipText("Import File Papers");
         filePaper_Button.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "File Papers", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP));
@@ -429,6 +431,7 @@ public class MainFramePRS extends javax.swing.JFrame {
             }
         });
 
+        fileAuthorPaper_Button.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         fileAuthorPaper_Button.setText("Browse...");
         fileAuthorPaper_Button.setToolTipText("Import File Author_Paper");
         fileAuthorPaper_Button.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "File Author_Paper", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP));
@@ -439,6 +442,7 @@ public class MainFramePRS extends javax.swing.JFrame {
             }
         });
 
+        filePaperCitePaper_Button.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         filePaperCitePaper_Button.setText("Browse...");
         filePaperCitePaper_Button.setToolTipText("Import File Paper_Cited_Paper");
         filePaperCitePaper_Button.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "File Paper_Cite_Paper", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP));
@@ -449,6 +453,7 @@ public class MainFramePRS extends javax.swing.JFrame {
             }
         });
 
+        fileAuthorCitePaper_Button.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         fileAuthorCitePaper_Button.setText("Browse...");
         fileAuthorCitePaper_Button.setToolTipText("Import File Author_Cited_Paper");
         fileAuthorCitePaper_Button.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "File Author_Cite_Paper", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP));
@@ -470,9 +475,10 @@ public class MainFramePRS extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fileAuthorPaper_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(filePaperCitePaper_Button, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                .addComponent(filePaperCitePaper_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fileAuthorCitePaper_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(fileAuthorCitePaper_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -489,6 +495,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         jPanel24.setBorder(javax.swing.BorderFactory.createTitledBorder("Testing Data"));
 
+        fileGroundTruth_Button.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         fileGroundTruth_Button.setText("Browse...");
         fileGroundTruth_Button.setToolTipText("Import File GroundTruth");
         fileGroundTruth_Button.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "File Groundtruth", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP));
@@ -503,9 +510,10 @@ public class MainFramePRS extends javax.swing.JFrame {
         jPanel24.setLayout(jPanel24Layout);
         jPanel24Layout.setHorizontalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel24Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel24Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(fileGroundTruth_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(fileGroundTruth_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
         );
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -515,6 +523,8 @@ public class MainFramePRS extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        import_DataSource_Button.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        import_DataSource_Button.setText("Run");
         import_DataSource_Button.setToolTipText("Run Import Dataset");
         import_DataSource_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -527,12 +537,12 @@ public class MainFramePRS extends javax.swing.JFrame {
         jPanel17Layout.setHorizontalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel17Layout.createSequentialGroup()
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 684, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(import_DataSource_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(import_DataSource_Button, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+                .addGap(2, 2, 2))
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -543,6 +553,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder("Dataset Example"));
 
+        import_DatasetExample_Button.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         import_DatasetExample_Button.setText("Using Dataset Example");
         import_DatasetExample_Button.setToolTipText("Run Import Data From Example Dataset");
         import_DatasetExample_Button.addActionListener(new java.awt.event.ActionListener() {
@@ -557,7 +568,7 @@ public class MainFramePRS extends javax.swing.JFrame {
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(import_DatasetExample_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(import_DatasetExample_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 143, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -682,6 +693,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Recommend List"));
 
+        saveRecList_Button.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         saveRecList_Button.setText("Save");
         saveRecList_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -712,6 +724,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         jPanel14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
+        recommend_Button.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         recommend_Button.setText("Recommend");
         recommend_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -812,11 +825,12 @@ public class MainFramePRS extends javax.swing.JFrame {
         jPanel16Layout.setHorizontalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel16Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(f1_CheckBox)
                     .addComponent(recall_CheckBox)
-                    .addComponent(precision_CheckBox)
-                    .addComponent(f1_CheckBox))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                    .addComponent(precision_CheckBox))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(map_CheckBox)
                     .addComponent(ndcg_CheckBox)
@@ -830,11 +844,11 @@ public class MainFramePRS extends javax.swing.JFrame {
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(precision_CheckBox)
                     .addComponent(map_CheckBox))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(24, 24, 24)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ndcg_CheckBox)
                     .addComponent(recall_CheckBox))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addGap(18, 27, Short.MAX_VALUE)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(f1_CheckBox)
                     .addComponent(mrr_CheckBox))
@@ -858,6 +872,7 @@ public class MainFramePRS extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(evaluationResult_Table);
 
+        saveEvaluation_Button.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         saveEvaluation_Button.setText("Save");
         saveEvaluation_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -865,6 +880,7 @@ public class MainFramePRS extends javax.swing.JFrame {
             }
         });
 
+        next_Button.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         next_Button.setText("Next >>");
         next_Button.setEnabled(false);
         next_Button.addActionListener(new java.awt.event.ActionListener() {
@@ -873,6 +889,7 @@ public class MainFramePRS extends javax.swing.JFrame {
             }
         });
 
+        back_Button.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         back_Button.setText("<< Back");
         back_Button.setEnabled(false);
         back_Button.addActionListener(new java.awt.event.ActionListener() {
@@ -908,6 +925,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
+        evaluate_Button.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         evaluate_Button.setText("Evaluation");
         evaluate_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
