@@ -5,6 +5,7 @@
  */
 package uit.tkorg.pr.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.File;
@@ -49,7 +50,6 @@ public class DialogVisualize extends javax.swing.JDialog {
         final XYSeries series5 = new XYSeries("Hybrid");
 
         String path = path_TextField.getText().trim();
-//        String path = "Temp\\ResultEvaluation.txt";
 
         FileReader file = new FileReader(new File(path));
         BufferedReader textReader = new BufferedReader(file);
@@ -157,13 +157,11 @@ public class DialogVisualize extends javax.swing.JDialog {
             }
         });
 
-        chart_Panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
         javax.swing.GroupLayout chart_PanelLayout = new javax.swing.GroupLayout(chart_Panel);
         chart_Panel.setLayout(chart_PanelLayout);
         chart_PanelLayout.setHorizontalGroup(
             chart_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 643, Short.MAX_VALUE)
+            .addGap(0, 645, Short.MAX_VALUE)
         );
         chart_PanelLayout.setVerticalGroup(
             chart_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -244,7 +242,9 @@ public class DialogVisualize extends javax.swing.JDialog {
         final JFreeChart chart = createChart(dataset, measure);
         final ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new java.awt.Dimension(chart_Panel.getWidth(), chart_Panel.getHeight()));
+        //chart_Panel.add(chartPanel,BorderLayout.CENTER);
         chart_Panel.add(chartPanel);
+        chart_Panel.validate();
     }
     private void close_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_close_ButtonActionPerformed
         this.hide();
@@ -310,9 +310,9 @@ public class DialogVisualize extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 DialogVisualize dialog = null;
-             
-                    dialog = new DialogVisualize(new javax.swing.JFrame(), true);
-               
+
+                dialog = new DialogVisualize(new javax.swing.JFrame(), true);
+
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

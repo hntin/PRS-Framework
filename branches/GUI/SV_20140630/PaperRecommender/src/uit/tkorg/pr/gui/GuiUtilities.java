@@ -46,6 +46,7 @@ public class GuiUtilities {
         try {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle("Save To File");
+            fileChooser.setAcceptAllFileFilterUsed(false);
             fileChooser.addChoosableFileFilter(new FileFilter() {
                 @Override
                 public boolean accept(File file) {
@@ -139,6 +140,9 @@ public class GuiUtilities {
         try {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle(title);
+            fileChooser.setAcceptAllFileFilterUsed(false);
+            FileFilter fileFilterText = new FileNameExtensionFilter("Text Files(*.txt)", "txt");
+            fileChooser.setFileFilter(fileFilterText);
             fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             int userSelection = fileChooser.showOpenDialog(null);
             if (userSelection == JFileChooser.APPROVE_OPTION) {
