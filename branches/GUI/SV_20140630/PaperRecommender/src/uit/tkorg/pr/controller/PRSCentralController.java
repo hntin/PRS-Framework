@@ -147,12 +147,15 @@ public class PRSCentralController {
                     // Get list of papers to process.
                     paperIdsOfAuthorTestSet = CBFAuthorFVComputation.getPaperIdsOfAuthors(authors);
                     paperIdsInTestSet = CBFAuthorFVComputation.getPaperIdsTestSet(authors);
+                    response[0] = "Import Dataser is successed,please choose algorithm recommendation to generate recommendlist.";
                     break;
                 case RECOMMEND:
                     recommend();
+                    response[0] = "Generating recommend list successfully,please choose tab evaluation to evaluate algorithm.";
                     break;
                 case EVALUATE:
                     response[1] = evaluate(authors, measure_Evaluation, topRank).toString();
+                    response[0]= "Evalation is successed";
                     break;
                 case ANALYSE_ERROR:
                     break;
@@ -164,9 +167,11 @@ public class PRSCentralController {
                         recommendList.append(authorId + ":\n").append(authors.get(authorId).getRecommendationList().toString() + "\r\n");
                     }
                     FileUtils.writeStringToFile(new File(_fileName_RecommendationList), recommendList.toString(), "UTF8", true);
+                    response[0]= "Saving is successed";
                     break;
                 case SAVE_EVALUATION_RESULT:
                     FileUtils.writeStringToFile(new File(_fileName_EvaluationResult), evaluate(authors, measure_Evaluation, topRank).toString(), "UTF8", true);
+                    response[0]= "Saving is successed";
                     break;
                 case RESET:
                     papers = new HashMap<>();
