@@ -147,11 +147,11 @@ public class PRSCentralController {
                     // Get list of papers to process.
                     paperIdsOfAuthorTestSet = CBFAuthorFVComputation.getPaperIdsOfAuthors(authors);
                     paperIdsInTestSet = CBFAuthorFVComputation.getPaperIdsTestSet(authors);
-                    response[0] = "Import Dataser is successed,please choose algorithm recommendation to generate recommendlist.";
+                    response[0] = "Import Dataser is successed. Please choose tab recommendation to choose algorithm recommendation to generate recommendlist.";
                     break;
                 case RECOMMEND:
                     recommend();
-                    response[0] = "Generating recommend list successfully,please choose tab evaluation to evaluate algorithm.";
+                    response[0] = "Generating recommend list successfully. Please choose tab evaluation to evaluate algorithm.";
                     break;
                 case EVALUATE:
                     response[1] = evaluate(authors, measure_Evaluation, topRank).toString();
