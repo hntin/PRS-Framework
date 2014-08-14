@@ -141,7 +141,7 @@ public class GuiUtilities {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle(title);
             fileChooser.setAcceptAllFileFilterUsed(false);
-            FileFilter fileFilterText = new FileNameExtensionFilter("Text Files(*.txt)", "txt");
+            FileFilter fileFilterText = new FileNameExtensionFilter("Text Files(*.csv)", "csv");
             fileChooser.setFileFilter(fileFilterText);
             fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             int userSelection = fileChooser.showOpenDialog(null);

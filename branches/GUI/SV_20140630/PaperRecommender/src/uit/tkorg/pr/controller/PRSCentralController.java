@@ -147,15 +147,15 @@ public class PRSCentralController {
                     // Get list of papers to process.
                     paperIdsOfAuthorTestSet = CBFAuthorFVComputation.getPaperIdsOfAuthors(authors);
                     paperIdsInTestSet = CBFAuthorFVComputation.getPaperIdsTestSet(authors);
-                    response[0] = "Import Dataser is successed. Please choose tab recommendation to choose algorithm recommendation to generate recommendlist.";
+                    response[0] = "Importing dataset is successed. Please choose tab Recommendation to recommend and generate recommendation list.";
                     break;
                 case RECOMMEND:
                     recommend();
-                    response[0] = "Generating recommend list successfully. Please choose tab evaluation to evaluate algorithm.";
+                    response[0] = "Generating recommendation list is successed. Please choose tab Evaluation to evaluate algorithms.";
                     break;
                 case EVALUATE:
                     response[1] = evaluate(authors, measure_Evaluation, topRank).toString();
-                    response[0]= "Evalation is successed";
+                    response[0]= "Evaluation is successed.";
                     break;
                 case ANALYSE_ERROR:
                     break;
@@ -167,11 +167,11 @@ public class PRSCentralController {
                         recommendList.append(authorId + ":\n").append(authors.get(authorId).getRecommendationList().toString() + "\r\n");
                     }
                     FileUtils.writeStringToFile(new File(_fileName_RecommendationList), recommendList.toString(), "UTF8", true);
-                    response[0]= "Saving is successed";
+                    response[0]= "Saving is successed.";
                     break;
                 case SAVE_EVALUATION_RESULT:
                     FileUtils.writeStringToFile(new File(_fileName_EvaluationResult), evaluate(authors, measure_Evaluation, topRank).toString(), "UTF8", true);
-                    response[0]= "Saving is successed";
+                    response[0]= "Saving is successed.";
                     break;
                 case RESET:
                     papers = new HashMap<>();
@@ -230,7 +230,6 @@ public class PRSCentralController {
                     pruning);
             CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir,
                     cfMethod, authors, paperIdsInTestSet, kNeighbourhood, f, l, i);
-            alpha = (float) 0.9;
             CBFCF.computeCBFCFCombinationAndPutIntoModelForAuthorList(authors, alpha_temp, combineHybrid);
             CBFCF.cbfcfHybridRecommendToAuthorList(authors, topRecommend);
         }

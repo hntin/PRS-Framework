@@ -62,7 +62,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
     private HashSet<Integer> algorithm_Recommendation = new HashSet<>();
     private HashSet<Integer> measure_Evaluation = new HashSet<>();
-    private String [] response;
+    private String[] response;
     //<editor-fold defaultstate="collapsed" desc="Dialog Config Algorithm">
     private DialogConfigCB dialogConfigCB = new DialogConfigCB(this, rootPaneCheckingEnabled);
     private DialogConfigCF dialogConfigCF = new DialogConfigCF(this, rootPaneCheckingEnabled);
@@ -206,6 +206,7 @@ public class MainFramePRS extends javax.swing.JFrame {
         setTitle("Paper Recommendation System");
         setResizable(false);
 
+        jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
         reset_Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Button-Refresh-icon.png"))); // NOI18N
@@ -476,13 +477,13 @@ public class MainFramePRS extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                 .addComponent(fileAuthor_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(filePaper_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fileAuthorPaper_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(filePaperCitePaper_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fileAuthorCitePaper_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(filePaper_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(filePaperCitePaper_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
@@ -515,10 +516,9 @@ public class MainFramePRS extends javax.swing.JFrame {
         jPanel24.setLayout(jPanel24Layout);
         jPanel24Layout.setHorizontalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel24Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel24Layout.createSequentialGroup()
                 .addComponent(fileGroundTruth_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -543,11 +543,11 @@ public class MainFramePRS extends javax.swing.JFrame {
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel17Layout.createSequentialGroup()
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 684, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(import_DataSource_Button, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
-                .addGap(2, 2, 2))
+                .addGap(4, 4, 4))
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -571,9 +571,7 @@ public class MainFramePRS extends javax.swing.JFrame {
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(import_DatasetExample_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 143, Short.MAX_VALUE))
+            .addComponent(import_DatasetExample_Button, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -586,9 +584,10 @@ public class MainFramePRS extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -866,10 +865,7 @@ public class MainFramePRS extends javax.swing.JFrame {
         evaluationResult_Table.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         evaluationResult_Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Recommendation Algorithm", "Evaluation Measure", "Top Rank", "Evaluated Result"
@@ -919,13 +915,13 @@ public class MainFramePRS extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(back_Button)
                     .addComponent(next_Button)
                     .addComponent(saveEvaluation_Button))
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
@@ -1141,27 +1137,31 @@ public class MainFramePRS extends javax.swing.JFrame {
     private void fileGroundTruth_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileGroundTruth_ButtonActionPerformed
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
-            try {
-                CheckError.CheckImportData(ImportFiles.FILE_GROUNDTRUTH, path);
-                String fileLog = "Temp\\log.txt";
-                if (!new File(fileLog).exists()) {
-                    controller.fileNameGroundTruth = path;
-                    console_TextArea.append(path + "\n");
-                    numOfFiles++;
-                } else {
-                    FileReader file = new FileReader(new File(fileLog));
-                    BufferedReader textReader = new BufferedReader(file);
-                    StringBuilder error = new StringBuilder();
-                    String line = null;
-                    while ((line = textReader.readLine()) != null) {
-                        error.append(line).append("\n");
+            if (new File("path").exists()) {
+                try {
+                    CheckError.CheckImportData(ImportFiles.FILE_GROUNDTRUTH, path);
+                    String fileLog = "Temp\\log.txt";
+                    if (!new File(fileLog).exists()) {
+                        controller.fileNameGroundTruth = path;
+                        console_TextArea.append(path + "\n");
+                        numOfFiles++;
+                    } else {
+                        FileReader file = new FileReader(new File(fileLog));
+                        BufferedReader textReader = new BufferedReader(file);
+                        StringBuilder error = new StringBuilder();
+                        String line = null;
+                        while ((line = textReader.readLine()) != null) {
+                            error.append(line).append("\n");
+                        }
+                        file.close();
+                        JOptionPane.showMessageDialog(rootPane, error, "Error", JOptionPane.ERROR_MESSAGE);
+                        GuiUtilities.deleteFile(fileLog);
                     }
-                    file.close();
-                    JOptionPane.showMessageDialog(rootPane, error, "Error", JOptionPane.ERROR_MESSAGE);
-                    GuiUtilities.deleteFile(fileLog);
+                } catch (IOException ex) {
+                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (IOException ex) {
-                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "File doesn't exist!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_fileGroundTruth_ButtonActionPerformed
@@ -1169,27 +1169,31 @@ public class MainFramePRS extends javax.swing.JFrame {
     private void fileAuthorCitePaper_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileAuthorCitePaper_ButtonActionPerformed
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
-            try {
-                CheckError.CheckImportData(ImportFiles.FILE_AUTHOR_CITE_PAPER, path);
-                String fileLog = "Temp\\log.txt";
-                if (!new File(fileLog).exists()) {
-                    controller.fileNameAuthorCitePaper = path;
-                    console_TextArea.append(path + "\n");
-                    numOfFiles++;
-                } else {
-                    FileReader file = new FileReader(new File(fileLog));
-                    BufferedReader textReader = new BufferedReader(file);
-                    StringBuilder error = new StringBuilder();
-                    String line = null;
-                    while ((line = textReader.readLine()) != null) {
-                        error.append(line).append("\n");
+            if (new File("path").exists()) {
+                try {
+                    CheckError.CheckImportData(ImportFiles.FILE_AUTHOR_CITE_PAPER, path);
+                    String fileLog = "Temp\\log.txt";
+                    if (!new File(fileLog).exists()) {
+                        controller.fileNameAuthorCitePaper = path;
+                        console_TextArea.append(path + "\n");
+                        numOfFiles++;
+                    } else {
+                        FileReader file = new FileReader(new File(fileLog));
+                        BufferedReader textReader = new BufferedReader(file);
+                        StringBuilder error = new StringBuilder();
+                        String line = null;
+                        while ((line = textReader.readLine()) != null) {
+                            error.append(line).append("\n");
+                        }
+                        file.close();
+                        JOptionPane.showMessageDialog(rootPane, error, "Error", JOptionPane.ERROR_MESSAGE);
+                        GuiUtilities.deleteFile(fileLog);
                     }
-                    file.close();
-                    JOptionPane.showMessageDialog(rootPane, error, "Error", JOptionPane.ERROR_MESSAGE);
-                    GuiUtilities.deleteFile(fileLog);
+                } catch (IOException ex) {
+                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (IOException ex) {
-                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "File doesn't exist!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_fileAuthorCitePaper_ButtonActionPerformed
@@ -1197,27 +1201,31 @@ public class MainFramePRS extends javax.swing.JFrame {
     private void filePaperCitePaper_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filePaperCitePaper_ButtonActionPerformed
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
-            try {
-                CheckError.CheckImportData(ImportFiles.FILE_PAPER_CITE_PAPER, path);
-                String fileLog = "Temp\\log.txt";
-                if (!new File(fileLog).exists()) {
-                    controller.fileNamePaperCitePaper = path;
-                    console_TextArea.append(path + "\n");
-                    numOfFiles++;
-                } else {
-                    FileReader file = new FileReader(new File(fileLog));
-                    BufferedReader textReader = new BufferedReader(file);
-                    StringBuilder error = new StringBuilder();
-                    String line = null;
-                    while ((line = textReader.readLine()) != null) {
-                        error.append(line).append("\n");
+            if (new File("path").exists()) {
+                try {
+                    CheckError.CheckImportData(ImportFiles.FILE_PAPER_CITE_PAPER, path);
+                    String fileLog = "Temp\\log.txt";
+                    if (!new File(fileLog).exists()) {
+                        controller.fileNamePaperCitePaper = path;
+                        console_TextArea.append(path + "\n");
+                        numOfFiles++;
+                    } else {
+                        FileReader file = new FileReader(new File(fileLog));
+                        BufferedReader textReader = new BufferedReader(file);
+                        StringBuilder error = new StringBuilder();
+                        String line = null;
+                        while ((line = textReader.readLine()) != null) {
+                            error.append(line).append("\n");
+                        }
+                        file.close();
+                        JOptionPane.showMessageDialog(rootPane, error, "Error", JOptionPane.ERROR_MESSAGE);
+                        GuiUtilities.deleteFile(fileLog);
                     }
-                    file.close();
-                    JOptionPane.showMessageDialog(rootPane, error, "Error", JOptionPane.ERROR_MESSAGE);
-                    GuiUtilities.deleteFile(fileLog);
+                } catch (IOException ex) {
+                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (IOException ex) {
-                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "File doesn't exist!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_filePaperCitePaper_ButtonActionPerformed
@@ -1225,28 +1233,32 @@ public class MainFramePRS extends javax.swing.JFrame {
     private void fileAuthorPaper_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileAuthorPaper_ButtonActionPerformed
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
-            try {
-                CheckError.CheckImportData(ImportFiles.FILE_AUTHOR_PAPER, path);
-                String fileLog = "Temp\\log.txt";
-                if (!new File(fileLog).exists()) {
-                    controller.fileNameAuthorPaper = path;
-                    console_TextArea.append(path + "\n");
-                    numOfFiles++;
-                } else {
-                    StringBuilder error;
-                    try (FileReader file = new FileReader(new File(fileLog))) {
-                        BufferedReader textReader = new BufferedReader(file);
-                        error = new StringBuilder();
-                        String line = null;
-                        while ((line = textReader.readLine()) != null) {
-                            error.append(line).append("\n");
+            if (new File("path").exists()) {
+                try {
+                    CheckError.CheckImportData(ImportFiles.FILE_AUTHOR_PAPER, path);
+                    String fileLog = "Temp\\log.txt";
+                    if (!new File(fileLog).exists()) {
+                        controller.fileNameAuthorPaper = path;
+                        console_TextArea.append(path + "\n");
+                        numOfFiles++;
+                    } else {
+                        StringBuilder error;
+                        try (FileReader file = new FileReader(new File(fileLog))) {
+                            BufferedReader textReader = new BufferedReader(file);
+                            error = new StringBuilder();
+                            String line = null;
+                            while ((line = textReader.readLine()) != null) {
+                                error.append(line).append("\n");
+                            }
                         }
+                        JOptionPane.showMessageDialog(rootPane, error, "Error", JOptionPane.ERROR_MESSAGE);
+                        GuiUtilities.deleteFile(fileLog);
                     }
-                    JOptionPane.showMessageDialog(rootPane, error, "Error", JOptionPane.ERROR_MESSAGE);
-                    GuiUtilities.deleteFile(fileLog);
+                } catch (IOException ex) {
+                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (IOException ex) {
-                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "File doesn't exist!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_fileAuthorPaper_ButtonActionPerformed
@@ -1254,58 +1266,65 @@ public class MainFramePRS extends javax.swing.JFrame {
     private void filePaper_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filePaper_ButtonActionPerformed
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
-            try {
-                CheckError.CheckImportData(ImportFiles.FILE_PAPERS, path);
-                String fileLog = "Temp\\log.txt";
-                if (!new File(fileLog).exists()) {
-                    controller.fileNamePapers = path;
-                    console_TextArea.append(path + "\n");
-                    numOfFiles++;
-                } else {
-                    FileReader file = new FileReader(new File(fileLog));
-                    BufferedReader textReader = new BufferedReader(file);
-                    StringBuilder error = new StringBuilder();
-                    String line = null;
-                    while ((line = textReader.readLine()) != null) {
-                        error.append(line).append("\n");
+            if (new File("path").exists()) {
+                try {
+                    CheckError.CheckImportData(ImportFiles.FILE_PAPERS, path);
+                    String fileLog = "Temp\\log.txt";
+                    if (!new File(fileLog).exists()) {
+                        controller.fileNamePapers = path;
+                        console_TextArea.append(path + "\n");
+                        numOfFiles++;
+                    } else {
+                        FileReader file = new FileReader(new File(fileLog));
+                        BufferedReader textReader = new BufferedReader(file);
+                        StringBuilder error = new StringBuilder();
+                        String line = null;
+                        while ((line = textReader.readLine()) != null) {
+                            error.append(line).append("\n");
+                        }
+                        file.close();
+                        JOptionPane.showMessageDialog(rootPane, error, "Error", JOptionPane.ERROR_MESSAGE);
+                        GuiUtilities.deleteFile(fileLog);
                     }
-                    file.close();
-                    JOptionPane.showMessageDialog(rootPane, error, "Error", JOptionPane.ERROR_MESSAGE);
-                    GuiUtilities.deleteFile(fileLog);
+                } catch (IOException ex) {
+                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (IOException ex) {
-                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "File doesn't exist!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-
     }//GEN-LAST:event_filePaper_ButtonActionPerformed
 
     private void fileAuthor_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileAuthor_ButtonActionPerformed
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
-            try {
-                CheckError.CheckImportData(ImportFiles.FILE_AUTHORS, path);
-                String fileLog = "Temp\\log.txt";
+            if (new File("path").exists()) {
+                try {
+                    CheckError.CheckImportData(ImportFiles.FILE_AUTHORS, path);
+                    String fileLog = "Temp\\log.txt";
 
-                if (!new File(fileLog).exists()) {
-                    controller.fileNameAuthors = path;
-                    console_TextArea.append(path + "\n");
-                    numOfFiles++;
-                } else {
-                    StringBuilder error;
-                    try (FileReader file = new FileReader(new File(fileLog))) {
-                        BufferedReader textReader = new BufferedReader(file);
-                        error = new StringBuilder();
-                        String line = null;
-                        while ((line = textReader.readLine()) != null) {
-                            error.append(line).append("\n");
+                    if (!new File(fileLog).exists()) {
+                        controller.fileNameAuthors = path;
+                        console_TextArea.append(path + "\n");
+                        numOfFiles++;
+                    } else {
+                        StringBuilder error;
+                        try (FileReader file = new FileReader(new File(fileLog))) {
+                            BufferedReader textReader = new BufferedReader(file);
+                            error = new StringBuilder();
+                            String line = null;
+                            while ((line = textReader.readLine()) != null) {
+                                error.append(line).append("\n");
+                            }
                         }
+                        JOptionPane.showMessageDialog(rootPane, error, "Error", JOptionPane.ERROR_MESSAGE);
+                        GuiUtilities.deleteFile(fileLog);
                     }
-                    JOptionPane.showMessageDialog(rootPane, error, "Error", JOptionPane.ERROR_MESSAGE);
-                    GuiUtilities.deleteFile(fileLog);
+                } catch (IOException ex) {
+                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (IOException ex) {
-                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "File doesn't exist!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_fileAuthor_ButtonActionPerformed
@@ -1353,35 +1372,45 @@ public class MainFramePRS extends javax.swing.JFrame {
     }//GEN-LAST:event_HB_CheckBoxActionPerformed
 
     private void import_DataSource_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_import_DataSource_ButtonActionPerformed
-        if (numOfFiles == 6) {
-            SwingWorker swingWorker;
-            swingWorker = new SwingWorker() {
+        if (step1) {
+            int comfirm = JOptionPane.showConfirmDialog(rootPane, "You want to import dataset again?", "Confirm", JOptionPane.YES_NO_OPTION);
+            if (comfirm == JOptionPane.YES_OPTION) {
+                if (numOfFiles % 6 == 0) {
 
-                @Override
-                protected Object doInBackground() throws Exception {
-                    import_DataSource_Button.setEnabled(false);
-                    console_TextArea.append("\nBegin import dataset....\n");
-                    long begin = System.currentTimeMillis();
-                    response = controller.guiHandlerRequest(Options.IMPORT_DATA);
-                    console_TextArea.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + " seconds" + "\n");
-                    console_TextArea.append("End import dataset....\n");
-                    return null;
                 }
-
-                @Override
-                protected void done() {
-                    step1 = true;
-                   // JOptionPane.showMessageDialog(rootPane, "Importing process is completed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
-                    status_Label.setText(response[0]);
-                    import_DataSource_Button.setEnabled(true);
-                }
-
-            };
-
-            swingWorker.execute();
-
+            }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "There are some files which haven't choosed", "Notice", JOptionPane.INFORMATION_MESSAGE);
+            if (numOfFiles == 6) {
+                SwingWorker swingWorker;
+                swingWorker = new SwingWorker() {
+
+                    @Override
+                    protected Object doInBackground() throws Exception {
+                        import_DataSource_Button.setEnabled(false);
+                        console_TextArea.append("\nBegin import dataset....\n");
+                        status_Label.setText("Importing dataset...");
+                        long begin = System.currentTimeMillis();
+                        response = controller.guiHandlerRequest(Options.IMPORT_DATA);
+                        console_TextArea.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + " seconds" + "\n");
+                        console_TextArea.append("End import dataset....\n");
+                        return null;
+                    }
+
+                    @Override
+                    protected void done() {
+                        step1 = true;
+                        JOptionPane.showMessageDialog(rootPane, "Importing process is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                        status_Label.setText(response[0]);
+                        import_DataSource_Button.setEnabled(true);
+                    }
+
+                };
+
+                swingWorker.execute();
+
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "There are some files which haven't choosed", "Notice", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
     }//GEN-LAST:event_import_DataSource_ButtonActionPerformed
 
@@ -1405,8 +1434,9 @@ public class MainFramePRS extends javax.swing.JFrame {
                 protected Object doInBackground() throws Exception {
                     import_DatasetExample_Button.setEnabled(false);
                     console_TextArea.append("\nBegin import dataset....\n");
+                    status_Label.setText("Importing dataset...");
                     long begin = System.currentTimeMillis();
-                   response = controller.guiHandlerRequest(Options.IMPORT_DATA);
+                    response = controller.guiHandlerRequest(Options.IMPORT_DATA);
                     console_TextArea.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + " seconds" + "\n");
                     console_TextArea.append("End import dataset....\n");
                     return null;
@@ -1415,7 +1445,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 @Override
                 protected void done() {
                     step1 = true;
-                   // JOptionPane.showMessageDialog(rootPane, "Importing process is completed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, "Importing process is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                     status_Label.setText(response[0]);
                     import_DatasetExample_Button.setEnabled(true);
                 }
@@ -1449,6 +1479,8 @@ public class MainFramePRS extends javax.swing.JFrame {
 
                 controller.topRank = Integer.parseInt(topRank_TextField.getText().trim());
 
+                status_Label.setText("Evaluating...");
+
                 //<editor-fold defaultstate="collapsed" desc="Step 1: get measure_Evaluation Set">
                 measure_Evaluation.clear();
                 if (precision_CheckBox.isSelected()) {
@@ -1469,154 +1501,160 @@ public class MainFramePRS extends javax.swing.JFrame {
                 if (mrr_CheckBox.isSelected()) {
                     measure_Evaluation.add(6);
                 }
-            //</editor-fold>
-
-                //<editor-fold defaultstate="collapsed" desc="Step 2: evaluate for algorithms">
-                StringBuilder evaluationResult = new StringBuilder();
-                for (Integer alg : algorithm_Recommendation) {
-                    if (alg == 1) {
-                        try {
-                            FeatureVectorSimilarity.generateRecommendationForAuthorList(controller.authors, controller.topRecommend);
-                        } catch (Exception ex) {
-                            Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        for (Integer measure : measure_Evaluation) {
-                            controller.measure_Evaluation = measure;
-                            try {
-                                evaluationResult.append("\nContent - based\t" + controller.evaluate(controller.authors, measure, controller.topRank));
-                            } catch (Exception ex) {
-                                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
-                    } else if (alg == 2) {
-                        HashSet<Integer> cfMethodHS = new HashSet<>();
-                        cfMethodHS = dialogConfigCF.cfMethodHS;
-                        for (Integer cfMethod : cfMethodHS) {
-                            if (cfMethod == 1) {
-                                try {
-                                    CF.cfRecommendToAuthorList(controller.authorsCFP, controller.topRecommend);
-                                } catch (TasteException ex) {
-                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                                } catch (Exception ex) {
-                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                                }
-                                for (Integer measure : measure_Evaluation) {
-                                    controller.measure_Evaluation = measure;
-                                    try {
-                                        evaluationResult.append("\nCF using KNN Pearson\t" + controller.evaluate(controller.authorsCFP, measure, controller.topRank));
-                                    } catch (Exception ex) {
-                                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                                    }
-                                }
-                            } else if (cfMethod == 2) {
-                                try {
-                                    CF.cfRecommendToAuthorList(controller.authorsCFC, controller.topRecommend);
-                                } catch (TasteException ex) {
-                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                                } catch (Exception ex) {
-                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                                }
-                                for (Integer measure : measure_Evaluation) {
-                                    controller.measure_Evaluation = measure;
-                                    try {
-                                        evaluationResult.append("\nCF using KNN Cosine\t" + controller.evaluate(controller.authorsCFC, measure, controller.topRank));
-                                    } catch (Exception ex) {
-                                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                                    }
-                                }
-
-                            } else if (cfMethod == 3) {
-                                try {
-                                    CF.cfRecommendToAuthorList(controller.authorsCFSVD, controller.topRecommend);
-                                } catch (TasteException ex) {
-                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                                } catch (Exception ex) {
-                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                                }
-                                for (Integer measure : measure_Evaluation) {
-                                    controller.measure_Evaluation = measure;
-                                    try {
-                                        evaluationResult.append("\nCF using SVD\t" + controller.evaluate(controller.authorsCFSVD, measure, controller.topRank));
-                                    } catch (Exception ex) {
-                                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                                    }
-                                }
-                            }
-                        }
-                    } else if (alg == 3) {
-                        try {
-                            CBFCF.cbfcfHybridRecommendToAuthorList(controller.authors, controller.topRecommend);
-                        } catch (TasteException ex) {
-                            Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (Exception ex) {
-                            Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        for (Integer measure : measure_Evaluation) {
-                            controller.measure_Evaluation = measure;
-                            try {
-                                evaluationResult.append("\nHybrid\t" + controller.evaluate(controller.authors, measure, controller.topRank));
-                            } catch (Exception ex) {
-                                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
-                    }
-                }
-
-                try {
-                    FileUtils.writeStringToFile(new File("Temp\\evaluationResult.txt"), evaluationResult.toString(), "UTF8", false);
-                } catch (IOException ex) {
-                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            //</editor-fold>
-
-                //<editor-fold defaultstate="collapsed" desc="Step 3: load evaluated result to table">
-                DefaultTableModel tablemodelReset = (DefaultTableModel) evaluationResult_Table.getModel();
-                tablemodelReset.getDataVector().removeAllElements();
-                evaluationResult_Table.setModel(tablemodelReset);
-                BufferedReader reader = null;
-                try {
-                    reader = new BufferedReader(new FileReader("Temp\\evaluationResult.txt"));
-                    String line = null;
-                    DefaultTableModel tablemodel = (DefaultTableModel) evaluationResult_Table.getModel();
-                    tablemodel.getDataVector().removeAllElements();
-                    evaluationResult_Table.setModel(tablemodel);
-                    while ((line = reader.readLine()) != null) {
-                        Vector vector = new Vector();
-                        String[] str = line.split("\t");
-                        if (str.length == 4) {
-                            for (int i = 0; i < str.length; i++) {
-                                vector.addElement(str[i]);
-                            }
-                            tablemodel.addRow(vector);
-                        }
-                    }
-                    evaluationResult_Table.setModel(tablemodel);
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(JTable.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(JTable.class.getName()).log(Level.SEVERE, null, ex);
-                } finally {
-                    try {
-                        reader.close();
-                    } catch (IOException ex) {
-                        Logger.getLogger(JTable.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
                 //</editor-fold>
 
-                evaluationList.add(evaluationResult.toString());
-                if (evaluationList.size() > 1) {
-                    back_Button.setEnabled(true);
-                    backNext = evaluationList.size() - 1;
+                if (measure_Evaluation.size() > 0) {
+
+                    //<editor-fold defaultstate="collapsed" desc="Step 2: evaluate for algorithms">
+                    StringBuilder evaluationResult = new StringBuilder();
+                    for (Integer alg : algorithm_Recommendation) {
+                        if (alg == 1) {
+                            try {
+                                FeatureVectorSimilarity.generateRecommendationForAuthorList(controller.authors, controller.topRecommend);
+                            } catch (Exception ex) {
+                                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            for (Integer measure : measure_Evaluation) {
+                                controller.measure_Evaluation = measure;
+                                try {
+                                    evaluationResult.append("\nContent - based\t" + controller.evaluate(controller.authors, measure, controller.topRank));
+                                } catch (Exception ex) {
+                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            }
+                        } else if (alg == 2) {
+                            HashSet<Integer> cfMethodHS = new HashSet<>();
+                            cfMethodHS = dialogConfigCF.cfMethodHS;
+                            for (Integer cfMethod : cfMethodHS) {
+                                if (cfMethod == 1) {
+                                    try {
+                                        CF.cfRecommendToAuthorList(controller.authorsCFP, controller.topRecommend);
+                                    } catch (TasteException ex) {
+                                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                    } catch (Exception ex) {
+                                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                                    for (Integer measure : measure_Evaluation) {
+                                        controller.measure_Evaluation = measure;
+                                        try {
+                                            evaluationResult.append("\nCF using KNN Pearson\t" + controller.evaluate(controller.authorsCFP, measure, controller.topRank));
+                                        } catch (Exception ex) {
+                                            Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
+                                    }
+                                } else if (cfMethod == 2) {
+                                    try {
+                                        CF.cfRecommendToAuthorList(controller.authorsCFC, controller.topRecommend);
+                                    } catch (TasteException ex) {
+                                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                    } catch (Exception ex) {
+                                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                                    for (Integer measure : measure_Evaluation) {
+                                        controller.measure_Evaluation = measure;
+                                        try {
+                                            evaluationResult.append("\nCF using KNN Cosine\t" + controller.evaluate(controller.authorsCFC, measure, controller.topRank));
+                                        } catch (Exception ex) {
+                                            Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
+                                    }
+
+                                } else if (cfMethod == 3) {
+                                    try {
+                                        CF.cfRecommendToAuthorList(controller.authorsCFSVD, controller.topRecommend);
+                                    } catch (TasteException ex) {
+                                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                    } catch (Exception ex) {
+                                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                                    for (Integer measure : measure_Evaluation) {
+                                        controller.measure_Evaluation = measure;
+                                        try {
+                                            evaluationResult.append("\nCF using SVD\t" + controller.evaluate(controller.authorsCFSVD, measure, controller.topRank));
+                                        } catch (Exception ex) {
+                                            Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
+                                    }
+                                }
+                            }
+                        } else if (alg == 3) {
+                            try {
+                                CBFCF.cbfcfHybridRecommendToAuthorList(controller.authors, controller.topRecommend);
+                            } catch (TasteException ex) {
+                                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (Exception ex) {
+                                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            for (Integer measure : measure_Evaluation) {
+                                controller.measure_Evaluation = measure;
+                                try {
+                                    evaluationResult.append("\nHybrid\t" + controller.evaluate(controller.authors, measure, controller.topRank));
+                                } catch (Exception ex) {
+                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            }
+                        }
+                    }
+
+                    try {
+                        FileUtils.writeStringToFile(new File("Temp\\evaluationResult.txt"), evaluationResult.toString(), "UTF8", false);
+                    } catch (IOException ex) {
+                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+            //</editor-fold>
+
+                    //<editor-fold defaultstate="collapsed" desc="Step 3: load evaluated result to table">
+                    DefaultTableModel tablemodelReset = (DefaultTableModel) evaluationResult_Table.getModel();
+                    tablemodelReset.getDataVector().removeAllElements();
+                    evaluationResult_Table.setModel(tablemodelReset);
+                    BufferedReader reader = null;
+                    try {
+                        reader = new BufferedReader(new FileReader("Temp\\evaluationResult.txt"));
+                        String line = null;
+                        DefaultTableModel tablemodel = (DefaultTableModel) evaluationResult_Table.getModel();
+                        tablemodel.getDataVector().removeAllElements();
+                        evaluationResult_Table.setModel(tablemodel);
+                        while ((line = reader.readLine()) != null) {
+                            Vector vector = new Vector();
+                            String[] str = line.split("\t");
+                            if (str.length == 4) {
+                                for (int i = 0; i < str.length; i++) {
+                                    vector.addElement(str[i]);
+                                }
+                                tablemodel.addRow(vector);
+                            }
+                        }
+                        evaluationResult_Table.setModel(tablemodel);
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(JTable.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(JTable.class.getName()).log(Level.SEVERE, null, ex);
+                    } finally {
+                        try {
+                            reader.close();
+                        } catch (IOException ex) {
+                            Logger.getLogger(JTable.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    //</editor-fold>
+
+                    evaluationList.add(evaluationResult.toString());
+                    if (evaluationList.size() > 1) {
+                        back_Button.setEnabled(true);
+                        backNext = evaluationList.size() - 1;
+                    } else {
+                        back_Button.setEnabled(false);
+                    }
+                    step3 = true;
+
+                    next_Button.setEnabled(false);
+
+                    JOptionPane.showMessageDialog(rootPane, "Evaluating is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                    status_Label.setText("Evaluating is successed!");
                 } else {
-                    back_Button.setEnabled(false);
+                    JOptionPane.showMessageDialog(rootPane, "No evaluation measures aren't choosed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                 }
-                step3 = true;
 
-                next_Button.setEnabled(false);
-
-              // JOptionPane.showMessageDialog(rootPane, "Evaluating is completed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
-                status_Label.setText("Evaluating is completed!");
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Please input Top Rank...", "Notice", JOptionPane.INFORMATION_MESSAGE);
                 topRank_TextField.requestFocus();
@@ -1633,6 +1671,8 @@ public class MainFramePRS extends javax.swing.JFrame {
                 controller.topRecommend = Integer.parseInt(top_Recommend_TextField.getText());
                 recList_TabbedPane.removeAll();//reset table when recommend
 
+                status_Label.setText("Recommending...");
+
                 //<editor-fold defaultstate="collapsed" desc="Step 1: get algorithm_Recommendation Set">
                 algorithm_Recommendation.clear();
                 if (CB_CheckBox.isSelected()) {
@@ -1644,243 +1684,250 @@ public class MainFramePRS extends javax.swing.JFrame {
                 if (HB_CheckBox.isSelected()) {
                     algorithm_Recommendation.add(3);
                 }
-            //</editor-fold>
-
-                //<editor-fold defaultstate="collapsed" desc="Step 2: recommend with choosed algorithms">
-                for (Integer alg : algorithm_Recommendation) {
-                    if (alg == 1) {
-                        //content - based
-                        controller.algorithm_Recommendation = 1;
-                        controller.combinePaperOfAuthor = dialogConfigCB.combineAuthor;
-                        controller.weightingPaperOfAuthor = dialogConfigCB.weightingAuthor;
-                        controller.timeAware = dialogConfigCB.timeAware;
-                        controller.gamma = dialogConfigCB.gamma;
-                        controller.combineCandiatePaper = dialogConfigCB.combinePaper;
-                        controller.weightingCandidatePaper = dialogConfigCB.weightingPaper;
-                        controller.pruning = dialogConfigCB.pruning;
-                        controller.guiHandlerRequest(Options.RECOMMEND);
-                    } else if (alg == 2) {
-                        //CF
-                        controller.algorithm_Recommendation = 2;
-                        HashSet<Integer> cfMethodHS = new HashSet<>();
-                        HashMap<Integer, Integer> kNeighborHM = new HashMap<>();
-                        cfMethodHS = dialogConfigCF.cfMethodHS;
-                        kNeighborHM = dialogConfigCF.kNeighborHM;
-
-                        for (Integer cfMethod : cfMethodHS) {
-                            if (cfMethod == 1) {
-                                controller.cfMethod = 1;
-                                controller.kNeighbourhood = kNeighborHM.get(1);
-                                controller.guiHandlerRequest(Options.RECOMMEND);
-                                controller.authorsCFP = controller.authors;
-                            } else if (cfMethod == 2) {
-                                controller.cfMethod = 2;
-                                controller.kNeighbourhood = kNeighborHM.get(2);
-                                controller.guiHandlerRequest(Options.RECOMMEND);
-                                controller.authorsCFC = controller.authors;
-                            } else if (cfMethod == 3) {
-                                controller.cfMethod = 3;
-                                controller.kNeighbourhood = kNeighborHM.get(3);
-                                controller.guiHandlerRequest(Options.RECOMMEND);
-                                controller.authorsCFSVD = controller.authors;
-                            }
-                        }
-
-                    } else if (alg == 3) {
-                        //CBFCFHybrid
-                        controller.algorithm_Recommendation = 3;
-                        controller.alpha = dialogConfigHybrid.alpha;
-                        controller.combineHybrid = dialogConfigHybrid.combineHybrid;
-                        controller.guiHandlerRequest(Options.RECOMMEND);
-                    }
-                }
-            //</editor-fold>
-
-                //<editor-fold defaultstate="collapsed" desc="Step 3: load recommendation list to table">
-                for (Integer alg : algorithm_Recommendation) {
-                    if (alg == 1) {
-                        try {
-                            FeatureVectorSimilarity.generateRecommendationForAuthorList(controller.authors, controller.topRecommend);
-                        } catch (Exception ex) {
-                            Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        Vector vTitle = new Vector(Arrays.asList(new String[]{"No.", "Id Author", "Recommendation List"}));
-                        Vector vData = new Vector();
-                        int i = 0;
-                        for (String AuthorId : controller.authors.keySet()) {
-                            i++;
-                            Vector vector = new Vector();
-                            vector.addElement(i);
-                            vector.addElement(controller.authors.get(AuthorId).getAuthorId());
-                            vector.addElement(controller.authors.get(AuthorId).getRecommendationList());
-                            vData.add(vector);
-                        }
-                        JTable contentbased_Table = new JTable(new DefaultTableModel(vData, vTitle));
-                        contentbased_Table.setAutoCreateRowSorter(true);
-                        contentbased_Table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
-                        contentbased_Table.setAutoscrolls(true);
-                        contentbased_Table.setFont(new Font("Tahoma", Font.PLAIN, 13));
-                        contentbased_Table.getColumnModel().getColumn(2).setPreferredWidth(620);
-
-                        JScrollPane scrollPane = new JScrollPane(contentbased_Table);
-                        recList_TabbedPane.addTab("Content - based", scrollPane);
-                    } else if (alg == 2) {
-                        HashSet<Integer> cfMethodHS = new HashSet<>();
-                        cfMethodHS = dialogConfigCF.cfMethodHS;
-                        for (Integer cfMethod : cfMethodHS) {
-                            if (cfMethod == 1) {
-                                try {
-                                    CF.cfRecommendToAuthorList(controller.authorsCFP, controller.topRecommend);
-                                } catch (TasteException ex) {
-                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                                } catch (Exception ex) {
-                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                                }
-                                Vector vTitle = new Vector(Arrays.asList(new String[]{"No.", "Id Author", "Recommendation List"}));
-                                Vector vData = new Vector();
-                                int i = 0;
-                                for (String AuthorId : controller.authorsCFP.keySet()) {
-                                    i++;
-                                    Vector vector = new Vector();
-                                    vector.addElement(i);
-                                    vector.addElement(controller.authorsCFP.get(AuthorId).getAuthorId());
-                                    vector.addElement(controller.authorsCFP.get(AuthorId).getRecommendationList());
-                                    vData.add(vector);
-                                }
-                                JTable cfp_Table = new JTable(new DefaultTableModel(vData, vTitle));
-                                cfp_Table.setAutoCreateRowSorter(true);
-                                cfp_Table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
-                                cfp_Table.setAutoscrolls(true);
-                                cfp_Table.setFont(new Font("Tahoma", Font.PLAIN, 13));
-                                cfp_Table.getColumnModel().getColumn(2).setPreferredWidth(620);
-
-                                JScrollPane scrollPane = new JScrollPane(cfp_Table);
-                                recList_TabbedPane.addTab("CF using KNN Pearson", scrollPane);
-                            } else if (cfMethod == 2) {
-                                try {
-                                    CF.cfRecommendToAuthorList(controller.authorsCFC, controller.topRecommend);
-                                } catch (TasteException ex) {
-                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                                } catch (Exception ex) {
-                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                                }
-                                Vector vTitle = new Vector(Arrays.asList(new String[]{"No.", "Id Author", "Recommendation List"}));
-                                Vector vData = new Vector();
-                                int i = 0;
-                                for (String AuthorId : controller.authorsCFC.keySet()) {
-                                    i++;
-                                    Vector vector = new Vector();
-                                    vector.addElement(i);
-                                    vector.addElement(controller.authorsCFC.get(AuthorId).getAuthorId());
-                                    vector.addElement(controller.authorsCFC.get(AuthorId).getRecommendationList());
-                                    vData.add(vector);
-                                }
-                                JTable cfc_Table = new JTable(new DefaultTableModel(vData, vTitle));
-                                cfc_Table.setAutoCreateRowSorter(true);
-                                cfc_Table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
-                                cfc_Table.setAutoscrolls(true);
-                                cfc_Table.setFont(new Font("Tahoma", Font.PLAIN, 13));
-                                cfc_Table.getColumnModel().getColumn(2).setPreferredWidth(620);
-
-                                JScrollPane scrollPane = new JScrollPane(cfc_Table);
-                                recList_TabbedPane.addTab("CF using KNN Cosine", scrollPane);
-                            } else if (cfMethod == 3) {
-                                try {
-                                    CF.cfRecommendToAuthorList(controller.authorsCFSVD, controller.topRecommend);
-                                } catch (TasteException ex) {
-                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                                } catch (Exception ex) {
-                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                                }
-                                Vector vTitle = new Vector(Arrays.asList(new String[]{"No.", "Id Author", "Recommendation List"}));
-                                Vector vData = new Vector();
-                                int i = 0;
-                                for (String AuthorId : controller.authorsCFSVD.keySet()) {
-                                    i++;
-                                    Vector vector = new Vector();
-                                    vector.addElement(i);
-                                    vector.addElement(controller.authorsCFSVD.get(AuthorId).getAuthorId());
-                                    vector.addElement(controller.authorsCFSVD.get(AuthorId).getRecommendationList());
-                                    vData.add(vector);
-                                }
-                                JTable cfsvd_Table = new JTable(new DefaultTableModel(vData, vTitle));
-                                cfsvd_Table.setAutoCreateRowSorter(true);
-                                cfsvd_Table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
-                                cfsvd_Table.setAutoscrolls(true);
-                                cfsvd_Table.setFont(new Font("Tahoma", Font.PLAIN, 13));
-                                cfsvd_Table.getColumnModel().getColumn(2).setPreferredWidth(620);
-
-                                JScrollPane scrollPane = new JScrollPane(cfsvd_Table);
-                                recList_TabbedPane.addTab("CF using SVD", scrollPane);
-                            }
-                        }
-                    } else if (alg == 3) {
-                        try {
-                            CBFCF.cbfcfHybridRecommendToAuthorList(controller.authors, controller.topRecommend);
-                        } catch (TasteException ex) {
-                            Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (Exception ex) {
-                            Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-
-                        Vector vTitle = new Vector(Arrays.asList(new String[]{"No.", "Id Author", "Recommendation List"}));
-                        Vector vData = new Vector();
-                        int i = 0;
-                        for (String AuthorId : controller.authors.keySet()) {
-                            i++;
-                            Vector vector = new Vector();
-                            vector.addElement(i);
-                            vector.addElement(controller.authors.get(AuthorId).getAuthorId());
-                            vector.addElement(controller.authors.get(AuthorId).getRecommendationList());
-                            vData.add(vector);
-                        }
-                        JTable hybrid_Table = new JTable(new DefaultTableModel(vData, vTitle));
-                        hybrid_Table.setAutoCreateRowSorter(true);
-                        hybrid_Table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
-                        hybrid_Table.setAutoscrolls(true);
-                        hybrid_Table.setFont(new Font("Tahoma", Font.PLAIN, 13));
-                        hybrid_Table.getColumnModel().getColumn(2).setPreferredWidth(620);
-
-                        JScrollPane scrollPane = new JScrollPane(hybrid_Table);
-                        recList_TabbedPane.addTab("Hybrid", scrollPane);
-                    }
-                }
-            //</editor-fold>
-
-                //<editor-fold defaultstate="collapsed" desc="Step 4: list choosed algorithms">
-                StringBuilder algorithms = new StringBuilder();
-                for (Integer alg : algorithm_Recommendation) {
-                    if (alg == 1) {
-                        algorithms.append("Content - based").append(";");
-                    } else if (alg == 2) {
-                        HashSet<Integer> cfMethodHS = new HashSet<>();
-                        cfMethodHS = dialogConfigCF.cfMethodHS;
-                        for (Integer cfMethod : cfMethodHS) {
-                            if (cfMethod == 1) {
-                                algorithms.append("CF using KNN Pearson").append(";");
-                            } else if (cfMethod == 2) {
-                                algorithms.append("CF using KNN Cosine").append(";");
-                            } else if (cfMethod == 3) {
-                                algorithms.append("CF using SVD").append(";");
-                            }
-                        }
-                    } else if (alg == 3) {
-                        algorithms.append("Hybrid").append(";");
-                    }
-                }
-                recommended_algorithm_TextField.setText(algorithms.toString());
-                recommended_algorithm_TextField.setToolTipText(recommended_algorithm_TextField.getText());
                 //</editor-fold>
 
-                step2 = true;
+                if (algorithm_Recommendation.size() > 0) {
 
-                evaluationList.clear();
-                back_Button.setEnabled(false);
-                next_Button.setEnabled(false);
-                backNext = 0;
+                    //<editor-fold defaultstate="collapsed" desc="Step 2: recommend with choosed algorithms">
+                    for (Integer alg : algorithm_Recommendation) {
+                        if (alg == 1) {
+                            //content - based
+                            controller.algorithm_Recommendation = 1;
+                            controller.combinePaperOfAuthor = dialogConfigCB.combineAuthor;
+                            controller.weightingPaperOfAuthor = dialogConfigCB.weightingAuthor;
+                            controller.timeAware = dialogConfigCB.timeAware;
+                            controller.gamma = dialogConfigCB.gamma;
+                            controller.combineCandiatePaper = dialogConfigCB.combinePaper;
+                            controller.weightingCandidatePaper = dialogConfigCB.weightingPaper;
+                            controller.pruning = dialogConfigCB.pruning;
+                            controller.guiHandlerRequest(Options.RECOMMEND);
+                        } else if (alg == 2) {
+                            //CF
+                            controller.algorithm_Recommendation = 2;
+                            HashSet<Integer> cfMethodHS = new HashSet<>();
+                            HashMap<Integer, Integer> kNeighborHM = new HashMap<>();
+                            cfMethodHS = dialogConfigCF.cfMethodHS;
+                            kNeighborHM = dialogConfigCF.kNeighborHM;
 
-                //JOptionPane.showMessageDialog(rootPane, "Recommending is completed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
-                status_Label.setText("Generating recommend list successfully,please choose tab evaluation to evaluate algorithm.");
+                            for (Integer cfMethod : cfMethodHS) {
+                                if (cfMethod == 1) {
+                                    controller.cfMethod = 1;
+                                    controller.kNeighbourhood = kNeighborHM.get(1);
+                                    controller.guiHandlerRequest(Options.RECOMMEND);
+                                    controller.authorsCFP = controller.authors;
+                                } else if (cfMethod == 2) {
+                                    controller.cfMethod = 2;
+                                    controller.kNeighbourhood = kNeighborHM.get(2);
+                                    controller.guiHandlerRequest(Options.RECOMMEND);
+                                    controller.authorsCFC = controller.authors;
+                                } else if (cfMethod == 3) {
+                                    controller.cfMethod = 3;
+                                    controller.kNeighbourhood = kNeighborHM.get(3);
+                                    controller.guiHandlerRequest(Options.RECOMMEND);
+                                    controller.authorsCFSVD = controller.authors;
+                                }
+                            }
+
+                        } else if (alg == 3) {
+                            //CBFCFHybrid
+                            controller.algorithm_Recommendation = 3;
+                            controller.alpha = dialogConfigHybrid.alpha;
+                            controller.combineHybrid = dialogConfigHybrid.combineHybrid;
+                            controller.guiHandlerRequest(Options.RECOMMEND);
+                        }
+                    }
+            //</editor-fold>
+
+                    //<editor-fold defaultstate="collapsed" desc="Step 3: load recommendation list to table">
+                    for (Integer alg : algorithm_Recommendation) {
+                        if (alg == 1) {
+                            try {
+                                FeatureVectorSimilarity.generateRecommendationForAuthorList(controller.authors, controller.topRecommend);
+                            } catch (Exception ex) {
+                                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            Vector vTitle = new Vector(Arrays.asList(new String[]{"No.", "Id Author", "Recommendation List"}));
+                            Vector vData = new Vector();
+                            int i = 0;
+                            for (String AuthorId : controller.authors.keySet()) {
+                                i++;
+                                Vector vector = new Vector();
+                                vector.addElement(i);
+                                vector.addElement(controller.authors.get(AuthorId).getAuthorId());
+                                vector.addElement(controller.authors.get(AuthorId).getRecommendationList());
+                                vData.add(vector);
+                            }
+                            JTable contentbased_Table = new JTable(new DefaultTableModel(vData, vTitle));
+                            contentbased_Table.setAutoCreateRowSorter(true);
+                            contentbased_Table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+                            contentbased_Table.setAutoscrolls(true);
+                            contentbased_Table.setFont(new Font("Tahoma", Font.PLAIN, 13));
+                            contentbased_Table.getColumnModel().getColumn(2).setPreferredWidth(620);
+
+                            JScrollPane scrollPane = new JScrollPane(contentbased_Table);
+                            recList_TabbedPane.addTab("Content - based", scrollPane);
+                        } else if (alg == 2) {
+                            HashSet<Integer> cfMethodHS = new HashSet<>();
+                            cfMethodHS = dialogConfigCF.cfMethodHS;
+                            for (Integer cfMethod : cfMethodHS) {
+                                if (cfMethod == 1) {
+                                    try {
+                                        CF.cfRecommendToAuthorList(controller.authorsCFP, controller.topRecommend);
+                                    } catch (TasteException ex) {
+                                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                    } catch (Exception ex) {
+                                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                                    Vector vTitle = new Vector(Arrays.asList(new String[]{"No.", "Id Author", "Recommendation List"}));
+                                    Vector vData = new Vector();
+                                    int i = 0;
+                                    for (String AuthorId : controller.authorsCFP.keySet()) {
+                                        i++;
+                                        Vector vector = new Vector();
+                                        vector.addElement(i);
+                                        vector.addElement(controller.authorsCFP.get(AuthorId).getAuthorId());
+                                        vector.addElement(controller.authorsCFP.get(AuthorId).getRecommendationList());
+                                        vData.add(vector);
+                                    }
+                                    JTable cfp_Table = new JTable(new DefaultTableModel(vData, vTitle));
+                                    cfp_Table.setAutoCreateRowSorter(true);
+                                    cfp_Table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+                                    cfp_Table.setAutoscrolls(true);
+                                    cfp_Table.setFont(new Font("Tahoma", Font.PLAIN, 13));
+                                    cfp_Table.getColumnModel().getColumn(2).setPreferredWidth(620);
+
+                                    JScrollPane scrollPane = new JScrollPane(cfp_Table);
+                                    recList_TabbedPane.addTab("CF using KNN Pearson", scrollPane);
+                                } else if (cfMethod == 2) {
+                                    try {
+                                        CF.cfRecommendToAuthorList(controller.authorsCFC, controller.topRecommend);
+                                    } catch (TasteException ex) {
+                                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                    } catch (Exception ex) {
+                                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                                    Vector vTitle = new Vector(Arrays.asList(new String[]{"No.", "Id Author", "Recommendation List"}));
+                                    Vector vData = new Vector();
+                                    int i = 0;
+                                    for (String AuthorId : controller.authorsCFC.keySet()) {
+                                        i++;
+                                        Vector vector = new Vector();
+                                        vector.addElement(i);
+                                        vector.addElement(controller.authorsCFC.get(AuthorId).getAuthorId());
+                                        vector.addElement(controller.authorsCFC.get(AuthorId).getRecommendationList());
+                                        vData.add(vector);
+                                    }
+                                    JTable cfc_Table = new JTable(new DefaultTableModel(vData, vTitle));
+                                    cfc_Table.setAutoCreateRowSorter(true);
+                                    cfc_Table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+                                    cfc_Table.setAutoscrolls(true);
+                                    cfc_Table.setFont(new Font("Tahoma", Font.PLAIN, 13));
+                                    cfc_Table.getColumnModel().getColumn(2).setPreferredWidth(620);
+
+                                    JScrollPane scrollPane = new JScrollPane(cfc_Table);
+                                    recList_TabbedPane.addTab("CF using KNN Cosine", scrollPane);
+                                } else if (cfMethod == 3) {
+                                    try {
+                                        CF.cfRecommendToAuthorList(controller.authorsCFSVD, controller.topRecommend);
+                                    } catch (TasteException ex) {
+                                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                    } catch (Exception ex) {
+                                        Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                                    Vector vTitle = new Vector(Arrays.asList(new String[]{"No.", "Id Author", "Recommendation List"}));
+                                    Vector vData = new Vector();
+                                    int i = 0;
+                                    for (String AuthorId : controller.authorsCFSVD.keySet()) {
+                                        i++;
+                                        Vector vector = new Vector();
+                                        vector.addElement(i);
+                                        vector.addElement(controller.authorsCFSVD.get(AuthorId).getAuthorId());
+                                        vector.addElement(controller.authorsCFSVD.get(AuthorId).getRecommendationList());
+                                        vData.add(vector);
+                                    }
+                                    JTable cfsvd_Table = new JTable(new DefaultTableModel(vData, vTitle));
+                                    cfsvd_Table.setAutoCreateRowSorter(true);
+                                    cfsvd_Table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+                                    cfsvd_Table.setAutoscrolls(true);
+                                    cfsvd_Table.setFont(new Font("Tahoma", Font.PLAIN, 13));
+                                    cfsvd_Table.getColumnModel().getColumn(2).setPreferredWidth(620);
+
+                                    JScrollPane scrollPane = new JScrollPane(cfsvd_Table);
+                                    recList_TabbedPane.addTab("CF using SVD", scrollPane);
+                                }
+                            }
+                        } else if (alg == 3) {
+                            try {
+                                CBFCF.cbfcfHybridRecommendToAuthorList(controller.authors, controller.topRecommend);
+                            } catch (TasteException ex) {
+                                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (Exception ex) {
+                                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+
+                            Vector vTitle = new Vector(Arrays.asList(new String[]{"No.", "Id Author", "Recommendation List"}));
+                            Vector vData = new Vector();
+                            int i = 0;
+                            for (String AuthorId : controller.authors.keySet()) {
+                                i++;
+                                Vector vector = new Vector();
+                                vector.addElement(i);
+                                vector.addElement(controller.authors.get(AuthorId).getAuthorId());
+                                vector.addElement(controller.authors.get(AuthorId).getRecommendationList());
+                                vData.add(vector);
+                            }
+                            JTable hybrid_Table = new JTable(new DefaultTableModel(vData, vTitle));
+                            hybrid_Table.setAutoCreateRowSorter(true);
+                            hybrid_Table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+                            hybrid_Table.setAutoscrolls(true);
+                            hybrid_Table.setFont(new Font("Tahoma", Font.PLAIN, 13));
+                            hybrid_Table.getColumnModel().getColumn(2).setPreferredWidth(620);
+
+                            JScrollPane scrollPane = new JScrollPane(hybrid_Table);
+                            recList_TabbedPane.addTab("Hybrid", scrollPane);
+                        }
+                    }
+            //</editor-fold>
+
+                    //<editor-fold defaultstate="collapsed" desc="Step 4: list choosed algorithms">
+                    StringBuilder algorithms = new StringBuilder();
+                    for (Integer alg : algorithm_Recommendation) {
+                        if (alg == 1) {
+                            algorithms.append("Content - based").append("; ");
+                        } else if (alg == 2) {
+                            HashSet<Integer> cfMethodHS = new HashSet<>();
+                            cfMethodHS = dialogConfigCF.cfMethodHS;
+                            for (Integer cfMethod : cfMethodHS) {
+                                if (cfMethod == 1) {
+                                    algorithms.append("CF using KNN Pearson").append("; ");
+                                } else if (cfMethod == 2) {
+                                    algorithms.append("CF using KNN Cosine").append("; ");
+                                } else if (cfMethod == 3) {
+                                    algorithms.append("CF using SVD").append("; ");
+                                }
+                            }
+                        } else if (alg == 3) {
+                            algorithms.append("Hybrid").append(" ");
+                        }
+                    }
+                    algorithms.append(" with Top Recommendation equals " + controller.topRecommend);
+                    recommended_algorithm_TextField.setText(algorithms.toString());
+                    recommended_algorithm_TextField.setToolTipText(recommended_algorithm_TextField.getText());
+                    //</editor-fold>
+
+                    step2 = true;
+
+                    evaluationList.clear();
+                    back_Button.setEnabled(false);
+                    next_Button.setEnabled(false);
+                    backNext = 0;
+
+                    JOptionPane.showMessageDialog(rootPane, "Recommending is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                    status_Label.setText("Generating recommendation list is successed, please choose tab Evaluation to evaluate algorithms.");
+
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "No recommendation algorithms aren't choosed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                }
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Please input Top Recommendation...", "Notice", JOptionPane.INFORMATION_MESSAGE);
                 top_Recommend_TextField.requestFocus();
@@ -1893,18 +1940,23 @@ public class MainFramePRS extends javax.swing.JFrame {
     private void saveEvaluation_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveEvaluation_ButtonActionPerformed
         String path = GuiUtilities.saveToFileJChooser();
         if (path != null) {
-            StringBuilder recList = new StringBuilder();
-            for (int i = 0; i < evaluationResult_Table.getRowCount(); i++) {
-                recList.append(evaluationResult_Table.getValueAt(i, 0)).append(",")
-                        .append(evaluationResult_Table.getValueAt(i, 1)).append(",")
-                        .append(evaluationResult_Table.getValueAt(i, 2)).append(",")
-                        .append(evaluationResult_Table.getValueAt(i, 3)).append("\r\n");
-            }
-            try {
-                FileUtils.writeStringToFile(new File(path), recList.toString(), "UTF8", false);
-                JOptionPane.showMessageDialog(rootPane, "Saving is completed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
-            } catch (IOException ex) {
-                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+            if (evaluationResult_Table.getRowCount() > 0) {
+                StringBuilder recList = new StringBuilder();
+                for (int i = 0; i < evaluationResult_Table.getRowCount(); i++) {
+                    recList.append(evaluationResult_Table.getValueAt(i, 0)).append(",")
+                            .append(evaluationResult_Table.getValueAt(i, 1)).append(",")
+                            .append(evaluationResult_Table.getValueAt(i, 2)).append(",")
+                            .append(evaluationResult_Table.getValueAt(i, 3)).append("\r\n");
+                }
+                try {
+                    FileUtils.writeStringToFile(new File(path), recList.toString(), "UTF8", false);
+                    JOptionPane.showMessageDialog(rootPane, "Saving evaluation result is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                    status_Label.setText("Saving evaluation result is successed!");
+                } catch (IOException ex) {
+                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "No data to save...", "Notice", JOptionPane.INFORMATION_MESSAGE);
             }
         }
     }//GEN-LAST:event_saveEvaluation_ButtonActionPerformed
@@ -1932,7 +1984,8 @@ public class MainFramePRS extends javax.swing.JFrame {
                 }
                 try {
                     FileUtils.writeStringToFile(new File(path), recList.toString(), "UTF8", false);
-                    JOptionPane.showMessageDialog(rootPane, "Saving is completed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, "Saving recommendation list is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                    status_Label.setText("Saving recommendation list is successed!");
                 } catch (IOException ex) {
                     Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -2079,7 +2132,10 @@ public class MainFramePRS extends javax.swing.JFrame {
 
     public void loadStringToTable(String temp) {
         DefaultTableModel tablemodelReset = (DefaultTableModel) evaluationResult_Table.getModel();
-        tablemodelReset.getDataVector().removeAllElements();
+        int rc = tablemodelReset.getRowCount();
+        for (int i = 0; i < rc; i++) {
+            tablemodelReset.removeRow(0);
+        }
         evaluationResult_Table.setModel(tablemodelReset);
         String[] str = temp.split("\r\n");
         for (int i = 0; i < str.length; i++) {
@@ -2093,6 +2149,7 @@ public class MainFramePRS extends javax.swing.JFrame {
             }
         }
         evaluationResult_Table.setModel(tablemodelReset);
+        evaluationResult_Table.validate();
     }
 
     /**
