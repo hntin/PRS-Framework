@@ -34,6 +34,12 @@ public class DialogConfigCF extends javax.swing.JDialog {
     public DialogConfigCF(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        cfMethodHS.add(1);
+        cfMethodHS.add(2);
+        cfMethodHS.add(3);
+        kNeighborHM.put(1, 8);
+        kNeighborHM.put(2, 8);
+        kNeighborHM.put(3, 8);
     }
 
     /**
@@ -83,6 +89,7 @@ public class DialogConfigCF extends javax.swing.JDialog {
             }
         });
 
+        knnPearson_CheckBox.setSelected(true);
         knnPearson_CheckBox.setText("Pearson Correlation-based approach");
         knnPearson_CheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,6 +97,7 @@ public class DialogConfigCF extends javax.swing.JDialog {
             }
         });
 
+        knnCosine_CheckBox.setSelected(true);
         knnCosine_CheckBox.setText("Cosine-based approach");
         knnCosine_CheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,6 +121,7 @@ public class DialogConfigCF extends javax.swing.JDialog {
             }
         });
 
+        svd_CheckBox.setSelected(true);
         svd_CheckBox.setText("SVD approach");
         svd_CheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

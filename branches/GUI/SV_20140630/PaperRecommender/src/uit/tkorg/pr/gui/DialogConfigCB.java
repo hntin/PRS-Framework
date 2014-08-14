@@ -65,7 +65,7 @@ public class DialogConfigCB extends javax.swing.JDialog {
         setTitle("Configuration of Content Based Algorithm");
         setResizable(false);
 
-        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder("Author Profile Construction"));
+        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder("Constructing Profile for Author"));
 
         timeAware_CheckBox.setText("TimeAware");
         timeAware_CheckBox.addActionListener(new java.awt.event.ActionListener() {
@@ -91,6 +91,7 @@ public class DialogConfigCB extends javax.swing.JDialog {
         jLabel13.setText("Weighting Combination");
 
         weightingAuthor_ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Linear combination(LC)", "Cosine similarity(SIM)", "Reciprocal of the difference between published years(RPY)" }));
+        weightingAuthor_ComboBox.setEnabled(false);
         weightingAuthor_ComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 weightingAuthor_ComboBoxActionPerformed(evt);
@@ -171,7 +172,7 @@ public class DialogConfigCB extends javax.swing.JDialog {
             .addComponent(moreInformation_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder("Feature Vector Construction for Paper"));
+        jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder("Constructing Feature Vector for Paper"));
 
         jLabel15.setText("Combination Method");
 
@@ -183,6 +184,7 @@ public class DialogConfigCB extends javax.swing.JDialog {
         });
 
         weightingPaper_ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Linear combination(LC)", "Cosine similarity(SIM)", "Reciprocal of the difference between published years(RPY)" }));
+        weightingPaper_ComboBox.setEnabled(false);
         weightingPaper_ComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 weightingPaper_ComboBoxActionPerformed(evt);
@@ -348,42 +350,56 @@ public class DialogConfigCB extends javax.swing.JDialog {
     private void combineAuthor_ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combineAuthor_ComboBoxActionPerformed
         if (combineAuthor_ComboBox.getSelectedIndex() == 0) {
             combineAuthor = 0;
+            weightingAuthor_ComboBox.setEnabled(false);
         } else if (combineAuthor_ComboBox.getSelectedIndex() == 1) {
             combineAuthor = 1;
+            weightingAuthor_ComboBox.setEnabled(true);
         } else if (combineAuthor_ComboBox.getSelectedIndex() == 2) {
             combineAuthor = 2;
+            weightingAuthor_ComboBox.setEnabled(true);
         } else if (combineAuthor_ComboBox.getSelectedIndex() == 3) {
             combineAuthor = 3;
+            weightingAuthor_ComboBox.setEnabled(true);
         }
     }//GEN-LAST:event_combineAuthor_ComboBoxActionPerformed
 
     private void weightingAuthor_ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_weightingAuthor_ComboBoxActionPerformed
-        if (weightingAuthor_ComboBox.getSelectedIndex() == 0) {
-            weightingAuthor = 0;
-        } else if (weightingAuthor_ComboBox.getSelectedIndex() == 1) {
-            weightingAuthor = 1;
+        if (weightingAuthor_ComboBox.isEnabled()) {
+            if (weightingAuthor_ComboBox.getSelectedIndex() == 0) {
+                weightingAuthor = 0;
+            } else if (weightingAuthor_ComboBox.getSelectedIndex() == 1) {
+                weightingAuthor = 1;
+            } else if (weightingAuthor_ComboBox.getSelectedIndex() == 2) {
+                weightingAuthor = 2;
+            }
         }
     }//GEN-LAST:event_weightingAuthor_ComboBoxActionPerformed
 
     private void combinePaper_ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combinePaper_ComboBoxActionPerformed
         if (combinePaper_ComboBox.getSelectedIndex() == 0) {
             combinePaper = 0;
+            weightingPaper_ComboBox.setEnabled(false);
         } else if (combinePaper_ComboBox.getSelectedIndex() == 1) {
             combinePaper = 1;
+            weightingPaper_ComboBox.setEnabled(true);
         } else if (combinePaper_ComboBox.getSelectedIndex() == 2) {
             combinePaper = 2;
+            weightingPaper_ComboBox.setEnabled(true);
         } else if (combinePaper_ComboBox.getSelectedIndex() == 3) {
             combinePaper = 3;
+            weightingPaper_ComboBox.setEnabled(true);
         }
     }//GEN-LAST:event_combinePaper_ComboBoxActionPerformed
 
     private void weightingPaper_ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_weightingPaper_ComboBoxActionPerformed
-        if (weightingPaper_ComboBox.getSelectedIndex() == 0) {
-            weightingPaper = 0;
-        } else if (weightingPaper_ComboBox.getSelectedIndex() == 1) {
-            weightingPaper = 1;
-        } else if (weightingPaper_ComboBox.getSelectedIndex() == 2) {
-            weightingPaper = 2;
+        if (weightingPaper_ComboBox.isEnabled()) {
+            if (weightingPaper_ComboBox.getSelectedIndex() == 0) {
+                weightingPaper = 0;
+            } else if (weightingPaper_ComboBox.getSelectedIndex() == 1) {
+                weightingPaper = 1;
+            } else if (weightingPaper_ComboBox.getSelectedIndex() == 2) {
+                weightingPaper = 2;
+            }
         }
     }//GEN-LAST:event_weightingPaper_ComboBoxActionPerformed
 

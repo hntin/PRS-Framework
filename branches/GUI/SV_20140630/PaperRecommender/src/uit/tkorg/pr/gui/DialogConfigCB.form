@@ -60,7 +60,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Author Profile Construction"/>
+            <TitledBorder title="Constructing Profile for Author"/>
           </Border>
         </Property>
       </Properties>
@@ -173,6 +173,7 @@
                 <StringItem index="2" value="Reciprocal of the difference between published years(RPY)"/>
               </StringArray>
             </Property>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="weightingAuthor_ComboBoxActionPerformed"/>
@@ -240,7 +241,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Feature Vector Construction for Paper"/>
+            <TitledBorder title="Constructing Feature Vector for Paper"/>
           </Border>
         </Property>
       </Properties>
@@ -311,6 +312,7 @@
                 <StringItem index="2" value="Reciprocal of the difference between published years(RPY)"/>
               </StringArray>
             </Property>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="weightingPaper_ComboBoxActionPerformed"/>

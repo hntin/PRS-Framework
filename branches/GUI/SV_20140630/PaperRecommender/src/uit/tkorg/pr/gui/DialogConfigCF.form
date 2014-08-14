@@ -121,6 +121,7 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="knnPearson_CheckBox">
       <Properties>
+        <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="Pearson Correlation-based approach"/>
       </Properties>
       <Events>
@@ -129,6 +130,7 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="knnCosine_CheckBox">
       <Properties>
+        <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="Cosine-based approach"/>
       </Properties>
       <Events>
@@ -155,6 +157,7 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="svd_CheckBox">
       <Properties>
+        <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="SVD approach"/>
       </Properties>
       <Events>

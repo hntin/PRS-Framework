@@ -51,7 +51,8 @@ public class MainFramePRS extends javax.swing.JFrame {
      */
     private PRSCentralController controller;
     //private String[] response;
-    private List previousEvaluation = new ArrayList<String>();
+    private List evaluationList = new ArrayList<String>();
+    int backNext = 0;
     private List previousRecommdendation = new ArrayList<HashMap<String, Author>>();
     private static int numOfFiles = 0;// kiem tra nguoi dung co chon du so file theo yeu cau cua chuong trinh k
 
@@ -190,6 +191,8 @@ public class MainFramePRS extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         evaluationResult_Table = new javax.swing.JTable();
         saveEvaluation_Button = new javax.swing.JButton();
+        next_Button = new javax.swing.JButton();
+        back_Button = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         evaluate_Button = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -619,10 +622,15 @@ public class MainFramePRS extends javax.swing.JFrame {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 927, Short.MAX_VALUE)
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -910,6 +918,22 @@ public class MainFramePRS extends javax.swing.JFrame {
             }
         });
 
+        next_Button.setText("Next >>");
+        next_Button.setEnabled(false);
+        next_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                next_ButtonActionPerformed(evt);
+            }
+        });
+
+        back_Button.setText("<< Back");
+        back_Button.setEnabled(false);
+        back_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                back_ButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -917,14 +941,21 @@ public class MainFramePRS extends javax.swing.JFrame {
             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(saveEvaluation_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(back_Button)
+                .addGap(18, 18, 18)
+                .addComponent(next_Button)
+                .addGap(18, 18, 18)
+                .addComponent(saveEvaluation_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(saveEvaluation_Button))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(saveEvaluation_Button)
+                    .addComponent(next_Button)
+                    .addComponent(back_Button)))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
@@ -1607,7 +1638,17 @@ public class MainFramePRS extends javax.swing.JFrame {
                 }
                 //</editor-fold>
 
+                evaluationList.add(evaluationResult.toString());
+                if (evaluationList.size() > 1) {
+                    back_Button.setEnabled(true);
+                    backNext = evaluationList.size() - 1;
+                } else {
+                    back_Button.setEnabled(false);
+                }
                 step3 = true;
+
+                next_Button.setEnabled(false);
+
                 JOptionPane.showMessageDialog(rootPane, "Evaluating is completed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Please input Top Rank...", "Notice", JOptionPane.INFORMATION_MESSAGE);
@@ -1866,6 +1907,11 @@ public class MainFramePRS extends javax.swing.JFrame {
 
                 step2 = true;
 
+                evaluationList.clear();
+                back_Button.setEnabled(false);
+                next_Button.setEnabled(false);
+                backNext = 0;
+
                 JOptionPane.showMessageDialog(rootPane, "Recommending is completed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Please input Top Recommendation...", "Notice", JOptionPane.INFORMATION_MESSAGE);
@@ -2033,6 +2079,54 @@ public class MainFramePRS extends javax.swing.JFrame {
         dialogAbout.show();
     }//GEN-LAST:event_about_MenuItemActionPerformed
 
+    private void back_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_ButtonActionPerformed
+        if (backNext > 1) {
+            next_Button.setEnabled(true);
+            backNext--;
+            String temp = (String) evaluationList.get(backNext);
+            loadStringToTable(temp);
+        } else if (backNext == 1) {
+            backNext--;
+            String temp = (String) evaluationList.get(backNext);
+            loadStringToTable(temp);
+            back_Button.setEnabled(false);
+            next_Button.setEnabled(true);
+        }
+    }//GEN-LAST:event_back_ButtonActionPerformed
+
+    private void next_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next_ButtonActionPerformed
+        if (backNext < evaluationList.size() - 2) {
+            back_Button.setEnabled(true);
+            backNext++;
+            String temp = (String) evaluationList.get(backNext);
+            loadStringToTable(temp);
+        } else if (backNext == evaluationList.size() - 2) {
+            backNext++;
+            String temp = (String) evaluationList.get(backNext);
+            loadStringToTable(temp);
+            next_Button.setEnabled(false);
+            back_Button.setEnabled(true);
+        }
+    }//GEN-LAST:event_next_ButtonActionPerformed
+
+    public void loadStringToTable(String temp) {
+        DefaultTableModel tablemodelReset = (DefaultTableModel) evaluationResult_Table.getModel();
+        tablemodelReset.getDataVector().removeAllElements();
+        evaluationResult_Table.setModel(tablemodelReset);
+        String[] str = temp.split("\r\n");
+        for (int i = 0; i < str.length; i++) {
+            Vector vector = new Vector();
+            String[] str1 = str[i].split("\t");
+            if (str1.length == 4) {
+                for (int j = 0; j < str1.length; j++) {
+                    vector.addElement(str1[j]);
+                }
+                tablemodelReset.addRow(vector);
+            }
+        }
+        evaluationResult_Table.setModel(tablemodelReset);
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -2064,6 +2158,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     private javax.swing.JTabbedPane Steps_TabbedPane;
     private javax.swing.JButton TFIDF_Button;
     private javax.swing.JMenuItem about_MenuItem;
+    private javax.swing.JButton back_Button;
     private javax.swing.JMenuItem buildTFIDF_MenuItem;
     private javax.swing.JButton config_CB_Button;
     private javax.swing.JButton config_CF_Button;
@@ -2132,6 +2227,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     private javax.swing.JCheckBox map_CheckBox;
     private javax.swing.JCheckBox mrr_CheckBox;
     private javax.swing.JCheckBox ndcg_CheckBox;
+    private javax.swing.JButton next_Button;
     private javax.swing.JCheckBox precision_CheckBox;
     private javax.swing.JTabbedPane recList_TabbedPane;
     private javax.swing.JCheckBox recall_CheckBox;
