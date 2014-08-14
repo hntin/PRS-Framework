@@ -116,15 +116,11 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jToolBar1" alignment="0" max="32767" attributes="0"/>
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="jPanel1" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="Steps_TabbedPane" min="-2" pref="932" max="-2" attributes="0"/>
-                  <Component id="jPanel13" alignment="0" max="32767" attributes="0"/>
-              </Group>
+          <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+              <Component id="jPanel13" max="32767" attributes="0"/>
+              <Component id="Steps_TabbedPane" max="32767" attributes="0"/>
           </Group>
-          <Component id="status_Panel" alignment="0" pref="938" max="32767" attributes="0"/>
+          <Component id="status_Panel" alignment="0" pref="1091" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -132,14 +128,9 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="jToolBar1" min="-2" pref="41" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <Component id="Steps_TabbedPane" min="-2" pref="345" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel13" max="32767" attributes="0"/>
-                  </Group>
-              </Group>
+              <Component id="Steps_TabbedPane" pref="367" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jPanel13" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="status_Panel" min="-2" pref="41" max="-2" attributes="0"/>
           </Group>
@@ -200,21 +191,6 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="jPanel1">
-
-      <Layout>
-        <DimensionLayout dim="0">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-          </Group>
-        </DimensionLayout>
-        <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="365" max="32767" attributes="0"/>
-          </Group>
-        </DimensionLayout>
-      </Layout>
-    </Container>
     <Container class="javax.swing.JPanel" name="jPanel13">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -232,7 +208,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jScrollPane3" alignment="0" pref="179" max="32767" attributes="0"/>
+              <Component id="jScrollPane3" alignment="0" pref="157" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -303,31 +279,24 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jPanel17" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="jPanel17" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jPanel12" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                          <Component id="jPanel11" alignment="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jPanel12" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="jPanel11" alignment="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jPanel17" min="-2" pref="110" max="-2" attributes="0"/>
+                          <Component id="jPanel17" max="32767" attributes="0"/>
                           <Component id="jPanel12" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel11" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jPanel11" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -345,15 +314,12 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jTabbedPane4" min="-2" pref="920" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="jTabbedPane4" alignment="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jTabbedPane4" alignment="0" pref="177" max="32767" attributes="0"/>
+                      <Component id="jTabbedPane4" alignment="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -559,25 +525,20 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jPanel8" min="-2" pref="585" max="-2" attributes="0"/>
+                          <Component id="jPanel8" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jPanel24" min="-2" pref="92" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="import_DataSource_Button" pref="55" max="32767" attributes="0"/>
+                          <Component id="jPanel24" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="import_DataSource_Button" min="-2" pref="43" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jPanel8" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jPanel24" alignment="0" max="32767" attributes="0"/>
-                              <Component id="import_DataSource_Button" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="jPanel24" alignment="0" max="32767" attributes="0"/>
+                      <Component id="import_DataSource_Button" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jPanel8" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -595,61 +556,32 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="filePaper_Button" min="-2" pref="81" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="fileAuthor_Button" min="-2" pref="82" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="fileAuthorPaper_Button" pref="0" max="32767" attributes="0"/>
-                                  <Component id="filePaperCitePaper_Button" min="-2" pref="86" max="-2" attributes="0"/>
-                              </Group>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                              <Component id="fileAuthor_Button" min="-2" pref="109" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="fileAuthorCitePaper_Button" min="-2" pref="79" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                              <Component id="filePaper_Button" min="-2" pref="108" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="fileAuthorPaper_Button" min="-2" pref="129" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="filePaperCitePaper_Button" min="-2" pref="127" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="fileAuthorCitePaper_Button" min="-2" pref="143" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="fileAuthor_Button" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="fileAuthorPaper_Button" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="fileAuthorCitePaper_Button" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="filePaper_Button" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="filePaper_Button" alignment="3" max="32767" attributes="0"/>
+                                  <Component id="fileAuthorPaper_Button" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
                                   <Component id="filePaperCitePaper_Button" alignment="3" max="-2" attributes="0"/>
+                                  <Component id="fileAuthorCitePaper_Button" alignment="3" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="7" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -659,6 +591,11 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Browse..."/>
                         <Property name="toolTipText" type="java.lang.String" value="Import File Authors"/>
+                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                            <TitledBorder justification="1" position="1" title="File Authors"/>
+                          </Border>
+                        </Property>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fileAuthor_ButtonActionPerformed"/>
@@ -668,6 +605,11 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Browse..."/>
                         <Property name="toolTipText" type="java.lang.String" value="Import File Papers"/>
+                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                            <TitledBorder justification="1" position="1" title="File Papers"/>
+                          </Border>
+                        </Property>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[113, 23]"/>
                         </Property>
@@ -680,6 +622,11 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Browse..."/>
                         <Property name="toolTipText" type="java.lang.String" value="Import File Author_Paper"/>
+                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                            <TitledBorder justification="1" position="1" title="File Author_Paper"/>
+                          </Border>
+                        </Property>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[89, 23]"/>
                         </Property>
@@ -692,8 +639,13 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Browse..."/>
                         <Property name="toolTipText" type="java.lang.String" value="Import File Paper_Cited_Paper"/>
+                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                            <TitledBorder justification="1" position="1" title="File Paper_Cite_Paper"/>
+                          </Border>
+                        </Property>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[113, 23]"/>
+                          <Dimension value="[85, 23]"/>
                         </Property>
                       </Properties>
                       <Events>
@@ -704,39 +656,18 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Browse..."/>
                         <Property name="toolTipText" type="java.lang.String" value="Import File Author_Cited_Paper"/>
-                        <Property name="horizontalAlignment" type="int" value="11"/>
+                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                            <TitledBorder justification="1" position="1" title="File Author_Cite_Paper"/>
+                          </Border>
+                        </Property>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[89, 23]"/>
+                          <Dimension value="[85, 23]"/>
                         </Property>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fileAuthorCitePaper_ButtonActionPerformed"/>
                       </Events>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel4">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="File Authors:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel5">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="File Author_Paper:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel6">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="File Paper_Cited_Paper:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel7">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="File Author_Cited_Paper:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel8">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="File Papers:"/>
-                      </Properties>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -752,17 +683,18 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                          <Component id="fileGroundTruth_Button" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="fileGroundTruth_Button" min="-2" pref="128" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="fileGroundTruth_Button" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="fileGroundTruth_Button" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -772,6 +704,11 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Browse..."/>
                         <Property name="toolTipText" type="java.lang.String" value="Import File GroundTruth"/>
+                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                            <TitledBorder justification="1" position="1" title="File Groundtruth"/>
+                          </Border>
+                        </Property>
                         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[85, 23]"/>
                         </Property>
@@ -779,11 +716,6 @@
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fileGroundTruth_ButtonActionPerformed"/>
                       </Events>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel9">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="File GroundTruth:"/>
-                      </Properties>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -809,7 +741,10 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="import_DatasetExample_Button" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="import_DatasetExample_Button" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -850,7 +785,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jPanel5" pref="246" max="32767" attributes="0"/>
+                          <Component id="jPanel5" max="32767" attributes="0"/>
                           <Component id="jPanel14" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -1064,7 +999,7 @@
                               <Component id="top_Recommend_TextField" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="117" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="276" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -1140,7 +1075,7 @@
                               <Component id="recommended_algorithm_TextField" min="-2" pref="784" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="6" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="165" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
