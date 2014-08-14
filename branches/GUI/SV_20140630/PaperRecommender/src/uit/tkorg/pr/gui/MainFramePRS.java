@@ -273,6 +273,11 @@ public class MainFramePRS extends javax.swing.JFrame {
         status_Panel.setBorder(javax.swing.BorderFactory.createTitledBorder("Status"));
         status_Panel.setPreferredSize(new java.awt.Dimension(400, 30));
 
+        status_Label.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        status_Label.setForeground(new java.awt.Color(0, 0, 102));
+        status_Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        status_Label.setText("Welcome to Paper Recommendation System");
+
         javax.swing.GroupLayout status_PanelLayout = new javax.swing.GroupLayout(status_Panel);
         status_Panel.setLayout(status_PanelLayout);
         status_PanelLayout.setHorizontalGroup(
