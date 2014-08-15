@@ -43,12 +43,12 @@ public class DialogConfigHybrid extends javax.swing.JDialog {
         combineHybrid_TextField = new javax.swing.JTextField();
         ok_Button = new javax.swing.JButton();
 
-        setTitle("Configuration of Hybrid Algorithm");
+        setTitle("Configuration for Hybrid Algorithm");
 
-        jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder("Discription Option"));
+        jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder("Description Algorithm"));
 
         CMAuthorTextPane.setEditable(false);
-        CMAuthorTextPane.setText("Hybrid is combinted between content based algorithm and collaborative filtering algorithm.\n");
+        CMAuthorTextPane.setText("Hybrid algorithm combine between content - based algorithm and collaborative filtering algorithm.\nSimple hybrid algorithm mix recommendation list of content - based and collaborative filtering algorithm into an recommendation list. \n");
         jScrollPane6.setViewportView(CMAuthorTextPane);
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
@@ -59,7 +59,9 @@ public class DialogConfigHybrid extends javax.swing.JDialog {
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel23Layout.createSequentialGroup()
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Configuration"));
@@ -120,7 +122,7 @@ public class DialogConfigHybrid extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)

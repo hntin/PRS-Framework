@@ -36,13 +36,13 @@ public class DialogDescriptionCB extends javax.swing.JDialog {
         CMAuthorTextPane = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Discription Configuration Content Based Algorithm");
+        setTitle("Description Configuration Content - Based Algorithm");
         setResizable(false);
 
-        jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder("Discription Option"));
+        jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder("Description Option"));
 
         CMAuthorTextPane.setEditable(false);
-        CMAuthorTextPane.setText("In here, we have to set up coefficients for author's profiles construction and feature vector\nconstruction for papers.This seems to prepared data for reccommendation.\n- Author profile construction containt coefficients:\n  Combination Method. This is coefficient combining papers 's author.\n  + Feature Vector Of Paper: Use only papers 's author.\n  + Feature Vector Of Paper + Citation Papers : Use papers and citation papers of author.\n  + Feature Vector Of Paper + Reference Papers : Use papers and reference papers of author.\n  + Feature Vector Of Paper + Citation+ Reference Paper: Use papers and both citation and reference papers of author.\n Weighting Combination: This is coefficient to combining feature vectors of author.\n  + Linear combination (LC) : Papers seems to publish in the same year.\n  +Forgetting Factor (FF)\n- Feature vector constuction for papers containt coefficients:\n  Combination Method : same as combination method of author profile construction.\n  Weighting Combination: This is method to combining between papers and papers.\n  + Linear (LC)\n  + SIM\n  + Reciprocal of the difference between published years(RPY)\n  + Forgetting Factor (FF)\n  \n");
+        CMAuthorTextPane.setText("You have to set up parameters for constructing authors's profile and constructing feature vector for papers.This seems to prepare data for reccommendation.\n- Constructing authors's profile contains parameters:\n  Combination Method. This parameter constructs feature vector for papers of authors.\n  + Feature Vector Of Paper: Use only feature vector of paper.\n  + Feature Vector Of Paper + Citation Papers : Use feature vector of paper and it's citation papers.\n  + Feature Vector Of Paper + Reference Papers : Use feature vector of paper and it's reference papers.\n  + Feature Vector Of Paper + Citation+ Reference Paper: Use feature vector of papers and both it's citation papers and it's reference papers.\n Weighting Combination: This parameter constructs feature vectors for papers of authors.\n  + Linear combination (LC) : Weighting to combine 2 papers equal 1.\n  + Cosine similarity(SIM): Weighting to combine 2 papers equal cosine similarity of them.\n  + Reciprocal of the difference between published years(RPY): Weighting to combine 2 papers equal reciprocal of distance between published years.\n- Feature vector constuction for papers contains parameters:\n  Combination Method : This parameter constructs feature vector for candidate papers to recommend for authors.\n  + Feature Vector Of Paper: Use only feature vector of paper.\n  + Feature Vector Of Paper + Citation Papers : Use feature vector of paper and it's citation papers.\n  + Feature Vector Of Paper + Reference Papers : Use feature vector of paper and it's reference papers.\n  + Feature Vector Of Paper + Citation+ Reference Paper: Use feature vector of papers and both it's citation papers and it's reference papers.\n  Weighting Combination: This parameter constructs feature vectors for candidate papers.\n  + Linear combination (LC) : Weighting to combine 2 papers equal 1.\n  + Cosine similarity(SIM): Weighting to combine 2 papers equal cosine similarity of them.\n  + Reciprocal of the difference between published years(RPY): Weighting to combine 2 papers equal reciprocal of distance between published years.\n- Pruning: a paper only combine with another paper when cosine similarity between them bigger or equal pruning.\n  \n");
         jScrollPane6.setViewportView(CMAuthorTextPane);
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
@@ -50,14 +50,12 @@ public class DialogDescriptionCB extends javax.swing.JDialog {
         jPanel23Layout.setHorizontalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel23Layout.createSequentialGroup()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel23Layout.createSequentialGroup()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -65,12 +63,14 @@ public class DialogDescriptionCB extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();

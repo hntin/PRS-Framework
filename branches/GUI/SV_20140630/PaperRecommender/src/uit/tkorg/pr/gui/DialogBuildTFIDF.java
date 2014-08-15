@@ -53,7 +53,7 @@ public class DialogBuildTFIDF extends javax.swing.JDialog {
         jButtonCreateTFIDF = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Create TFIDF Files");
+        setTitle("Build TF_IDF Files");
         setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Choose Folder Text Files Of Papers"));
@@ -136,7 +136,7 @@ public class DialogBuildTFIDF extends javax.swing.JDialog {
             }
         });
 
-        jButtonCreateTFIDF.setText("Create TFIDF");
+        jButtonCreateTFIDF.setText("Build TFIDF");
         jButtonCreateTFIDF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCreateTFIDFActionPerformed(evt);

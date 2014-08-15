@@ -28,7 +28,7 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="ok_Button" min="-2" pref="63" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="jPanel23" alignment="0" pref="461" max="32767" attributes="0"/>
+                      <Component id="jPanel23" alignment="0" pref="468" max="32767" attributes="0"/>
                       <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
                       <Component id="jPanel15" alignment="0" max="32767" attributes="0"/>
                       <Component id="jPanel25" alignment="0" max="32767" attributes="0"/>
@@ -71,7 +71,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace min="0" pref="200" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="203" max="32767" attributes="0"/>
                           <Component id="timeAware_CheckBox" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
@@ -91,7 +91,7 @@
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace min="0" pref="4" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="8" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -185,7 +185,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Discription Option"/>
+            <TitledBorder title="Description Algorithm"/>
           </Border>
         </Property>
       </Properties>
@@ -222,7 +222,7 @@
             <Component class="javax.swing.JTextPane" name="CMAuthorTextPane">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
-                <Property name="text" type="java.lang.String" value="In here, we have to set up coefficients for author&apos;s profiles construction and feature vector construction for papers.This seems to prepared data for recommendation.&#xa;"/>
+                <Property name="text" type="java.lang.String" value="In here, you have to set up parameters for constructing authors&apos;s profile and constructing feature vector for papers.This seems to prepare data for recommendation."/>
               </Properties>
             </Component>
           </SubComponents>
@@ -256,18 +256,18 @@
                       <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="weightingPaper_ComboBox" max="32767" attributes="0"/>
                       <Component id="combinePaper_ComboBox" pref="0" max="32767" attributes="0"/>
-                      <Component id="weightingPaper_ComboBox" pref="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="combinePaper_ComboBox" alignment="3" min="-2" max="-2" attributes="0"/>

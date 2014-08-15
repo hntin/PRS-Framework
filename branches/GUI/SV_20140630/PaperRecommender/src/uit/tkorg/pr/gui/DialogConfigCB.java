@@ -105,7 +105,7 @@ public class DialogConfigCB extends javax.swing.JDialog {
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel15Layout.createSequentialGroup()
-                        .addGap(0, 200, Short.MAX_VALUE)
+                        .addGap(0, 203, Short.MAX_VALUE)
                         .addComponent(timeAware_CheckBox)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel1)
@@ -120,7 +120,7 @@ public class DialogConfigCB extends javax.swing.JDialog {
                         .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(combineAuthor_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(weightingAuthor_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 4, Short.MAX_VALUE))
+                .addGap(0, 8, Short.MAX_VALUE))
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,10 +141,10 @@ public class DialogConfigCB extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder("Discription Option"));
+        jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder("Description Algorithm"));
 
         CMAuthorTextPane.setEditable(false);
-        CMAuthorTextPane.setText("In here, we have to set up coefficients for author's profiles construction and feature vector construction for papers.This seems to prepared data for recommendation.\n");
+        CMAuthorTextPane.setText("In here, you have to set up parameters for constructing authors's profile and constructing feature vector for papers.This seems to prepare data for recommendation.");
         jScrollPane6.setViewportView(CMAuthorTextPane);
 
         moreInformation_Button.setText("More");
@@ -203,15 +203,15 @@ public class DialogConfigCB extends javax.swing.JDialog {
                     .addComponent(jLabel16)
                     .addComponent(jLabel15))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(combinePaper_ComboBox, 0, 1, Short.MAX_VALUE)
-                    .addComponent(weightingPaper_ComboBox, 0, 1, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(weightingPaper_ComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(combinePaper_ComboBox, 0, 1, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel25Layout.setVerticalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel25Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addContainerGap()
                 .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
                     .addComponent(combinePaper_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -263,7 +263,7 @@ public class DialogConfigCB extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(ok_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jPanel23, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 461, Short.MAX_VALUE)
+                        .addComponent(jPanel23, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 468, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel15, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel25, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -351,15 +351,19 @@ public class DialogConfigCB extends javax.swing.JDialog {
         if (combineAuthor_ComboBox.getSelectedIndex() == 0) {
             combineAuthor = 0;
             weightingAuthor_ComboBox.setEnabled(false);
+            pruning_TextField.setEnabled(false);
         } else if (combineAuthor_ComboBox.getSelectedIndex() == 1) {
             combineAuthor = 1;
             weightingAuthor_ComboBox.setEnabled(true);
+            pruning_TextField.setEnabled(true);
         } else if (combineAuthor_ComboBox.getSelectedIndex() == 2) {
             combineAuthor = 2;
             weightingAuthor_ComboBox.setEnabled(true);
+            pruning_TextField.setEnabled(true);
         } else if (combineAuthor_ComboBox.getSelectedIndex() == 3) {
             combineAuthor = 3;
             weightingAuthor_ComboBox.setEnabled(true);
+            pruning_TextField.setEnabled(true);
         }
     }//GEN-LAST:event_combineAuthor_ComboBoxActionPerformed
 

@@ -223,7 +223,7 @@ public class MainFramePRS extends javax.swing.JFrame {
         jToolBar1.add(jSeparator1);
 
         TFIDF_Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uit/tkorg/pr/gui/Icon/Document-Write-icon.png"))); // NOI18N
-        TFIDF_Button.setToolTipText("Create TFIDF Files");
+        TFIDF_Button.setToolTipText("Build TF_IDF Files");
         TFIDF_Button.setFocusable(false);
         TFIDF_Button.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         TFIDF_Button.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -408,7 +408,7 @@ public class MainFramePRS extends javax.swing.JFrame {
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+            .addComponent(jTabbedPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
         );
 
         jPanel17.setBorder(javax.swing.BorderFactory.createTitledBorder("Dataset Source"));
@@ -599,11 +599,10 @@ public class MainFramePRS extends javax.swing.JFrame {
                     .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Steps_TabbedPane.addTab("Import Data", jPanel6);
+        Steps_TabbedPane.addTab("Importing Dataset", jPanel6);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Choose Algorithm"));
 
@@ -695,7 +694,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Recommend List"));
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Recommendation List"));
 
         saveRecList_Button.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         saveRecList_Button.setText("Save");
@@ -800,6 +799,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         jLabel2.setText("Recommended Algorithms");
 
+        recommended_algorithm_TextField.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         recommended_algorithm_TextField.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         recommended_algorithm_TextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -810,7 +810,7 @@ public class MainFramePRS extends javax.swing.JFrame {
             }
         });
 
-        jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder("Method Evaluation"));
+        jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder("Evaluation Measure"));
 
         precision_CheckBox.setText("Precision");
 
@@ -859,7 +859,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 .addGap(17, 17, 17))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Result Evaluation"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Evaluation Result"));
 
         evaluationResult_Table.setAutoCreateRowSorter(true);
         evaluationResult_Table.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
@@ -1036,7 +1036,7 @@ public class MainFramePRS extends javax.swing.JFrame {
             }
         });
 
-        buildTFIDF_MenuItem.setText("Build TF-IDF File");
+        buildTFIDF_MenuItem.setText("Build TF_IDF Files");
         buildTFIDF_MenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buildTFIDF_MenuItemActionPerformed(evt);
@@ -1137,7 +1137,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     private void fileGroundTruth_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileGroundTruth_ButtonActionPerformed
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
-            if (new File("path").exists()) {
+            if (new File(path).exists()) {
                 try {
                     CheckError.CheckImportData(ImportFiles.FILE_GROUNDTRUTH, path);
                     String fileLog = "Temp\\log.txt";
@@ -1169,7 +1169,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     private void fileAuthorCitePaper_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileAuthorCitePaper_ButtonActionPerformed
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
-            if (new File("path").exists()) {
+            if (new File(path).exists()) {
                 try {
                     CheckError.CheckImportData(ImportFiles.FILE_AUTHOR_CITE_PAPER, path);
                     String fileLog = "Temp\\log.txt";
@@ -1201,7 +1201,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     private void filePaperCitePaper_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filePaperCitePaper_ButtonActionPerformed
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
-            if (new File("path").exists()) {
+            if (new File(path).exists()) {
                 try {
                     CheckError.CheckImportData(ImportFiles.FILE_PAPER_CITE_PAPER, path);
                     String fileLog = "Temp\\log.txt";
@@ -1233,7 +1233,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     private void fileAuthorPaper_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileAuthorPaper_ButtonActionPerformed
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
-            if (new File("path").exists()) {
+            if (new File(path).exists()) {
                 try {
                     CheckError.CheckImportData(ImportFiles.FILE_AUTHOR_PAPER, path);
                     String fileLog = "Temp\\log.txt";
@@ -1266,7 +1266,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     private void filePaper_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filePaper_ButtonActionPerformed
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
-            if (new File("path").exists()) {
+            if (new File(path).exists()) {
                 try {
                     CheckError.CheckImportData(ImportFiles.FILE_PAPERS, path);
                     String fileLog = "Temp\\log.txt";
@@ -1298,7 +1298,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     private void fileAuthor_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileAuthor_ButtonActionPerformed
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
-            if (new File("path").exists()) {
+            if (new File(path).exists()) {
                 try {
                     CheckError.CheckImportData(ImportFiles.FILE_AUTHORS, path);
                     String fileLog = "Temp\\log.txt";
@@ -1372,14 +1372,14 @@ public class MainFramePRS extends javax.swing.JFrame {
     }//GEN-LAST:event_HB_CheckBoxActionPerformed
 
     private void import_DataSource_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_import_DataSource_ButtonActionPerformed
-        if (step1) {
-            int comfirm = JOptionPane.showConfirmDialog(rootPane, "You want to import dataset again?", "Confirm", JOptionPane.YES_NO_OPTION);
-            if (comfirm == JOptionPane.YES_OPTION) {
-                if (numOfFiles % 6 == 0) {
-
-                }
-            }
-        } else {
+//        if (step1) {
+//            int comfirm = JOptionPane.showConfirmDialog(rootPane, "You want to import dataset again?", "Confirm", JOptionPane.YES_NO_OPTION);
+//            if (comfirm == JOptionPane.YES_OPTION) {
+//                if (numOfFiles % 6 == 0) {
+//
+//                }
+//            }
+//        } else {
             if (numOfFiles == 6) {
                 SwingWorker swingWorker;
                 swingWorker = new SwingWorker() {
@@ -1399,8 +1399,8 @@ public class MainFramePRS extends javax.swing.JFrame {
                     @Override
                     protected void done() {
                         step1 = true;
-                        JOptionPane.showMessageDialog(rootPane, "Importing process is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                         status_Label.setText(response[0]);
+                        JOptionPane.showMessageDialog(rootPane, "Importing process is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                         import_DataSource_Button.setEnabled(true);
                     }
 
@@ -1411,7 +1411,7 @@ public class MainFramePRS extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(rootPane, "There are some files which haven't choosed", "Notice", JOptionPane.INFORMATION_MESSAGE);
             }
-        }
+//        }
     }//GEN-LAST:event_import_DataSource_ButtonActionPerformed
 
     private void import_DatasetExample_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_import_DatasetExample_ButtonActionPerformed
@@ -1445,8 +1445,8 @@ public class MainFramePRS extends javax.swing.JFrame {
                 @Override
                 protected void done() {
                     step1 = true;
-                    JOptionPane.showMessageDialog(rootPane, "Importing process is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                     status_Label.setText(response[0]);
+                    JOptionPane.showMessageDialog(rootPane, "Importing process is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                     import_DatasetExample_Button.setEnabled(true);
                 }
 
@@ -1649,8 +1649,8 @@ public class MainFramePRS extends javax.swing.JFrame {
 
                     next_Button.setEnabled(false);
 
-                    JOptionPane.showMessageDialog(rootPane, "Evaluating is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                     status_Label.setText("Evaluating is successed!");
+                    JOptionPane.showMessageDialog(rootPane, "Evaluating is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "No evaluation measures aren't choosed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -1918,13 +1918,19 @@ public class MainFramePRS extends javax.swing.JFrame {
                     step2 = true;
 
                     evaluationList.clear();
+                    DefaultTableModel tablemodelReset = (DefaultTableModel) evaluationResult_Table.getModel();
+                    int rc = tablemodelReset.getRowCount();
+                    for (int i = 0; i < rc; i++) {
+                        tablemodelReset.removeRow(0);
+                    }
+                    evaluationResult_Table.setModel(tablemodelReset);
+                    
                     back_Button.setEnabled(false);
                     next_Button.setEnabled(false);
                     backNext = 0;
 
-                    JOptionPane.showMessageDialog(rootPane, "Recommending is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                     status_Label.setText("Generating recommendation list is successed, please choose tab Evaluation to evaluate algorithms.");
-
+                    JOptionPane.showMessageDialog(rootPane, "Recommending is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "No recommendation algorithms aren't choosed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -1950,8 +1956,8 @@ public class MainFramePRS extends javax.swing.JFrame {
                 }
                 try {
                     FileUtils.writeStringToFile(new File(path), recList.toString(), "UTF8", false);
-                    JOptionPane.showMessageDialog(rootPane, "Saving evaluation result is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                     status_Label.setText("Saving evaluation result is successed!");
+                    JOptionPane.showMessageDialog(rootPane, "Saving evaluation result is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException ex) {
                     Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -1984,8 +1990,8 @@ public class MainFramePRS extends javax.swing.JFrame {
                 }
                 try {
                     FileUtils.writeStringToFile(new File(path), recList.toString(), "UTF8", false);
-                    JOptionPane.showMessageDialog(rootPane, "Saving recommendation list is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                     status_Label.setText("Saving recommendation list is successed!");
+                    JOptionPane.showMessageDialog(rootPane, "Saving recommendation list is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException ex) {
                     Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
                 }
