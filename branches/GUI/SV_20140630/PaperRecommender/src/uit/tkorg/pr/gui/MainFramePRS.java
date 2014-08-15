@@ -5,6 +5,7 @@
  */
 package uit.tkorg.pr.gui;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
@@ -79,6 +80,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     private void updateTextArea(final String text) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
+                console_TextArea.setForeground(Color.red);
                 console_TextArea.append(text);
                 console_TextArea.setCaretPosition(console_TextArea.getText().length() - 1);
             }
@@ -274,7 +276,7 @@ public class MainFramePRS extends javax.swing.JFrame {
         status_Panel.setBorder(javax.swing.BorderFactory.createTitledBorder("Status"));
         status_Panel.setPreferredSize(new java.awt.Dimension(400, 30));
 
-        status_Label.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        status_Label.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         status_Label.setForeground(new java.awt.Color(0, 0, 102));
         status_Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         status_Label.setText("Welcome to Paper Recommendation System");
@@ -1135,6 +1137,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     }//GEN-LAST:event_CB_CheckBoxActionPerformed
 
     private void fileGroundTruth_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileGroundTruth_ButtonActionPerformed
+        jTabbedPane4.setSelectedIndex(5);
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
             if (new File(path).exists()) {
@@ -1167,6 +1170,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     }//GEN-LAST:event_fileGroundTruth_ButtonActionPerformed
 
     private void fileAuthorCitePaper_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileAuthorCitePaper_ButtonActionPerformed
+        jTabbedPane4.setSelectedIndex(2);
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
             if (new File(path).exists()) {
@@ -1199,6 +1203,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     }//GEN-LAST:event_fileAuthorCitePaper_ButtonActionPerformed
 
     private void filePaperCitePaper_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filePaperCitePaper_ButtonActionPerformed
+        jTabbedPane4.setSelectedIndex(4);
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
             if (new File(path).exists()) {
@@ -1231,6 +1236,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     }//GEN-LAST:event_filePaperCitePaper_ButtonActionPerformed
 
     private void fileAuthorPaper_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileAuthorPaper_ButtonActionPerformed
+        jTabbedPane4.setSelectedIndex(1);
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
             if (new File(path).exists()) {
@@ -1264,6 +1270,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     }//GEN-LAST:event_fileAuthorPaper_ButtonActionPerformed
 
     private void filePaper_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filePaper_ButtonActionPerformed
+        jTabbedPane4.setSelectedIndex(2);
         String path = GuiUtilities.chooseFileJChooser("Choose File");
         if (path != null) {
             if (new File(path).exists()) {
@@ -1297,6 +1304,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
     private void fileAuthor_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileAuthor_ButtonActionPerformed
         String path = GuiUtilities.chooseFileJChooser("Choose File");
+        jTabbedPane4.setSelectedIndex(0);
         if (path != null) {
             if (new File(path).exists()) {
                 try {
@@ -1400,7 +1408,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                     protected void done() {
                         step1 = true;
                         status_Label.setText(response[0]);
-                        JOptionPane.showMessageDialog(rootPane, "Importing process is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                      //  JOptionPane.showMessageDialog(rootPane, "Importing process is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                         import_DataSource_Button.setEnabled(true);
                     }
 
@@ -1446,7 +1454,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 protected void done() {
                     step1 = true;
                     status_Label.setText(response[0]);
-                    JOptionPane.showMessageDialog(rootPane, "Importing process is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                 //  JOptionPane.showMessageDialog(rootPane, "Importing process is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                     import_DatasetExample_Button.setEnabled(true);
                 }
 
@@ -1650,7 +1658,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                     next_Button.setEnabled(false);
 
                     status_Label.setText("Evaluating is successed!");
-                    JOptionPane.showMessageDialog(rootPane, "Evaluating is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                   // JOptionPane.showMessageDialog(rootPane, "Evaluating is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "No evaluation measures aren't choosed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -1930,7 +1938,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                     backNext = 0;
 
                     status_Label.setText("Generating recommendation list is successed, please choose tab Evaluation to evaluate algorithms.");
-                    JOptionPane.showMessageDialog(rootPane, "Recommending is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                  //  JOptionPane.showMessageDialog(rootPane, "Recommending is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "No recommendation algorithms aren't choosed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                 }

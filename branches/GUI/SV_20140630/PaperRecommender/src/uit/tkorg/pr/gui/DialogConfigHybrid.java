@@ -44,6 +44,8 @@ public class DialogConfigHybrid extends javax.swing.JDialog {
         ok_Button = new javax.swing.JButton();
 
         setTitle("Configuration for Hybrid Algorithm");
+        setPreferredSize(new java.awt.Dimension(422, 300));
+        setResizable(false);
 
         jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder("Description Algorithm"));
 
