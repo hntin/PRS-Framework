@@ -92,6 +92,7 @@ public class DialogConfigCF extends javax.swing.JDialog {
             }
         });
 
+        knnPearson_CheckBox.setSelected(true);
         knnPearson_CheckBox.setText("KNN algorithm using Pearson Correlation approach");
         knnPearson_CheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,7 +116,6 @@ public class DialogConfigCF extends javax.swing.JDialog {
         });
 
         knnPearson_Button.setText("Configuration");
-        knnPearson_Button.setEnabled(false);
         knnPearson_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 knnPearson_ButtonActionPerformed(evt);

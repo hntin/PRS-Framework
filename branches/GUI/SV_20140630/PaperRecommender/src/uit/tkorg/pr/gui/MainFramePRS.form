@@ -116,9 +116,9 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jToolBar1" alignment="0" max="32767" attributes="0"/>
-          <Component id="jPanel13" max="32767" attributes="0"/>
-          <Component id="Steps_TabbedPane" max="32767" attributes="0"/>
-          <Component id="status_Panel" alignment="0" pref="1103" max="32767" attributes="0"/>
+          <Component id="Steps_TabbedPane" pref="1005" max="32767" attributes="0"/>
+          <Component id="status_Panel" alignment="0" pref="1005" max="32767" attributes="0"/>
+          <Component id="jPanel13" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -273,6 +273,11 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JTabbedPane" name="Steps_TabbedPane">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="11" style="1"/>
+        </Property>
+      </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
@@ -288,11 +293,10 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
                       <Component id="jPanel17" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel12" min="-2" max="-2" attributes="0"/>
+                      <Component id="jPanel12" max="32767" attributes="0"/>
                   </Group>
                   <Component id="jPanel11" max="32767" attributes="0"/>
               </Group>
@@ -534,12 +538,11 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jPanel8" min="-2" pref="684" max="-2" attributes="0"/>
+                          <Component id="jPanel8" min="-2" pref="623" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel24" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="import_DataSource_Button" pref="63" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                          <Component id="import_DataSource_Button" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -565,15 +568,15 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="fileAuthor_Button" min="-2" pref="123" max="-2" attributes="0"/>
+                              <Component id="fileAuthor_Button" min="-2" pref="119" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="fileAuthorPaper_Button" min="-2" pref="125" max="-2" attributes="0"/>
+                              <Component id="fileAuthorPaper_Button" min="-2" pref="113" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="fileAuthorCitePaper_Button" min="-2" pref="135" max="-2" attributes="0"/>
+                              <Component id="fileAuthorCitePaper_Button" min="-2" pref="123" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="filePaper_Button" min="-2" pref="120" max="-2" attributes="0"/>
+                              <Component id="filePaper_Button" min="-2" pref="108" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="filePaperCitePaper_Button" min="-2" pref="137" max="-2" attributes="0"/>
+                              <Component id="filePaperCitePaper_Button" min="-2" pref="116" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -709,10 +712,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="fileGroundTruth_Button" min="-2" pref="119" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="fileGroundTruth_Button" alignment="0" pref="119" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -774,7 +774,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="import_DatasetExample_Button" alignment="1" pref="170" max="32767" attributes="0"/>
+                      <Component id="import_DatasetExample_Button" alignment="1" pref="149" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -821,7 +821,7 @@
                           <Component id="jPanel5" max="32767" attributes="0"/>
                           <Component id="jPanel14" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel10" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -977,7 +977,7 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="625" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="539" max="32767" attributes="0"/>
                           <Component id="saveRecList_Button" min="-2" pref="179" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
@@ -1103,7 +1103,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel2" min="-2" pref="156" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -1118,7 +1118,7 @@
                               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1261,7 +1261,6 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane2" pref="843" max="32767" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           <Component id="back_Button" min="-2" max="-2" attributes="0"/>
@@ -1270,6 +1269,7 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="saveEvaluation_Button" min="-2" pref="81" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="jScrollPane2" alignment="0" pref="791" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -1371,7 +1371,7 @@
                               <Component id="topRank_TextField" alignment="0" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="160" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>

@@ -134,6 +134,7 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="knnPearson_CheckBox">
       <Properties>
+        <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="KNN algorithm using Pearson Correlation approach"/>
       </Properties>
       <Events>
@@ -160,7 +161,6 @@
     <Component class="javax.swing.JButton" name="knnPearson_Button">
       <Properties>
         <Property name="text" type="java.lang.String" value="Configuration"/>
-        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="knnPearson_ButtonActionPerformed"/>
