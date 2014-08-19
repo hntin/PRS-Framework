@@ -35,11 +35,7 @@ public class DialogConfigCF extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         cfMethodHS.add(1);
-        cfMethodHS.add(2);
-        cfMethodHS.add(3);
         kNeighborHM.put(1, 8);
-        kNeighborHM.put(2, 8);
-        kNeighborHM.put(3, 8);
     }
 
     /**

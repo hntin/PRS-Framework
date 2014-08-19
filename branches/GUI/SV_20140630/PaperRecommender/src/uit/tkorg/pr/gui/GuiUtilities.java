@@ -153,7 +153,25 @@ public class GuiUtilities {
         }
         return path;
     }
-
+//Choose file using JChooser
+    public static String chooseFileJChooserTXT(String title) {
+        String path = null;
+        try {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle(title);
+            fileChooser.setAcceptAllFileFilterUsed(false);
+            FileFilter fileFilterText = new FileNameExtensionFilter("Text Files(*.txt)", "txt");
+            fileChooser.setFileFilter(fileFilterText);
+            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            int userSelection = fileChooser.showOpenDialog(null);
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                path = fileChooser.getSelectedFile().getAbsolutePath().toString();
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        return path;
+    }
     //Create tfidf files from Mahout
     public static void createTFIDF(String pathText, String pathTFIDF) {
         String pathPreprocess = "Temp\\Preprocess";
