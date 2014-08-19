@@ -193,20 +193,19 @@ public class MainFramePRS extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         topRank_TextField = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        file_Menu = new javax.swing.JMenu();
         resetSystem_MenuItem = new javax.swing.JMenuItem();
         exit_MenuItem = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        visualize_Menu = new javax.swing.JMenu();
         buildTFIDF_MenuItem = new javax.swing.JMenuItem();
         visualize_MenuItem = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        help_Menu = new javax.swing.JMenu();
+        howtouse_MenuItem = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
         about_MenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Paper Recommendation System");
-        setResizable(false);
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
@@ -572,7 +571,7 @@ public class MainFramePRS extends javax.swing.JFrame {
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(import_DatasetExample_Button, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 149, Short.MAX_VALUE)
+            .addComponent(import_DatasetExample_Button, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 156, Short.MAX_VALUE)
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -602,7 +601,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Steps_TabbedPane.addTab("Importing Dataset", jPanel6);
+        Steps_TabbedPane.addTab("Step 1 - Importing Dataset", jPanel6);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Choose Algorithm"));
 
@@ -691,7 +690,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(config_HB_Button)
                     .addComponent(HB_CheckBox))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Recommendation List"));
@@ -709,7 +708,7 @@ public class MainFramePRS extends javax.swing.JFrame {
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                .addGap(0, 539, Short.MAX_VALUE)
+                .addGap(0, 546, Short.MAX_VALUE)
                 .addComponent(saveRecList_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(recList_TabbedPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 792, Short.MAX_VALUE))
@@ -717,12 +716,12 @@ public class MainFramePRS extends javax.swing.JFrame {
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                .addGap(0, 264, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(saveRecList_Button))
             .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel10Layout.createSequentialGroup()
-                    .addComponent(recList_TabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 26, Short.MAX_VALUE)))
+                    .addComponent(recList_TabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 28, Short.MAX_VALUE)))
         );
 
         jPanel14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
@@ -785,17 +784,15 @@ public class MainFramePRS extends javax.swing.JFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(5, 5, 5))
-                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
-        Steps_TabbedPane.addTab("Recommendation", jPanel7);
+        Steps_TabbedPane.addTab("Step 2 - Recommendation", jPanel7);
 
         jLabel2.setText("Recommended Algorithms");
 
@@ -915,7 +912,7 @@ public class MainFramePRS extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(back_Button)
@@ -950,7 +947,7 @@ public class MainFramePRS extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(evaluate_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(evaluate_Button, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
                     .addComponent(topRank_TextField, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel3)
@@ -982,10 +979,10 @@ public class MainFramePRS extends javax.swing.JFrame {
                         .addComponent(recommended_algorithm_TextField))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(10, 10, 10))
         );
         jPanel4Layout.setVerticalGroup(
@@ -995,19 +992,19 @@ public class MainFramePRS extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(recommended_algorithm_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(155, 155, 155))
         );
 
-        Steps_TabbedPane.addTab("Evaluation", jPanel4);
+        Steps_TabbedPane.addTab("Step 3 - Evaluation", jPanel4);
 
-        jMenu1.setText("File");
+        file_Menu.setText("File");
 
         resetSystem_MenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         resetSystem_MenuItem.setText("Reset System");
@@ -1016,7 +1013,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 resetSystem_MenuItemActionPerformed(evt);
             }
         });
-        jMenu1.add(resetSystem_MenuItem);
+        file_Menu.add(resetSystem_MenuItem);
 
         exit_MenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
         exit_MenuItem.setText("Exit");
@@ -1025,14 +1022,14 @@ public class MainFramePRS extends javax.swing.JFrame {
                 exit_MenuItemActionPerformed(evt);
             }
         });
-        jMenu1.add(exit_MenuItem);
+        file_Menu.add(exit_MenuItem);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(file_Menu);
 
-        jMenu2.setText("Tools");
-        jMenu2.addActionListener(new java.awt.event.ActionListener() {
+        visualize_Menu.setText("Tools");
+        visualize_Menu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu2ActionPerformed(evt);
+                visualize_MenuActionPerformed(evt);
             }
         });
 
@@ -1042,7 +1039,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 buildTFIDF_MenuItemActionPerformed(evt);
             }
         });
-        jMenu2.add(buildTFIDF_MenuItem);
+        visualize_Menu.add(buildTFIDF_MenuItem);
 
         visualize_MenuItem.setText("Visualize");
         visualize_MenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -1050,22 +1047,22 @@ public class MainFramePRS extends javax.swing.JFrame {
                 visualize_MenuItemActionPerformed(evt);
             }
         });
-        jMenu2.add(visualize_MenuItem);
+        visualize_Menu.add(visualize_MenuItem);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(visualize_Menu);
 
-        jMenu4.setText("Help");
+        help_Menu.setText("Help");
 
-        jMenuItem6.setText("How to use program");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        howtouse_MenuItem.setText("How to use program");
+        howtouse_MenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                howtouse_MenuItemActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem6);
+        help_Menu.add(howtouse_MenuItem);
 
         jMenuItem7.setText("Javadoc Reference");
-        jMenu4.add(jMenuItem7);
+        help_Menu.add(jMenuItem7);
 
         about_MenuItem.setText("About");
         about_MenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -1073,9 +1070,9 @@ public class MainFramePRS extends javax.swing.JFrame {
                 about_MenuItemActionPerformed(evt);
             }
         });
-        jMenu4.add(about_MenuItem);
+        help_Menu.add(about_MenuItem);
 
-        jMenuBar1.add(jMenu4);
+        jMenuBar1.add(help_Menu);
 
         setJMenuBar(jMenuBar1);
 
@@ -1084,8 +1081,8 @@ public class MainFramePRS extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(Steps_TabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 1005, Short.MAX_VALUE)
-            .addComponent(status_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, 1005, Short.MAX_VALUE)
+            .addComponent(Steps_TabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 1012, Short.MAX_VALUE)
+            .addComponent(status_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, 1012, Short.MAX_VALUE)
             .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -1110,8 +1107,30 @@ public class MainFramePRS extends javax.swing.JFrame {
     }//GEN-LAST:event_TFIDF_ButtonActionPerformed
 
     private void visualize_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualize_ButtonActionPerformed
-
-        DialogVisualize visualize = new DialogVisualize(this, rootPaneCheckingEnabled);
+        String path = "Temp\\EvaluationResult.txt";
+        if (new File(path).exists()) {
+            FileUtils.deleteQuietly(new File(path));
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i < evaluationList.size(); i++) {
+                stringBuilder.append(evaluationList.get(i).toString().replace("\t", ","));
+            }
+            try {
+                FileUtils.writeStringToFile(new File(path), stringBuilder.toString(), "UTF-8", true);
+            } catch (IOException ex) {
+                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i < evaluationList.size(); i++) {
+                stringBuilder.append(evaluationList.get(i));
+            }
+            try {
+                FileUtils.writeStringToFile(new File(path), stringBuilder.toString(), "UTF-8", true);
+            } catch (IOException ex) {
+                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        DialogVisualize visualize = new DialogVisualize();
         visualize.setLocationRelativeTo(this);
         visualize.show();
 
@@ -1335,7 +1354,7 @@ public class MainFramePRS extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_fileAuthor_ButtonActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+    private void howtouse_MenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_howtouse_MenuItemActionPerformed
 
         try {
             String path = new File("").getAbsolutePath() + "\\Paper Recommendation Framework\\Paper Recommendation Framework.chm";
@@ -1349,7 +1368,7 @@ public class MainFramePRS extends javax.swing.JFrame {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Notice", JOptionPane.OK_OPTION);
         }
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    }//GEN-LAST:event_howtouse_MenuItemActionPerformed
 
     private void config_CF_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_config_CF_ButtonActionPerformed
         dialogConfigCF.setLocationRelativeTo(this);
@@ -1386,37 +1405,38 @@ public class MainFramePRS extends javax.swing.JFrame {
 //                }
 //            }
 //        } else {
-            if (numOfFiles == 6) {
-                SwingWorker swingWorker;
-                swingWorker = new SwingWorker() {
+        if (numOfFiles == 6) {
+            SwingWorker swingWorker;
+            swingWorker = new SwingWorker() {
 
-                    @Override
-                    protected Object doInBackground() throws Exception {
-                        import_DataSource_Button.setEnabled(false);
-                        console_TextArea.append("\nBegin import dataset....\n");
-                        status_Label.setText("Importing dataset...");
-                        long begin = System.currentTimeMillis();
-                        response = controller.guiHandlerRequest(Options.IMPORT_DATA);
-                        console_TextArea.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + " seconds" + "\n");
-                        console_TextArea.append("End import dataset....\n");
-                        return null;
-                    }
+                @Override
+                protected Object doInBackground() throws Exception {
+                    import_DataSource_Button.setEnabled(false);
+                    console_TextArea.append("\nBegin import dataset....\n");
+                    status_Label.setText("Importing dataset...");
+                    long begin = System.currentTimeMillis();
+                    response = controller.guiHandlerRequest(Options.IMPORT_DATA);
+                    console_TextArea.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + " seconds" + "\n");
+                    console_TextArea.append("End import dataset....\n");
+                    return null;
+                }
 
-                    @Override
-                    protected void done() {
-                        step1 = true;
-                        status_Label.setText(response[0]);
-                      //  JOptionPane.showMessageDialog(rootPane, "Importing process is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
-                        import_DataSource_Button.setEnabled(true);
-                    }
+                @Override
+                protected void done() {
+                    step1 = true;
+                    status_Label.setText(response[0]);
+                    JOptionPane.showMessageDialog(rootPane, "Importing process is successed! Jump to step 2...", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                    import_DataSource_Button.setEnabled(true);
+                    Steps_TabbedPane.setSelectedIndex(1);
+                }
 
-                };
+            };
 
-                swingWorker.execute();
+            swingWorker.execute();
 
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "There are some files which haven't choosed", "Notice", JOptionPane.INFORMATION_MESSAGE);
-            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "There are some files which haven't choosed", "Notice", JOptionPane.INFORMATION_MESSAGE);
+        }
 //        }
     }//GEN-LAST:event_import_DataSource_ButtonActionPerformed
 
@@ -1452,8 +1472,9 @@ public class MainFramePRS extends javax.swing.JFrame {
                 protected void done() {
                     step1 = true;
                     status_Label.setText(response[0]);
-                 //  JOptionPane.showMessageDialog(rootPane, "Importing process is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, "Importing process is successed! Jump to Step 2", "Notice", JOptionPane.INFORMATION_MESSAGE);
                     import_DatasetExample_Button.setEnabled(true);
+                    Steps_TabbedPane.setSelectedIndex(1);
                 }
 
             };
@@ -1656,7 +1677,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                     next_Button.setEnabled(false);
 
                     status_Label.setText("Evaluating is successed!");
-                   // JOptionPane.showMessageDialog(rootPane, "Evaluating is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                    // JOptionPane.showMessageDialog(rootPane, "Evaluating is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "No evaluation measures aren't choosed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -1930,13 +1951,13 @@ public class MainFramePRS extends javax.swing.JFrame {
                         tablemodelReset.removeRow(0);
                     }
                     evaluationResult_Table.setModel(tablemodelReset);
-                    
+
                     back_Button.setEnabled(false);
                     next_Button.setEnabled(false);
                     backNext = 0;
 
                     status_Label.setText("Generating recommendation list is successed, please choose tab Evaluation to evaluate algorithms.");
-                  //  JOptionPane.showMessageDialog(rootPane, "Recommending is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                    //  JOptionPane.showMessageDialog(rootPane, "Recommending is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "No recommendation algorithms aren't choosed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -2091,17 +2112,55 @@ public class MainFramePRS extends javax.swing.JFrame {
         tf_idf.show();
     }//GEN-LAST:event_buildTFIDF_MenuItemActionPerformed
 
-    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
+    private void visualize_MenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualize_MenuActionPerformed
+        String path = "Temp\\EvaluationResult.txt";
+        if (new File(path).exists()) {
+            FileUtils.deleteQuietly(new File(path));
+        } else {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i < evaluationList.size(); i++) {
+                stringBuilder.append(evaluationList.get(i).toString().replace("\t", ","));
+            }
+            try {
+                FileUtils.writeStringToFile(new File(path), stringBuilder.toString(), "UTF-8", true);
+            } catch (IOException ex) {
+                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         try {
-            DialogVisualize visualize = new DialogVisualize(this, rootPaneCheckingEnabled);
+            DialogVisualize visualize = new DialogVisualize();
             visualize.setLocationRelativeTo(this);
             visualize.show();
         } catch (Exception ex) {
         }
-    }//GEN-LAST:event_jMenu2ActionPerformed
+    }//GEN-LAST:event_visualize_MenuActionPerformed
 
     private void visualize_MenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualize_MenuItemActionPerformed
-        DialogVisualize visualize = new DialogVisualize(this, rootPaneCheckingEnabled);
+        String path = "Temp\\EvaluationResult.txt";
+        if (new File(path).exists()) {
+            FileUtils.deleteQuietly(new File(path));
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i < evaluationList.size(); i++) {
+                stringBuilder.append(evaluationList.get(i));
+            }
+            try {
+                FileUtils.writeStringToFile(new File(path), stringBuilder.toString(), "UTF-8", true);
+            } catch (IOException ex) {
+                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i < evaluationList.size(); i++) {
+                stringBuilder.append(evaluationList.get(i));
+            }
+            try {
+                FileUtils.writeStringToFile(new File(path), stringBuilder.toString(), "UTF-8", true);
+            } catch (IOException ex) {
+                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        DialogVisualize visualize = new DialogVisualize();
         visualize.setLocationRelativeTo(this);
         visualize.show();
     }//GEN-LAST:event_visualize_MenuItemActionPerformed
@@ -2217,16 +2276,15 @@ public class MainFramePRS extends javax.swing.JFrame {
     private javax.swing.JTextArea filePaperCitePaper_TextArea;
     private javax.swing.JButton filePaper_Button;
     private javax.swing.JTextArea filePaper_TextArea;
+    private javax.swing.JMenu file_Menu;
+    private javax.swing.JMenu help_Menu;
+    private javax.swing.JMenuItem howtouse_MenuItem;
     private javax.swing.JButton import_DataSource_Button;
     private javax.swing.JButton import_DatasetExample_Button;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -2272,6 +2330,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     private javax.swing.JTextField topRank_TextField;
     private javax.swing.JTextField top_Recommend_TextField;
     private javax.swing.JButton visualize_Button;
+    private javax.swing.JMenu visualize_Menu;
     private javax.swing.JMenuItem visualize_MenuItem;
     // End of variables declaration//GEN-END:variables
 }
