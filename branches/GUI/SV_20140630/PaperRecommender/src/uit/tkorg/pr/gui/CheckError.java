@@ -21,7 +21,7 @@ import uit.tkorg.utility.general.NumericUtility;
 
 /**
  *
- * @author Zoe
+ * @author Minh
  */
 public class CheckError {
 

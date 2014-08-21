@@ -46,7 +46,9 @@ public class SVDCF {
      * @throws IOException
      * @throws TasteException
      */
-    public static void SVDRecommendation(String inputFile, int n, int numFeatures, double lamda, int numIterations, String outputFile) throws IOException, TasteException {
+    public static void SVDRecommendation(String inputFile, int n, int numFeatures, double lamda, int numIterations,
+            String outputFile) throws IOException, TasteException {
+        
         DataModel dataModel = new FileDataModel(new File(inputFile));
         Factorizer factorizer = new ALSWRFactorizer(dataModel, numFeatures, lamda, numIterations);
         Recommender svdRecommender = new SVDRecommender(dataModel, factorizer);

@@ -46,23 +46,22 @@ public class KNNCF {
      * @throws TasteException
      */
     public static void CoPearsonRecommend(String inputFile, int k, int n, String outputFile) throws IOException, TasteException {
+       // inputFile is file data to import for program, k is number neighborhood, n is top N recommend,outputFile is file written result
+       // Step 1: Create a dataModel to import data for recommendation
         File userPreferencesFile = new File(inputFile);
         DataModel dataModel = new FileDataModel(userPreferencesFile);
-
+        // Step 2: Compute similarity, in here compute similarity between user and user based on Pearson Correlation
         UserSimilarity userSimilarity = new PearsonCorrelationSimilarity(dataModel);
+        // Step 3: Find k neighborhood for user by UserNeighborhood
         UserNeighborhood userNeighborhood = new NearestNUserNeighborhood(k, userSimilarity, dataModel);
-
-        // Create a generic user based recommender with the dataModel, the userNeighborhood and the userSimilarity
+        // Step 4: Create a generic user based recommender with the dataModel, the userNeighborhood and the userSimilarity
         Recommender genericRecommender = new GenericUserBasedRecommender(dataModel, userNeighborhood, userSimilarity);
         StringBuffer buff = new StringBuffer();
-        //BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile));
-
-        // Recommend n items for each user
+        // Step 5: Recommend n items for each user
         int count = 0;
         System.out.println("Number of users:" + dataModel.getNumUsers());
         for (LongPrimitiveIterator iterator = dataModel.getUserIDs(); iterator.hasNext();) {
             long userId = iterator.nextLong();
-
             // Generate a list of n recommendations for the user
             if (count % 1000 == 0)
                 System.out.println("Generate a list of n recommendations for the user no." + count);
@@ -76,7 +75,6 @@ public class KNNCF {
             }
             count++;
         }
-        //bw.close();
         FileUtils.writeStringToFile(new File(outputFile), buff.toString(), "UTF8", true);
     }
 
