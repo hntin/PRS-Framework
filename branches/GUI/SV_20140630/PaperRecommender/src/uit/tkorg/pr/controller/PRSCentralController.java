@@ -75,6 +75,7 @@ public class PRSCentralController {
     public int topRank;
 
     //</editor-fold>
+    
     public PRSCentralController() {
         algorithm_Recommendation = 1; //1: CBF, 2: CF, 3: Hybrid
 
@@ -111,6 +112,10 @@ public class PRSCentralController {
         authors = new HashMap<>();
         paperIdsOfAuthorTestSet = new HashSet<>();
         paperIdsInTestSet = new HashSet<>();
+        
+        authorsCFP=new HashMap<>();
+        authorsCFC=new HashMap<>();
+        authorsCFSVD=new HashMap<>();
     }
 
     public String[] guiHandlerRequest(Options request) {

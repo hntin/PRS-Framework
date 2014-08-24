@@ -38,6 +38,7 @@ public class DialogConfigCFPearson extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Configuration of CF based on Pearson Correlation");
         setPreferredSize(new java.awt.Dimension(455, 230));
         setResizable(false);

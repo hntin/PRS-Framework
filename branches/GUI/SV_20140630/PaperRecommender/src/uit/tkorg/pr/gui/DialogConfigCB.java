@@ -62,6 +62,7 @@ public class DialogConfigCB extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         pruning_TextField = new javax.swing.JTextField();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Configuration of Content Based Algorithm");
         setResizable(false);
 
@@ -234,6 +235,7 @@ public class DialogConfigCB extends javax.swing.JDialog {
         jLabel2.setText("Pruning");
 
         pruning_TextField.setText("0.0");
+        pruning_TextField.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -335,7 +337,11 @@ public class DialogConfigCB extends javax.swing.JDialog {
             timeAware = 0;
             gamma = 0;
         }
-        pruning = Float.valueOf(pruning_TextField.getText());
+        if (pruning_TextField.isEnabled()) {
+            pruning = Float.valueOf(pruning_TextField.getText());
+        } else {
+            pruning = (float) 0.0;
+        }
         this.hide();
     }//GEN-LAST:event_ok_ButtonActionPerformed
 
@@ -351,7 +357,9 @@ public class DialogConfigCB extends javax.swing.JDialog {
         if (combineAuthor_ComboBox.getSelectedIndex() == 0) {
             combineAuthor = 0;
             weightingAuthor_ComboBox.setEnabled(false);
-            pruning_TextField.setEnabled(false);
+            if (combinePaper_ComboBox.getSelectedIndex() == 0) {
+                pruning_TextField.setEnabled(false);
+            }
         } else if (combineAuthor_ComboBox.getSelectedIndex() == 1) {
             combineAuthor = 1;
             weightingAuthor_ComboBox.setEnabled(true);
@@ -383,15 +391,21 @@ public class DialogConfigCB extends javax.swing.JDialog {
         if (combinePaper_ComboBox.getSelectedIndex() == 0) {
             combinePaper = 0;
             weightingPaper_ComboBox.setEnabled(false);
+            if (combineAuthor_ComboBox.getSelectedIndex() == 0) {
+                pruning_TextField.setEnabled(false);
+            }
         } else if (combinePaper_ComboBox.getSelectedIndex() == 1) {
             combinePaper = 1;
             weightingPaper_ComboBox.setEnabled(true);
+            pruning_TextField.setEnabled(true);
         } else if (combinePaper_ComboBox.getSelectedIndex() == 2) {
             combinePaper = 2;
             weightingPaper_ComboBox.setEnabled(true);
+            pruning_TextField.setEnabled(true);
         } else if (combinePaper_ComboBox.getSelectedIndex() == 3) {
             combinePaper = 3;
             weightingPaper_ComboBox.setEnabled(true);
+            pruning_TextField.setEnabled(true);
         }
     }//GEN-LAST:event_combinePaper_ComboBoxActionPerformed
 

@@ -89,6 +89,9 @@ public class SVDCF {
                 if (authorTestSet.containsKey(String.valueOf(userId).trim())) {
                     System.out.println("Computing CF rating value for user no. " + count);
                     List<RecommendedItem> recommendationList = svdRecommender.recommend(userId, dataModel.getNumItems());
+                    
+                    authorTestSet.get(String.valueOf(userId).trim()).setCfRatingHM(new HashMap<String, Float>());
+                   
                     if (!recommendationList.isEmpty()) {
                         // Display the list of recommendations
                         for (RecommendedItem recommendedItem : recommendationList) {

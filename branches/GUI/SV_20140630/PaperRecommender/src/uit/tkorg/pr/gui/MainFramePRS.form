@@ -295,15 +295,14 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jPanel17" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jPanel12" max="32767" attributes="0"/>
-                          </Group>
-                          <Component id="jPanel11" alignment="0" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="jPanel11" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="jPanel17" min="-2" pref="840" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jPanel12" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -325,7 +324,7 @@
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder title="Data Description"/>
+                    <TitledBorder title="Dataset Description"/>
                   </Border>
                 </Property>
               </Properties>
@@ -432,7 +431,7 @@
                             <Property name="columns" type="int" value="20"/>
                             <Property name="lineWrap" type="boolean" value="true"/>
                             <Property name="rows" type="int" value="5"/>
-                            <Property name="text" type="java.lang.String" value="File AuthorCitePape.csv is one of file training data of program. It&apos;s assigned mark. The file is formated IdAuthor|||IdPaper|||YearCited.&#xa;We know information about reseacher cite paper and citation time of researcher in here.They are used to construct input matrix for collaborative filtering algorithm.&#xa;&#xa;Example:&#xa;1|||11&#xa;1|||12&#xa;1|||13&#xa;1|||14&#xa;2|||21&#xa;2|||22&#xa;3|||31&#xa;4|||41&#xa;4|||42"/>
+                            <Property name="text" type="java.lang.String" value="File AuthorCitePape.csv is one of file training data of program. It&apos;s assigned mark. The file is formated IdAuthor|||IdPaper|||YearCited.&#xa;We know information about reseacher cite paper and citation time of researcher in here.They are used to construct input matrix for collaborative filtering algorithm.&#xa;&#xa;Example:&#xa;1|||111|||2000&#xa;1|||112|||2000&#xa;1|||113|||2000&#xa;1|||114|||2000&#xa;1|||115|||2000&#xa;1|||116|||2000&#xa;1|||121|||2002&#xa;1|||122|||2002&#xa;1|||123|||2002&#xa;1|||131|||2004"/>
                             <Property name="wrapStyleWord" type="boolean" value="true"/>
                             <Property name="caretPosition" type="int" value="0"/>
                           </Properties>
@@ -553,20 +552,25 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jPanel8" min="-2" pref="623" max="-2" attributes="0"/>
+                          <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel24" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="import_DataSource_Button" min="-2" pref="52" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jPanel24" alignment="0" max="32767" attributes="0"/>
-                      <Component id="import_DataSource_Button" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jPanel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jPanel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jPanel24" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="import_DataSource_Button" alignment="0" min="-2" pref="88" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -588,12 +592,11 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="fileAuthorPaper_Button" min="-2" pref="113" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="fileAuthorCitePaper_Button" min="-2" pref="123" max="-2" attributes="0"/>
+                              <Component id="fileAuthorCitePaper_Button" min="-2" pref="135" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="filePaper_Button" min="-2" pref="108" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="filePaperCitePaper_Button" min="-2" pref="116" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="filePaperCitePaper_Button" pref="126" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -733,10 +736,10 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="fileGroundTruth_Button" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="fileGroundTruth_Button" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1431,7 +1434,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="topRank_TextField">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="10"/>
+                    <Property name="text" type="java.lang.String" value="100"/>
                   </Properties>
                   <Events>
                     <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="topRank_TextFieldKeyTyped"/>

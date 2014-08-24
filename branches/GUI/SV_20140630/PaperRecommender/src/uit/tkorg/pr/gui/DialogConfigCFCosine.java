@@ -38,6 +38,7 @@ public class DialogConfigCFCosine extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Configuration of CF based on Pearson Correlation");
         setBackground(new java.awt.Color(204, 204, 204));
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));

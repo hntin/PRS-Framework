@@ -60,7 +60,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     boolean step1 = false;
     boolean step2 = false;
     boolean step3 = false;
-
+    
     private HashSet<Integer> algorithm_Recommendation = new HashSet<>();
     private HashSet<Integer> measure_Evaluation = new HashSet<>();
     private String[] response;
@@ -86,25 +86,25 @@ public class MainFramePRS extends javax.swing.JFrame {
             }
         });
     }
-
+    
     private void redirectSystemStreams() {
         OutputStream out = new OutputStream() {
             @Override
             public void write(int b) throws IOException {
                 updateTextArea(String.valueOf((char) b));
             }
-
+            
             @Override
             public void write(byte[] b, int off, int len) throws IOException {
                 updateTextArea(new String(b, off, len));
             }
-
+            
             @Override
             public void write(byte[] b) throws IOException {
                 write(b, 0, b.length);
             }
         };
-
+        
         System.setOut(new PrintStream(out, true));
         System.setErr(new PrintStream(out, true));
     }
@@ -295,7 +295,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         Steps_TabbedPane.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder("Data Description"));
+        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder("Dataset Description"));
 
         fileAuthor_TextArea.setEditable(false);
         fileAuthor_TextArea.setColumns(20);
@@ -339,7 +339,7 @@ public class MainFramePRS extends javax.swing.JFrame {
         fileAuthorCitePaper_TextArea.setColumns(20);
         fileAuthorCitePaper_TextArea.setLineWrap(true);
         fileAuthorCitePaper_TextArea.setRows(5);
-        fileAuthorCitePaper_TextArea.setText("File AuthorCitePape.csv is one of file training data of program. It's assigned mark. The file is formated IdAuthor|||IdPaper|||YearCited.\nWe know information about reseacher cite paper and citation time of researcher in here.They are used to construct input matrix for collaborative filtering algorithm.\n\nExample:\n1|||11\n1|||12\n1|||13\n1|||14\n2|||21\n2|||22\n3|||31\n4|||41\n4|||42");
+        fileAuthorCitePaper_TextArea.setText("File AuthorCitePape.csv is one of file training data of program. It's assigned mark. The file is formated IdAuthor|||IdPaper|||YearCited.\nWe know information about reseacher cite paper and citation time of researcher in here.They are used to construct input matrix for collaborative filtering algorithm.\n\nExample:\n1|||111|||2000\n1|||112|||2000\n1|||113|||2000\n1|||114|||2000\n1|||115|||2000\n1|||116|||2000\n1|||121|||2002\n1|||122|||2002\n1|||123|||2002\n1|||131|||2004");
         fileAuthorCitePaper_TextArea.setWrapStyleWord(true);
         fileAuthorCitePaper_TextArea.setCaretPosition(0);
         fileAuthorCitePaper_TextArea.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -492,12 +492,11 @@ public class MainFramePRS extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fileAuthorPaper_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fileAuthorCitePaper_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(fileAuthorCitePaper_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(filePaper_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(filePaperCitePaper_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(filePaperCitePaper_Button, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -533,10 +532,10 @@ public class MainFramePRS extends javax.swing.JFrame {
         );
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel24Layout.createSequentialGroup()
+            .addGroup(jPanel24Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(fileGroundTruth_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(fileGroundTruth_Button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         import_DataSource_Button.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -553,18 +552,21 @@ public class MainFramePRS extends javax.swing.JFrame {
         jPanel17Layout.setHorizontalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel17Layout.createSequentialGroup()
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(import_DataSource_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(import_DataSource_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel17Layout.createSequentialGroup()
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(import_DataSource_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder("Dataset Example"));
@@ -600,13 +602,13 @@ public class MainFramePRS extends javax.swing.JFrame {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(7, 7, 7))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, 840, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -950,7 +952,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         jLabel3.setText("Top Rank");
 
-        topRank_TextField.setText("10");
+        topRank_TextField.setText("100");
         topRank_TextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 topRank_TextFieldKeyTyped(evt);
@@ -1344,7 +1346,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 try {
                     CheckError.CheckImportData(ImportFiles.FILE_AUTHORS, path);
                     String fileLog = "Temp\\log.txt";
-
+                    
                     if (!new File(fileLog).exists()) {
                         controller.fileNameAuthors = path;
                         console_TextArea.append(path + "\n");
@@ -1372,11 +1374,11 @@ public class MainFramePRS extends javax.swing.JFrame {
     }//GEN-LAST:event_fileAuthor_ButtonActionPerformed
 
     private void howtouse_MenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_howtouse_MenuItemActionPerformed
-
+        
         try {
             String path = new File("").getAbsolutePath() + "\\Paper Recommendation Framework\\Paper Recommendation Framework.chm";
             File file = new File(path);
-
+            
             if (file.exists()) {
                 Runtime.getRuntime().exec("rundll32 url.dll, FileProtocolHandler " + path);
             } else {
@@ -1414,18 +1416,12 @@ public class MainFramePRS extends javax.swing.JFrame {
     }//GEN-LAST:event_HB_CheckBoxActionPerformed
 
     private void import_DataSource_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_import_DataSource_ButtonActionPerformed
-//        if (step1) {
-//            int comfirm = JOptionPane.showConfirmDialog(rootPane, "You want to import dataset again?", "Confirm", JOptionPane.YES_NO_OPTION);
-//            if (comfirm == JOptionPane.YES_OPTION) {
-//                if (numOfFiles % 6 == 0) {
-//
-//                }
-//            }
-//        } else {
-        if (numOfFiles == 6) {
+        if (controller.fileNameAuthors != null && controller.fileNameAuthorPaper != null
+                && controller.fileNameAuthorCitePaper != null && controller.fileNamePapers != null
+                && controller.fileNamePaperCitePaper != null && controller.fileNameGroundTruth != null) {
             SwingWorker swingWorker;
             swingWorker = new SwingWorker() {
-
+                
                 @Override
                 protected Object doInBackground() throws Exception {
                     import_DataSource_Button.setEnabled(false);
@@ -1437,24 +1433,32 @@ public class MainFramePRS extends javax.swing.JFrame {
                     console_TextArea.append("End import dataset....\n");
                     return null;
                 }
-
+                
                 @Override
                 protected void done() {
                     step1 = true;
                     status_Label.setText(response[0]);
-                    JOptionPane.showMessageDialog(rootPane, "Importing process is successed! Jump to step 2...", "Notice", JOptionPane.INFORMATION_MESSAGE);
-                    import_DataSource_Button.setEnabled(true);
-                    Steps_TabbedPane.setSelectedIndex(1);
+                    controller.fileNameAuthors = null;
+                    controller.fileNameAuthorPaper = null;
+                    controller.fileNamePapers = null;
+                    controller.fileNamePaperCitePaper = null;
+                    controller.fileNameGroundTruth = null;
+                    int comfirm = JOptionPane.showConfirmDialog(rootPane, "Importing process is successed! Go to Step 2...", "Confirm", JOptionPane.YES_NO_OPTION);
+                    if (comfirm == JOptionPane.YES_OPTION) {
+                        import_DataSource_Button.setEnabled(true);
+                        Steps_TabbedPane.setSelectedIndex(1);
+                    } else {
+                        import_DataSource_Button.setEnabled(true);
+                    }
                 }
-
+                
             };
-
+            
             swingWorker.execute();
-
+            
         } else {
             JOptionPane.showMessageDialog(rootPane, "There are some files which haven't choosed", "Notice", JOptionPane.INFORMATION_MESSAGE);
         }
-//        }
     }//GEN-LAST:event_import_DataSource_ButtonActionPerformed
 
     private void import_DatasetExample_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_import_DatasetExample_ButtonActionPerformed
@@ -1466,13 +1470,13 @@ public class MainFramePRS extends javax.swing.JFrame {
             controller.fileNameAuthors = "ExampleDataset\\Authors.csv";
             controller.fileNameAuthorPaper = "ExampleDataset\\AuthorPaper.csv";
             controller.fileNameAuthorCitePaper = "ExampleDataset\\AuthorCitePaper.csv";
-            controller.fileNamePapers = "ExampleDataset\\Papers.csv";
+            controller.fileNamePapers = "ExampleDataset\\Paper.csv";
             controller.fileNamePaperCitePaper = "ExampleDataset\\PaperCitePaper.csv";
             controller.fileNameGroundTruth = "ExampleDataset\\GroundTruth.csv";
-
+            
             SwingWorker swingWorker;
             swingWorker = new SwingWorker() {
-
+                
                 @Override
                 protected Object doInBackground() throws Exception {
                     import_DatasetExample_Button.setEnabled(false);
@@ -1484,20 +1488,29 @@ public class MainFramePRS extends javax.swing.JFrame {
                     console_TextArea.append("End import dataset....\n");
                     return null;
                 }
-
+                
                 @Override
                 protected void done() {
                     step1 = true;
                     status_Label.setText(response[0]);
-                    JOptionPane.showMessageDialog(rootPane, "Importing process is successed! Jump to Step 2", "Notice", JOptionPane.INFORMATION_MESSAGE);
-                    import_DatasetExample_Button.setEnabled(true);
-                    Steps_TabbedPane.setSelectedIndex(1);
+                    controller.fileNameAuthors = null;
+                    controller.fileNameAuthorPaper = null;
+                    controller.fileNamePapers = null;
+                    controller.fileNamePaperCitePaper = null;
+                    controller.fileNameGroundTruth = null;
+                    int comfirm = JOptionPane.showConfirmDialog(rootPane, "Importing process is successed! Go to Step 2...", "Confirm", JOptionPane.YES_NO_OPTION);
+                    if (comfirm == JOptionPane.YES_OPTION) {
+                        import_DatasetExample_Button.setEnabled(true);
+                        Steps_TabbedPane.setSelectedIndex(1);
+                    } else {
+                        import_DatasetExample_Button.setEnabled(true);
+                    }
                 }
-
+                
             };
-
+            
             swingWorker.execute();
-
+            
         } else {
             JOptionPane.showMessageDialog(rootPane, "No import data...", "Notice", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -1520,9 +1533,9 @@ public class MainFramePRS extends javax.swing.JFrame {
     private void evaluate_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_evaluate_ButtonActionPerformed
         if (step2) {
             if (!topRank_TextField.getText().isEmpty()) {
-
+                
                 controller.topRank = Integer.parseInt(topRank_TextField.getText().trim());
-
+                
                 status_Label.setText("Evaluating...");
 
                 //<editor-fold defaultstate="collapsed" desc="Step 1: get measure_Evaluation Set">
@@ -1602,7 +1615,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                                             Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
                                         }
                                     }
-
+                                    
                                 } else if (cfMethod == 3) {
                                     try {
                                         CF.cfRecommendToAuthorList(controller.authorsCFSVD, controller.topRecommend);
@@ -1639,7 +1652,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                             }
                         }
                     }
-
+                    
                     try {
                         FileUtils.writeStringToFile(new File("Temp\\evaluationResult.txt"), evaluationResult.toString(), "UTF8", false);
                     } catch (IOException ex) {
@@ -1690,15 +1703,15 @@ public class MainFramePRS extends javax.swing.JFrame {
                         back_Button.setEnabled(false);
                     }
                     step3 = true;
-
+                    
                     next_Button.setEnabled(false);
-
+                    
                     status_Label.setText("Evaluating is successed!");
                     // JOptionPane.showMessageDialog(rootPane, "Evaluating is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "No evaluation measures aren't choosed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                 }
-
+                
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Please input Top Rank...", "Notice", JOptionPane.INFORMATION_MESSAGE);
                 topRank_TextField.requestFocus();
@@ -1711,10 +1724,13 @@ public class MainFramePRS extends javax.swing.JFrame {
     private void recommend_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recommend_ButtonActionPerformed
         if (step1) {
             if (!top_Recommend_TextField.getText().isEmpty()) {
-
+                
                 controller.topRecommend = Integer.parseInt(top_Recommend_TextField.getText());
                 recList_TabbedPane.removeAll();//reset table when recommend
-
+                controller.authorsCFP = new HashMap<>();
+                controller.authorsCFC = new HashMap<>();
+                controller.authorsCFSVD = new HashMap<>();
+                
                 status_Label.setText("Recommending...");
 
                 //<editor-fold defaultstate="collapsed" desc="Step 1: get algorithm_Recommendation Set">
@@ -1752,26 +1768,38 @@ public class MainFramePRS extends javax.swing.JFrame {
                             HashMap<Integer, Integer> kNeighborHM = new HashMap<>();
                             cfMethodHS = dialogConfigCF.cfMethodHS;
                             kNeighborHM = dialogConfigCF.kNeighborHM;
-
+                            
                             for (Integer cfMethod : cfMethodHS) {
                                 if (cfMethod == 1) {
                                     controller.cfMethod = 1;
                                     controller.kNeighbourhood = kNeighborHM.get(1);
                                     controller.guiHandlerRequest(Options.RECOMMEND);
-                                    controller.authorsCFP = controller.authors;
+                                    for (String authorId : controller.authors.keySet()) {
+                                        controller.authorsCFP.put(authorId, new Author());
+                                        controller.authorsCFP.get(authorId).setCfRatingHM(
+                                                controller.authors.get(authorId).getCfRatingHM());
+                                    }
                                 } else if (cfMethod == 2) {
                                     controller.cfMethod = 2;
                                     controller.kNeighbourhood = kNeighborHM.get(2);
                                     controller.guiHandlerRequest(Options.RECOMMEND);
-                                    controller.authorsCFC = controller.authors;
+                                    for (String authorId : controller.authors.keySet()) {
+                                        controller.authorsCFC.put(authorId, new Author());
+                                        controller.authorsCFC.get(authorId).setCfRatingHM(
+                                                controller.authors.get(authorId).getCfRatingHM());
+                                    }
                                 } else if (cfMethod == 3) {
                                     controller.cfMethod = 3;
                                     controller.kNeighbourhood = kNeighborHM.get(3);
                                     controller.guiHandlerRequest(Options.RECOMMEND);
-                                    controller.authorsCFSVD = controller.authors;
+                                    for (String authorId : controller.authors.keySet()) {
+                                        controller.authorsCFSVD.put(authorId, new Author());
+                                        controller.authorsCFSVD.get(authorId).setCfRatingHM(
+                                                controller.authors.get(authorId).getCfRatingHM());
+                                    }
                                 }
                             }
-
+                            
                         } else if (alg == 3) {
                             //CBFCFHybrid
                             controller.algorithm_Recommendation = 3;
@@ -1807,7 +1835,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                             contentbased_Table.setAutoscrolls(true);
                             contentbased_Table.setFont(new Font("Tahoma", Font.PLAIN, 13));
                             contentbased_Table.getColumnModel().getColumn(2).setPreferredWidth(620);
-
+                            
                             JScrollPane scrollPane = new JScrollPane(contentbased_Table);
                             recList_TabbedPane.addTab("Content - based", scrollPane);
                         } else if (alg == 2) {
@@ -1839,7 +1867,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                                     cfp_Table.setAutoscrolls(true);
                                     cfp_Table.setFont(new Font("Tahoma", Font.PLAIN, 13));
                                     cfp_Table.getColumnModel().getColumn(2).setPreferredWidth(620);
-
+                                    
                                     JScrollPane scrollPane = new JScrollPane(cfp_Table);
                                     recList_TabbedPane.addTab("CF using KNN Pearson", scrollPane);
                                 } else if (cfMethod == 2) {
@@ -1867,7 +1895,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                                     cfc_Table.setAutoscrolls(true);
                                     cfc_Table.setFont(new Font("Tahoma", Font.PLAIN, 13));
                                     cfc_Table.getColumnModel().getColumn(2).setPreferredWidth(620);
-
+                                    
                                     JScrollPane scrollPane = new JScrollPane(cfc_Table);
                                     recList_TabbedPane.addTab("CF using KNN Cosine", scrollPane);
                                 } else if (cfMethod == 3) {
@@ -1895,7 +1923,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                                     cfsvd_Table.setAutoscrolls(true);
                                     cfsvd_Table.setFont(new Font("Tahoma", Font.PLAIN, 13));
                                     cfsvd_Table.getColumnModel().getColumn(2).setPreferredWidth(620);
-
+                                    
                                     JScrollPane scrollPane = new JScrollPane(cfsvd_Table);
                                     recList_TabbedPane.addTab("CF using SVD", scrollPane);
                                 }
@@ -1908,7 +1936,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                             } catch (Exception ex) {
                                 Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
                             }
-
+                            
                             Vector vTitle = new Vector(Arrays.asList(new String[]{"No.", "Id Author", "Recommendation List"}));
                             Vector vData = new Vector();
                             int i = 0;
@@ -1926,7 +1954,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                             hybrid_Table.setAutoscrolls(true);
                             hybrid_Table.setFont(new Font("Tahoma", Font.PLAIN, 13));
                             hybrid_Table.getColumnModel().getColumn(2).setPreferredWidth(620);
-
+                            
                             JScrollPane scrollPane = new JScrollPane(hybrid_Table);
                             recList_TabbedPane.addTab("Hybrid", scrollPane);
                         }
@@ -1960,7 +1988,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                     //</editor-fold>
 
                     step2 = true;
-
+                    
                     evaluationList.clear();
                     DefaultTableModel tablemodelReset = (DefaultTableModel) evaluationResult_Table.getModel();
                     int rc = tablemodelReset.getRowCount();
@@ -1968,20 +1996,25 @@ public class MainFramePRS extends javax.swing.JFrame {
                         tablemodelReset.removeRow(0);
                     }
                     evaluationResult_Table.setModel(tablemodelReset);
-
+                    
                     back_Button.setEnabled(false);
                     next_Button.setEnabled(false);
                     backNext = 0;
-
+                    topRank_TextField.setText(top_Recommend_TextField.getText());
+                    
                     status_Label.setText("Generating recommendation list is successed, please choose tab Evaluation to evaluate algorithms.");
                     //  JOptionPane.showMessageDialog(rootPane, "Recommending is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                    int comfirm = JOptionPane.showConfirmDialog(rootPane, "Recommending is successed! Go to Step 3...", "Confirm", JOptionPane.YES_NO_OPTION);
+                    if (comfirm == JOptionPane.YES_OPTION) {
+                        Steps_TabbedPane.setSelectedIndex(2);
+                    }
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "No recommendation algorithms aren't choosed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                 }
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Please input Top Recommendation...", "Notice", JOptionPane.INFORMATION_MESSAGE);
                 top_Recommend_TextField.requestFocus();
-               
+                
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Please import dataset...", "Notice", JOptionPane.INFORMATION_MESSAGE);
@@ -2177,7 +2210,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
+        
         DialogVisualize visualize = new DialogVisualize();
         visualize.setLocationRelativeTo(this);
         visualize.show();
@@ -2218,7 +2251,7 @@ public class MainFramePRS extends javax.swing.JFrame {
             back_Button.setEnabled(true);
         }
     }//GEN-LAST:event_next_ButtonActionPerformed
-
+    
     public void loadStringToTable(String temp) {
         DefaultTableModel tablemodelReset = (DefaultTableModel) evaluationResult_Table.getModel();
         int rc = tablemodelReset.getRowCount();

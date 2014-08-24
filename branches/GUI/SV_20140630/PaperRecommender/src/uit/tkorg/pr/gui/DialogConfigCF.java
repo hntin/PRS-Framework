@@ -58,6 +58,7 @@ public class DialogConfigCF extends javax.swing.JDialog {
         svd_CheckBox = new javax.swing.JCheckBox();
         svd_Button = new javax.swing.JButton();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Configuration for Collaborative Filtering Algorithm");
         setPreferredSize(new java.awt.Dimension(420, 300));
         setResizable(false);

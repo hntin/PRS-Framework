@@ -47,7 +47,7 @@ public class KNNCF {
      */
     public static void CoPearsonRecommend(String inputFile, int k, int n, String outputFile) throws IOException, TasteException {
        // inputFile is file data to import for program, k is number neighborhood, n is top N recommend,outputFile is file written result
-       // Step 1: Create a dataModel to import data for recommendation
+        // Step 1: Create a dataModel to import data for recommendation
         File userPreferencesFile = new File(inputFile);
         DataModel dataModel = new FileDataModel(userPreferencesFile);
         // Step 2: Compute similarity, in here compute similarity between user and user based on Pearson Correlation
@@ -63,8 +63,9 @@ public class KNNCF {
         for (LongPrimitiveIterator iterator = dataModel.getUserIDs(); iterator.hasNext();) {
             long userId = iterator.nextLong();
             // Generate a list of n recommendations for the user
-            if (count % 1000 == 0)
+            if (count % 1000 == 0) {
                 System.out.println("Generate a list of n recommendations for the user no." + count);
+            }
             List<RecommendedItem> itemRecommendations = genericRecommender.recommend(userId, n);
             if (!itemRecommendations.isEmpty()) {
                 // Display the list of recommendations
@@ -77,11 +78,11 @@ public class KNNCF {
         }
         FileUtils.writeStringToFile(new File(outputFile), buff.toString(), "UTF8", true);
     }
-
+    
     public static void CosineRecommend(String inputFile, int k, int n, String outputFile) throws IOException, TasteException {
         File userPreferencesFile = new File(inputFile);
         DataModel dataModel = new FileDataModel(userPreferencesFile);
-
+        
         UserSimilarity userSimilarity = new UncenteredCosineSimilarity(dataModel);
         UserNeighborhood userNeighborhood = new NearestNUserNeighborhood(k, userSimilarity, dataModel);
 
@@ -95,7 +96,7 @@ public class KNNCF {
 
             // Generate a list of 5 recommendations for the user
             List<RecommendedItem> itemRecommendations = genericRecommender.recommend(userId, n);
-
+            
             if (!itemRecommendations.isEmpty()) {
                 // Display the list of recommendations
                 for (RecommendedItem recommendedItem : itemRecommendations) {
@@ -107,20 +108,20 @@ public class KNNCF {
     }
 
     /**
-     * 
+     *
      * @param inputFile
      * @param similarityScheme: 1: CoPearson, 2: Cosine.
      * @param k
      * @param authorTestSet
      * @param outputFile
      * @throws IOException
-     * @throws TasteException 
+     * @throws TasteException
      */
-    public static void computeCFRatingAndPutIntoModelForAuthorList(String inputFile, int similarityScheme, 
-            int k, HashMap<String, Author> authorTestSet, HashSet<String> paperIdsInTestSet, 
+    public static void computeCFRatingAndPutIntoModelForAuthorList(String inputFile, int similarityScheme,
+            int k, HashMap<String, Author> authorTestSet, HashSet<String> paperIdsInTestSet,
             String outputFile) throws IOException, TasteException {
         DataModel dataModel = new FileDataModel(new File(inputFile));
-
+        
         UserSimilarity userSimilarity = null;
         if (similarityScheme == 1) {
             userSimilarity = new PearsonCorrelationSimilarity(dataModel);
@@ -141,6 +142,9 @@ public class KNNCF {
                 if (authorTestSet.containsKey(String.valueOf(userId).trim())) {
                     System.out.println("Computing CF rating value for user no. " + count);
                     List<RecommendedItem> recommendationList = genericRecommender.recommend(userId, dataModel.getNumItems());
+                    
+                    authorTestSet.get(String.valueOf(userId).trim()).setCfRatingHM(new HashMap<String, Float>());
+                    
                     if (!recommendationList.isEmpty()) {
                         // Display the list of recommendations
                         for (RecommendedItem recommendedItem : recommendationList) {

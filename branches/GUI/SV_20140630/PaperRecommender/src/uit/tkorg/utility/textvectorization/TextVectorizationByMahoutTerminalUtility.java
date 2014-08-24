@@ -6,6 +6,10 @@ package uit.tkorg.utility.textvectorization;
 
 import ir.vsr.HashMapVector;
 import java.util.HashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.mahout.text.SequenceFilesFromDirectory;
 import org.apache.mahout.vectorizer.SparseVectorsFromSequenceFiles;
 import uit.tkorg.pr.constant.PRConstant;
@@ -19,9 +23,24 @@ public class TextVectorizationByMahoutTerminalUtility {
     
     private TextVectorizationByMahoutTerminalUtility() {}
 
-    public static void textVectorizeFiles(String textDir, String sequenceDir, String vectorDir) throws Exception {
-        textToSequenceFiles(textDir, sequenceDir);
-        sequenceToVectorFiles(sequenceDir, vectorDir);
+    public static void textVectorizeFiles(final String textDir, final String sequenceDir, final String vectorDir) throws Exception {
+        Runtime runtime = Runtime.getRuntime();
+        int numOfProcessors = runtime.availableProcessors();
+        ExecutorService executor = Executors.newFixedThreadPool(numOfProcessors);
+        executor.submit(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    textToSequenceFiles(textDir, sequenceDir);
+                    sequenceToVectorFiles(sequenceDir, vectorDir);
+                } catch (Exception ex) {
+                    Logger.getLogger(TextVectorizationByMahoutTerminalUtility.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        executor.shutdown();
+        while (!executor.isTerminated()) {
+        }
     }
 
     /**

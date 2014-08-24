@@ -39,10 +39,9 @@ public class DialogConfigHybrid extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         alpha_TextField = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        combineHybrid_TextField = new javax.swing.JTextField();
         ok_Button = new javax.swing.JButton();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Configuration for Hybrid Algorithm");
         setPreferredSize(new java.awt.Dimension(422, 300));
         setResizable(false);
@@ -72,23 +71,15 @@ public class DialogConfigHybrid extends javax.swing.JDialog {
 
         alpha_TextField.setText("0.9");
 
-        jLabel2.setText("combinationScheme: ");
-
-        combineHybrid_TextField.setText("1");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(alpha_TextField)
-                    .addComponent(combineHybrid_TextField)))
+                .addComponent(jLabel1)
+                .addGap(80, 80, 80)
+                .addComponent(alpha_TextField, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,11 +88,7 @@ public class DialogConfigHybrid extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(alpha_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(combineHybrid_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         ok_Button.setText("OK");
@@ -138,7 +125,7 @@ public class DialogConfigHybrid extends javax.swing.JDialog {
 
     private void ok_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ok_ButtonActionPerformed
         alpha=Double.parseDouble(alpha_TextField.getText());
-        combineHybrid=Integer.parseInt(combineHybrid_TextField.getText());
+//        combineHybrid=Integer.parseInt(combineHybrid_TextField.getText());
         this.hide();
     }//GEN-LAST:event_ok_ButtonActionPerformed
 
@@ -176,9 +163,7 @@ public class DialogConfigHybrid extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextPane CMAuthorTextPane;
     private javax.swing.JTextField alpha_TextField;
-    private javax.swing.JTextField combineHybrid_TextField;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel23;
     private javax.swing.JScrollPane jScrollPane6;
