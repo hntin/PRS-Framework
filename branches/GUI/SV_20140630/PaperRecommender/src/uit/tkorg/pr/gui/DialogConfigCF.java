@@ -90,14 +90,14 @@ public class DialogConfigCF extends javax.swing.JDialog {
         });
 
         knnPearson_CheckBox.setSelected(true);
-        knnPearson_CheckBox.setText("KNN algorithm using Pearson Correlation approach");
+        knnPearson_CheckBox.setText("KNN algorithm using Pearson Correlation");
         knnPearson_CheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 knnPearson_CheckBoxActionPerformed(evt);
             }
         });
 
-        knnCosine_CheckBox.setText("KNN algorithm using Cosine Similarity approach");
+        knnCosine_CheckBox.setText("KNN algorithm using Cosine Similarity");
         knnCosine_CheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 knnCosine_CheckBoxActionPerformed(evt);
@@ -119,7 +119,7 @@ public class DialogConfigCF extends javax.swing.JDialog {
             }
         });
 
-        svd_CheckBox.setText("SVD algorithm approach");
+        svd_CheckBox.setText("SVD algorithm");
         svd_CheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 svd_CheckBoxActionPerformed(evt);

@@ -65,7 +65,7 @@ public class GenericRecommender {
     private static void generateRecommendation(Author author, int topNRecommend,
             final int method) throws Exception {
         
-        author.setRecommendationList(new ArrayList());
+        author.getRecommendationList().clear();
         
         HashMap<String, Float> recommendingScoreHM = null;
         if (method == 0) {

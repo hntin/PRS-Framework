@@ -136,7 +136,7 @@
     <Component class="javax.swing.JCheckBox" name="knnPearson_CheckBox">
       <Properties>
         <Property name="selected" type="boolean" value="true"/>
-        <Property name="text" type="java.lang.String" value="KNN algorithm using Pearson Correlation approach"/>
+        <Property name="text" type="java.lang.String" value="KNN algorithm using Pearson Correlation"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="knnPearson_CheckBoxActionPerformed"/>
@@ -144,7 +144,7 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="knnCosine_CheckBox">
       <Properties>
-        <Property name="text" type="java.lang.String" value="KNN algorithm using Cosine Similarity approach"/>
+        <Property name="text" type="java.lang.String" value="KNN algorithm using Cosine Similarity"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="knnCosine_CheckBoxActionPerformed"/>
@@ -169,7 +169,7 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="svd_CheckBox">
       <Properties>
-        <Property name="text" type="java.lang.String" value="SVD algorithm approach"/>
+        <Property name="text" type="java.lang.String" value="SVD algorithm"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="svd_CheckBoxActionPerformed"/>

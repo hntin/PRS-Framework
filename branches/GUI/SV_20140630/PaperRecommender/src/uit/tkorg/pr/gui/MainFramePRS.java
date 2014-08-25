@@ -60,7 +60,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     boolean step1 = false;
     boolean step2 = false;
     boolean step3 = false;
-    
+
     private HashSet<Integer> algorithm_Recommendation = new HashSet<>();
     private HashSet<Integer> measure_Evaluation = new HashSet<>();
     private String[] response;
@@ -73,7 +73,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     public MainFramePRS() {
         initComponents();
         controller = new PRSCentralController();
-        redirectSystemStreams();
+//        redirectSystemStreams();
     }
 
 //<editor-fold defaultstate="collapsed" desc="write console to textArea">
@@ -86,25 +86,25 @@ public class MainFramePRS extends javax.swing.JFrame {
             }
         });
     }
-    
+
     private void redirectSystemStreams() {
         OutputStream out = new OutputStream() {
             @Override
             public void write(int b) throws IOException {
                 updateTextArea(String.valueOf((char) b));
             }
-            
+
             @Override
             public void write(byte[] b, int off, int len) throws IOException {
                 updateTextArea(new String(b, off, len));
             }
-            
+
             @Override
             public void write(byte[] b) throws IOException {
                 write(b, 0, b.length);
             }
         };
-        
+
         System.setOut(new PrintStream(out, true));
         System.setErr(new PrintStream(out, true));
     }
@@ -1346,7 +1346,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 try {
                     CheckError.CheckImportData(ImportFiles.FILE_AUTHORS, path);
                     String fileLog = "Temp\\log.txt";
-                    
+
                     if (!new File(fileLog).exists()) {
                         controller.fileNameAuthors = path;
                         console_TextArea.append(path + "\n");
@@ -1374,11 +1374,11 @@ public class MainFramePRS extends javax.swing.JFrame {
     }//GEN-LAST:event_fileAuthor_ButtonActionPerformed
 
     private void howtouse_MenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_howtouse_MenuItemActionPerformed
-        
+
         try {
             String path = new File("").getAbsolutePath() + "\\Paper Recommendation Framework\\Paper Recommendation Framework.chm";
             File file = new File(path);
-            
+
             if (file.exists()) {
                 Runtime.getRuntime().exec("rundll32 url.dll, FileProtocolHandler " + path);
             } else {
@@ -1421,7 +1421,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 && controller.fileNamePaperCitePaper != null && controller.fileNameGroundTruth != null) {
             SwingWorker swingWorker;
             swingWorker = new SwingWorker() {
-                
+
                 @Override
                 protected Object doInBackground() throws Exception {
                     import_DataSource_Button.setEnabled(false);
@@ -1433,7 +1433,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                     console_TextArea.append("End import dataset....\n");
                     return null;
                 }
-                
+
                 @Override
                 protected void done() {
                     step1 = true;
@@ -1451,11 +1451,11 @@ public class MainFramePRS extends javax.swing.JFrame {
                         import_DataSource_Button.setEnabled(true);
                     }
                 }
-                
+
             };
-            
+
             swingWorker.execute();
-            
+
         } else {
             JOptionPane.showMessageDialog(rootPane, "There are some files which haven't choosed", "Notice", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -1473,10 +1473,10 @@ public class MainFramePRS extends javax.swing.JFrame {
             controller.fileNamePapers = "ExampleDataset\\Paper.csv";
             controller.fileNamePaperCitePaper = "ExampleDataset\\PaperCitePaper.csv";
             controller.fileNameGroundTruth = "ExampleDataset\\GroundTruth.csv";
-            
+
             SwingWorker swingWorker;
             swingWorker = new SwingWorker() {
-                
+
                 @Override
                 protected Object doInBackground() throws Exception {
                     import_DatasetExample_Button.setEnabled(false);
@@ -1488,7 +1488,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                     console_TextArea.append("End import dataset....\n");
                     return null;
                 }
-                
+
                 @Override
                 protected void done() {
                     step1 = true;
@@ -1506,11 +1506,11 @@ public class MainFramePRS extends javax.swing.JFrame {
                         import_DatasetExample_Button.setEnabled(true);
                     }
                 }
-                
+
             };
-            
+
             swingWorker.execute();
-            
+
         } else {
             JOptionPane.showMessageDialog(rootPane, "No import data...", "Notice", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -1533,9 +1533,9 @@ public class MainFramePRS extends javax.swing.JFrame {
     private void evaluate_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_evaluate_ButtonActionPerformed
         if (step2) {
             if (!topRank_TextField.getText().isEmpty()) {
-                
+
                 controller.topRank = Integer.parseInt(topRank_TextField.getText().trim());
-                
+
                 status_Label.setText("Evaluating...");
 
                 //<editor-fold defaultstate="collapsed" desc="Step 1: get measure_Evaluation Set">
@@ -1567,14 +1567,14 @@ public class MainFramePRS extends javax.swing.JFrame {
                     for (Integer alg : algorithm_Recommendation) {
                         if (alg == 1) {
                             try {
-                                FeatureVectorSimilarity.generateRecommendationForAuthorList(controller.authors, controller.topRecommend);
+                                FeatureVectorSimilarity.generateRecommendationForAuthorList(controller.authorsCB, controller.topRecommend);
                             } catch (Exception ex) {
                                 Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
                             }
                             for (Integer measure : measure_Evaluation) {
                                 controller.measure_Evaluation = measure;
                                 try {
-                                    evaluationResult.append("\nContent - based\t" + controller.evaluate(controller.authors, measure, controller.topRank));
+                                    evaluationResult.append("\nContent - based\t" + controller.evaluate(controller.authorsCB, measure, controller.topRank));
                                 } catch (Exception ex) {
                                     Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
                                 }
@@ -1615,7 +1615,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                                             Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
                                         }
                                     }
-                                    
+
                                 } else if (cfMethod == 3) {
                                     try {
                                         CF.cfRecommendToAuthorList(controller.authorsCFSVD, controller.topRecommend);
@@ -1636,7 +1636,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                             }
                         } else if (alg == 3) {
                             try {
-                                CBFCF.cbfcfHybridRecommendToAuthorList(controller.authors, controller.topRecommend);
+                                CBFCF.cbfcfHybridRecommendToAuthorList(controller.authorsHybrid, controller.topRecommend);
                             } catch (TasteException ex) {
                                 Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
                             } catch (Exception ex) {
@@ -1645,14 +1645,14 @@ public class MainFramePRS extends javax.swing.JFrame {
                             for (Integer measure : measure_Evaluation) {
                                 controller.measure_Evaluation = measure;
                                 try {
-                                    evaluationResult.append("\nHybrid\t" + controller.evaluate(controller.authors, measure, controller.topRank));
+                                    evaluationResult.append("\nHybrid\t" + controller.evaluate(controller.authorsHybrid, measure, controller.topRank));
                                 } catch (Exception ex) {
                                     Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
                                 }
                             }
                         }
                     }
-                    
+
                     try {
                         FileUtils.writeStringToFile(new File("Temp\\evaluationResult.txt"), evaluationResult.toString(), "UTF8", false);
                     } catch (IOException ex) {
@@ -1703,15 +1703,15 @@ public class MainFramePRS extends javax.swing.JFrame {
                         back_Button.setEnabled(false);
                     }
                     step3 = true;
-                    
+
                     next_Button.setEnabled(false);
-                    
+
                     status_Label.setText("Evaluating is successed!");
                     // JOptionPane.showMessageDialog(rootPane, "Evaluating is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "No evaluation measures aren't choosed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                 }
-                
+
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Please input Top Rank...", "Notice", JOptionPane.INFORMATION_MESSAGE);
                 topRank_TextField.requestFocus();
@@ -1724,13 +1724,16 @@ public class MainFramePRS extends javax.swing.JFrame {
     private void recommend_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recommend_ButtonActionPerformed
         if (step1) {
             if (!top_Recommend_TextField.getText().isEmpty()) {
-                
+
                 controller.topRecommend = Integer.parseInt(top_Recommend_TextField.getText());
                 recList_TabbedPane.removeAll();//reset table when recommend
+
+                controller.authorsCB = new HashMap<>();
                 controller.authorsCFP = new HashMap<>();
                 controller.authorsCFC = new HashMap<>();
                 controller.authorsCFSVD = new HashMap<>();
-                
+                controller.authorsHybrid = new HashMap<>();
+
                 status_Label.setText("Recommending...");
 
                 //<editor-fold defaultstate="collapsed" desc="Step 1: get algorithm_Recommendation Set">
@@ -1761,6 +1764,17 @@ public class MainFramePRS extends javax.swing.JFrame {
                             controller.weightingCandidatePaper = dialogConfigCB.weightingPaper;
                             controller.pruning = dialogConfigCB.pruning;
                             controller.guiHandlerRequest(Options.RECOMMEND);
+                            for (String authorId : controller.authors.keySet()) {
+                                Author author = new Author();
+                                HashMap<String, Float> cbfSimHM = controller.authors.get(authorId).getCbfSimHM();
+                                HashMap<String, Float> cbfSimHM1 = new HashMap<>();
+                                for (String Id : cbfSimHM.keySet()) {
+                                    cbfSimHM1.put(Id, cbfSimHM.get(Id));
+                                }
+                                author.setCbfSimHM(cbfSimHM1);
+                                author.setGroundTruth(controller.authors.get(authorId).getGroundTruth());
+                                controller.authorsCB.put(authorId, author);
+                            }
                         } else if (alg == 2) {
                             //CF
                             controller.algorithm_Recommendation = 2;
@@ -1768,65 +1782,110 @@ public class MainFramePRS extends javax.swing.JFrame {
                             HashMap<Integer, Integer> kNeighborHM = new HashMap<>();
                             cfMethodHS = dialogConfigCF.cfMethodHS;
                             kNeighborHM = dialogConfigCF.kNeighborHM;
-                            
+
                             for (Integer cfMethod : cfMethodHS) {
                                 if (cfMethod == 1) {
                                     controller.cfMethod = 1;
                                     controller.kNeighbourhood = kNeighborHM.get(1);
                                     controller.guiHandlerRequest(Options.RECOMMEND);
                                     for (String authorId : controller.authors.keySet()) {
-                                        controller.authorsCFP.put(authorId, new Author());
-                                        controller.authorsCFP.get(authorId).setCfRatingHM(
-                                                controller.authors.get(authorId).getCfRatingHM());
+                                        Author author = new Author();
+                                        HashMap<String, Float> cfRatingHM = controller.authors.get(authorId).getCfRatingHM();
+                                        HashMap<String, Float> cfRatingHM1 = new HashMap<>();
+                                        for (String Id : cfRatingHM.keySet()) {
+                                            cfRatingHM1.put(Id, cfRatingHM.get(Id));
+                                        }
+                                        author.setCfRatingHM(cfRatingHM1);
+                                        author.setGroundTruth(controller.authors.get(authorId).getGroundTruth());
+                                        controller.authorsCFP.put(authorId, author);
                                     }
                                 } else if (cfMethod == 2) {
                                     controller.cfMethod = 2;
                                     controller.kNeighbourhood = kNeighborHM.get(2);
                                     controller.guiHandlerRequest(Options.RECOMMEND);
                                     for (String authorId : controller.authors.keySet()) {
-                                        controller.authorsCFC.put(authorId, new Author());
-                                        controller.authorsCFC.get(authorId).setCfRatingHM(
-                                                controller.authors.get(authorId).getCfRatingHM());
+                                        Author author = new Author();
+                                        HashMap<String, Float> cfRatingHM = controller.authors.get(authorId).getCfRatingHM();
+                                        HashMap<String, Float> cfRatingHM1 = new HashMap<>();
+                                        for (String Id : cfRatingHM.keySet()) {
+                                            cfRatingHM1.put(Id, cfRatingHM.get(Id));
+                                        }
+                                        author.setCfRatingHM(cfRatingHM1);
+                                        author.setGroundTruth(controller.authors.get(authorId).getGroundTruth());
+                                        controller.authorsCFC.put(authorId, author);
                                     }
                                 } else if (cfMethod == 3) {
                                     controller.cfMethod = 3;
                                     controller.kNeighbourhood = kNeighborHM.get(3);
                                     controller.guiHandlerRequest(Options.RECOMMEND);
                                     for (String authorId : controller.authors.keySet()) {
-                                        controller.authorsCFSVD.put(authorId, new Author());
-                                        controller.authorsCFSVD.get(authorId).setCfRatingHM(
-                                                controller.authors.get(authorId).getCfRatingHM());
+                                        Author author = new Author();
+                                        HashMap<String, Float> cfRatingHM = controller.authors.get(authorId).getCfRatingHM();
+                                        HashMap<String, Float> cfRatingHM1 = new HashMap<>();
+                                        for (String Id : cfRatingHM.keySet()) {
+                                            cfRatingHM1.put(Id, cfRatingHM.get(Id));
+                                        }
+                                        author.setCfRatingHM(cfRatingHM1);
+                                        author.setGroundTruth(controller.authors.get(authorId).getGroundTruth());
+                                        controller.authorsCFSVD.put(authorId, author);
                                     }
                                 }
                             }
-                            
+
                         } else if (alg == 3) {
                             //CBFCFHybrid
                             controller.algorithm_Recommendation = 3;
                             controller.alpha = dialogConfigHybrid.alpha;
                             controller.combineHybrid = dialogConfigHybrid.combineHybrid;
                             controller.guiHandlerRequest(Options.RECOMMEND);
+                            for (String authorId : controller.authors.keySet()) {
+                                Author author = new Author();
+
+                                HashMap<String, Float> cbfSimHM = controller.authors.get(authorId).getCbfSimHM();
+                                HashMap<String, Float> cbfSimHM1 = new HashMap<>();
+                                for (String Id : cbfSimHM.keySet()) {
+                                    cbfSimHM1.put(Id, cbfSimHM.get(Id));
+                                }
+                                author.setCbfSimHM(cbfSimHM1);
+                                
+                                HashMap<String, Float> cfRatingHM = controller.authors.get(authorId).getCfRatingHM();
+                                HashMap<String, Float> cfRatingHM1 = new HashMap<>();
+                                for (String Id : cfRatingHM.keySet()) {
+                                    cfRatingHM1.put(Id, cfRatingHM.get(Id));
+                                }
+                                author.setCfRatingHM(cfRatingHM1);
+                                
+                                HashMap<String, Float> CbfCfHybridHM = controller.authors.get(authorId).getCbfCfHybridHM();
+                                HashMap<String, Float> CbfCfHybridHM1 = new HashMap<>();
+                                for (String Id : CbfCfHybridHM.keySet()) {
+                                    CbfCfHybridHM1.put(Id, CbfCfHybridHM.get(Id));
+                                }
+                                author.setCbfCfHybridHM(CbfCfHybridHM1);
+                                author.setGroundTruth(controller.authors.get(authorId).getGroundTruth());
+
+                                controller.authorsHybrid.put(authorId, author);
+                            }
                         }
                     }
-            //</editor-fold>
+                    //</editor-fold>
 
                     //<editor-fold defaultstate="collapsed" desc="Step 3: load recommendation list to table">
                     for (Integer alg : algorithm_Recommendation) {
                         if (alg == 1) {
                             try {
-                                FeatureVectorSimilarity.generateRecommendationForAuthorList(controller.authors, controller.topRecommend);
+                                FeatureVectorSimilarity.generateRecommendationForAuthorList(controller.authorsCB, controller.topRecommend);
                             } catch (Exception ex) {
                                 Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
                             }
                             Vector vTitle = new Vector(Arrays.asList(new String[]{"No.", "Id Author", "Recommendation List"}));
                             Vector vData = new Vector();
                             int i = 0;
-                            for (String AuthorId : controller.authors.keySet()) {
+                            for (String AuthorId : controller.authorsCB.keySet()) {
                                 i++;
                                 Vector vector = new Vector();
                                 vector.addElement(i);
-                                vector.addElement(controller.authors.get(AuthorId).getAuthorId());
-                                vector.addElement(controller.authors.get(AuthorId).getRecommendationList());
+                                vector.addElement(controller.authorsCB.get(AuthorId).getAuthorId());
+                                vector.addElement(controller.authorsCB.get(AuthorId).getRecommendationList());
                                 vData.add(vector);
                             }
                             JTable contentbased_Table = new JTable(new DefaultTableModel(vData, vTitle));
@@ -1835,7 +1894,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                             contentbased_Table.setAutoscrolls(true);
                             contentbased_Table.setFont(new Font("Tahoma", Font.PLAIN, 13));
                             contentbased_Table.getColumnModel().getColumn(2).setPreferredWidth(620);
-                            
+
                             JScrollPane scrollPane = new JScrollPane(contentbased_Table);
                             recList_TabbedPane.addTab("Content - based", scrollPane);
                         } else if (alg == 2) {
@@ -1857,6 +1916,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                                         i++;
                                         Vector vector = new Vector();
                                         vector.addElement(i);
+//                                        System.out.println("id author " + controller.authors.get(AuthorId).getAuthorId());
                                         vector.addElement(controller.authorsCFP.get(AuthorId).getAuthorId());
                                         vector.addElement(controller.authorsCFP.get(AuthorId).getRecommendationList());
                                         vData.add(vector);
@@ -1867,7 +1927,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                                     cfp_Table.setAutoscrolls(true);
                                     cfp_Table.setFont(new Font("Tahoma", Font.PLAIN, 13));
                                     cfp_Table.getColumnModel().getColumn(2).setPreferredWidth(620);
-                                    
+
                                     JScrollPane scrollPane = new JScrollPane(cfp_Table);
                                     recList_TabbedPane.addTab("CF using KNN Pearson", scrollPane);
                                 } else if (cfMethod == 2) {
@@ -1885,6 +1945,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                                         i++;
                                         Vector vector = new Vector();
                                         vector.addElement(i);
+//                                        System.out.println("id author " + controller.authors.get(AuthorId).getAuthorId());
                                         vector.addElement(controller.authorsCFC.get(AuthorId).getAuthorId());
                                         vector.addElement(controller.authorsCFC.get(AuthorId).getRecommendationList());
                                         vData.add(vector);
@@ -1895,7 +1956,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                                     cfc_Table.setAutoscrolls(true);
                                     cfc_Table.setFont(new Font("Tahoma", Font.PLAIN, 13));
                                     cfc_Table.getColumnModel().getColumn(2).setPreferredWidth(620);
-                                    
+
                                     JScrollPane scrollPane = new JScrollPane(cfc_Table);
                                     recList_TabbedPane.addTab("CF using KNN Cosine", scrollPane);
                                 } else if (cfMethod == 3) {
@@ -1913,6 +1974,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                                         i++;
                                         Vector vector = new Vector();
                                         vector.addElement(i);
+//                                        System.out.println("id author " + controller.authors.get(AuthorId).getAuthorId());
                                         vector.addElement(controller.authorsCFSVD.get(AuthorId).getAuthorId());
                                         vector.addElement(controller.authorsCFSVD.get(AuthorId).getRecommendationList());
                                         vData.add(vector);
@@ -1923,29 +1985,29 @@ public class MainFramePRS extends javax.swing.JFrame {
                                     cfsvd_Table.setAutoscrolls(true);
                                     cfsvd_Table.setFont(new Font("Tahoma", Font.PLAIN, 13));
                                     cfsvd_Table.getColumnModel().getColumn(2).setPreferredWidth(620);
-                                    
+
                                     JScrollPane scrollPane = new JScrollPane(cfsvd_Table);
                                     recList_TabbedPane.addTab("CF using SVD", scrollPane);
                                 }
                             }
                         } else if (alg == 3) {
                             try {
-                                CBFCF.cbfcfHybridRecommendToAuthorList(controller.authors, controller.topRecommend);
+                                CBFCF.cbfcfHybridRecommendToAuthorList(controller.authorsHybrid, controller.topRecommend);
                             } catch (TasteException ex) {
                                 Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
                             } catch (Exception ex) {
                                 Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
                             }
-                            
+
                             Vector vTitle = new Vector(Arrays.asList(new String[]{"No.", "Id Author", "Recommendation List"}));
                             Vector vData = new Vector();
                             int i = 0;
-                            for (String AuthorId : controller.authors.keySet()) {
+                            for (String AuthorId : controller.authorsHybrid.keySet()) {
                                 i++;
                                 Vector vector = new Vector();
                                 vector.addElement(i);
-                                vector.addElement(controller.authors.get(AuthorId).getAuthorId());
-                                vector.addElement(controller.authors.get(AuthorId).getRecommendationList());
+                                vector.addElement(controller.authorsHybrid.get(AuthorId).getAuthorId());
+                                vector.addElement(controller.authorsHybrid.get(AuthorId).getRecommendationList());
                                 vData.add(vector);
                             }
                             JTable hybrid_Table = new JTable(new DefaultTableModel(vData, vTitle));
@@ -1954,7 +2016,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                             hybrid_Table.setAutoscrolls(true);
                             hybrid_Table.setFont(new Font("Tahoma", Font.PLAIN, 13));
                             hybrid_Table.getColumnModel().getColumn(2).setPreferredWidth(620);
-                            
+
                             JScrollPane scrollPane = new JScrollPane(hybrid_Table);
                             recList_TabbedPane.addTab("Hybrid", scrollPane);
                         }
@@ -1988,7 +2050,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                     //</editor-fold>
 
                     step2 = true;
-                    
+
                     evaluationList.clear();
                     DefaultTableModel tablemodelReset = (DefaultTableModel) evaluationResult_Table.getModel();
                     int rc = tablemodelReset.getRowCount();
@@ -1996,12 +2058,12 @@ public class MainFramePRS extends javax.swing.JFrame {
                         tablemodelReset.removeRow(0);
                     }
                     evaluationResult_Table.setModel(tablemodelReset);
-                    
+
                     back_Button.setEnabled(false);
                     next_Button.setEnabled(false);
                     backNext = 0;
                     topRank_TextField.setText(top_Recommend_TextField.getText());
-                    
+
                     status_Label.setText("Generating recommendation list is successed, please choose tab Evaluation to evaluate algorithms.");
                     //  JOptionPane.showMessageDialog(rootPane, "Recommending is successed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                     int comfirm = JOptionPane.showConfirmDialog(rootPane, "Recommending is successed! Go to Step 3...", "Confirm", JOptionPane.YES_NO_OPTION);
@@ -2014,7 +2076,7 @@ public class MainFramePRS extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Please input Top Recommendation...", "Notice", JOptionPane.INFORMATION_MESSAGE);
                 top_Recommend_TextField.requestFocus();
-                
+
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Please import dataset...", "Notice", JOptionPane.INFORMATION_MESSAGE);
@@ -2210,7 +2272,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         DialogVisualize visualize = new DialogVisualize();
         visualize.setLocationRelativeTo(this);
         visualize.show();
@@ -2251,7 +2313,7 @@ public class MainFramePRS extends javax.swing.JFrame {
             back_Button.setEnabled(true);
         }
     }//GEN-LAST:event_next_ButtonActionPerformed
-    
+
     public void loadStringToTable(String temp) {
         DefaultTableModel tablemodelReset = (DefaultTableModel) evaluationResult_Table.getModel();
         int rc = tablemodelReset.getRowCount();

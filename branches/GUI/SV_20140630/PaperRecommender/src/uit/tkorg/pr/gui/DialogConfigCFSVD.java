@@ -55,7 +55,7 @@ public class DialogConfigCFSVD extends javax.swing.JDialog {
         jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder("Description Algorithm"));
 
         CMAuthorTextPane.setEditable(false);
-        CMAuthorTextPane.setText("In here, we use algorithm and execute by SVD ALSWRFactorize of Apache Mahout  (https://mahout.apache.org/users/dim-reduction/dimensional-reduction.html).\nWe have to input k_Neighbor, f, l, i parameters to use this algorithm. In that, f is number of features, normalize by l, i is iterations.\nIf you don't input nothing, default parameters are k_neighbor =8,f=5, l= 0.001, i =100.\n");
+        CMAuthorTextPane.setText("In here, we use algorithm and execute by SVD ALSWRFactorize of Apache Mahout  (https://mahout.apache.org/users/dim-reduction/dimensional-reduction.html).\nWe have to input k_Neighbor, f, l, i parameters to use this algorithm. In that, f is number of features, normalize by l, i is iterations.\nIf you don't input nothing, default parameters are k_neighbor =8,f=5, l= 0.001, i =100.");
         jScrollPane6.setViewportView(CMAuthorTextPane);
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);

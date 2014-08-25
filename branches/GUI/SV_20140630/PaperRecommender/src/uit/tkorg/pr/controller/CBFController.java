@@ -47,7 +47,7 @@ public class CBFController {
                 combiningSchemePaperOfAuthor, weightingSchemePaperOfAuthor, pruning);
         CBFAuthorFVComputation.computeFVForAllAuthors(authorTestSet, papers, timeAwareScheme, gamma);
         // Clear no longer in use objects.
-        CBFPaperFVComputation.clearFV(papers);
+//        CBFPaperFVComputation.clearFV(papers);
         estimatedTime = System.nanoTime() - startTime;
         System.out.println("Computing authors FV elapsed time: " + estimatedTime / 1000000000 + " seconds");
         System.out.println("End computing authors FV.");
@@ -61,8 +61,8 @@ public class CBFController {
                 combiningSchemePaperTestSet, weightingSchemePaperTestSet, pruning);
         HashMap<String, Paper> paperTestSet = CBFPaperFVComputation.extractPapers(papers, paperIdsInTestSet);
         // Clear no longer in use objects.
-        papers = null;
-        CBFPaperFVComputation.clearTFIDF(paperTestSet);
+//        papers = null;
+//        CBFPaperFVComputation.clearTFIDF(paperTestSet);
         estimatedTime = System.nanoTime() - startTime;
         System.out.println("Computing FV for all papers elapsed time: " + estimatedTime / 1000000000 + " seconds");
         System.out.println("End computing FV for all papers.");

@@ -76,6 +76,7 @@ public class FeatureVectorSimilarity {
             for (String key : papers.keySet()) {
                 Double similarity = new Double(WeightingUtility.computeCosine(author.getFeatureVector(), papers.get(key).getFeatureVector()));
                 paperSimilarityHM.put(key, similarity.floatValue());
+                
             }
         }
         

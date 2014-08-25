@@ -6,6 +6,7 @@
 package uit.tkorg.pr.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import org.apache.commons.io.FileUtils;
@@ -14,6 +15,7 @@ import uit.tkorg.pr.dataimex.MASDataset1;
 import uit.tkorg.pr.datapreparation.CBFAuthorFVComputation;
 import uit.tkorg.pr.datapreparation.CBFPaperFVComputation;
 import uit.tkorg.pr.evaluation.Evaluator;
+import uit.tkorg.pr.method.cbf.FeatureVectorSimilarity;
 import uit.tkorg.pr.method.cf.CF;
 import uit.tkorg.pr.method.hybrid.CBFCF;
 import uit.tkorg.pr.model.Author;
@@ -46,6 +48,8 @@ public class PRSCentralController {
     HashSet<String> paperIdsOfAuthorTestSet = new HashSet<>();
     HashSet<String> paperIdsInTestSet = new HashSet<>();
 
+    public HashMap<String, Author> authorsCB = new HashMap<>();
+    public HashMap<String, Author> authorsHybrid = new HashMap<>();
     public HashMap<String, Author> authorsCFP = new HashMap<>();
     public HashMap<String, Author> authorsCFC = new HashMap<>();
     public HashMap<String, Author> authorsCFSVD = new HashMap<>();
@@ -75,7 +79,6 @@ public class PRSCentralController {
     public int topRank;
 
     //</editor-fold>
-    
     public PRSCentralController() {
         algorithm_Recommendation = 1; //1: CBF, 2: CF, 3: Hybrid
 
@@ -112,10 +115,10 @@ public class PRSCentralController {
         authors = new HashMap<>();
         paperIdsOfAuthorTestSet = new HashSet<>();
         paperIdsInTestSet = new HashSet<>();
-        
-        authorsCFP=new HashMap<>();
-        authorsCFC=new HashMap<>();
-        authorsCFSVD=new HashMap<>();
+
+        authorsCFP = new HashMap<>();
+        authorsCFC = new HashMap<>();
+        authorsCFSVD = new HashMap<>();
     }
 
     public String[] guiHandlerRequest(Options request) {
@@ -160,7 +163,7 @@ public class PRSCentralController {
                     break;
                 case EVALUATE:
                     response[1] = evaluate(authors, measure_Evaluation, topRank).toString();
-                    response[0]= "Evaluation is successed.";
+                    response[0] = "Evaluation is successed.";
                     break;
                 case ANALYSE_ERROR:
                     break;
@@ -172,15 +175,11 @@ public class PRSCentralController {
                         recommendList.append(authorId + ":\n").append(authors.get(authorId).getRecommendationList().toString() + "\r\n");
                     }
                     FileUtils.writeStringToFile(new File(_fileName_RecommendationList), recommendList.toString(), "UTF8", true);
-                    response[0]= "Saving is successed.";
+                    response[0] = "Saving is successed.";
                     break;
                 case SAVE_EVALUATION_RESULT:
                     FileUtils.writeStringToFile(new File(_fileName_EvaluationResult), evaluate(authors, measure_Evaluation, topRank).toString(), "UTF8", true);
-                    response[0]= "Saving is successed.";
-                    break;
-                case RESET:
-                    papers = new HashMap<>();
-                    authors = new HashMap<>();
+                    response[0] = "Saving is successed.";
                     break;
                 default:
                     response[0] = "Unknown.";
@@ -201,13 +200,27 @@ public class PRSCentralController {
             System.out.println("Begin CBF recommendation...");
             startTime = System.nanoTime();
 
+            for (String authorId : authors.keySet()) {
+                authors.get(authorId).getRecommendationList().clear();
+                authors.get(authorId).getCbfSimHM();
+            }
+            
             CBFController.cbfComputeRecommendingScore(authors, papers,
                     paperIdsOfAuthorTestSet, paperIdsInTestSet,
                     combinePaperOfAuthor, weightingPaperOfAuthor,
                     timeAware, gamma,
                     combineCandiatePaper, weightingCandidatePaper, 0,
                     pruning);
+            FeatureVectorSimilarity.generateRecommendationForAuthorList(authors, topRecommend);
 
+//            for (String author : authors.keySet()) {
+//                System.err.println(author + " danhsachkhuyennghi " + authors.get(author).getRecommendationList());
+//            }
+//            
+//            for (String author : authors.keySet()) {
+//                System.err.println(author + " danhsachkhuyennghigetCBfSimHM " + authors.get(author).getCbfSimHM().toString());
+//            }
+            
             estimatedTime = System.nanoTime() - startTime;
             System.out.println("CBF recommendation elapsed time: " + estimatedTime / 1000000000 + " seconds");
             System.out.println("End CBF recommendation.");
@@ -218,6 +231,11 @@ public class PRSCentralController {
             System.out.println("Begin CF recommendation...");
             startTime = System.nanoTime();
 
+            for (String authorId : authors.keySet()) {
+                authors.get(authorId).getRecommendationList().clear();
+                authors.get(authorId).getCfRatingHM().clear();
+            }
+
             CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod,
                     authors, paperIdsInTestSet, kNeighbourhood, f, l, i);
             CF.cfRecommendToAuthorList(authors, topRecommend);
@@ -226,17 +244,36 @@ public class PRSCentralController {
             System.out.println("CF recommendation elapsed time: " + estimatedTime / 1000000000 + " seconds");
             System.out.println("End CF recommendation.");
         } else if (algorithm_Recommendation == 3) {
+            //Hybrid Method
             float alpha_temp = (float) alpha;
+            long startTime;
+            long estimatedTime;
+            System.out.println("Begin Hybrid recommendation...");
+            startTime = System.nanoTime();
+
+            for (String authorId : authors.keySet()) {
+                authors.get(authorId).getRecommendationList().clear();
+                authors.get(authorId).getCbfSimHM().clear();
+                authors.get(authorId).getCfRatingHM().clear();
+                authors.get(authorId).getCbfCfHybridHM().clear();
+            }
+
             CBFController.cbfComputeRecommendingScore(authors, papers,
                     paperIdsOfAuthorTestSet, paperIdsInTestSet,
                     combinePaperOfAuthor, weightingPaperOfAuthor,
                     timeAware, gamma,
                     combineCandiatePaper, weightingCandidatePaper, 0,
                     pruning);
+            
             CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir,
                     cfMethod, authors, paperIdsInTestSet, kNeighbourhood, f, l, i);
+            
             CBFCF.computeCBFCFCombinationAndPutIntoModelForAuthorList(authors, alpha_temp, combineHybrid);
             CBFCF.cbfcfHybridRecommendToAuthorList(authors, topRecommend);
+
+            estimatedTime = System.nanoTime() - startTime;
+            System.out.println("Hybrid recommendation elapsed time: " + estimatedTime / 1000000000 + " seconds");
+            System.out.println("End Hybrid recommendation.");
         }
     }
 
@@ -246,37 +283,37 @@ public class PRSCentralController {
         if (measure_Evaluation == 1) {
             double evaluation = Evaluator.computeMeanPrecisionTopN(authors, topRank);
             evaluation = Math.round(evaluation * 1000) / 1000.0d;
-            
+
             evaluationResult.append("Precision\t").append(topRank).append("\t")
                     .append(evaluation).append("\r\n");
         } else if (measure_Evaluation == 2) {
             double evaluation = Evaluator.computeMeanRecallTopN(authors, topRank);
             evaluation = Math.round(evaluation * 1000) / 1000.0d;
-            
+
             evaluationResult.append("Recall\t").append(topRank).append("\t")
                     .append(evaluation).append("\r\n");
         } else if (measure_Evaluation == 3) {
             double evaluation = Evaluator.computeMeanFMeasure(authors, 1);
             evaluation = Math.round(evaluation * 1000) / 1000.0d;
-            
+
             evaluationResult.append("F1\t").append(topRank).append("\t")
                     .append(evaluation).append("\r\n");
         } else if (measure_Evaluation == 4) {
             double evaluation = Evaluator.computeMAP(authors, topRank);
             evaluation = Math.round(evaluation * 1000) / 1000.0d;
-            
+
             evaluationResult.append("MAP\t").append(topRank).append("\t")
                     .append(evaluation).append("\r\n");
         } else if (measure_Evaluation == 5) {
             double evaluation = Evaluator.computeMeanNDCG(authors, topRank);
             evaluation = Math.round(evaluation * 1000) / 1000.0d;
-            
+
             evaluationResult.append("NDCG\t").append(topRank).append("\t")
                     .append(evaluation).append("\r\n");
         } else if (measure_Evaluation == 6) {
             double evaluation = Evaluator.computeMRR(authors);
             evaluation = Math.round(evaluation * 1000) / 1000.0d;
-            
+
             evaluationResult.append("MRR\t").append(topRank).append("\t")
                     .append(evaluation).append("\r\n");
         }

@@ -2,11 +2,15 @@ package uit.tkorg.pr.controller;
 
 import ir.vsr.HashMapVector;
 import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
+import org.apache.mahout.cf.taste.common.TasteException;
 import uit.tkorg.pr.constant.PRConstant;
 import uit.tkorg.pr.dataimex.MASDataset1;
 import uit.tkorg.pr.dataimex.MahoutFile;
@@ -89,33 +93,38 @@ public class PRCentralController {
         _recommendationMethod = recommendationMethod;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         try {
-            recommendationFlowController(3, 0,
-                    PRConstant.FOLDER_NUS_DATASET1,
-                    PRConstant.FOLDER_NUS_DATASET2,
-                    // For CBF
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Training] Paper_Before_2006.csv",
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Training] Paper_Cite_Paper_Before_2006.csv",
-                    // Testing data
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Testing] 1000Authors.csv",
-                    //PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Testing] Ground_Truth_2006_2008.csv",
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Testing] Ground_Truth_2006_2008_New_Citation.csv",
-                    // Author Profile
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Training] Author_Paper_Before_2006.csv",
-                    // For CF
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Training] Author_Cite_Paper_Before_2006.csv", 
-                    // Mahout
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\TF-IDF\\Text",
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\TF-IDF\\PreProcessedPaper",
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\TF-IDF\\Sequence",
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\TF-IDF\\Vector",
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\MahoutCF",
-                    // Result
-                    "EvaluationResult\\EvaluationResult_NewCitation_070814.xls",
-                    1);
-        } catch (Exception e) {
-            e.printStackTrace();
+            //        try {
+//            recommendationFlowController(3, 0,
+//                    PRConstant.FOLDER_NUS_DATASET1,
+//                    PRConstant.FOLDER_NUS_DATASET2,
+//                    // For CBF
+//                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Training] Paper_Before_2006.csv",
+//                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Training] Paper_Cite_Paper_Before_2006.csv",
+//                    // Testing data
+//                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Testing] 1000Authors.csv",
+//                    //PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Testing] Ground_Truth_2006_2008.csv",
+//                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Testing] Ground_Truth_2006_2008_New_Citation.csv",
+//                    // Author Profile
+//                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Training] Author_Paper_Before_2006.csv",
+//                    // For CF
+//                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Training] Author_Cite_Paper_Before_2006.csv", 
+//                    // Mahout
+//                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\TF-IDF\\Text",
+//                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\TF-IDF\\PreProcessedPaper",
+//                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\TF-IDF\\Sequence",
+//                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\TF-IDF\\Vector",
+//                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\MahoutCF",
+//                    // Result
+//                    "EvaluationResult\\EvaluationResult_NewCitation_070814.xls",
+//                    1);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+            KNNCF.CoPearsonRecommend("C:\\Users\\Vinh\\Desktop\\CFRatingMatrixOriginal.txt", 8, 100, "Temp\\Kequa.txt");
+        } catch (TasteException ex) {
+            Logger.getLogger(PRCentralController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
