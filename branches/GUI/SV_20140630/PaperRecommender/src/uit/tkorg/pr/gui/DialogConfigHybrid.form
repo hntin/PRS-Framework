@@ -30,14 +30,12 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jPanel23" max="32767" attributes="0"/>
           <Group type="102" attributes="0">
+              <EmptySpace pref="369" max="32767" attributes="0"/>
+              <Component id="ok_Button" min="-2" pref="63" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="jPanel1" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jPanel1" max="32767" attributes="0"/>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="ok_Button" min="-2" pref="63" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
           </Group>
       </Group>
     </DimensionLayout>
@@ -86,7 +84,7 @@
             <Component class="javax.swing.JTextPane" name="CMAuthorTextPane">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
-                <Property name="text" type="java.lang.String" value="Hybrid algorithm combine between content - based algorithm and collaborative filtering algorithm.&#xa;Simple hybrid algorithm mix recommendation list of content - based and collaborative filtering algorithm into an recommendation list. &#xa;Alpha parameter is weighting which combines between two recommendation list.&#xa;"/>
+                <Property name="text" type="java.lang.String" value="HYBRID ALGORITHM combines between content - based algorithm and collaborative filtering algorithm.&#xa;Simple hybrid algorithm mix recommendation list of content - based and collaborative filtering algorithm into an recommendation list. &#xa;ALPHA parameter is weighting which combines between two recommendation list.&#xa;"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -109,7 +107,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
-                  <Component id="alpha_TextField" pref="289" max="32767" attributes="0"/>
+                  <Component id="alpha_TextField" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

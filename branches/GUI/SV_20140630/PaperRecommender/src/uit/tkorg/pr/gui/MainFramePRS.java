@@ -73,7 +73,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     public MainFramePRS() {
         initComponents();
         controller = new PRSCentralController();
-//        redirectSystemStreams();
+        redirectSystemStreams();
     }
 
 //<editor-fold defaultstate="collapsed" desc="write console to textArea">
@@ -252,6 +252,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
         console_TextArea.setEditable(false);
         console_TextArea.setColumns(20);
+        console_TextArea.setLineWrap(true);
         console_TextArea.setRows(5);
         console_TextArea.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -1425,12 +1426,12 @@ public class MainFramePRS extends javax.swing.JFrame {
                 @Override
                 protected Object doInBackground() throws Exception {
                     import_DataSource_Button.setEnabled(false);
-                    console_TextArea.append("\nBegin import dataset....\n");
+                    console_TextArea.append("\nBEGIN IMPORT DATASET....\n");
                     status_Label.setText("Importing dataset...");
                     long begin = System.currentTimeMillis();
                     response = controller.guiHandlerRequest(Options.IMPORT_DATA);
-                    console_TextArea.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + " seconds" + "\n");
-                    console_TextArea.append("End import dataset....\n");
+                    console_TextArea.append("TIME ELAPSED: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + " SECONDS" + "\n");
+                    console_TextArea.append("END IMPORT DATASET....\n");
                     return null;
                 }
 
@@ -1480,12 +1481,12 @@ public class MainFramePRS extends javax.swing.JFrame {
                 @Override
                 protected Object doInBackground() throws Exception {
                     import_DatasetExample_Button.setEnabled(false);
-                    console_TextArea.append("\nBegin import dataset....\n");
+                    console_TextArea.append("\nBEGIN IMPORT DATASET....\n");
                     status_Label.setText("Importing dataset...");
                     long begin = System.currentTimeMillis();
                     response = controller.guiHandlerRequest(Options.IMPORT_DATA);
-                    console_TextArea.append("Time elapsed: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + " seconds" + "\n");
-                    console_TextArea.append("End import dataset....\n");
+                    console_TextArea.append("TIME ELAPSED: " + String.valueOf((System.currentTimeMillis() - begin) / 1000) + " SECONDS" + "\n");
+                    console_TextArea.append("END IMPORT DATASET....\n");
                     return null;
                 }
 
