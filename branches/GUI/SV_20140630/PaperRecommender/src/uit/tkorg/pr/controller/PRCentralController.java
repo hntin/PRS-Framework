@@ -123,6 +123,7 @@ public class PRCentralController {
 //            e.printStackTrace();
 //        }
             KNNCF.CoPearsonRecommend("C:\\Users\\Vinh\\Desktop\\CFRatingMatrixOriginal.txt", 8, 100, "Temp\\Kequa.txt");
+            //KNNCF.CosineRecommend("C:\\Users\\Vinh\\Desktop\\CFRatingMatrixOriginal.txt", 8, 100, "Temp\\Kequa.txt");
         } catch (TasteException ex) {
             Logger.getLogger(PRCentralController.class.getName()).log(Level.SEVERE, null, ex);
         }

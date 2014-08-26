@@ -67,6 +67,7 @@ public class KNNCF {
                 System.out.println("Generate a list of n recommendations for the user no." + count);
             }
             List<RecommendedItem> itemRecommendations = genericRecommender.recommend(userId, n);
+            System.out.println(itemRecommendations.size()+" size");
             if (!itemRecommendations.isEmpty()) {
                 // Display the list of recommendations
                 for (RecommendedItem recommendedItem : itemRecommendations) {

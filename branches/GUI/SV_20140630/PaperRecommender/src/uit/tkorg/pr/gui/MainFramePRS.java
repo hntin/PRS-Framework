@@ -1774,6 +1774,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                                 }
                                 author.setCbfSimHM(cbfSimHM1);
                                 author.setGroundTruth(controller.authors.get(authorId).getGroundTruth());
+                                author.setAuthorId(controller.authors.get(authorId).getAuthorId());
                                 controller.authorsCB.put(authorId, author);
                             }
                         } else if (alg == 2) {
@@ -1798,6 +1799,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                                         }
                                         author.setCfRatingHM(cfRatingHM1);
                                         author.setGroundTruth(controller.authors.get(authorId).getGroundTruth());
+                                        author.setAuthorId(controller.authors.get(authorId).getAuthorId());
                                         controller.authorsCFP.put(authorId, author);
                                     }
                                 } else if (cfMethod == 2) {
@@ -1813,6 +1815,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                                         }
                                         author.setCfRatingHM(cfRatingHM1);
                                         author.setGroundTruth(controller.authors.get(authorId).getGroundTruth());
+                                        author.setAuthorId(controller.authors.get(authorId).getAuthorId());
                                         controller.authorsCFC.put(authorId, author);
                                     }
                                 } else if (cfMethod == 3) {
@@ -1828,6 +1831,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                                         }
                                         author.setCfRatingHM(cfRatingHM1);
                                         author.setGroundTruth(controller.authors.get(authorId).getGroundTruth());
+                                        author.setAuthorId(controller.authors.get(authorId).getAuthorId());
                                         controller.authorsCFSVD.put(authorId, author);
                                     }
                                 }
@@ -1848,14 +1852,14 @@ public class MainFramePRS extends javax.swing.JFrame {
                                     cbfSimHM1.put(Id, cbfSimHM.get(Id));
                                 }
                                 author.setCbfSimHM(cbfSimHM1);
-                                
+
                                 HashMap<String, Float> cfRatingHM = controller.authors.get(authorId).getCfRatingHM();
                                 HashMap<String, Float> cfRatingHM1 = new HashMap<>();
                                 for (String Id : cfRatingHM.keySet()) {
                                     cfRatingHM1.put(Id, cfRatingHM.get(Id));
                                 }
                                 author.setCfRatingHM(cfRatingHM1);
-                                
+
                                 HashMap<String, Float> CbfCfHybridHM = controller.authors.get(authorId).getCbfCfHybridHM();
                                 HashMap<String, Float> CbfCfHybridHM1 = new HashMap<>();
                                 for (String Id : CbfCfHybridHM.keySet()) {
@@ -1863,7 +1867,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                                 }
                                 author.setCbfCfHybridHM(CbfCfHybridHM1);
                                 author.setGroundTruth(controller.authors.get(authorId).getGroundTruth());
-
+                                author.setAuthorId(controller.authors.get(authorId).getAuthorId());
                                 controller.authorsHybrid.put(authorId, author);
                             }
                         }
