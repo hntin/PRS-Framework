@@ -94,38 +94,32 @@ public class PRCentralController {
     }
 
     public static void main(String[] args) throws IOException {
-        try {
-            //        try {
-//            recommendationFlowController(3, 0,
-//                    PRConstant.FOLDER_NUS_DATASET1,
-//                    PRConstant.FOLDER_NUS_DATASET2,
-//                    // For CBF
-//                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Training] Paper_Before_2006.csv",
-//                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Training] Paper_Cite_Paper_Before_2006.csv",
-//                    // Testing data
-//                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Testing] 1000Authors.csv",
-//                    //PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Testing] Ground_Truth_2006_2008.csv",
-//                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Testing] Ground_Truth_2006_2008_New_Citation.csv",
-//                    // Author Profile
-//                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Training] Author_Paper_Before_2006.csv",
-//                    // For CF
-//                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Training] Author_Cite_Paper_Before_2006.csv", 
-//                    // Mahout
-//                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\TF-IDF\\Text",
-//                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\TF-IDF\\PreProcessedPaper",
-//                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\TF-IDF\\Sequence",
-//                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\TF-IDF\\Vector",
-//                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\MahoutCF",
-//                    // Result
-//                    "EvaluationResult\\EvaluationResult_NewCitation_070814.xls",
-//                    1);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-            KNNCF.CoPearsonRecommend("C:\\Users\\Vinh\\Desktop\\CFRatingMatrixOriginal.txt", 8, 100, "Temp\\Kequa.txt");
-            //KNNCF.CosineRecommend("C:\\Users\\Vinh\\Desktop\\CFRatingMatrixOriginal.txt", 8, 100, "Temp\\Kequa.txt");
-        } catch (TasteException ex) {
-            Logger.getLogger(PRCentralController.class.getName()).log(Level.SEVERE, null, ex);
+                    try {
+            recommendationFlowController(1, 2,
+                    PRConstant.FOLDER_NUS_DATASET1,
+                    PRConstant.FOLDER_NUS_DATASET2,
+                    // For CBF
+                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Training] Paper_Before_2006.csv",
+                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Training] Paper_Cite_Paper_Before_2006.csv",
+                    // Testing data
+                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Testing] 1000Authors.csv",
+                    //PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Testing] Ground_Truth_2006_2008.csv",
+                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Testing] Ground_Truth_2006_2008_New_Citation.csv",
+                    // Author Profile
+                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Training] Author_Paper_Before_2006.csv",
+                    // For CF
+                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Training] Author_Cite_Paper_Before_2006.csv", 
+                    // Mahout
+                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\TF-IDF\\Text",
+                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\TF-IDF\\PreProcessedPaper",
+                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\TF-IDF\\Sequence",
+                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\TF-IDF\\Vector",
+                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\MahoutCF",
+                    // Result
+                    "EvaluationResult\\EvaluationResult_NewCitation_070814.xls",
+                    1);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -233,15 +227,17 @@ public class PRCentralController {
         // parameters for CBF methods.
         // combiningSchemePaperOfAuthor: 0: itself, 1: itself + ref; 2: itself + citations; 
         // 3: itself + refs + citations.
-        int combiningSchemePaperOfAuthor = 1;
+        int combiningSchemePaperOfAuthor =2;
         // weightingSchemePaperOfAuthor: 0: linear; 1: cosine; 2: rpy.
         int weightingSchemePaperOfAuthor = 0;
         // timeAwareScheme: 0: unaware; 1: aware.
         int timeAwareScheme = 0;
         // gamma: forgetting factor when aware of time.
         double gamma = 0.0;
-        int combiningSchemePaperTestSet = combiningSchemePaperOfAuthor;
-        int weightingSchemePaperTestSet = weightingSchemePaperOfAuthor;
+//        int combiningSchemePaperTestSet = combiningSchemePaperOfAuthor;
+//        int weightingSchemePaperTestSet = weightingSchemePaperOfAuthor;
+        int combiningSchemePaperTestSet = 0;
+        int weightingSchemePaperTestSet = 1;
         // similarityScheme: 0: cosine
         int similarityScheme = 0;
         // Threshold to prune citation and reference paper when combining.
@@ -398,45 +394,45 @@ public class PRCentralController {
         System.out.println("Evaluating elapsed time: " + estimatedTime / 1000000000 + " seconds");
         System.out.println("End evaluating.");
         //</editor-fold>
-
-        //<editor-fold defaultstate="collapsed" desc="ERROR ANALYSIS">
-        System.out.println("Begin error analysis...");
-        startTime = System.nanoTime();
-
-        String partFileNameWithDataset = PRConstant.FOLDER_MAS_DATASET1
-                + "ErrorAnalysis\\Dataset" + DatasetToUse;
-        String partFileNameWithMethod = " Method" + recommendationMethod
-                + " Customed file name ending" + ".xls";
-
-        // EachAuthorEvaluationResults
-        String fileNameErrorAnalysis = partFileNameWithDataset
-                + " EachAuthorEvaluationResults " 
-                + partFileNameWithMethod;
-        ErrorAnalysis.printEachAuthorEvaluationResults(authorTestSet, fileNameErrorAnalysis);
-
-        int topNErrorAnalysis = 50;
-        // FalseNegativeTopN
-        fileNameErrorAnalysis = partFileNameWithDataset
-                + " FalseNegative Top" + topNErrorAnalysis
-                + partFileNameWithMethod;
-        ErrorAnalysis.printFalseNegativeTopN(authorTestSet, fileNameErrorAnalysis, recommendationMethod, topNErrorAnalysis);
-
-        // FalsePositveTopN
-        fileNameErrorAnalysis = partFileNameWithDataset
-                + " FalsePositive Top" + topNErrorAnalysis
-                + partFileNameWithMethod;
-        ErrorAnalysis.printFalsePositiveTopN(authorTestSet, fileNameErrorAnalysis, recommendationMethod, topNErrorAnalysis);
-
-        // TruePositveTopN
-        fileNameErrorAnalysis = partFileNameWithDataset
-                + " TruePositive Top" + topNErrorAnalysis
-                + partFileNameWithMethod;
-        ErrorAnalysis.printTruePositiveTopN(authorTestSet, fileNameErrorAnalysis, recommendationMethod, topNErrorAnalysis);
-        
-        estimatedTime = System.nanoTime() - startTime;
-        System.out.println("Error analysis elapsed time: " + estimatedTime / 1000000000 + " seconds");
-        System.out.println("End error analysis.");
-        //</editor-fold>
+//
+//        //<editor-fold defaultstate="collapsed" desc="ERROR ANALYSIS">
+//        System.out.println("Begin error analysis...");
+//        startTime = System.nanoTime();
+//
+//        String partFileNameWithDataset = PRConstant.FOLDER_MAS_DATASET1
+//                + "ErrorAnalysis\\Dataset" + DatasetToUse;
+//        String partFileNameWithMethod = " Method" + recommendationMethod
+//                + " Customed file name ending" + ".xls";
+//
+//        // EachAuthorEvaluationResults
+//        String fileNameErrorAnalysis = partFileNameWithDataset
+//                + " EachAuthorEvaluationResults " 
+//                + partFileNameWithMethod;
+//        ErrorAnalysis.printEachAuthorEvaluationResults(authorTestSet, fileNameErrorAnalysis);
+//
+//        int topNErrorAnalysis = 50;
+//        // FalseNegativeTopN
+//        fileNameErrorAnalysis = partFileNameWithDataset
+//                + " FalseNegative Top" + topNErrorAnalysis
+//                + partFileNameWithMethod;
+//        ErrorAnalysis.printFalseNegativeTopN(authorTestSet, fileNameErrorAnalysis, recommendationMethod, topNErrorAnalysis);
+//
+//        // FalsePositveTopN
+//        fileNameErrorAnalysis = partFileNameWithDataset
+//                + " FalsePositive Top" + topNErrorAnalysis
+//                + partFileNameWithMethod;
+//        ErrorAnalysis.printFalsePositiveTopN(authorTestSet, fileNameErrorAnalysis, recommendationMethod, topNErrorAnalysis);
+//
+//        // TruePositveTopN
+//        fileNameErrorAnalysis = partFileNameWithDataset
+//                + " TruePositive Top" + topNErrorAnalysis
+//                + partFileNameWithMethod;
+//        ErrorAnalysis.printTruePositiveTopN(authorTestSet, fileNameErrorAnalysis, recommendationMethod, topNErrorAnalysis);
+//        
+//        estimatedTime = System.nanoTime() - startTime;
+//        System.out.println("Error analysis elapsed time: " + estimatedTime / 1000000000 + " seconds");
+//        System.out.println("End error analysis.");
+//        //</editor-fold>
 
         long estimatedRecommendationFlowTime = System.nanoTime() - startRecommendationFlowTime;
         System.out.println("Recommendation elapsed time: " + estimatedRecommendationFlowTime / 1000000000 + " seconds");
