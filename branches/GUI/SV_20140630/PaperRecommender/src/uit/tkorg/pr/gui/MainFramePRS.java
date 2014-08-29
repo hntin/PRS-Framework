@@ -1471,7 +1471,7 @@ public class MainFramePRS extends javax.swing.JFrame {
             controller.fileNameAuthors = "ExampleDataset\\Authors.csv";
             controller.fileNameAuthorPaper = "ExampleDataset\\AuthorPaper.csv";
             controller.fileNameAuthorCitePaper = "ExampleDataset\\AuthorCitePaper.csv";
-            controller.fileNamePapers = "ExampleDataset\\Paper.csv";
+            controller.fileNamePapers = "ExampleDataset\\Papers.csv";
             controller.fileNamePaperCitePaper = "ExampleDataset\\PaperCitePaper.csv";
             controller.fileNameGroundTruth = "ExampleDataset\\GroundTruth.csv";
 

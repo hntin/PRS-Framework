@@ -212,7 +212,7 @@ public class DialogDatasetExample extends javax.swing.JDialog {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         try {
             GuiUtilities.loadDataToJTable(FileAuthorTable, "ExampleDataset\\Authors.csv");
-            GuiUtilities.loadDataToJTable(FilePaperTable, "ExampleDataset\\Paper.csv");
+            GuiUtilities.loadDataToJTable(FilePaperTable, "ExampleDataset\\Papers.csv");
             GuiUtilities.loadDataToJTable(FileAuthorPaperTable, "ExampleDataset\\AuthorPaper.csv");
             GuiUtilities.loadDataToJTable(FileAuthorCitePaperTable, "ExampleDataset\\AuthorCitePaper.csv");
             GuiUtilities.loadDataToJTable(FilePaperCitePaperTable, "ExampleDataset\\PaperCitePaper.csv");
