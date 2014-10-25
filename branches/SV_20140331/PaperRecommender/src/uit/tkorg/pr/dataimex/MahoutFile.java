@@ -4,15 +4,12 @@
  */
 package uit.tkorg.pr.dataimex;
 
-import com.mysql.jdbc.StringUtils;
 import ir.vsr.HashMapVector;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
