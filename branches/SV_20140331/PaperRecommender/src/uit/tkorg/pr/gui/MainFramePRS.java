@@ -39,6 +39,7 @@ import uit.tkorg.pr.controller.PRSCentralController;
 import uit.tkorg.pr.method.cbf.FeatureVectorSimilarity;
 import uit.tkorg.pr.method.cf.CF;
 import uit.tkorg.pr.method.hybrid.CBFCF;
+import uit.tkorg.pr.method.hybrid.TrustHybrid;
 import uit.tkorg.pr.model.Author;
 
 /**
@@ -69,6 +70,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     private DialogConfigCF dialogConfigCF = new DialogConfigCF(this, rootPaneCheckingEnabled);
     private DialogConfigHybrid dialogConfigHybrid = new DialogConfigHybrid(this, rootPaneCheckingEnabled);
     private DialogConfigTrustBased dialogConfigTrustBased=new DialogConfigTrustBased(this, rootPaneCheckingEnabled);
+    private DialogConfigHybridTrustBased dialogConfigHybridTrustBased=new DialogConfigHybridTrustBased(this, rootPaneCheckingEnabled);
     //</editor-fold>
 
     public MainFramePRS() {
@@ -307,9 +309,8 @@ public class MainFramePRS extends javax.swing.JFrame {
         fileAuthor_TextArea.setColumns(20);
         fileAuthor_TextArea.setLineWrap(true);
         fileAuthor_TextArea.setRows(5);
-        fileAuthor_TextArea.setText("File Authors.csv is one of file training data of program. It's assigned mark. This file descrips information about researcher which containts id researcher and his name.\nThe file is formated IdAuthor|||NameAuthor\nExample:\n1|||John F. Young\n2|||Sule Yildirim\n3|||Elizabeth K. Reilly\n4|||Yann Le Gorrec");
+        fileAuthor_TextArea.setText("File Authors.csv is one of file training data of program. It's assigned mark. This file describes information about researcher which containts id researcher and his name.\nThe file is formated IdAuthor|||NameAuthor\nExample:\n1|||John F. Young\n2|||Sule Yildirim\n3|||Elizabeth K. Reilly\n4|||Yann Le Gorrec");
         fileAuthor_TextArea.setWrapStyleWord(true);
-        fileAuthor_TextArea.setCaretPosition(0);
         fileAuthor_TextArea.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 fileAuthor_TextAreaKeyPressed(evt);
@@ -1705,6 +1706,40 @@ public class MainFramePRS extends javax.swing.JFrame {
                                     Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
                                 }
                             }
+                        }else if (alg == 4) {
+                            try {
+                                TrustHybrid.trustRecommendToAuthorList(controller.authorsTrustbased, controller.topRecommend);
+                            } catch (TasteException ex) {
+                                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (Exception ex) {
+                                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            
+                            for (Integer measure : measure_Evaluation) {
+                                controller.measure_Evaluation = measure;
+                                try {
+                                    evaluationResult.append("\nTrust - based\t" + controller.evaluate(controller.authorsTrustbased, measure, controller.topRank));
+                                } catch (Exception ex) {
+                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            }
+                        }else if (alg == 5) {
+                            try {
+                                TrustHybrid.trustHybridRecommendToAuthorList(controller.authorsTrustbased, controller.topRecommend);
+                            } catch (TasteException ex) {
+                                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (Exception ex) {
+                                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            
+                            for (Integer measure : measure_Evaluation) {
+                                controller.measure_Evaluation = measure;
+                                try {
+                                    evaluationResult.append("\nHybrid Trust - based\t" + controller.evaluate(controller.authorsHybridTrustbased, measure, controller.topRank));
+                                } catch (Exception ex) {
+                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            }
                         }
                     }
 
@@ -1789,7 +1824,8 @@ public class MainFramePRS extends javax.swing.JFrame {
                 controller.authorsCFSVD = new HashMap<>();
                 controller.authorsHybrid = new HashMap<>();
                 controller.authorsTrustbased=new HashMap<>();
-
+                controller.authorsHybridTrustbased=new HashMap<>();
+                
                 status_Label.setText("Recommending...");
 
                 //<editor-fold defaultstate="collapsed" desc="Step 1: get algorithm_Recommendation Set">
@@ -1805,6 +1841,9 @@ public class MainFramePRS extends javax.swing.JFrame {
                 }
                 if (TB_CheckBox.isSelected()) {
                     algorithm_Recommendation.add(4);
+                }
+                if(HTB_CheckBox.isSelected()){
+                    algorithm_Recommendation.add(5);
                 }
                 //</editor-fold>
 
@@ -1959,7 +1998,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                         }
                         else if(alg==4){
                             //Trust Based
-                            controller.algorithm_Recommendation = 3;
+                            controller.algorithm_Recommendation = 4;
                             controller.alpha = dialogConfigTrustBased.alpha;
                             controller.combinationScheme = dialogConfigTrustBased.combinationScheme;
                             controller.howToTrustAuthor=dialogConfigTrustBased.howToTrustAuthor;
@@ -1967,6 +2006,36 @@ public class MainFramePRS extends javax.swing.JFrame {
                             controller.guiHandlerRequest(Options.RECOMMEND);
                             for (String authorId : controller.authors.keySet()) {
                                 Author author = new Author();
+                                HashMap<String, Float> coAuthorRSSHM = controller.authors.get(authorId).getCoAuthorRSSHM();
+                                HashMap<String, Float> coAuthorRSSHM1 = new HashMap<>();
+                                for (String Id : coAuthorRSSHM.keySet()) {
+                                    coAuthorRSSHM1.put(Id, coAuthorRSSHM.get(Id));
+                                }
+                                try {
+                                    author.setCoAuthorRSSHM(coAuthorRSSHM1);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                HashMap<String, Float> citationAuthorRSSHM = controller.authors.get(authorId).getCitationAuthorRSSHM();
+                                HashMap<String, Float> citationAuthorRSSHM1 = new HashMap<>();
+                                for (String Id : citationAuthorRSSHM.keySet()) {
+                                    citationAuthorRSSHM1.put(Id, citationAuthorRSSHM.get(Id));
+                                }
+                                try {
+                                    author.setCitationAuthorRSSHM(citationAuthorRSSHM1);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                HashMap<String, Float> trustedAuthorHM = controller.authors.get(authorId).getTrustedAuthorHM();
+                                HashMap<String, Float> trustedAuthorHM1 = new HashMap<>();
+                                for (String Id : trustedAuthorHM.keySet()) {
+                                    trustedAuthorHM1.put(Id, trustedAuthorHM.get(Id));
+                                }
+                                try {
+                                    author.setTrustedAuthorHM(trustedAuthorHM1);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                                 HashMap<String, Float> trustedPaperHM = controller.authors.get(authorId).getTrustedPaperHM();
                                 HashMap<String, Float> trustedPaperHM1 = new HashMap<>();
                                 for (String Id : trustedPaperHM.keySet()) {
@@ -1977,9 +2046,75 @@ public class MainFramePRS extends javax.swing.JFrame {
                                 } catch (Exception ex) {
                                     Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
                                 }
+                                
                                 author.setGroundTruth(controller.authors.get(authorId).getGroundTruth());
                                 author.setAuthorId(controller.authors.get(authorId).getAuthorId());
                                 controller.authorsTrustbased.put(authorId, author);
+                            }
+                        }else if(alg==5){
+                            //Trust Based
+                            controller.algorithm_Recommendation = 5;
+                            controller.alpha = dialogConfigHybridTrustBased.alpha;
+                            controller.combinationScheme = dialogConfigHybridTrustBased.combinationScheme;
+                            controller.howToTrustAuthor=dialogConfigHybridTrustBased.howToTrustAuthor;
+                            controller.howToTrustPaper=dialogConfigHybridTrustBased.howToTrustPaper;
+                            controller.guiHandlerRequest(Options.RECOMMEND);
+                            for (String authorId : controller.authors.keySet()) {
+                                Author author = new Author();
+                                HashMap<String, Float> cbfSimHM = controller.authors.get(authorId).getCbfSimHM();
+                                HashMap<String, Float> cbfSimHM1 = new HashMap<>();
+                                for (String Id : cbfSimHM.keySet()) {
+                                    cbfSimHM1.put(Id, cbfSimHM.get(Id));
+                                }
+                                try {
+                                    author.setCbfSimHM(cbfSimHM1);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                HashMap<String, Float> coAuthorRSSHM = controller.authors.get(authorId).getCoAuthorRSSHM();
+                                HashMap<String, Float> coAuthorRSSHM1 = new HashMap<>();
+                                for (String Id : coAuthorRSSHM.keySet()) {
+                                    coAuthorRSSHM1.put(Id, coAuthorRSSHM.get(Id));
+                                }
+                                try {
+                                    author.setCoAuthorRSSHM(coAuthorRSSHM1);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                HashMap<String, Float> citationAuthorRSSHM = controller.authors.get(authorId).getCitationAuthorRSSHM();
+                                HashMap<String, Float> citationAuthorRSSHM1 = new HashMap<>();
+                                for (String Id : citationAuthorRSSHM.keySet()) {
+                                    citationAuthorRSSHM1.put(Id, citationAuthorRSSHM.get(Id));
+                                }
+                                try {
+                                    author.setCitationAuthorRSSHM(citationAuthorRSSHM1);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                HashMap<String, Float> trustedAuthorHM = controller.authors.get(authorId).getTrustedAuthorHM();
+                                HashMap<String, Float> trustedAuthorHM1 = new HashMap<>();
+                                for (String Id : trustedAuthorHM.keySet()) {
+                                    trustedAuthorHM1.put(Id, trustedAuthorHM.get(Id));
+                                }
+                                try {
+                                    author.setTrustedAuthorHM(trustedAuthorHM1);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                HashMap<String, Float> trustedPaperHM = controller.authors.get(authorId).getTrustedPaperHM();
+                                HashMap<String, Float> trustedPaperHM1 = new HashMap<>();
+                                for (String Id : trustedPaperHM.keySet()) {
+                                    trustedPaperHM1.put(Id, trustedPaperHM.get(Id));
+                                }
+                                try {
+                                    author.setTrustedPaperHM(trustedPaperHM1);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                
+                                author.setGroundTruth(controller.authors.get(authorId).getGroundTruth());
+                                author.setAuthorId(controller.authors.get(authorId).getAuthorId());
+                                controller.authorsHybridTrustbased.put(authorId, author);
                             }
                         }
                     }
@@ -2136,15 +2271,22 @@ public class MainFramePRS extends javax.swing.JFrame {
                             JScrollPane scrollPane = new JScrollPane(hybrid_Table);
                             recList_TabbedPane.addTab("Hybrid", scrollPane);
                         }else if (alg == 4) {
+                            try {
+                                TrustHybrid.trustRecommendToAuthorList(controller.authorsTrustbased, controller.topRecommend);
+                            } catch (TasteException ex) {
+                                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (Exception ex) {
+                                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                             Vector vTitle = new Vector(Arrays.asList(new String[]{"No.", "Id Author", "Recommendation List"}));
                             Vector vData = new Vector();
                             int i = 0;
-                            for (String AuthorId : controller.authors.keySet()) {
+                            for (String AuthorId : controller.authorsTrustbased.keySet()) {
                                 i++;
                                 Vector vector = new Vector();
                                 vector.addElement(i);
-                                vector.addElement(controller.authors.get(AuthorId).getAuthorId());
-                                vector.addElement(controller.authors.get(AuthorId).getRecommendationList());
+                                vector.addElement(controller.authorsTrustbased.get(AuthorId).getAuthorId());
+                                vector.addElement(controller.authorsTrustbased.get(AuthorId).getRecommendationList());
                                 vData.add(vector);
                             }
                             JTable hybrid_Table = new JTable(new DefaultTableModel(vData, vTitle));
@@ -2156,6 +2298,34 @@ public class MainFramePRS extends javax.swing.JFrame {
 
                             JScrollPane scrollPane = new JScrollPane(hybrid_Table);
                             recList_TabbedPane.addTab("Trust based", scrollPane);
+                        }else if (alg == 5) {
+                            try {
+                                TrustHybrid.trustHybridRecommendToAuthorList(controller.authorsHybridTrustbased, controller.topRecommend);
+                            } catch (TasteException ex) {
+                                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (Exception ex) {
+                                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            Vector vTitle = new Vector(Arrays.asList(new String[]{"No.", "Id Author", "Recommendation List"}));
+                            Vector vData = new Vector();
+                            int i = 0;
+                            for (String AuthorId : controller.authorsHybridTrustbased.keySet()) {
+                                i++;
+                                Vector vector = new Vector();
+                                vector.addElement(i);
+                                vector.addElement(controller.authorsHybridTrustbased.get(AuthorId).getAuthorId());
+                                vector.addElement(controller.authorsHybridTrustbased.get(AuthorId).getRecommendationList());
+                                vData.add(vector);
+                            }
+                            JTable hybrid_Table = new JTable(new DefaultTableModel(vData, vTitle));
+                            hybrid_Table.setAutoCreateRowSorter(true);
+                            hybrid_Table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+                            hybrid_Table.setAutoscrolls(true);
+                            hybrid_Table.setFont(new Font("Tahoma", Font.PLAIN, 13));
+                            hybrid_Table.getColumnModel().getColumn(2).setPreferredWidth(620);
+
+                            JScrollPane scrollPane = new JScrollPane(hybrid_Table);
+                            recList_TabbedPane.addTab("Hybrid Trust based", scrollPane);
                         }
                     }
             //</editor-fold>
@@ -2178,7 +2348,11 @@ public class MainFramePRS extends javax.swing.JFrame {
                                 }
                             }
                         } else if (alg == 3) {
-                            algorithms.append("Hybrid").append(" ");
+                            algorithms.append("Hybrid").append("; ");
+                        }else if (alg == 4) {
+                            algorithms.append("Trust - based").append("; ");
+                        }else if (alg == 5) {
+                            algorithms.append("Hybrid Trust - based").append(" ");
                         }
                     }
                     algorithms.append(" with Top Recommendation equals " + controller.topRecommend);
@@ -2473,7 +2647,8 @@ public class MainFramePRS extends javax.swing.JFrame {
     }//GEN-LAST:event_HTB_CheckBoxActionPerformed
 
     private void config_HTB_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_config_HTB_ButtonActionPerformed
-        // TODO add your handling code here:
+         dialogConfigHybridTrustBased.setLocationRelativeTo(this);
+        dialogConfigHybridTrustBased.show();
     }//GEN-LAST:event_config_HTB_ButtonActionPerformed
 
     public void loadStringToTable(String temp) {
