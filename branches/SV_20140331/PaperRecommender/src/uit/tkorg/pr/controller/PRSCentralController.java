@@ -55,6 +55,7 @@ public class PRSCentralController {
     public HashMap<String, Author> authorsCFC = new HashMap<>();
     public HashMap<String, Author> authorsCFSVD = new HashMap<>();
     public HashMap<String, Author> authorsTrustbased=new HashMap<String, Author>();
+    public HashMap<String, Author> authorsHybridTrustbased=new HashMap<String, Author>();
 
     public int algorithm_Recommendation; //1: CBF, 2: CF, 3: CBFCFHybrid
 
@@ -125,7 +126,8 @@ public class PRSCentralController {
         authorsCFP = new HashMap<>();
         authorsCFC = new HashMap<>();
         authorsCFSVD = new HashMap<>();
-        
+        authorsTrustbased=new HashMap<>();
+        authorsHybridTrustbased=new HashMap<>();
     }
 
     public String[] guiHandlerRequest(Options request) {
@@ -275,23 +277,23 @@ public class PRSCentralController {
             System.out.println("End Hybrid recommendation.");
         }else if (algorithm_Recommendation == 4) {
             //<editor-fold defaultstate="collapsed" desc="TRUST BASED">
-            TrustDataModelPreparation.computeCoAuthorRSSHM(authors, fileNameAuthors, fileNamePapers);
+            TrustDataModelPreparation.computeCoAuthorRSSHM(authors, fileNameAuthorPaper, fileNamePapers);
             HashMap<String, HashMap<String, Float>> referenceRSSNet = new HashMap<>();
-            TrustDataModelPreparation.computeCitationAuthorRSSHM(authors, fileNameAuthors, fileNamePaperCitePaper, referenceRSSNet);
+            TrustDataModelPreparation.computeCitationAuthorRSSHM(authors, fileNameAuthorPaper, fileNamePaperCitePaper, referenceRSSNet);
             
             //int combinationScheme = 1;
-            alpha = 0f;
+            float alpha_temp = (float) alpha;
             //int howToTrustAuthor = 1;
             //int howToTrustPaper = 2;
             
             if (howToTrustAuthor == 1) {
-                TrustHybrid.computeTrustedAuthorHMLinearCombinationAndPutIntoModelForAuthorList(authors, alpha, combinationScheme);
+                TrustHybrid.computeTrustedAuthorHMLinearCombinationAndPutIntoModelForAuthorList(authors, alpha_temp, combinationScheme);
             } else if (howToTrustAuthor == 2) {
                 int metaTrustType = 1;
-                TrustHybrid.computeMetaTrustedAuthorHMAndPutIntoModelForAuthorList(authors, referenceRSSNet, metaTrustType, alpha);
+                TrustHybrid.computeMetaTrustedAuthorHMAndPutIntoModelForAuthorList(authors, referenceRSSNet, metaTrustType, alpha_temp);
             } else if (howToTrustAuthor == 3) {
                 int metaTrustType = 2;
-                TrustHybrid.computeMetaTrustedAuthorHMAndPutIntoModelForAuthorList(authors, referenceRSSNet, metaTrustType, alpha);
+                TrustHybrid.computeMetaTrustedAuthorHMAndPutIntoModelForAuthorList(authors, referenceRSSNet, metaTrustType, alpha_temp);
             }
             
             TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authors, howToTrustPaper);
@@ -312,18 +314,18 @@ public class PRSCentralController {
             TrustDataModelPreparation.computeCitationAuthorRSSHM(authors, fileNameAuthors, fileNamePaperCitePaper, referenceRSSNet);
 
             //int combinationScheme = 1;
-            alpha = 0f;
+            float alpha_temp = (float) alpha;
             //int howToTrustAuthor = 1;
             //int howToTrustPaper = 2;
             
             if (howToTrustAuthor == 1) {
-                TrustHybrid.computeTrustedAuthorHMLinearCombinationAndPutIntoModelForAuthorList(authors, alpha, combinationScheme);
+                TrustHybrid.computeTrustedAuthorHMLinearCombinationAndPutIntoModelForAuthorList(authors, alpha_temp, combinationScheme);
             } else if (howToTrustAuthor == 2) {
                 int metaTrustType = 1;
-                TrustHybrid.computeMetaTrustedAuthorHMAndPutIntoModelForAuthorList(authors, referenceRSSNet, metaTrustType, alpha);
+                TrustHybrid.computeMetaTrustedAuthorHMAndPutIntoModelForAuthorList(authors, referenceRSSNet, metaTrustType, alpha_temp);
             } else if (howToTrustAuthor == 3) {
                 int metaTrustType = 2;
-                TrustHybrid.computeMetaTrustedAuthorHMAndPutIntoModelForAuthorList(authors, referenceRSSNet, metaTrustType, alpha);
+                TrustHybrid.computeMetaTrustedAuthorHMAndPutIntoModelForAuthorList(authors, referenceRSSNet, metaTrustType, alpha_temp);
             }
             
             TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authors, howToTrustPaper);
@@ -337,7 +339,7 @@ public class PRSCentralController {
             //</editor-fold>
         }
     }
-
+    
     //evaluation accuracy of recommendation algorithm
     public StringBuilder evaluate(HashMap<String, Author> authors, int measure_Evaluation, int topRank) throws Exception {
         StringBuilder evaluationResult = new StringBuilder();
