@@ -85,7 +85,7 @@ public class DialogConfigTrustBased extends javax.swing.JDialog {
         jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder("Description Algorithm"));
 
         CMAuthorTextPane.setEditable(false);
-        CMAuthorTextPane.setText("Trust based is a new proposed method. ");
+        CMAuthorTextPane.setText("Trust based is a new proposed method. This method bases on the trust between an author and anothers authors. The trust is depended on citations of an author with other authors. If an author cites many papers of other author, it will prove that this author trust other author more. It is the assumption of this method. Beside that, the trust of coauthor affects the trust of the author. From the trust from authors, we infer to the trust of author and paper.");
         jScrollPane6.setViewportView(CMAuthorTextPane);
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
@@ -149,16 +149,13 @@ public class DialogConfigTrustBased extends javax.swing.JDialog {
                     .addComponent(jLabel2)
                     .addComponent(alpha_jTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(howToTrustPaper_jTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(howToTrustAuthor_jTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(howToTrustAuthor_jTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(howToTrustPaper_jTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addComponent(ok_Button)
                 .addGap(4, 4, 4))
         );

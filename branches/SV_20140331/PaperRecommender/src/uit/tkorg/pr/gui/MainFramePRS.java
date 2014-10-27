@@ -2055,9 +2055,9 @@ public class MainFramePRS extends javax.swing.JFrame {
                             //Trust Based
                             controller.algorithm_Recommendation = 5;
                             controller.alpha = dialogConfigHybridTrustBased.alpha;
-                            controller.combinationScheme = dialogConfigHybridTrustBased.combinationScheme;
+                            /*controller.combinationScheme = dialogConfigHybridTrustBased.combinationScheme;
                             controller.howToTrustAuthor=dialogConfigHybridTrustBased.howToTrustAuthor;
-                            controller.howToTrustPaper=dialogConfigHybridTrustBased.howToTrustPaper;
+                            controller.howToTrustPaper=dialogConfigHybridTrustBased.howToTrustPaper;*/
                             controller.guiHandlerRequest(Options.RECOMMEND);
                             for (String authorId : controller.authors.keySet()) {
                                 Author author = new Author();

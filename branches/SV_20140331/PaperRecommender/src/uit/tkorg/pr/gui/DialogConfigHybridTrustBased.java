@@ -33,13 +33,7 @@ public class DialogConfigHybridTrustBased extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        combineScheme_jTextField = new javax.swing.JTextField();
-        alpha_jTextField = new javax.swing.JTextField();
-        howToTrustAuthor_jTextField = new javax.swing.JTextField();
         howToTrustPaper_jTextField = new javax.swing.JTextField();
         jPanel23 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -48,31 +42,9 @@ public class DialogConfigHybridTrustBased extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("combinationScheme");
-
-        jLabel2.setText("alpha");
-
-        jLabel3.setText("howToTrustAuthor");
-
         jLabel4.setText("howToTrustPaper");
 
-        combineScheme_jTextField.setText("1");
-
-        alpha_jTextField.setText("0");
-        alpha_jTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                alpha_jTextFieldActionPerformed(evt);
-            }
-        });
-
-        howToTrustAuthor_jTextField.setText("1");
-        howToTrustAuthor_jTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                howToTrustAuthor_jTextFieldActionPerformed(evt);
-            }
-        });
-
-        howToTrustPaper_jTextField.setText("1");
+        howToTrustPaper_jTextField.setText("0.9");
         howToTrustPaper_jTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 howToTrustPaper_jTextFieldActionPerformed(evt);
@@ -82,7 +54,7 @@ public class DialogConfigHybridTrustBased extends javax.swing.JDialog {
         jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder("Description Algorithm"));
 
         CMAuthorTextPane.setEditable(false);
-        CMAuthorTextPane.setText("Trust based");
+        CMAuthorTextPane.setText("Trust based is a new proposed method. This method bases on the trust between an author and anothers authors. The trust is depended on citations of an author with other authors. If an author cites many papers of other author, it will prove that this author trust other author more. It is the assumption of this method. Beside that, the trust of coauthor affects the trust of the author. From the trust from authors, we infer to the trust of author and paper.\nTo increase quality of recommendation, we combine content - based and trust - based methods.");
         jScrollPane6.setViewportView(CMAuthorTextPane);
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
@@ -93,7 +65,9 @@ public class DialogConfigHybridTrustBased extends javax.swing.JDialog {
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+            .addGroup(jPanel23Layout.createSequentialGroup()
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         ok_Button.setText("OK");
@@ -109,55 +83,25 @@ public class DialogConfigHybridTrustBased extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(howToTrustAuthor_jTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(ok_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel4)
-                            .addGap(15, 15, 15)
-                            .addComponent(howToTrustPaper_jTextField))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel2))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(combineScheme_jTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
-                                .addComponent(alpha_jTextField))
-                            .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(howToTrustPaper_jTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(combineScheme_jTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(alpha_jTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(howToTrustPaper_jTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(howToTrustAuthor_jTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jLabel4)
+                    .addComponent(howToTrustPaper_jTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(ok_Button)
                 .addGap(4, 4, 4))
         );
@@ -165,25 +109,18 @@ public class DialogConfigHybridTrustBased extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void alpha_jTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alpha_jTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_alpha_jTextFieldActionPerformed
-
-    private void howToTrustAuthor_jTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_howToTrustAuthor_jTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_howToTrustAuthor_jTextFieldActionPerformed
+    private void ok_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ok_ButtonActionPerformed
+        /*combinationScheme=Integer.parseInt(combineScheme_jTextField.getText());
+        alpha=Float.parseFloat(alpha_jTextField.getText());
+        howToTrustAuthor=Integer.parseInt(howToTrustAuthor_jTextField.getText());*/
+        //howToTrustPaper=Integer.parseInt(howToTrustPaper_jTextField.getText());
+        alpha=Float.parseFloat(howToTrustPaper_jTextField.getText());
+        this.hide();
+    }//GEN-LAST:event_ok_ButtonActionPerformed
 
     private void howToTrustPaper_jTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_howToTrustPaper_jTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_howToTrustPaper_jTextFieldActionPerformed
-
-    private void ok_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ok_ButtonActionPerformed
-        combinationScheme=Integer.parseInt(combineScheme_jTextField.getText());
-        alpha=Float.parseFloat(alpha_jTextField.getText());
-        howToTrustAuthor=Integer.parseInt(howToTrustAuthor_jTextField.getText());
-        howToTrustPaper=Integer.parseInt(howToTrustPaper_jTextField.getText());
-        this.hide();
-    }//GEN-LAST:event_ok_ButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -229,13 +166,7 @@ public class DialogConfigHybridTrustBased extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextPane CMAuthorTextPane;
-    private javax.swing.JTextField alpha_jTextField;
-    private javax.swing.JTextField combineScheme_jTextField;
-    private javax.swing.JTextField howToTrustAuthor_jTextField;
     private javax.swing.JTextField howToTrustPaper_jTextField;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel23;
     private javax.swing.JScrollPane jScrollPane6;
