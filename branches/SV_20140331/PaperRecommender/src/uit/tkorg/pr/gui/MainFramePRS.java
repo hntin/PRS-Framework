@@ -1778,7 +1778,11 @@ public class MainFramePRS extends javax.swing.JFrame {
                                 for (String Id : cbfSimHM.keySet()) {
                                     cbfSimHM1.put(Id, cbfSimHM.get(Id));
                                 }
-                                author.setCbfSimHM(cbfSimHM1);
+                                try {
+                                    author.setCbfSimHM(cbfSimHM1);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                                 author.setGroundTruth(controller.authors.get(authorId).getGroundTruth());
                                 author.setAuthorId(controller.authors.get(authorId).getAuthorId());
                                 controller.authorsCB.put(authorId, author);
@@ -1803,7 +1807,11 @@ public class MainFramePRS extends javax.swing.JFrame {
                                         for (String Id : cfRatingHM.keySet()) {
                                             cfRatingHM1.put(Id, cfRatingHM.get(Id));
                                         }
-                                        author.setCfRatingHM(cfRatingHM1);
+                                        try {
+                                            author.setCfRatingHM(cfRatingHM1);
+                                        } catch (Exception ex) {
+                                            Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
                                         author.setGroundTruth(controller.authors.get(authorId).getGroundTruth());
                                         author.setAuthorId(controller.authors.get(authorId).getAuthorId());
                                         controller.authorsCFP.put(authorId, author);
@@ -1819,7 +1827,11 @@ public class MainFramePRS extends javax.swing.JFrame {
                                         for (String Id : cfRatingHM.keySet()) {
                                             cfRatingHM1.put(Id, cfRatingHM.get(Id));
                                         }
-                                        author.setCfRatingHM(cfRatingHM1);
+                                        try {
+                                            author.setCfRatingHM(cfRatingHM1);
+                                        } catch (Exception ex) {
+                                            Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
                                         author.setGroundTruth(controller.authors.get(authorId).getGroundTruth());
                                         author.setAuthorId(controller.authors.get(authorId).getAuthorId());
                                         controller.authorsCFC.put(authorId, author);
@@ -1835,7 +1847,11 @@ public class MainFramePRS extends javax.swing.JFrame {
                                         for (String Id : cfRatingHM.keySet()) {
                                             cfRatingHM1.put(Id, cfRatingHM.get(Id));
                                         }
-                                        author.setCfRatingHM(cfRatingHM1);
+                                        try {
+                                            author.setCfRatingHM(cfRatingHM1);
+                                        } catch (Exception ex) {
+                                            Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
                                         author.setGroundTruth(controller.authors.get(authorId).getGroundTruth());
                                         author.setAuthorId(controller.authors.get(authorId).getAuthorId());
                                         controller.authorsCFSVD.put(authorId, author);
@@ -1857,21 +1873,33 @@ public class MainFramePRS extends javax.swing.JFrame {
                                 for (String Id : cbfSimHM.keySet()) {
                                     cbfSimHM1.put(Id, cbfSimHM.get(Id));
                                 }
-                                author.setCbfSimHM(cbfSimHM1);
+                                try {
+                                    author.setCbfSimHM(cbfSimHM1);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                }
 
                                 HashMap<String, Float> cfRatingHM = controller.authors.get(authorId).getCfRatingHM();
                                 HashMap<String, Float> cfRatingHM1 = new HashMap<>();
                                 for (String Id : cfRatingHM.keySet()) {
                                     cfRatingHM1.put(Id, cfRatingHM.get(Id));
                                 }
-                                author.setCfRatingHM(cfRatingHM1);
+                                try {
+                                    author.setCfRatingHM(cfRatingHM1);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                }
 
                                 HashMap<String, Float> CbfCfHybridHM = controller.authors.get(authorId).getCbfCfHybridHM();
                                 HashMap<String, Float> CbfCfHybridHM1 = new HashMap<>();
                                 for (String Id : CbfCfHybridHM.keySet()) {
                                     CbfCfHybridHM1.put(Id, CbfCfHybridHM.get(Id));
                                 }
-                                author.setCbfCfHybridHM(CbfCfHybridHM1);
+                                try {
+                                    author.setCbfCfHybridHM(CbfCfHybridHM1);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                                 author.setGroundTruth(controller.authors.get(authorId).getGroundTruth());
                                 author.setAuthorId(controller.authors.get(authorId).getAuthorId());
                                 controller.authorsHybrid.put(authorId, author);
