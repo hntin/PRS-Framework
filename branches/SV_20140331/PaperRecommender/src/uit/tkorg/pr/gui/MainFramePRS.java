@@ -68,6 +68,8 @@ public class MainFramePRS extends javax.swing.JFrame {
     private DialogConfigCB dialogConfigCB = new DialogConfigCB(this, rootPaneCheckingEnabled);
     private DialogConfigCF dialogConfigCF = new DialogConfigCF(this, rootPaneCheckingEnabled);
     private DialogConfigHybrid dialogConfigHybrid = new DialogConfigHybrid(this, rootPaneCheckingEnabled);
+    private DialogConfigTrustBased dialogConfigTrustbased = new DialogConfigTrustBased(this, rootPaneCheckingEnabled);
+    private DialogConfigHybridTrustBased dialogConfigHybridTrustbased = new DialogConfigHybridTrustBased(this, rootPaneCheckingEnabled);
     //</editor-fold>
 
     public MainFramePRS() {
@@ -161,10 +163,14 @@ public class MainFramePRS extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         CB_CheckBox = new javax.swing.JCheckBox();
         CFP_CheckBox = new javax.swing.JCheckBox();
-        HB_CheckBox = new javax.swing.JCheckBox();
+        TB_CheckBox = new javax.swing.JCheckBox();
         config_CB_Button = new javax.swing.JButton();
         config_CF_Button = new javax.swing.JButton();
+        config_TB_Button = new javax.swing.JButton();
+        HB_CheckBox = new javax.swing.JCheckBox();
         config_HB_Button = new javax.swing.JButton();
+        HTB_CheckBox = new javax.swing.JCheckBox();
+        config_HTB_Button = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         recList_TabbedPane = new javax.swing.JTabbedPane();
         saveRecList_Button = new javax.swing.JButton();
@@ -639,10 +645,10 @@ public class MainFramePRS extends javax.swing.JFrame {
             }
         });
 
-        HB_CheckBox.setText("Hybrid");
-        HB_CheckBox.addActionListener(new java.awt.event.ActionListener() {
+        TB_CheckBox.setText("Trust - based");
+        TB_CheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HB_CheckBoxActionPerformed(evt);
+                TB_CheckBoxActionPerformed(evt);
             }
         });
 
@@ -663,11 +669,41 @@ public class MainFramePRS extends javax.swing.JFrame {
             }
         });
 
+        config_TB_Button.setText("Configuration");
+        config_TB_Button.setEnabled(false);
+        config_TB_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                config_TB_ButtonActionPerformed(evt);
+            }
+        });
+
+        HB_CheckBox.setText("Hybrid");
+        HB_CheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HB_CheckBoxActionPerformed(evt);
+            }
+        });
+
         config_HB_Button.setText("Configuration");
         config_HB_Button.setEnabled(false);
         config_HB_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 config_HB_ButtonActionPerformed(evt);
+            }
+        });
+
+        HTB_CheckBox.setText("Hybrid Trust - based");
+        HTB_CheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HTB_CheckBoxActionPerformed(evt);
+            }
+        });
+
+        config_HTB_Button.setText("Configuration");
+        config_HTB_Button.setEnabled(false);
+        config_HTB_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                config_HTB_ButtonActionPerformed(evt);
             }
         });
 
@@ -678,21 +714,30 @@ public class MainFramePRS extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel5Layout.createSequentialGroup()
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(CB_CheckBox)
+                                .addComponent(HB_CheckBox))
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel5Layout.createSequentialGroup()
+                                    .addGap(26, 26, 26)
+                                    .addComponent(config_CB_Button))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(config_HB_Button))))
+                        .addGroup(jPanel5Layout.createSequentialGroup()
+                            .addComponent(CFP_CheckBox)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(config_CF_Button))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                            .addComponent(TB_CheckBox)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(config_TB_Button)))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(CB_CheckBox)
-                            .addComponent(HB_CheckBox))
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGap(26, 26, 26)
-                                .addComponent(config_CB_Button))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(config_HB_Button))))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(CFP_CheckBox)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(config_CF_Button)))
+                        .addComponent(HTB_CheckBox)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(config_HTB_Button)))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -706,11 +751,19 @@ public class MainFramePRS extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CFP_CheckBox)
                     .addComponent(config_CF_Button))
-                .addGap(28, 28, 28)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(config_HB_Button)
-                    .addComponent(HB_CheckBox))
-                .addContainerGap(64, Short.MAX_VALUE))
+                    .addComponent(HB_CheckBox)
+                    .addComponent(config_HB_Button))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TB_CheckBox)
+                    .addComponent(config_TB_Button))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(HTB_CheckBox)
+                    .addComponent(config_HTB_Button))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Recommendation List"));
@@ -807,7 +860,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
@@ -1408,13 +1461,13 @@ public class MainFramePRS extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_CFP_CheckBoxActionPerformed
 
-    private void HB_CheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HB_CheckBoxActionPerformed
-        if (HB_CheckBox.isSelected()) {
-            config_HB_Button.setEnabled(true);
+    private void TB_CheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TB_CheckBoxActionPerformed
+        if (TB_CheckBox.isSelected()) {
+            config_TB_Button.setEnabled(true);
         } else {
-            config_HB_Button.setEnabled(false);
+            config_TB_Button.setEnabled(false);
         }
-    }//GEN-LAST:event_HB_CheckBoxActionPerformed
+    }//GEN-LAST:event_TB_CheckBoxActionPerformed
 
     private void import_DataSource_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_import_DataSource_ButtonActionPerformed
         if (controller.fileNameAuthors != null && controller.fileNameAuthorPaper != null
@@ -1740,6 +1793,8 @@ public class MainFramePRS extends javax.swing.JFrame {
                 controller.authorsCFC = new HashMap<>();
                 controller.authorsCFSVD = new HashMap<>();
                 controller.authorsHybrid = new HashMap<>();
+                controller.authorsTrustbased=new HashMap<>();
+                controller.authorsHybridTrustbased=new HashMap<>();
 
                 status_Label.setText("Recommending...");
 
@@ -1753,6 +1808,12 @@ public class MainFramePRS extends javax.swing.JFrame {
                 }
                 if (HB_CheckBox.isSelected()) {
                     algorithm_Recommendation.add(3);
+                }
+                if (TB_CheckBox.isSelected()) {
+                    algorithm_Recommendation.add(4);
+                }
+                if (HTB_CheckBox.isSelected()) {
+                    algorithm_Recommendation.add(5);
                 }
                 //</editor-fold>
 
@@ -1860,6 +1921,98 @@ public class MainFramePRS extends javax.swing.JFrame {
                             }
 
                         } else if (alg == 3) {
+                            //CBFCFHybrid
+                            controller.algorithm_Recommendation = 3;
+                            controller.alpha = dialogConfigHybrid.alpha;
+                            controller.combineHybrid = dialogConfigHybrid.combineHybrid;
+                            controller.guiHandlerRequest(Options.RECOMMEND);
+                            for (String authorId : controller.authors.keySet()) {
+                                Author author = new Author();
+
+                                HashMap<String, Float> cbfSimHM = controller.authors.get(authorId).getCbfSimHM();
+                                HashMap<String, Float> cbfSimHM1 = new HashMap<>();
+                                for (String Id : cbfSimHM.keySet()) {
+                                    cbfSimHM1.put(Id, cbfSimHM.get(Id));
+                                }
+                                try {
+                                    author.setCbfSimHM(cbfSimHM1);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+
+                                HashMap<String, Float> cfRatingHM = controller.authors.get(authorId).getCfRatingHM();
+                                HashMap<String, Float> cfRatingHM1 = new HashMap<>();
+                                for (String Id : cfRatingHM.keySet()) {
+                                    cfRatingHM1.put(Id, cfRatingHM.get(Id));
+                                }
+                                try {
+                                    author.setCfRatingHM(cfRatingHM1);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+
+                                HashMap<String, Float> CbfCfHybridHM = controller.authors.get(authorId).getCbfCfHybridHM();
+                                HashMap<String, Float> CbfCfHybridHM1 = new HashMap<>();
+                                for (String Id : CbfCfHybridHM.keySet()) {
+                                    CbfCfHybridHM1.put(Id, CbfCfHybridHM.get(Id));
+                                }
+                                try {
+                                    author.setCbfCfHybridHM(CbfCfHybridHM1);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                author.setGroundTruth(controller.authors.get(authorId).getGroundTruth());
+                                author.setAuthorId(controller.authors.get(authorId).getAuthorId());
+                                controller.authorsHybrid.put(authorId, author);
+                            }
+                        }else if (alg == 4) {
+                            //Trust - based method
+                            controller.algorithm_Recommendation = 4;
+                            controller.alpha = dialogConfigTrustbased.alpha;
+                            controller.combinationScheme = dialogConfigTrustbased.combinationScheme;
+                            controller.howToTrustAuthor=dialogConfigTrustbased.howToTrustAuthor;
+                            controller.howToTrustPaper=dialogConfigTrustbased.howToTrustPaper;
+                            controller.guiHandlerRequest(Options.RECOMMEND);
+                            for (String authorId : controller.authors.keySet()) {
+                                Author author = new Author();
+
+                                HashMap<String, Float> coAuthorRSSHM = controller.authors.get(authorId).getCoAuthorRSSHM();
+                                HashMap<String, Float> coAuthorRSSHM1 = new HashMap<>();
+                                for (String Id : coAuthorRSSHM.keySet()) {
+                                    coAuthorRSSHM1.put(Id, coAuthorRSSHM.get(Id));
+                                }
+                                try {
+                                    author.setCoAuthorRSSHM(coAuthorRSSHM1);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+
+                                HashMap<String, Float> citationAuthorRSSHM = controller.authors.get(authorId).getCitationAuthorRSSHM();
+                                HashMap<String, Float> citationAuthorRSSHM1 = new HashMap<>();
+                                for (String Id : citationAuthorRSSHM.keySet()) {
+                                    citationAuthorRSSHM1.put(Id, citationAuthorRSSHM.get(Id));
+                                }
+                                try {
+                                    author.setCitationAuthorRSSHM(citationAuthorRSSHM1);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+
+                                HashMap<String, Float> trustedAuthorHM = controller.authors.get(authorId).getTrustedAuthorHM();
+                                HashMap<String, Float> trustedAuthorHM1 = new HashMap<>();
+                                for (String Id : trustedAuthorHM.keySet()) {
+                                    trustedAuthorHM1.put(Id, trustedAuthorHM.get(Id));
+                                }
+                                try {
+                                    author.setTrustedAuthorHM(trustedAuthorHM1);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                author.setGroundTruth(controller.authors.get(authorId).getGroundTruth());
+                                author.setAuthorId(controller.authors.get(authorId).getAuthorId());
+                                controller.authorsTrustbased.put(authorId, author);
+                            }
+                        }else if (alg == 5) {
                             //CBFCFHybrid
                             controller.algorithm_Recommendation = 3;
                             controller.alpha = dialogConfigHybrid.alpha;
@@ -2146,10 +2299,10 @@ public class MainFramePRS extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_saveEvaluation_ButtonActionPerformed
 
-    private void config_HB_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_config_HB_ButtonActionPerformed
-        dialogConfigHybrid.setLocationRelativeTo(this);
-        dialogConfigHybrid.show();
-    }//GEN-LAST:event_config_HB_ButtonActionPerformed
+    private void config_TB_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_config_TB_ButtonActionPerformed
+        dialogConfigTrustbased.setLocationRelativeTo(this);
+        dialogConfigTrustbased.show();
+    }//GEN-LAST:event_config_TB_ButtonActionPerformed
 
     private void saveRecList_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveRecList_ButtonActionPerformed
 
@@ -2353,6 +2506,32 @@ public class MainFramePRS extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_next_ButtonActionPerformed
 
+    private void HB_CheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HB_CheckBoxActionPerformed
+        if (HB_CheckBox.isSelected()) {
+            config_HB_Button.setEnabled(true);
+        } else {
+            config_HB_Button.setEnabled(false);
+        }
+    }//GEN-LAST:event_HB_CheckBoxActionPerformed
+
+    private void config_HB_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_config_HB_ButtonActionPerformed
+        dialogConfigHybrid.setLocationRelativeTo(this);
+        dialogConfigHybrid.show();
+    }//GEN-LAST:event_config_HB_ButtonActionPerformed
+
+    private void HTB_CheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HTB_CheckBoxActionPerformed
+        if (HTB_CheckBox.isSelected()) {
+            config_HTB_Button.setEnabled(true);
+        } else {
+            config_HTB_Button.setEnabled(false);
+        }
+    }//GEN-LAST:event_HTB_CheckBoxActionPerformed
+
+    private void config_HTB_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_config_HTB_ButtonActionPerformed
+        dialogConfigHybridTrustbased.setLocationRelativeTo(this);
+        dialogConfigHybridTrustbased.show();
+    }//GEN-LAST:event_config_HTB_ButtonActionPerformed
+
     public void loadStringToTable(String temp) {
         DefaultTableModel tablemodelReset = (DefaultTableModel) evaluationResult_Table.getModel();
         int rc = tablemodelReset.getRowCount();
@@ -2403,7 +2582,9 @@ public class MainFramePRS extends javax.swing.JFrame {
     private javax.swing.JCheckBox CB_CheckBox;
     private javax.swing.JCheckBox CFP_CheckBox;
     private javax.swing.JCheckBox HB_CheckBox;
+    private javax.swing.JCheckBox HTB_CheckBox;
     private javax.swing.JTabbedPane Steps_TabbedPane;
+    private javax.swing.JCheckBox TB_CheckBox;
     private javax.swing.JButton TFIDF_Button;
     private javax.swing.JMenuItem about_MenuItem;
     private javax.swing.JButton back_Button;
@@ -2411,6 +2592,8 @@ public class MainFramePRS extends javax.swing.JFrame {
     private javax.swing.JButton config_CB_Button;
     private javax.swing.JButton config_CF_Button;
     private javax.swing.JButton config_HB_Button;
+    private javax.swing.JButton config_HTB_Button;
+    private javax.swing.JButton config_TB_Button;
     private javax.swing.JTextArea console_TextArea;
     private javax.swing.JButton evaluate_Button;
     private javax.swing.JTable evaluationResult_Table;
