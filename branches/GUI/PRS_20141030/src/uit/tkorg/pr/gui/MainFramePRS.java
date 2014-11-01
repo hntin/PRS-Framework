@@ -747,23 +747,23 @@ public class MainFramePRS extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(config_CB_Button)
                     .addComponent(CB_CheckBox))
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CFP_CheckBox)
                     .addComponent(config_CF_Button))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(HB_CheckBox)
                     .addComponent(config_HB_Button))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TB_CheckBox)
                     .addComponent(config_TB_Button))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(HTB_CheckBox)
                     .addComponent(config_HTB_Button))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Recommendation List"));
@@ -860,7 +860,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
@@ -1923,8 +1923,17 @@ public class MainFramePRS extends javax.swing.JFrame {
                         } else if (alg == 3) {
                             //CBFCFHybrid
                             controller.algorithm_Recommendation = 3;
+                            //alpha hybrid
                             controller.alpha = dialogConfigHybrid.alpha;
                             controller.combineHybrid = dialogConfigHybrid.combineHybrid;
+                            //config CB
+                            controller.combinePaperOfAuthor = dialogConfigHybrid.dialogConfigCB.combineAuthor;
+                            controller.weightingPaperOfAuthor = dialogConfigHybrid.dialogConfigCB.weightingAuthor;
+                            controller.timeAware = dialogConfigHybrid.dialogConfigCB.timeAware;
+                            controller.gamma = dialogConfigHybrid.dialogConfigCB.gamma;
+                            controller.combineCandiatePaper = dialogConfigHybrid.dialogConfigCB.combinePaper;
+                            controller.weightingCandidatePaper = dialogConfigHybrid.dialogConfigCB.weightingPaper;
+                            controller.pruning = dialogConfigHybrid.dialogConfigCB.pruning;
                             controller.guiHandlerRequest(Options.RECOMMEND);
                             for (String authorId : controller.authors.keySet()) {
                                 Author author = new Author();
@@ -2015,8 +2024,19 @@ public class MainFramePRS extends javax.swing.JFrame {
                         }else if (alg == 5) {
                             //CBFCFHybrid
                             controller.algorithm_Recommendation = 3;
-                            controller.alpha = dialogConfigHybrid.alpha;
-                            controller.combineHybrid = dialogConfigHybrid.combineHybrid;
+                            //config CB
+                            controller.combinePaperOfAuthor = dialogConfigHybridTrustbased.dialogConfigCB.combineAuthor;
+                            controller.weightingPaperOfAuthor = dialogConfigHybridTrustbased.dialogConfigCB.weightingAuthor;
+                            controller.timeAware = dialogConfigHybridTrustbased.dialogConfigCB.timeAware;
+                            controller.gamma = dialogConfigHybridTrustbased.dialogConfigCB.gamma;
+                            controller.combineCandiatePaper = dialogConfigHybridTrustbased.dialogConfigCB.combinePaper;
+                            controller.weightingCandidatePaper = dialogConfigHybridTrustbased.dialogConfigCB.weightingPaper;
+                            controller.pruning = dialogConfigHybridTrustbased.dialogConfigCB.pruning;
+                            //config Hybrid
+                            controller.alpha = dialogConfigHybridTrustbased.alpha;
+                            controller.combinationScheme = dialogConfigHybridTrustbased.dialogConfigTrustbased.combinationScheme;
+                            controller.howToTrustAuthor=dialogConfigHybridTrustbased.dialogConfigTrustbased.howToTrustAuthor;
+                            controller.howToTrustPaper=dialogConfigHybridTrustbased.dialogConfigTrustbased.howToTrustPaper;
                             controller.guiHandlerRequest(Options.RECOMMEND);
                             for (String authorId : controller.authors.keySet()) {
                                 Author author = new Author();
