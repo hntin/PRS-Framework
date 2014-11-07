@@ -209,8 +209,7 @@ public class CheckError {
             executor.submit(new Runnable() {
                 @Override
                 public void run() {
-                    if (tokens.length != 2 || !NumericUtility.isNum(tokens[0]) || !NumericUtility.isNum(tokens[1])
-                            || tokens[0].equals(tokens[1])) {
+                    if (tokens.length != 2 || !NumericUtility.isNum(tokens[0]) || !NumericUtility.isNum(tokens[1])) {
                         String error = "\nFile '" + path + "' not correct format\nReason:\nError at line " + numlineFinal;
                         try {
                             FileUtils.writeStringToFile(fileLog, error, "UTF8", true);

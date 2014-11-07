@@ -75,7 +75,7 @@ public class DialogConfigTrustBased extends javax.swing.JDialog {
             }
         });
 
-        howToTrustPaper_jTextField.setText("1");
+        howToTrustPaper_jTextField.setText("2");
         howToTrustPaper_jTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 howToTrustPaper_jTextFieldActionPerformed(evt);

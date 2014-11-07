@@ -111,12 +111,19 @@ public class PRSCentralController {
         measure_Evaluation = 0;// evaluation method
         topRank = 0;// top Rank
 
-        fileNamePapers = null; //File 1
-        fileNamePaperCitePaper = null;// File 2
-        fileNameAuthors = null;// File 3
-        fileNameAuthorPaper = null;// File 4
-        fileNameAuthorCitePaper = null;// File 5
-        fileNameGroundTruth = null;// File 6
+//        fileNamePapers = null; //File 1
+//        fileNamePaperCitePaper = null;// File 2
+//        fileNameAuthors = null;// File 3
+//        fileNameAuthorPaper = null;// File 4
+//        fileNameAuthorCitePaper = null;// File 5
+//        fileNameGroundTruth = null;// File 6
+        
+        fileNamePapers = "C:\\3.PRS-Experiment\\Dataset1 - MAS\\PRS Experimental data\\T0-T1\\[Training] Paper_Before_2006.csv"; //File 1
+        fileNamePaperCitePaper = "C:\\3.PRS-Experiment\\Dataset1 - MAS\\PRS Experimental data\\T0-T1\\[Training] Paper_Cite_Paper_Before_2006.csv";// File 2
+        fileNameAuthors = "C:\\3.PRS-Experiment\\Dataset1 - MAS\\PRS Experimental data\\T0-T1\\[Testing] 1000Authors.csv";// File 3
+        fileNameAuthorPaper = "C:\\3.PRS-Experiment\\Dataset1 - MAS\\PRS Experimental data\\T0-T1\\[Training] Author_Paper_Before_2006.csv";// File 4
+        fileNameAuthorCitePaper = "C:\\3.PRS-Experiment\\Dataset1 - MAS\\PRS Experimental data\\T0-T1\\[Training] Author_Cite_Paper_Before_2006.csv";// File 5
+        fileNameGroundTruth = "C:\\3.PRS-Experiment\\Dataset1 - MAS\\PRS Experimental data\\T0-T1\\[Testing] Ground_Truth_2006_2008_New_Citation.csv";// File 6
 
         papers = new HashMap<>();
         authors = new HashMap<>();
@@ -155,7 +162,7 @@ public class PRSCentralController {
                     System.out.println("End reading paper list.");
                     // Step 3: 
                     // Compute TF-IDF for MAS papers.
-                    CBFPaperFVComputation.computeTFIDFFromPaperAbstract(papers, dirPapers, dirPreProcessedPaper, sequenceDir, vectorDir);
+                    //CBFPaperFVComputation.computeTFIDFFromPaperAbstract(papers, dirPapers, dirPreProcessedPaper, sequenceDir, vectorDir);
                     CBFPaperFVComputation.readTFIDFFromMahoutFile(papers, vectorDir);
                     // Clear no longer in use objects.
                     // Always clear abstract.

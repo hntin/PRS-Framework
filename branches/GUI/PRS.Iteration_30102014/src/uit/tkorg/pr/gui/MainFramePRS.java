@@ -39,6 +39,7 @@ import uit.tkorg.pr.controller.PRSCentralController;
 import uit.tkorg.pr.method.cbf.FeatureVectorSimilarity;
 import uit.tkorg.pr.method.cf.CF;
 import uit.tkorg.pr.method.hybrid.CBFCF;
+import uit.tkorg.pr.method.hybrid.TrustHybrid;
 import uit.tkorg.pr.model.Author;
 
 /**
@@ -1493,9 +1494,9 @@ public class MainFramePRS extends javax.swing.JFrame {
                     step1 = true;
                     status_Label.setText(response[0]);
                     controller.fileNameAuthors = null;
-                    controller.fileNameAuthorPaper = null;
-                    controller.fileNamePapers = null;
-                    controller.fileNamePaperCitePaper = null;
+                    //controller.fileNameAuthorPaper = null;
+                    //controller.fileNamePapers = null;
+                    //controller.fileNamePaperCitePaper = null;
                     controller.fileNameGroundTruth = null;
                     int comfirm = JOptionPane.showConfirmDialog(rootPane, "Importing process is successed! Go to Step 2...", "Confirm", JOptionPane.YES_NO_OPTION);
                     if (comfirm == JOptionPane.YES_OPTION) {
@@ -1706,6 +1707,38 @@ public class MainFramePRS extends javax.swing.JFrame {
                                 controller.measure_Evaluation = measure;
                                 try {
                                     evaluationResult.append("\nHybrid\t" + controller.evaluate(controller.authorsHybrid, measure, controller.topRank));
+                                } catch (Exception ex) {
+                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            }
+                        }else if (alg == 4) {
+                            try {
+                                TrustHybrid.trustRecommendToAuthorList(controller.authorsTrustbased, controller.topRecommend);
+                            } catch (TasteException ex) {
+                                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (Exception ex) {
+                                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            for (Integer measure : measure_Evaluation) {
+                                controller.measure_Evaluation = measure;
+                                try {
+                                    evaluationResult.append("\nTrust - based\t" + controller.evaluate(controller.authorsTrustbased, measure, controller.topRank));
+                                } catch (Exception ex) {
+                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            }
+                        }else if (alg == 5) {
+                            try {
+                                TrustHybrid.trustHybridRecommendToAuthorList(controller.authorsHybridTrustbased, controller.topRecommend);
+                            } catch (TasteException ex) {
+                                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (Exception ex) {
+                                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            for (Integer measure : measure_Evaluation) {
+                                controller.measure_Evaluation = measure;
+                                try {
+                                    evaluationResult.append("\nHybrid Trust - based\t" + controller.evaluate(controller.authorsHybridTrustbased, measure, controller.topRank));
                                 } catch (Exception ex) {
                                     Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
                                 }
@@ -2232,6 +2265,66 @@ public class MainFramePRS extends javax.swing.JFrame {
                             JScrollPane scrollPane = new JScrollPane(hybrid_Table);
                             recList_TabbedPane.addTab("Hybrid", scrollPane);
                         }
+                        else if (alg == 4) {
+                            try {
+                                TrustHybrid.trustRecommendToAuthorList(controller.authorsTrustbased, controller.topRecommend);
+                            } catch (TasteException ex) {
+                                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (Exception ex) {
+                                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+
+                            Vector vTitle = new Vector(Arrays.asList(new String[]{"No.", "Id Author", "Recommendation List"}));
+                            Vector vData = new Vector();
+                            int i = 0;
+                            for (String AuthorId : controller.authorsTrustbased.keySet()) {
+                                i++;
+                                Vector vector = new Vector();
+                                vector.addElement(i);
+                                vector.addElement(controller.authorsTrustbased.get(AuthorId).getAuthorId());
+                                vector.addElement(controller.authorsTrustbased.get(AuthorId).getRecommendationList());
+                                vData.add(vector);
+                            }
+                            JTable hybrid_Table = new JTable(new DefaultTableModel(vData, vTitle));
+                            hybrid_Table.setAutoCreateRowSorter(true);
+                            hybrid_Table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+                            hybrid_Table.setAutoscrolls(true);
+                            hybrid_Table.setFont(new Font("Tahoma", Font.PLAIN, 13));
+                            hybrid_Table.getColumnModel().getColumn(2).setPreferredWidth(620);
+
+                            JScrollPane scrollPane = new JScrollPane(hybrid_Table);
+                            recList_TabbedPane.addTab("Trust - based", scrollPane);
+                        }
+                        else if (alg == 5) {
+                            try {
+                                TrustHybrid.trustHybridRecommendToAuthorList(controller.authorsHybridTrustbased, controller.topRecommend);
+                            } catch (TasteException ex) {
+                                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (Exception ex) {
+                                Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+
+                            Vector vTitle = new Vector(Arrays.asList(new String[]{"No.", "Id Author", "Recommendation List"}));
+                            Vector vData = new Vector();
+                            int i = 0;
+                            for (String AuthorId : controller.authorsHybridTrustbased.keySet()) {
+                                i++;
+                                Vector vector = new Vector();
+                                vector.addElement(i);
+                                vector.addElement(controller.authorsHybridTrustbased.get(AuthorId).getAuthorId());
+                                vector.addElement(controller.authorsHybridTrustbased.get(AuthorId).getRecommendationList());
+                                vData.add(vector);
+                            }
+                            JTable hybrid_Table = new JTable(new DefaultTableModel(vData, vTitle));
+                            hybrid_Table.setAutoCreateRowSorter(true);
+                            hybrid_Table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+                            hybrid_Table.setAutoscrolls(true);
+                            hybrid_Table.setFont(new Font("Tahoma", Font.PLAIN, 13));
+                            hybrid_Table.getColumnModel().getColumn(2).setPreferredWidth(620);
+
+                            JScrollPane scrollPane = new JScrollPane(hybrid_Table);
+                            recList_TabbedPane.addTab("Hybrid Trust - based", scrollPane);
+                        }
                     }
             //</editor-fold>
 
@@ -2254,6 +2347,10 @@ public class MainFramePRS extends javax.swing.JFrame {
                             }
                         } else if (alg == 3) {
                             algorithms.append("Hybrid").append(" ");
+                        }else if (alg == 4) {
+                            algorithms.append("Trust - based").append(" ");
+                        }else if (alg == 5) {
+                            algorithms.append("Hybrid Trust - based").append(" ");
                         }
                     }
                     algorithms.append(" with Top Recommendation equals " + controller.topRecommend);
