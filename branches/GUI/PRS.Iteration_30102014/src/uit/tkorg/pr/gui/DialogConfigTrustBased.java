@@ -85,7 +85,7 @@ public class DialogConfigTrustBased extends javax.swing.JDialog {
         jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder("Description Algorithm"));
 
         CMAuthorTextPane.setEditable(false);
-        CMAuthorTextPane.setText("Trust based is a new proposed method. This method bases on the trust between an author and anothers authors. The trust is depended on citations of an author with other authors. If an author cites many papers of other author, it will prove that this author trust other author more. It is the assumption of this method. Beside that, the trust of coauthor affects the trust of the author. From the trust from authors, we infer to the trust of author and paper.");
+        CMAuthorTextPane.setText("Trust based is a new proposed method. This method bases on the trust between an author and anothers authors. The trust is depended on citations of an author with other authors. If an author cites many papers of other author, it will prove that this author trust other author more. It is the assumption of this method. Beside that, the trust of coauthor affects the trust of the author. From the trust from authors, we infer to the trust of author and paper.\n*****Parameter of method*****\n1. combineScheme: 1: linear, 2: basedOnConfidence, 3: basedOnConfidence and linear.\n2. alpha is weighting of combineScheme.\n3. howToTrustAuthor is ways to author who trusts another author. howToTrustAuthor is from 1 to 3.\n4. howToTrustPaper: 1: average trusted author, 2: max trusted author.");
         jScrollPane6.setViewportView(CMAuthorTextPane);
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
@@ -96,7 +96,9 @@ public class DialogConfigTrustBased extends javax.swing.JDialog {
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+            .addGroup(jPanel23Layout.createSequentialGroup()
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         ok_Button.setText("OK");

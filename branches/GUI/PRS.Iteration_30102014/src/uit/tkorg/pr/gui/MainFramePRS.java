@@ -2050,6 +2050,17 @@ public class MainFramePRS extends javax.swing.JFrame {
                                 } catch (Exception ex) {
                                     Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
                                 }
+                                
+                                HashMap<String, Float> trustedPaperHM = controller.authors.get(authorId).getTrustedPaperHM();
+                                HashMap<String, Float> trustedPaperHM1 = new HashMap<>();
+                                for (String Id : trustedPaperHM.keySet()) {
+                                    trustedPaperHM1.put(Id, trustedPaperHM.get(Id));
+                                }
+                                try {
+                                    author.setTrustedPaperHM(trustedPaperHM1);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                                 author.setGroundTruth(controller.authors.get(authorId).getGroundTruth());
                                 author.setAuthorId(controller.authors.get(authorId).getAuthorId());
                                 controller.authorsTrustbased.put(authorId, author);
@@ -2085,30 +2096,64 @@ public class MainFramePRS extends javax.swing.JFrame {
                                     Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
                                 }
 
-                                HashMap<String, Float> cfRatingHM = controller.authors.get(authorId).getCfRatingHM();
-                                HashMap<String, Float> cfRatingHM1 = new HashMap<>();
-                                for (String Id : cfRatingHM.keySet()) {
-                                    cfRatingHM1.put(Id, cfRatingHM.get(Id));
+                                HashMap<String, Float> coAuthorRSSHM = controller.authors.get(authorId).getCoAuthorRSSHM();
+                                HashMap<String, Float> coAuthorRSSHM1 = new HashMap<>();
+                                for (String Id : coAuthorRSSHM.keySet()) {
+                                    coAuthorRSSHM1.put(Id, coAuthorRSSHM.get(Id));
                                 }
                                 try {
-                                    author.setCfRatingHM(cfRatingHM1);
+                                    author.setCoAuthorRSSHM(coAuthorRSSHM1);
                                 } catch (Exception ex) {
                                     Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
                                 }
 
-                                HashMap<String, Float> CbfCfHybridHM = controller.authors.get(authorId).getCbfCfHybridHM();
-                                HashMap<String, Float> CbfCfHybridHM1 = new HashMap<>();
-                                for (String Id : CbfCfHybridHM.keySet()) {
-                                    CbfCfHybridHM1.put(Id, CbfCfHybridHM.get(Id));
+                                HashMap<String, Float> citationAuthorRSSHM = controller.authors.get(authorId).getCitationAuthorRSSHM();
+                                HashMap<String, Float> citationAuthorRSSHM1 = new HashMap<>();
+                                for (String Id : citationAuthorRSSHM.keySet()) {
+                                    citationAuthorRSSHM1.put(Id, citationAuthorRSSHM.get(Id));
                                 }
                                 try {
-                                    author.setCbfCfHybridHM(CbfCfHybridHM1);
+                                    author.setCitationAuthorRSSHM(citationAuthorRSSHM1);
                                 } catch (Exception ex) {
                                     Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
                                 }
+
+                                HashMap<String, Float> trustedAuthorHM = controller.authors.get(authorId).getTrustedAuthorHM();
+                                HashMap<String, Float> trustedAuthorHM1 = new HashMap<>();
+                                for (String Id : trustedAuthorHM.keySet()) {
+                                    trustedAuthorHM1.put(Id, trustedAuthorHM.get(Id));
+                                }
+                                try {
+                                    author.setTrustedAuthorHM(trustedAuthorHM1);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                
+                                HashMap<String, Float> trustedPaperHM = controller.authors.get(authorId).getTrustedPaperHM();
+                                HashMap<String, Float> trustedPaperHM1 = new HashMap<>();
+                                for (String Id : trustedPaperHM.keySet()) {
+                                    trustedPaperHM1.put(Id, trustedPaperHM.get(Id));
+                                }
+                                try {
+                                    author.setTrustedPaperHM(trustedPaperHM1);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                
+                                HashMap<String, Float> CbfTrustHybridHM = controller.authors.get(authorId).getCbfTrustHybridHM();
+                                HashMap<String, Float> CbfTrustHybridHM1 = new HashMap<>();
+                                for (String Id : CbfTrustHybridHM.keySet()) {
+                                    CbfTrustHybridHM1.put(Id, trustedPaperHM.get(Id));
+                                }
+                                try {
+                                    author.setCbfTrustHybridHM(CbfTrustHybridHM1);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(MainFramePRS.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                
                                 author.setGroundTruth(controller.authors.get(authorId).getGroundTruth());
                                 author.setAuthorId(controller.authors.get(authorId).getAuthorId());
-                                controller.authorsHybrid.put(authorId, author);
+                                controller.authorsHybridTrustbased.put(authorId, author);
                             }
                         }
                     }

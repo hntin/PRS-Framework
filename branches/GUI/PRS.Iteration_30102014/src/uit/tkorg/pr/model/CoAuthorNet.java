@@ -3,6 +3,7 @@
 
 package uit.tkorg.pr.model;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -50,6 +51,7 @@ public class CoAuthorNet {
      */
     public void LoadTrainingData(String file_AuthorID_PaperID, String file_PaperID_Year) {
         try {
+            System.err.println(file_AuthorID_PaperID);
             _paperID_Year = new HashMap<>();
             FileInputStream fis = new FileInputStream(file_PaperID_Year);
             Reader reader = new InputStreamReader(fis, "UTF8");
@@ -83,6 +85,7 @@ public class CoAuthorNet {
         try {
             _authorID_PaperID = new HashMap<>();
             _paperID_AuthorID = new HashMap<>();
+            
             FileInputStream fis = new FileInputStream(file_AuthorID_PaperID);
             Reader reader = new InputStreamReader(fis, "UTF8");
             BufferedReader bufferReader = new BufferedReader(reader);

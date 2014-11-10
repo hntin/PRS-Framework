@@ -162,7 +162,10 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jScrollPane6" alignment="0" pref="93" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="jScrollPane6" min="-2" pref="106" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -177,7 +180,7 @@
             <Component class="javax.swing.JTextPane" name="CMAuthorTextPane">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
-                <Property name="text" type="java.lang.String" value="Trust based is a new proposed method. This method bases on the trust between an author and anothers authors. The trust is depended on citations of an author with other authors. If an author cites many papers of other author, it will prove that this author trust other author more. It is the assumption of this method. Beside that, the trust of coauthor affects the trust of the author. From the trust from authors, we infer to the trust of author and paper."/>
+                <Property name="text" type="java.lang.String" value="Trust based is a new proposed method. This method bases on the trust between an author and anothers authors. The trust is depended on citations of an author with other authors. If an author cites many papers of other author, it will prove that this author trust other author more. It is the assumption of this method. Beside that, the trust of coauthor affects the trust of the author. From the trust from authors, we infer to the trust of author and paper.&#xa;*****Parameter of method*****&#xa;1. combineScheme: 1: linear, 2: basedOnConfidence, 3: basedOnConfidence and linear.&#xa;2. alpha is weighting of combineScheme.&#xa;3. howToTrustAuthor is ways to author who trusts another author. howToTrustAuthor is from 1 to 3.&#xa;4. howToTrustPaper: 1: average trusted author, 2: max trusted author."/>
               </Properties>
             </Component>
           </SubComponents>

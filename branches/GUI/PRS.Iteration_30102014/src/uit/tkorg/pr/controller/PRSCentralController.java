@@ -289,9 +289,13 @@ public class PRSCentralController {
             TrustDataModelPreparation.computeCitationAuthorRSSHM(authors, fileNameAuthorPaper, fileNamePaperCitePaper, referenceRSSNet);
             
             //int combinationScheme = 1;
+            combinationScheme=1;
             float alpha_temp = (float) alpha;
+            alpha_temp=0.5f;
             //int howToTrustAuthor = 1;
             //int howToTrustPaper = 2;
+            howToTrustAuthor=1;
+            howToTrustPaper=2;
             
             if (howToTrustAuthor == 1) {
                 TrustHybrid.computeTrustedAuthorHMLinearCombinationAndPutIntoModelForAuthorList(authors, alpha_temp, combinationScheme);
@@ -306,7 +310,7 @@ public class PRSCentralController {
             TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authors, howToTrustPaper);
 
             TrustHybrid.trustRecommendToAuthorList(authors, topRecommend);
-            
+            //System.out.println();
             //</editor-fold>
         } else if (algorithm_Recommendation == 5) {
             //<editor-fold defaultstate="collapsed" desc="TRUST BASED LINEAR COMBINATION">           
@@ -322,8 +326,12 @@ public class PRSCentralController {
 
             //int combinationScheme = 1;
             float alpha_temp = (float) alpha;
+            alpha_temp=0.5f;
             //int howToTrustAuthor = 1;
             //int howToTrustPaper = 2;
+            howToTrustAuthor=1;
+            howToTrustPaper=2;
+            combinationScheme=1;
             
             if (howToTrustAuthor == 1) {
                 TrustHybrid.computeTrustedAuthorHMLinearCombinationAndPutIntoModelForAuthorList(authors, alpha_temp, combinationScheme);
