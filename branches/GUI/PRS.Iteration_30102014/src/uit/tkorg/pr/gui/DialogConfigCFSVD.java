@@ -5,7 +5,9 @@
  */
 package uit.tkorg.pr.gui;
 
+import java.awt.event.KeyEvent;
 import javax.swing.UIManager;
+import uit.tkorg.utility.general.NumericUtility;
 
 /**
  *
@@ -74,6 +76,14 @@ public class DialogConfigCFSVD extends javax.swing.JDialog {
         jLabel1.setText("k_Neighbor:");
 
         kNeighbourhood_TextField.setText("8");
+        kNeighbourhood_TextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                kNeighbourhood_TextFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                kNeighbourhood_TextFieldKeyTyped(evt);
+            }
+        });
 
         jLabel2.setText("f:");
 
@@ -82,10 +92,34 @@ public class DialogConfigCFSVD extends javax.swing.JDialog {
         jLabel4.setText("i:");
 
         f_TextField.setText("5");
+        f_TextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                f_TextFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                f_TextFieldKeyTyped(evt);
+            }
+        });
 
         l_TextField.setText("0.001");
+        l_TextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                l_TextFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                l_TextFieldKeyTyped(evt);
+            }
+        });
 
         i_TextField.setText("100");
+        i_TextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                i_TextFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                i_TextFieldKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -165,6 +199,90 @@ public class DialogConfigCFSVD extends javax.swing.JDialog {
         i = Integer.parseInt(i_TextField.getText());
         this.hide();
     }//GEN-LAST:event_ok_ButtonActionPerformed
+
+    private void kNeighbourhood_TextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kNeighbourhood_TextFieldKeyTyped
+        if (!Character.isDigit(evt.getKeyChar()) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE
+                && evt.getKeyCode() != KeyEvent.VK_ENTER) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_kNeighbourhood_TextFieldKeyTyped
+
+    private void f_TextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_f_TextFieldKeyTyped
+        if (!Character.isDigit(evt.getKeyChar()) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE
+                && evt.getKeyCode() != KeyEvent.VK_ENTER) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_f_TextFieldKeyTyped
+
+    private void i_TextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_i_TextFieldKeyTyped
+        if (!Character.isDigit(evt.getKeyChar()) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE
+                && evt.getKeyCode() != KeyEvent.VK_ENTER) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_i_TextFieldKeyTyped
+
+    private void l_TextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_l_TextFieldKeyTyped
+        if (!Character.isDigit(evt.getKeyChar()) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE
+                && evt.getKeyCode() != KeyEvent.VK_ENTER) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_l_TextFieldKeyTyped
+
+    private void kNeighbourhood_TextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kNeighbourhood_TextFieldKeyReleased
+        if(!NumericUtility.isNum(kNeighbourhood_TextField.getText())){
+            if(!"".equals(kNeighbourhood_TextField.getText())){
+                kNeighbourhood_TextField.setText("8");
+            }
+        }
+        else if(NumericUtility.isNum(kNeighbourhood_TextField.getText())){
+            double tmp=Double.parseDouble(kNeighbourhood_TextField.getText());
+            if(tmp<0){
+                kNeighbourhood_TextField.setText("8");
+            }
+        }
+    }//GEN-LAST:event_kNeighbourhood_TextFieldKeyReleased
+
+    private void f_TextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_f_TextFieldKeyReleased
+        if(!NumericUtility.isNum(f_TextField.getText())){
+            if(!"".equals(f_TextField.getText())){
+                f_TextField.setText("5");
+            }
+        }
+        else if(NumericUtility.isNum(f_TextField.getText())){
+            double tmp=Double.parseDouble(f_TextField.getText());
+            if(tmp<0){
+                f_TextField.setText("5");
+            }
+        }
+    }//GEN-LAST:event_f_TextFieldKeyReleased
+
+    private void l_TextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_l_TextFieldKeyReleased
+        if(!NumericUtility.isNum(l_TextField.getText())){
+            if(!"".equals(l_TextField.getText())){
+                l_TextField.setText("0.0");
+            }
+        }
+        else if(NumericUtility.isNum(l_TextField.getText())){
+            double tmp=Double.parseDouble(l_TextField.getText());
+            if(tmp<0||tmp>1){
+                l_TextField.setText("0.0");
+            }
+        }
+    }//GEN-LAST:event_l_TextFieldKeyReleased
+
+    private void i_TextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_i_TextFieldKeyReleased
+        if(!NumericUtility.isNum(i_TextField.getText())){
+            if(!"".equals(l_TextField.getText())){
+                i_TextField.setText("100");
+            }
+        }
+        else if(NumericUtility.isNum(i_TextField.getText())){
+            double tmp=Double.parseDouble(i_TextField.getText());
+            if(tmp<0){
+                i_TextField.setText("100");
+            }
+        }
+    }//GEN-LAST:event_i_TextFieldKeyReleased
 
     /**
      * @param args the command line arguments

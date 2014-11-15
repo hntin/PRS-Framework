@@ -5,7 +5,9 @@
  */
 package uit.tkorg.pr.gui;
 
+import java.awt.event.KeyEvent;
 import javax.swing.UIManager;
+import uit.tkorg.utility.general.NumericUtility;
 
 /**
  *
@@ -79,6 +81,14 @@ public class DialogConfigCB extends javax.swing.JDialog {
 
         gamma_TextField.setText("0.0");
         gamma_TextField.setEnabled(false);
+        gamma_TextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                gamma_TextFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                gamma_TextFieldKeyTyped(evt);
+            }
+        });
 
         jLabel12.setText("Combination Method");
 
@@ -236,6 +246,14 @@ public class DialogConfigCB extends javax.swing.JDialog {
 
         pruning_TextField.setText("0.0");
         pruning_TextField.setEnabled(false);
+        pruning_TextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                pruning_TextFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                pruning_TextFieldKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -420,6 +438,48 @@ public class DialogConfigCB extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_weightingPaper_ComboBoxActionPerformed
+
+    private void gamma_TextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_gamma_TextFieldKeyTyped
+        if (!Character.isDigit(evt.getKeyChar()) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE
+                && evt.getKeyCode() != KeyEvent.VK_ENTER &&evt.getKeyCode() != KeyEvent.VK_PERIOD) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_gamma_TextFieldKeyTyped
+
+    private void pruning_TextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pruning_TextFieldKeyTyped
+        if (!Character.isDigit(evt.getKeyChar()) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE
+                && evt.getKeyCode() != KeyEvent.VK_ENTER &&evt.getKeyCode() != KeyEvent.VK_PERIOD) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_pruning_TextFieldKeyTyped
+
+    private void gamma_TextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_gamma_TextFieldKeyReleased
+       if(!NumericUtility.isNum(gamma_TextField.getText())){
+           if(!"".equals(gamma_TextField.getText())){
+                gamma_TextField.setText("0.0");
+           }
+        }
+        else if(NumericUtility.isNum(gamma_TextField.getText())){
+            double tmp=Double.parseDouble(gamma_TextField.getText());
+            if(tmp<0||tmp>1){
+                gamma_TextField.setText("0.0");
+            }
+        }
+    }//GEN-LAST:event_gamma_TextFieldKeyReleased
+
+    private void pruning_TextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pruning_TextFieldKeyReleased
+        if(!NumericUtility.isNum(pruning_TextField.getText())){
+            if(!"".equals(pruning_TextField.getText())){
+                pruning_TextField.setText("0.0");
+            }
+        }
+        else if(NumericUtility.isNum(pruning_TextField.getText())){
+            double tmp=Double.parseDouble(pruning_TextField.getText());
+            if(tmp<0||tmp>1){
+                pruning_TextField.setText("0.0");
+            }
+        }
+    }//GEN-LAST:event_pruning_TextFieldKeyReleased
 
     /**
      * @param args the command line arguments

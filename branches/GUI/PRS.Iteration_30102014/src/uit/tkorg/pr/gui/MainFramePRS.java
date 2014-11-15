@@ -6,6 +6,7 @@
 package uit.tkorg.pr.gui;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
@@ -79,7 +80,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 //        redirectSystemStreams();
     }
 
-//<editor-fold defaultstate="collapsed" desc="write console to textArea">
+    //<editor-fold defaultstate="collapsed" desc="write console to textArea">
     private void updateTextArea(final String text) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
@@ -298,10 +299,15 @@ public class MainFramePRS extends javax.swing.JFrame {
         );
         status_PanelLayout.setVerticalGroup(
             status_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(status_Label, javax.swing.GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
+            .addComponent(status_Label, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
         );
 
         Steps_TabbedPane.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        Steps_TabbedPane.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Steps_TabbedPaneMouseClicked(evt);
+            }
+        });
 
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder("Dataset Description"));
 
@@ -782,7 +788,7 @@ public class MainFramePRS extends javax.swing.JFrame {
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                .addGap(0, 565, Short.MAX_VALUE)
+                .addGap(0, 563, Short.MAX_VALUE)
                 .addComponent(saveRecList_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(recList_TabbedPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 792, Short.MAX_VALUE))
@@ -862,7 +868,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                     .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 24, Short.MAX_VALUE)
                         .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
@@ -1233,7 +1239,9 @@ public class MainFramePRS extends javax.swing.JFrame {
         if (path != null) {
             if (new File(path).exists()) {
                 try {
+                    this.getRootPane().setCursor(new Cursor(Cursor.WAIT_CURSOR));
                     CheckError.CheckImportData(ImportFiles.FILE_GROUNDTRUTH, path);
+                    this.getRootPane().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                     String fileLog = "Temp\\log.txt";
                     if (!new File(fileLog).exists()) {
                         controller.fileNameGroundTruth = path;
@@ -1266,7 +1274,9 @@ public class MainFramePRS extends javax.swing.JFrame {
         if (path != null) {
             if (new File(path).exists()) {
                 try {
+                    this.getRootPane().setCursor(new Cursor(Cursor.WAIT_CURSOR));
                     CheckError.CheckImportData(ImportFiles.FILE_AUTHOR_CITE_PAPER, path);
+                    this.getRootPane().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                     String fileLog = "Temp\\log.txt";
                     if (!new File(fileLog).exists()) {
                         controller.fileNameAuthorCitePaper = path;
@@ -1299,7 +1309,9 @@ public class MainFramePRS extends javax.swing.JFrame {
         if (path != null) {
             if (new File(path).exists()) {
                 try {
+                    this.getRootPane().setCursor(new Cursor(Cursor.WAIT_CURSOR));
                     CheckError.CheckImportData(ImportFiles.FILE_PAPER_CITE_PAPER, path);
+                    this.getRootPane().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                     String fileLog = "Temp\\log.txt";
                     if (!new File(fileLog).exists()) {
                         controller.fileNamePaperCitePaper = path;
@@ -1332,7 +1344,9 @@ public class MainFramePRS extends javax.swing.JFrame {
         if (path != null) {
             if (new File(path).exists()) {
                 try {
+                    this.getRootPane().setCursor(new Cursor(Cursor.WAIT_CURSOR));
                     CheckError.CheckImportData(ImportFiles.FILE_AUTHOR_PAPER, path);
+                    this.getRootPane().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                     String fileLog = "Temp\\log.txt";
                     if (!new File(fileLog).exists()) {
                         controller.fileNameAuthorPaper = path;
@@ -1366,7 +1380,9 @@ public class MainFramePRS extends javax.swing.JFrame {
         if (path != null) {
             if (new File(path).exists()) {
                 try {
+                    this.getRootPane().setCursor(new Cursor(Cursor.WAIT_CURSOR));
                     CheckError.CheckImportData(ImportFiles.FILE_PAPERS, path);
+                    this.getRootPane().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                     String fileLog = "Temp\\log.txt";
                     if (!new File(fileLog).exists()) {
                         controller.fileNamePapers = path;
@@ -1399,7 +1415,9 @@ public class MainFramePRS extends javax.swing.JFrame {
         if (path != null) {
             if (new File(path).exists()) {
                 try {
+                    this.getRootPane().setCursor(new Cursor(Cursor.WAIT_CURSOR));
                     CheckError.CheckImportData(ImportFiles.FILE_AUTHORS, path);
+                    this.getRootPane().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                     String fileLog = "Temp\\log.txt";
 
                     if (!new File(fileLog).exists()) {
@@ -1474,6 +1492,7 @@ public class MainFramePRS extends javax.swing.JFrame {
         if (controller.fileNameAuthors != null && controller.fileNameAuthorPaper != null
                 && controller.fileNameAuthorCitePaper != null && controller.fileNamePapers != null
                 && controller.fileNamePaperCitePaper != null && controller.fileNameGroundTruth != null) {
+            this.getRootPane().setCursor(new Cursor(Cursor.WAIT_CURSOR));
             SwingWorker swingWorker;
             swingWorker = new SwingWorker() {
 
@@ -1508,12 +1527,13 @@ public class MainFramePRS extends javax.swing.JFrame {
                 }
 
             };
-
             swingWorker.execute();
+            
 
         } else {
             JOptionPane.showMessageDialog(rootPane, "There are some files which haven't choosed", "Notice", JOptionPane.INFORMATION_MESSAGE);
         }
+        this.getRootPane().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_import_DataSource_ButtonActionPerformed
 
     private void import_DatasetExample_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_import_DatasetExample_ButtonActionPerformed
@@ -1588,10 +1608,8 @@ public class MainFramePRS extends javax.swing.JFrame {
     private void evaluate_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_evaluate_ButtonActionPerformed
         if (step2) {
             if (!topRank_TextField.getText().isEmpty()) {
-
+                 status_Label.setText("Evaluating...");
                 controller.topRank = Integer.parseInt(topRank_TextField.getText().trim());
-
-                status_Label.setText("Evaluating...");
 
                 //<editor-fold defaultstate="collapsed" desc="Step 1: get measure_Evaluation Set">
                 measure_Evaluation.clear();
@@ -1817,7 +1835,8 @@ public class MainFramePRS extends javax.swing.JFrame {
     private void recommend_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recommend_ButtonActionPerformed
         if (step1) {
             if (!top_Recommend_TextField.getText().isEmpty()) {
-
+                this.getRootPane().setCursor(new Cursor(Cursor.WAIT_CURSOR));
+                status_Label.setText("Recommending...");
                 controller.topRecommend = Integer.parseInt(top_Recommend_TextField.getText());
                 recList_TabbedPane.removeAll();//reset table when recommend
 
@@ -1828,9 +1847,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                 controller.authorsHybrid = new HashMap<>();
                 controller.authorsTrustbased=new HashMap<>();
                 controller.authorsHybridTrustbased=new HashMap<>();
-
-                status_Label.setText("Recommending...");
-
+                
                 //<editor-fold defaultstate="collapsed" desc="Step 1: get algorithm_Recommendation Set">
                 algorithm_Recommendation.clear();
                 if (CB_CheckBox.isSelected()) {
@@ -1857,13 +1874,13 @@ public class MainFramePRS extends javax.swing.JFrame {
                         if (alg == 1) {
                             //content - based
                             controller.algorithm_Recommendation = 1;
-                            controller.combinePaperOfAuthor = dialogConfigCB.combineAuthor;
-                            controller.weightingPaperOfAuthor = dialogConfigCB.weightingAuthor;
-                            controller.timeAware = dialogConfigCB.timeAware;
-                            controller.gamma = dialogConfigCB.gamma;
-                            controller.combineCandiatePaper = dialogConfigCB.combinePaper;
-                            controller.weightingCandidatePaper = dialogConfigCB.weightingPaper;
-                            controller.pruning = dialogConfigCB.pruning;
+                            controller.combinePaperOfAuthor_CB = dialogConfigCB.combineAuthor;
+                            controller.weightingPaperOfAuthor_CB = dialogConfigCB.weightingAuthor;
+                            controller.timeAware_CB = dialogConfigCB.timeAware;
+                            controller.gamma_CB = dialogConfigCB.gamma;
+                            controller.combineCandiatePaper_CB = dialogConfigCB.combinePaper;
+                            controller.weightingCandidatePaper_CB = dialogConfigCB.weightingPaper;
+                            controller.pruning_CB = dialogConfigCB.pruning;
                             controller.guiHandlerRequest(Options.RECOMMEND);
                             for (String authorId : controller.authors.keySet()) {
                                 Author author = new Author();
@@ -1891,8 +1908,8 @@ public class MainFramePRS extends javax.swing.JFrame {
 
                             for (Integer cfMethod : cfMethodHS) {
                                 if (cfMethod == 1) {
-                                    controller.cfMethod = 1;
-                                    controller.kNeighbourhood = kNeighborHM.get(1);
+                                    controller.cfMethod_CF = 1;
+                                    controller.kNeighbourhood_CF = kNeighborHM.get(1);
                                     controller.guiHandlerRequest(Options.RECOMMEND);
                                     for (String authorId : controller.authors.keySet()) {
                                         Author author = new Author();
@@ -1911,8 +1928,8 @@ public class MainFramePRS extends javax.swing.JFrame {
                                         controller.authorsCFP.put(authorId, author);
                                     }
                                 } else if (cfMethod == 2) {
-                                    controller.cfMethod = 2;
-                                    controller.kNeighbourhood = kNeighborHM.get(2);
+                                    controller.cfMethod_CF = 2;
+                                    controller.kNeighbourhood_CF = kNeighborHM.get(2);
                                     controller.guiHandlerRequest(Options.RECOMMEND);
                                     for (String authorId : controller.authors.keySet()) {
                                         Author author = new Author();
@@ -1931,8 +1948,8 @@ public class MainFramePRS extends javax.swing.JFrame {
                                         controller.authorsCFC.put(authorId, author);
                                     }
                                 } else if (cfMethod == 3) {
-                                    controller.cfMethod = 3;
-                                    controller.kNeighbourhood = kNeighborHM.get(3);
+                                    controller.cfMethod_CF = 3;
+                                    controller.kNeighbourhood_CF = kNeighborHM.get(3);
                                     controller.guiHandlerRequest(Options.RECOMMEND);
                                     for (String authorId : controller.authors.keySet()) {
                                         Author author = new Author();
@@ -1957,16 +1974,18 @@ public class MainFramePRS extends javax.swing.JFrame {
                             //CBFCFHybrid
                             controller.algorithm_Recommendation = 3;
                             //alpha hybrid
-                            controller.alpha = dialogConfigHybrid.alpha;
-                            controller.combineHybrid = dialogConfigHybrid.combineHybrid;
+                            controller.alpha_HB = dialogConfigHybrid.alpha;
+                            controller.combineHybrid_HB = dialogConfigHybrid.combineHybrid;
                             //config CB
-                            controller.combinePaperOfAuthor = dialogConfigHybrid.dialogConfigCB.combineAuthor;
-                            controller.weightingPaperOfAuthor = dialogConfigHybrid.dialogConfigCB.weightingAuthor;
-                            controller.timeAware = dialogConfigHybrid.dialogConfigCB.timeAware;
-                            controller.gamma = dialogConfigHybrid.dialogConfigCB.gamma;
-                            controller.combineCandiatePaper = dialogConfigHybrid.dialogConfigCB.combinePaper;
-                            controller.weightingCandidatePaper = dialogConfigHybrid.dialogConfigCB.weightingPaper;
-                            controller.pruning = dialogConfigHybrid.dialogConfigCB.pruning;
+                            controller.combinePaperOfAuthor_HB = dialogConfigHybrid.dialogConfigCB.combineAuthor;
+                            controller.weightingPaperOfAuthor_HB = dialogConfigHybrid.dialogConfigCB.weightingAuthor;
+                            controller.timeAware_HB = dialogConfigHybrid.dialogConfigCB.timeAware;
+                            controller.gamma_HB = dialogConfigHybrid.dialogConfigCB.gamma;
+                            controller.combineCandiatePaper_HB = dialogConfigHybrid.dialogConfigCB.combinePaper;
+                            controller.weightingCandidatePaper_HB = dialogConfigHybrid.dialogConfigCB.weightingPaper;
+                            controller.pruning_HB = dialogConfigHybrid.dialogConfigCB.pruning;
+                            
+                            //config cf
                             controller.guiHandlerRequest(Options.RECOMMEND);
                             for (String authorId : controller.authors.keySet()) {
                                 Author author = new Author();
@@ -2010,10 +2029,10 @@ public class MainFramePRS extends javax.swing.JFrame {
                         }else if (alg == 4) {
                             //Trust - based method
                             controller.algorithm_Recommendation = 4;
-                            controller.alpha = dialogConfigTrustbased.alpha;
-                            controller.combinationScheme = dialogConfigTrustbased.combinationScheme;
-                            controller.howToTrustAuthor=dialogConfigTrustbased.howToTrustAuthor;
-                            controller.howToTrustPaper=dialogConfigTrustbased.howToTrustPaper;
+                            controller.alpha_TB = dialogConfigTrustbased.alpha;
+                            controller.combinationScheme_TB = dialogConfigTrustbased.combinationScheme;
+                            controller.howToTrustAuthor_TB=dialogConfigTrustbased.howToTrustAuthor;
+                            controller.howToTrustPaper_TB=dialogConfigTrustbased.howToTrustPaper;
                             controller.guiHandlerRequest(Options.RECOMMEND);
                             for (String authorId : controller.authors.keySet()) {
                                 Author author = new Author();
@@ -2069,18 +2088,21 @@ public class MainFramePRS extends javax.swing.JFrame {
                             //CBFCFHybrid
                             controller.algorithm_Recommendation = 3;
                             //config CB
-                            controller.combinePaperOfAuthor = dialogConfigHybridTrustbased.dialogConfigCB.combineAuthor;
-                            controller.weightingPaperOfAuthor = dialogConfigHybridTrustbased.dialogConfigCB.weightingAuthor;
-                            controller.timeAware = dialogConfigHybridTrustbased.dialogConfigCB.timeAware;
-                            controller.gamma = dialogConfigHybridTrustbased.dialogConfigCB.gamma;
-                            controller.combineCandiatePaper = dialogConfigHybridTrustbased.dialogConfigCB.combinePaper;
-                            controller.weightingCandidatePaper = dialogConfigHybridTrustbased.dialogConfigCB.weightingPaper;
-                            controller.pruning = dialogConfigHybridTrustbased.dialogConfigCB.pruning;
+                            controller.combinePaperOfAuthor_HTB = dialogConfigHybridTrustbased.dialogConfigCB.combineAuthor;
+                            controller.weightingPaperOfAuthor_HTB = dialogConfigHybridTrustbased.dialogConfigCB.weightingAuthor;
+                            controller.timeAware_HTB = dialogConfigHybridTrustbased.dialogConfigCB.timeAware;
+                            controller.gamma_HTB = dialogConfigHybridTrustbased.dialogConfigCB.gamma;
+                            controller.combineCandiatePaper_HTB = dialogConfigHybridTrustbased.dialogConfigCB.combinePaper;
+                            controller.weightingCandidatePaper_HTB = dialogConfigHybridTrustbased.dialogConfigCB.weightingPaper;
+                            controller.pruning_HTB = dialogConfigHybridTrustbased.dialogConfigCB.pruning;
                             //config Hybrid
-                            controller.alpha = dialogConfigHybridTrustbased.alpha;
-                            controller.combinationScheme = dialogConfigHybridTrustbased.dialogConfigTrustbased.combinationScheme;
-                            controller.howToTrustAuthor=dialogConfigHybridTrustbased.dialogConfigTrustbased.howToTrustAuthor;
-                            controller.howToTrustPaper=dialogConfigHybridTrustbased.dialogConfigTrustbased.howToTrustPaper;
+                            controller.alpha_HTB = dialogConfigHybridTrustbased.alpha;
+                            controller.combinationScheme_HTB = dialogConfigHybridTrustbased.dialogConfigTrustbased.combinationScheme;
+                            controller.howToTrustAuthor_HTB=dialogConfigHybridTrustbased.dialogConfigTrustbased.howToTrustAuthor;
+                            controller.howToTrustPaper_HTB=dialogConfigHybridTrustbased.dialogConfigTrustbased.howToTrustPaper;
+                            
+                            controller.alpha_HTB1=dialogConfigHybridTrustbased.alpha;
+                            controller.combineHybrid_HTB=dialogConfigHybridTrustbased.combinationScheme;
                             controller.guiHandlerRequest(Options.RECOMMEND);
                             for (String authorId : controller.authors.keySet()) {
                                 Author author = new Author();
@@ -2424,6 +2446,7 @@ public class MainFramePRS extends javax.swing.JFrame {
                     if (comfirm == JOptionPane.YES_OPTION) {
                         Steps_TabbedPane.setSelectedIndex(2);
                     }
+                     this.getRootPane().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "No recommendation algorithms aren't choosed!", "Notice", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -2693,6 +2716,18 @@ public class MainFramePRS extends javax.swing.JFrame {
         dialogConfigHybridTrustbased.setLocationRelativeTo(this);
         dialogConfigHybridTrustbased.show();
     }//GEN-LAST:event_config_HTB_ButtonActionPerformed
+
+    private void Steps_TabbedPaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Steps_TabbedPaneMouseClicked
+        if(Steps_TabbedPane.getSelectedIndex()==0){
+            status_Label.setText("Welcome to Paper Recommendation System");
+        }
+        if(Steps_TabbedPane.getSelectedIndex()==1){
+            status_Label.setText("Welcome to Paper Recommendation System");
+        }
+        if(Steps_TabbedPane.getSelectedIndex()==2){
+            status_Label.setText("Welcome to Paper Recommendation System");
+        }
+    }//GEN-LAST:event_Steps_TabbedPaneMouseClicked
 
     public void loadStringToTable(String temp) {
         DefaultTableModel tablemodelReset = (DefaultTableModel) evaluationResult_Table.getModel();

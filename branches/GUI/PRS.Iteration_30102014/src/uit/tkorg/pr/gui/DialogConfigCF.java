@@ -60,7 +60,6 @@ public class DialogConfigCF extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Configuration for Collaborative Filtering Algorithm");
-        setPreferredSize(new java.awt.Dimension(420, 300));
         setResizable(false);
 
         jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder("Description Option"));
@@ -173,7 +172,7 @@ public class DialogConfigCF extends javax.swing.JDialog {
                     .addComponent(svd_Button))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ok_Button)
-                .addGap(7, 7, 7))
+                .addContainerGap())
         );
 
         pack();

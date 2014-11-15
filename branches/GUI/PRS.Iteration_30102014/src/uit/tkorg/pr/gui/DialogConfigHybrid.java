@@ -5,7 +5,9 @@
  */
 package uit.tkorg.pr.gui;
 
+import java.awt.event.KeyEvent;
 import javax.swing.UIManager;
+import uit.tkorg.utility.general.NumericUtility;
 
 /**
  *
@@ -75,6 +77,14 @@ public class DialogConfigHybrid extends javax.swing.JDialog {
         jLabel1.setText("Alpha:");
 
         alpha_TextField.setText("0.9");
+        alpha_TextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                alpha_TextFieldKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                alpha_TextFieldKeyTyped(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Config Algorithm"));
 
@@ -163,7 +173,7 @@ public class DialogConfigHybrid extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ok_Button)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         pack();
@@ -183,6 +193,25 @@ public class DialogConfigHybrid extends javax.swing.JDialog {
         dialogConfigCF.setLocationRelativeTo(this);
         dialogConfigCF.show();
     }//GEN-LAST:event_config_CF_ButtonActionPerformed
+
+    private void alpha_TextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_alpha_TextFieldKeyPressed
+        if(!NumericUtility.isNum(alpha_TextField.getText())){
+            alpha_TextField.setText("0.0");
+        }
+        else if(NumericUtility.isNum(alpha_TextField.getText())){
+            double tmp=Double.parseDouble(alpha_TextField.getText());
+            if(tmp<0||tmp>1){
+                alpha_TextField.setText("0.0");
+            }
+        }
+    }//GEN-LAST:event_alpha_TextFieldKeyPressed
+
+    private void alpha_TextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_alpha_TextFieldKeyTyped
+        if (!Character.isDigit(evt.getKeyChar()) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE
+                && evt.getKeyCode() != KeyEvent.VK_ENTER &&evt.getKeyCode() != KeyEvent.VK_PERIOD) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_alpha_TextFieldKeyTyped
 
     /**
      * @param args the command line arguments

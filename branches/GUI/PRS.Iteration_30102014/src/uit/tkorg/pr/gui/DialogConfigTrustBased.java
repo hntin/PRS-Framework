@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package uit.tkorg.pr.gui;
+
+import java.awt.event.KeyEvent;
+import uit.tkorg.utility.general.NumericUtility;
 
 /**
  *
@@ -15,10 +17,11 @@ public class DialogConfigTrustBased extends javax.swing.JDialog {
     /**
      * Creates new form dialogConfigTrustBased
      */
-    int combinationScheme=0;
-    float alpha=0f;
-    int howToTrustAuthor=1;
-    int howToTrustPaper=1;
+    int combinationScheme = 0;
+    float alpha = 0f;
+    int howToTrustAuthor = 1;
+    int howToTrustPaper = 1;
+
     public DialogConfigTrustBased(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -60,25 +63,42 @@ public class DialogConfigTrustBased extends javax.swing.JDialog {
         jLabel4.setText("howToTrustPaper");
 
         combineScheme_jTextField.setText("1");
+        combineScheme_jTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                combineScheme_jTextFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                combineScheme_jTextFieldKeyTyped(evt);
+            }
+        });
 
-        alpha_jTextField.setText("0");
-        alpha_jTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                alpha_jTextFieldActionPerformed(evt);
+        alpha_jTextField.setText("0.0");
+        alpha_jTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                alpha_jTextFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                alpha_jTextFieldKeyTyped(evt);
             }
         });
 
         howToTrustAuthor_jTextField.setText("1");
-        howToTrustAuthor_jTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                howToTrustAuthor_jTextFieldActionPerformed(evt);
+        howToTrustAuthor_jTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                howToTrustAuthor_jTextFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                howToTrustAuthor_jTextFieldKeyTyped(evt);
             }
         });
 
         howToTrustPaper_jTextField.setText("2");
-        howToTrustPaper_jTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                howToTrustPaper_jTextFieldActionPerformed(evt);
+        howToTrustPaper_jTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                howToTrustPaper_jTextFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                howToTrustPaper_jTextFieldKeyTyped(evt);
             }
         });
 
@@ -165,25 +185,94 @@ public class DialogConfigTrustBased extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void alpha_jTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alpha_jTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_alpha_jTextFieldActionPerformed
-
-    private void howToTrustAuthor_jTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_howToTrustAuthor_jTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_howToTrustAuthor_jTextFieldActionPerformed
-
-    private void howToTrustPaper_jTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_howToTrustPaper_jTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_howToTrustPaper_jTextFieldActionPerformed
-
     private void ok_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ok_ButtonActionPerformed
-        combinationScheme=Integer.parseInt(combineScheme_jTextField.getText());
-        alpha=Float.parseFloat(alpha_jTextField.getText());
-        howToTrustAuthor=Integer.parseInt(howToTrustAuthor_jTextField.getText());
-        howToTrustPaper=Integer.parseInt(howToTrustPaper_jTextField.getText());
+        combinationScheme = Integer.parseInt(combineScheme_jTextField.getText());
+        alpha = Float.parseFloat(alpha_jTextField.getText());
+        howToTrustAuthor = Integer.parseInt(howToTrustAuthor_jTextField.getText());
+        howToTrustPaper = Integer.parseInt(howToTrustPaper_jTextField.getText());
         this.hide();
     }//GEN-LAST:event_ok_ButtonActionPerformed
+
+    private void combineScheme_jTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_combineScheme_jTextFieldKeyTyped
+        if (!Character.isDigit(evt.getKeyChar()) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE
+                && evt.getKeyCode() != KeyEvent.VK_ENTER) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_combineScheme_jTextFieldKeyTyped
+
+    private void alpha_jTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_alpha_jTextFieldKeyTyped
+        if (!Character.isDigit(evt.getKeyChar()) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE
+                && evt.getKeyCode() != KeyEvent.VK_ENTER && evt.getKeyCode() != KeyEvent.VK_PERIOD) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_alpha_jTextFieldKeyTyped
+
+    private void howToTrustAuthor_jTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_howToTrustAuthor_jTextFieldKeyTyped
+        if (!Character.isDigit(evt.getKeyChar()) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE
+                && evt.getKeyCode() != KeyEvent.VK_ENTER) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_howToTrustAuthor_jTextFieldKeyTyped
+
+    private void howToTrustPaper_jTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_howToTrustPaper_jTextFieldKeyTyped
+        if (!Character.isDigit(evt.getKeyChar()) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE
+                && evt.getKeyCode() != KeyEvent.VK_ENTER) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_howToTrustPaper_jTextFieldKeyTyped
+
+    private void combineScheme_jTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_combineScheme_jTextFieldKeyReleased
+        if (!NumericUtility.isNum(combineScheme_jTextField.getText())) {
+            if(!"".equals(combineScheme_jTextField.getText())){
+                combineScheme_jTextField.setText("1");
+            }
+        } else if (NumericUtility.isNum(combineScheme_jTextField.getText())) {
+            double tmp = Double.parseDouble(combineScheme_jTextField.getText());
+            if (tmp < 1 || tmp > 3) {
+                combineScheme_jTextField.setText("1");
+            }
+        }
+    }//GEN-LAST:event_combineScheme_jTextFieldKeyReleased
+
+    private void alpha_jTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_alpha_jTextFieldKeyReleased
+        if (!NumericUtility.isNum(alpha_jTextField.getText())) {
+            if(!"".equals(alpha_jTextField.getText())){
+                alpha_jTextField.setText("0.0");
+            }
+        } else if (NumericUtility.isNum(alpha_jTextField.getText())) {
+            double tmp = Double.parseDouble(alpha_jTextField.getText());
+            if (tmp < 1 || tmp > 3) {
+                alpha_jTextField.setText("0.0");
+            }
+        }
+        
+    }//GEN-LAST:event_alpha_jTextFieldKeyReleased
+
+    private void howToTrustAuthor_jTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_howToTrustAuthor_jTextFieldKeyReleased
+       if (!NumericUtility.isNum(howToTrustAuthor_jTextField.getText())) {
+           if(!"".equals(howToTrustAuthor_jTextField.getText())){
+                howToTrustAuthor_jTextField.setText("1");
+           }
+        } else if (NumericUtility.isNum(howToTrustAuthor_jTextField.getText())) {
+            double tmp = Double.parseDouble(howToTrustAuthor_jTextField.getText());
+            if (tmp < 1 || tmp > 3) {
+                howToTrustAuthor_jTextField.setText("1");
+            }
+        }
+    }//GEN-LAST:event_howToTrustAuthor_jTextFieldKeyReleased
+
+    private void howToTrustPaper_jTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_howToTrustPaper_jTextFieldKeyReleased
+        if (!NumericUtility.isNum(howToTrustPaper_jTextField.getText())) {
+            if(!"".equals(alpha_jTextField.getText())){
+                alpha_jTextField.setText("1");
+            }
+        } else if (NumericUtility.isNum(howToTrustPaper_jTextField.getText())) {
+            double tmp = Double.parseDouble(howToTrustPaper_jTextField.getText());
+            if (tmp < 1 || tmp > 2) {
+                howToTrustPaper_jTextField.setText("1");
+            }
+        }
+    }//GEN-LAST:event_howToTrustPaper_jTextFieldKeyReleased
 
     /**
      * @param args the command line arguments
@@ -226,7 +315,6 @@ public class DialogConfigTrustBased extends javax.swing.JDialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextPane CMAuthorTextPane;
     private javax.swing.JTextField alpha_jTextField;

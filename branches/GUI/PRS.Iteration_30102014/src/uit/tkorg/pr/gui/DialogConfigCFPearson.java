@@ -5,6 +5,9 @@
  */
 package uit.tkorg.pr.gui;
 
+import java.awt.event.KeyEvent;
+import uit.tkorg.utility.general.NumericUtility;
+
 /**
  *
  * @author Zoe
@@ -40,7 +43,6 @@ public class DialogConfigCFPearson extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Configuration of CF based on Pearson Correlation");
-        setPreferredSize(new java.awt.Dimension(455, 230));
         setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Configuration"));
@@ -48,6 +50,14 @@ public class DialogConfigCFPearson extends javax.swing.JDialog {
         jLabel1.setText("k_Neighbor:");
 
         kNeighbourhood_TextField.setText("8");
+        kNeighbourhood_TextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                kNeighbourhood_TextFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                kNeighbourhood_TextFieldKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -86,7 +96,7 @@ public class DialogConfigCFPearson extends javax.swing.JDialog {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 443, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,6 +133,27 @@ public class DialogConfigCFPearson extends javax.swing.JDialog {
         kNeighbourhood = Integer.parseInt(kNeighbourhood_TextField.getText().trim());
         this.hide();
     }//GEN-LAST:event_ok_ButtonActionPerformed
+
+    private void kNeighbourhood_TextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kNeighbourhood_TextFieldKeyTyped
+        if (!Character.isDigit(evt.getKeyChar()) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE
+                && evt.getKeyCode() != KeyEvent.VK_ENTER) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_kNeighbourhood_TextFieldKeyTyped
+
+    private void kNeighbourhood_TextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kNeighbourhood_TextFieldKeyReleased
+        if(!NumericUtility.isNum(kNeighbourhood_TextField.getText())){
+            if(!"".equals(kNeighbourhood_TextField.getText())){
+                kNeighbourhood_TextField.setText("8");
+            }
+        }
+        else if(NumericUtility.isNum(kNeighbourhood_TextField.getText())){
+            double tmp=Double.parseDouble(kNeighbourhood_TextField.getText());
+            if(tmp<0){
+                kNeighbourhood_TextField.setText("8");
+            }
+        }
+    }//GEN-LAST:event_kNeighbourhood_TextFieldKeyReleased
 
     /**
      * @param args the command line arguments

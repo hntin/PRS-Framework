@@ -5,7 +5,9 @@
  */
 package uit.tkorg.pr.gui;
 
+import java.awt.event.KeyEvent;
 import javax.swing.UIManager;
+import uit.tkorg.utility.general.NumericUtility;
 
 /**
  *
@@ -51,6 +53,14 @@ public class DialogConfigCFCosine extends javax.swing.JDialog {
         jLabel1.setText("k_Neighbor:");
 
         kNeighbourhood_TextField.setText("8");
+        kNeighbourhood_TextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                kNeighbourhood_TextFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                kNeighbourhood_TextFieldKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -125,6 +135,27 @@ public class DialogConfigCFCosine extends javax.swing.JDialog {
         kNeighbourhood = Integer.parseInt(kNeighbourhood_TextField.getText().trim());
         this.hide();
     }//GEN-LAST:event_ok_ButtonActionPerformed
+
+    private void kNeighbourhood_TextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kNeighbourhood_TextFieldKeyTyped
+        if (!Character.isDigit(evt.getKeyChar()) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE
+                && evt.getKeyCode() != KeyEvent.VK_ENTER) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_kNeighbourhood_TextFieldKeyTyped
+
+    private void kNeighbourhood_TextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kNeighbourhood_TextFieldKeyReleased
+        if(!NumericUtility.isNum(kNeighbourhood_TextField.getText())){
+            if(!"".equals(kNeighbourhood_TextField.getText())){
+                kNeighbourhood_TextField.setText("8");
+            }
+        }
+        else if(NumericUtility.isNum(kNeighbourhood_TextField.getText())){
+            double tmp=Double.parseDouble(kNeighbourhood_TextField.getText());
+            if(tmp<0){
+                kNeighbourhood_TextField.setText("8");
+            }
+        }
+    }//GEN-LAST:event_kNeighbourhood_TextFieldKeyReleased
 
     /**
      * @param args the command line arguments

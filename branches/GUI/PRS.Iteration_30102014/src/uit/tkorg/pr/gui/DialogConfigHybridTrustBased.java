@@ -6,6 +6,9 @@
 
 package uit.tkorg.pr.gui;
 
+import java.awt.event.KeyEvent;
+import uit.tkorg.utility.general.NumericUtility;
+
 /**
  *
  * @author Vinh
@@ -15,10 +18,8 @@ public class DialogConfigHybridTrustBased extends javax.swing.JDialog {
     /**
      * Creates new form dialogConfigTrustBased
      */
-    int combinationScheme=0;
-    float alpha=0f;
-    int howToTrustAuthor=1;
-    int howToTrustPaper=1;
+    int combinationScheme=1;
+    float alpha=0.9f;
     
     DialogConfigCB dialogConfigCB = new DialogConfigCB(null, rootPaneCheckingEnabled);
     DialogConfigTrustBased dialogConfigTrustbased = new DialogConfigTrustBased(null, rootPaneCheckingEnabled);
@@ -42,7 +43,7 @@ public class DialogConfigHybridTrustBased extends javax.swing.JDialog {
         CMAuthorTextPane = new javax.swing.JTextPane();
         ok_Button = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        howToTrustPaper_jTextField = new javax.swing.JTextField();
+        alpha_jTextField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         config_CB_Button = new javax.swing.JButton();
@@ -78,10 +79,13 @@ public class DialogConfigHybridTrustBased extends javax.swing.JDialog {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Config Algorithm"));
 
-        howToTrustPaper_jTextField.setText("0.9");
-        howToTrustPaper_jTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                howToTrustPaper_jTextFieldActionPerformed(evt);
+        alpha_jTextField.setText("0.9");
+        alpha_jTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                alpha_jTextFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                alpha_jTextFieldKeyTyped(evt);
             }
         });
 
@@ -133,7 +137,7 @@ public class DialogConfigHybridTrustBased extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(howToTrustPaper_jTextField))
+                        .addComponent(alpha_jTextField))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -143,7 +147,7 @@ public class DialogConfigHybridTrustBased extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(howToTrustPaper_jTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(alpha_jTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -184,13 +188,9 @@ public class DialogConfigHybridTrustBased extends javax.swing.JDialog {
         alpha=Float.parseFloat(alpha_jTextField.getText());
         howToTrustAuthor=Integer.parseInt(howToTrustAuthor_jTextField.getText());*/
         //howToTrustPaper=Integer.parseInt(howToTrustPaper_jTextField.getText());
-        alpha=Float.parseFloat(howToTrustPaper_jTextField.getText());
+        alpha=Float.parseFloat(alpha_jTextField.getText());
         this.hide();
     }//GEN-LAST:event_ok_ButtonActionPerformed
-
-    private void howToTrustPaper_jTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_howToTrustPaper_jTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_howToTrustPaper_jTextFieldActionPerformed
 
     private void config_CB_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_config_CB_ButtonActionPerformed
         dialogConfigCB.setLocationRelativeTo(this);
@@ -201,6 +201,27 @@ public class DialogConfigHybridTrustBased extends javax.swing.JDialog {
         dialogConfigTrustbased.setLocationRelativeTo(this);
         dialogConfigTrustbased.show();
     }//GEN-LAST:event_config_TB_ButtonActionPerformed
+
+    private void alpha_jTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_alpha_jTextFieldKeyTyped
+        if (!Character.isDigit(evt.getKeyChar()) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE
+                && evt.getKeyCode() != KeyEvent.VK_ENTER &&evt.getKeyCode() != KeyEvent.VK_PERIOD) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_alpha_jTextFieldKeyTyped
+
+    private void alpha_jTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_alpha_jTextFieldKeyReleased
+        if(!NumericUtility.isNum(alpha_jTextField.getText())){
+            if(!"".equals(alpha_jTextField.getText())){
+                alpha_jTextField.setText("0.0");
+            }
+        }
+        else if(NumericUtility.isNum(alpha_jTextField.getText())){
+            double tmp=Double.parseDouble(alpha_jTextField.getText());
+            if(tmp<0||tmp>1){
+                alpha_jTextField.setText("0.0");
+            }
+        }
+    }//GEN-LAST:event_alpha_jTextFieldKeyReleased
 
     /**
      * @param args the command line arguments
@@ -246,9 +267,9 @@ public class DialogConfigHybridTrustBased extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextPane CMAuthorTextPane;
+    private javax.swing.JTextField alpha_jTextField;
     private javax.swing.JButton config_CB_Button;
     private javax.swing.JButton config_TB_Button;
-    private javax.swing.JTextField howToTrustPaper_jTextField;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

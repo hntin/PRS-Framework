@@ -29,6 +29,7 @@ import uit.tkorg.pr.model.Paper;
 public class PRSCentralController {
 
     //<editor-fold defaultstate="collapsed" desc="Parameters of PRSCentralController">
+    //paths of dataset files
     public String fileNameAuthors;// File 1
     public String fileNameAuthorPaper;// File 2
     public String fileNameAuthorCitePaper;// File 3
@@ -36,6 +37,7 @@ public class PRSCentralController {
     public String fileNamePaperCitePaper;// File 5
     public String fileNameGroundTruth;// File 6
 
+    //temporary folders
     public String dirPapers = "Temp\\Text";
     public String dirPreProcessedPaper = "Temp\\Preprocess";
     public String sequenceDir = "Temp\\Sequence";
@@ -44,11 +46,13 @@ public class PRSCentralController {
     public String _fileName_EvaluationResult = "Temp\\ResultEvaluation.txt";
     public String _fileName_RecommendationList = "Temp\\RecommendationList.txt";
 
+    //papers and authors hashmap
     public HashMap<String, Paper> papers = new HashMap<>();
     public HashMap<String, Author> authors = new HashMap<>();
-    HashSet<String> paperIdsOfAuthorTestSet = new HashSet<>();
-    HashSet<String> paperIdsInTestSet = new HashSet<>();
+    public HashSet<String> paperIdsOfAuthorTestSet = new HashSet<>();
+    public HashSet<String> paperIdsInTestSet = new HashSet<>();
 
+    //authors hashmap for each algorithm
     public HashMap<String, Author> authorsCB = new HashMap<>();
     public HashMap<String, Author> authorsHybrid = new HashMap<>();
     public HashMap<String, Author> authorsCFP = new HashMap<>();
@@ -57,67 +61,149 @@ public class PRSCentralController {
     public HashMap<String, Author> authorsTrustbased=new HashMap<String, Author>();
     public HashMap<String, Author> authorsHybridTrustbased=new HashMap<String, Author>();
 
-    public int algorithm_Recommendation; //1: CBF, 2: CF, 3: CBFCFHybrid
+    //recommendation algorithms
+    public int algorithm_Recommendation; //1: CBF, 2: CF, 3: CBFCFHybrid, 4:Trust - based, 5:Hybrid Trust - based
 
-    public int combinePaperOfAuthor;
-    public int weightingPaperOfAuthor;
-    public int timeAware;
-    public double gamma;
-    public int combineCandiatePaper;
-    public int weightingCandidatePaper;
-    public double pruning;
-
-    public int cfMethod;//1: KNN Pearson, 2: KNN Cosine, 3: SVD
-    public int kNeighbourhood;
-    public int f;
-    public double l;
-    public int i;
-
-    public float alpha;
-    public int combineHybrid;
-
+    //<editor-fold defaultstate="collapsed" desc="Parameters of each algorithms">
+    //<editor-fold defaultstate="collapsed" desc="Parameters of content - based algorithm">
+    public int combinePaperOfAuthor_CB;
+    public int weightingPaperOfAuthor_CB;
+    public int timeAware_CB;
+    public float gamma_CB;
+    public int combineCandiatePaper_CB;
+    public int weightingCandidatePaper_CB;
+    public float pruning_CB;
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Parameters of collaborative filtering algorithm">
+    public int cfMethod_CF;//1: KNN Pearson, 2: KNN Cosine, 3: SVD
+    public int kNeighbourhood_CF;
+    public int f_CF;
+    public float l_CF;
+    public int i_CF;
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Parameters of hybrid algorithm">
+    public int combinePaperOfAuthor_HB;
+    public int weightingPaperOfAuthor_HB;
+    public int timeAware_HB;
+    public float gamma_HB;
+    public int combineCandiatePaper_HB;
+    public int weightingCandidatePaper_HB;
+    public float pruning_HB;
+    
+    public int cfMethod_HB;//1: KNN Pearson, 2: KNN Cosine, 3: SVD
+    public int kNeighbourhood_HB;
+    public int f_HB;
+    public float l_HB;
+    public int i_HB;
+    
+    public float alpha_HB;
+    public int combineHybrid_HB;
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Parameters of trust - based algorithm">
+    public int combinationScheme_TB = 1;
+    public float alpha_TB=0f;
+    public int howToTrustAuthor_TB = 1;
+    public int howToTrustPaper_TB = 2;
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Parameters of Hybrid trust - based algorithm">
+    public int combinePaperOfAuthor_HTB;
+    public int weightingPaperOfAuthor_HTB;
+    public int timeAware_HTB;
+    public float gamma_HTB;
+    public int combineCandiatePaper_HTB;
+    public int weightingCandidatePaper_HTB;
+    public float pruning_HTB;
+    
+    public int combinationScheme_HTB = 1;
+    public float alpha_HTB=0f;
+    public int howToTrustAuthor_HTB = 1;
+    public int howToTrustPaper_HTB = 2;
+    
+    public float alpha_HTB1;
+    public int combineHybrid_HTB;
+    //</editor-fold>
+    
+    //</editor-fold>
+    
     public int topRecommend;
-
     public int measure_Evaluation;
     public int topRank;
     
-    public int combinationScheme = 1;
-    public int howToTrustAuthor = 1;
-    public int howToTrustPaper = 2;
-
     //</editor-fold>
+    
     public PRSCentralController() {
-        algorithm_Recommendation = 1; //1: CBF, 2: CF, 3: Hybrid
+        algorithm_Recommendation = 1; //1: CBF, 2: CF, 3: Hybrid, 
 
-        combinePaperOfAuthor = 0;// combine paper of author
-        weightingPaperOfAuthor = 0;// weighting combine paper of author
-        timeAware = 0;// combine paper of author
-        gamma = 0;// gamma for timeAware
-        combineCandiatePaper = 0; // combine candiate paper
-        weightingCandidatePaper = 0;// weighting combine candiate paper
-        pruning = 0.0;// pruning citation or preference paper for all paper
+        //<editor-fold defaultstate="collapsed" desc="init CB">
+        combinePaperOfAuthor_CB = 0;// combine paper of author
+        weightingPaperOfAuthor_CB = 0;// weighting combine paper of author
+        timeAware_CB = 0;// combine paper of author
+        gamma_CB = 0;// gamma for timeAware
+        combineCandiatePaper_CB = 0; // combine candiate paper
+        weightingCandidatePaper_CB = 0;// weighting combine candiate paper
+        pruning_CB = 0f;// pruning citation or preference paper for all paper
+        //</editor-fold>
+        
+        //<editor-fold defaultstate="collapsed" desc="init CF">
+        cfMethod_CF = 1;//1: KNN Pearson, 2: KNN Cosine, 3: SVD
+        kNeighbourhood_CF = 8;// number of neighbhood
+        f_CF = 5;//SVD
+        l_CF = 0.001f;//SVD
+        i_CF = 100;//SVD
+        //</editor-fold>
 
-        cfMethod = 1;//1: KNN Pearson, 2: KNN Cosine, 3: SVD
-        kNeighbourhood = 8;// number of neighbhood
-        f = 5;//SVD
-        l = 0.001;//SVD
-        i = 100;//SVD
-
-        alpha = (float) 0.9;//Hybrid
-        combineHybrid = 1;//Hybrid
+        //<editor-fold defaultstate="collapsed" desc="init Hybrid">
+        combinePaperOfAuthor_HB = 0;// combine paper of author
+        weightingPaperOfAuthor_HB = 0;// weighting combine paper of author
+        timeAware_HB = 0;// combine paper of author
+        gamma_HB = 0;// gamma for timeAware
+        combineCandiatePaper_HB = 0; // combine candiate paper
+        weightingCandidatePaper_HB = 0;// weighting combine candiate paper
+        pruning_HB = 0f;// pruning citation or preference paper for all paper
+        
+        cfMethod_HB = 1;//1: KNN Pearson, 2: KNN Cosine, 3: SVD
+        kNeighbourhood_HB = 8;// number of neighbhood
+        f_HB = 5;//SVD
+        l_HB = 0.001f;//SVD
+        i_HB = 100;//SVD
+        
+        alpha_HB = (float) 0.9;//Hybrid
+        combineHybrid_HB = 1;//Hybrid
+        //</editor-fold>
+        
+        //<editor-fold defaultstate="collapsed" desc="init trust - based">
+        combinationScheme_TB = 1;
+        alpha_TB=0f;
+        howToTrustAuthor_TB = 1;
+        howToTrustPaper_TB = 2;
+        //</editor-fold>
+        
+        //<editor-fold defaultstate="collapsed" desc="init hybrid trust - based">
+        combinePaperOfAuthor_HTB = 0;// combine paper of author
+        weightingPaperOfAuthor_HTB = 0;// weighting combine paper of author
+        timeAware_HTB = 0;// combine paper of author
+        gamma_HTB = 0;// gamma for timeAware
+        combineCandiatePaper_HTB = 0; // combine candiate paper
+        weightingCandidatePaper_HTB = 0;// weighting combine candiate paper
+        pruning_HTB = 0f;// pruning citation or preference paper for all paper
+        
+        combinationScheme_HTB = 1;
+        alpha_HTB=0.5f;
+        howToTrustAuthor_HTB = 1;
+        howToTrustPaper_HTB = 2;
+        
+        alpha_HTB1=0.3f;
+        combineHybrid_HTB=1;
+        //</editor-fold>
 
         topRecommend = 100;// top Recommmed
-
         measure_Evaluation = 0;// evaluation method
         topRank = 0;// top Rank
 
-//        fileNamePapers = null; //File 1
-//        fileNamePaperCitePaper = null;// File 2
-//        fileNameAuthors = null;// File 3
-//        fileNameAuthorPaper = null;// File 4
-//        fileNameAuthorCitePaper = null;// File 5
-//        fileNameGroundTruth = null;// File 6
-        
         fileNamePapers = "C:\\3.PRS-Experiment\\Dataset1 - MAS\\PRS Experimental data\\T0-T1\\[Training] Paper_Before_2006.csv"; //File 1
         fileNamePaperCitePaper = "C:\\3.PRS-Experiment\\Dataset1 - MAS\\PRS Experimental data\\T0-T1\\[Training] Paper_Cite_Paper_Before_2006.csv";// File 2
         fileNameAuthors = "C:\\3.PRS-Experiment\\Dataset1 - MAS\\PRS Experimental data\\T0-T1\\[Testing] 1000Authors.csv";// File 3
@@ -210,7 +296,7 @@ public class PRSCentralController {
 
     public void recommend() throws Exception {
         if (algorithm_Recommendation == 1) {
-            //Content - based
+            //<editor-fold defaultstate="collapsed" desc="Content - based">
             long startTime;
             long estimatedTime;
             System.out.println("Begin CBF recommendation...");
@@ -223,17 +309,18 @@ public class PRSCentralController {
             
             CBFController.cbfComputeRecommendingScore(authors, papers,
                     paperIdsOfAuthorTestSet, paperIdsInTestSet,
-                    combinePaperOfAuthor, weightingPaperOfAuthor,
-                    timeAware, gamma,
-                    combineCandiatePaper, weightingCandidatePaper, 0,
-                    pruning);
+                    combinePaperOfAuthor_CB, weightingPaperOfAuthor_CB,
+                    timeAware_CB, gamma_CB,
+                    combineCandiatePaper_CB, weightingCandidatePaper_CB, 0,
+                    pruning_CB);
             FeatureVectorSimilarity.generateRecommendationForAuthorList(authors, topRecommend);
             
             estimatedTime = System.nanoTime() - startTime;
             System.out.println("CBF recommendation elapsed time: " + estimatedTime / 1000000000 + " seconds");
             System.out.println("End CBF recommendation.");
+            //</editor-fold>
         } else if (algorithm_Recommendation == 2) {
-            //CF method
+            //<editor-fold defaultstate="collapsed" desc="CF Method">
             long startTime;
             long estimatedTime;
             System.out.println("Begin CF recommendation...");
@@ -244,16 +331,17 @@ public class PRSCentralController {
                 authors.get(authorId).getCfRatingHM().clear();
             }
 
-            CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod,
+            CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod_CF,
                     authors, paperIdsInTestSet);
             CF.cfRecommendToAuthorList(authors, topRecommend);
 
             estimatedTime = System.nanoTime() - startTime;
             System.out.println("CF recommendation elapsed time: " + estimatedTime / 1000000000 + " seconds");
             System.out.println("End CF recommendation.");
+            //</editor-fold>
         } else if (algorithm_Recommendation == 3) {
-            //Hybrid Method
-            float alpha_temp = (float) alpha;
+            //<editor-fold defaultstate="collapsed" desc="Hybrid Method">
+            float alpha_temp = (float) alpha_HB;
             long startTime;
             long estimatedTime;
             System.out.println("Begin Hybrid recommendation...");
@@ -268,20 +356,21 @@ public class PRSCentralController {
 
             CBFController.cbfComputeRecommendingScore(authors, papers,
                     paperIdsOfAuthorTestSet, paperIdsInTestSet,
-                    combinePaperOfAuthor, weightingPaperOfAuthor,
-                    timeAware, gamma,
-                    combineCandiatePaper, weightingCandidatePaper, 0,
-                    pruning);
+                    combinePaperOfAuthor_HB, weightingPaperOfAuthor_HB,
+                    timeAware_HB, gamma_HB,
+                    combineCandiatePaper_HB, weightingCandidatePaper_HB, 0,
+                    pruning_HB);
             
             CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir,
-                    cfMethod, authors, paperIdsInTestSet);
+                    cfMethod_HB, authors, paperIdsInTestSet);
             
-            CBFCF.computeCBFCFCombinationAndPutIntoModelForAuthorList(authors, alpha_temp, combineHybrid);
+            CBFCF.computeCBFCFCombinationAndPutIntoModelForAuthorList(authors, alpha_temp, combineHybrid_HB);
             CBFCF.cbfcfHybridRecommendToAuthorList(authors, topRecommend);
 
             estimatedTime = System.nanoTime() - startTime;
             System.out.println("Hybrid recommendation elapsed time: " + estimatedTime / 1000000000 + " seconds");
             System.out.println("End Hybrid recommendation.");
+            //</editor-fold>
         }else if (algorithm_Recommendation == 4) {
             //<editor-fold defaultstate="collapsed" desc="TRUST BASED">
             TrustDataModelPreparation.computeCoAuthorRSSHM(authors, fileNameAuthorPaper, fileNamePapers);
@@ -289,25 +378,23 @@ public class PRSCentralController {
             TrustDataModelPreparation.computeCitationAuthorRSSHM(authors, fileNameAuthorPaper, fileNamePaperCitePaper, referenceRSSNet);
             
             //int combinationScheme = 1;
-            combinationScheme=1;
-            float alpha_temp = (float) alpha;
-            alpha_temp=0.5f;
+            
+            float alpha_temp = (float) alpha_TB;
+            
             //int howToTrustAuthor = 1;
             //int howToTrustPaper = 2;
-            howToTrustAuthor=1;
-            howToTrustPaper=2;
             
-            if (howToTrustAuthor == 1) {
-                TrustHybrid.computeTrustedAuthorHMLinearCombinationAndPutIntoModelForAuthorList(authors, alpha_temp, combinationScheme);
-            } else if (howToTrustAuthor == 2) {
+            if (howToTrustAuthor_TB == 1) {
+                TrustHybrid.computeTrustedAuthorHMLinearCombinationAndPutIntoModelForAuthorList(authors, alpha_temp, combinationScheme_TB);
+            } else if (howToTrustAuthor_TB == 2) {
                 int metaTrustType = 1;
                 TrustHybrid.computeMetaTrustedAuthorHMAndPutIntoModelForAuthorList(authors, referenceRSSNet, metaTrustType, alpha_temp);
-            } else if (howToTrustAuthor == 3) {
+            } else if (howToTrustAuthor_TB == 3) {
                 int metaTrustType = 2;
                 TrustHybrid.computeMetaTrustedAuthorHMAndPutIntoModelForAuthorList(authors, referenceRSSNet, metaTrustType, alpha_temp);
             }
             
-            TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authors, howToTrustPaper);
+            TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authors, howToTrustPaper_TB);
 
             TrustHybrid.trustRecommendToAuthorList(authors, topRecommend);
             //System.out.println();
@@ -316,38 +403,35 @@ public class PRSCentralController {
             //<editor-fold defaultstate="collapsed" desc="TRUST BASED LINEAR COMBINATION">           
             CBFController.cbfComputeRecommendingScore(authors, papers,
                     paperIdsOfAuthorTestSet, paperIdsInTestSet,
-                    combinePaperOfAuthor, weightingPaperOfAuthor,
-                    timeAware, gamma,
-                    combineCandiatePaper, weightingCandidatePaper, 0,
-                    pruning);
+                    combinePaperOfAuthor_HTB, weightingPaperOfAuthor_HTB,
+                    timeAware_HTB, gamma_HTB,
+                    combineCandiatePaper_HTB, weightingCandidatePaper_HTB, 0,
+                    pruning_HTB);
             TrustDataModelPreparation.computeCoAuthorRSSHM(authors, fileNameAuthors, fileNamePapers);
             HashMap<String, HashMap<String, Float>> referenceRSSNet = new HashMap<>();
             TrustDataModelPreparation.computeCitationAuthorRSSHM(authors, fileNameAuthors, fileNamePaperCitePaper, referenceRSSNet);
 
             //int combinationScheme = 1;
-            float alpha_temp = (float) alpha;
-            alpha_temp=0.5f;
+            float alpha_temp = (float) alpha_HTB;
+           
             //int howToTrustAuthor = 1;
             //int howToTrustPaper = 2;
-            howToTrustAuthor=1;
-            howToTrustPaper=2;
-            combinationScheme=1;
             
-            if (howToTrustAuthor == 1) {
-                TrustHybrid.computeTrustedAuthorHMLinearCombinationAndPutIntoModelForAuthorList(authors, alpha_temp, combinationScheme);
-            } else if (howToTrustAuthor == 2) {
+            
+            if (howToTrustAuthor_HTB == 1) {
+                TrustHybrid.computeTrustedAuthorHMLinearCombinationAndPutIntoModelForAuthorList(authors, alpha_temp, combinationScheme_HTB);
+            } else if (howToTrustAuthor_HTB == 2) {
                 int metaTrustType = 1;
                 TrustHybrid.computeMetaTrustedAuthorHMAndPutIntoModelForAuthorList(authors, referenceRSSNet, metaTrustType, alpha_temp);
-            } else if (howToTrustAuthor == 3) {
+            } else if (howToTrustAuthor_HTB == 3) {
                 int metaTrustType = 2;
                 TrustHybrid.computeMetaTrustedAuthorHMAndPutIntoModelForAuthorList(authors, referenceRSSNet, metaTrustType, alpha_temp);
             }
             
-            TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authors, howToTrustPaper);
+            TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authors, howToTrustPaper_HTB);
 
-            combinationScheme = 1;
-            alpha = (float) 0.3;
-            TrustHybrid.computeCBFTrustLinearCombinationAndPutIntoModelForAuthorList(authors, alpha, combinationScheme);
+            
+            TrustHybrid.computeCBFTrustLinearCombinationAndPutIntoModelForAuthorList(authors, alpha_HTB1, combineHybrid_HTB);
 
             TrustHybrid.trustHybridRecommendToAuthorList(authors, topRecommend);
             
