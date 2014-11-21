@@ -5,6 +5,7 @@
  */
 package uit.tkorg.pr.gui;
 
+import java.awt.Cursor;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +15,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import javax.swing.UIManager;
+import uit.tkorg.pr.constant.Options;
 
 /**
  *
@@ -195,20 +198,42 @@ public class DialogBuildTFIDF extends javax.swing.JDialog {
 
     private void jButtonCreateTFIDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateTFIDFActionPerformed
         if (new File(jTextFieldTextFolder.getText().trim().toString()).exists() && new File(jTextFieldTFIDF.getText().trim().toString()).exists()) {
-            jButtonCreateTFIDF.setEnabled(false);
-            Runnable updateAComponent = new Runnable() {
-                public void run() {
-                    GuiUtilities.createTFIDF(jTextFieldTextFolder.getText().trim().toString(), jTextFieldTFIDF.getText().trim().toString());
+            
+//            Runnable updateAComponent = new Runnable() {
+//                public void run() {
+//                    GuiUtilities.createTFIDF(jTextFieldTextFolder.getText().trim().toString(), jTextFieldTFIDF.getText().trim().toString());
+//
+//                }
+//            };
+//            SwingUtilities.invokeLater(updateAComponent);
+            this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            SwingWorker swingWorker;
+            swingWorker = new SwingWorker() {
 
+                @Override
+                protected Object doInBackground() throws Exception {
+                    jButtonCreateTFIDF.setEnabled(false);
+                    GuiUtilities.createTFIDF(jTextFieldTextFolder.getText().trim().toString(), jTextFieldTFIDF.getText().trim().toString());
+                    return null;
                 }
+
+                @Override
+                protected void done() {
+                    changeMouse();
+                }
+
             };
-            SwingUtilities.invokeLater(updateAComponent);
+
+            swingWorker.execute();
+
             jButtonCreateTFIDF.setEnabled(true);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Please input existent folder...", "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButtonCreateTFIDFActionPerformed
-
+    public void changeMouse(){
+        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+    }
     private void jButtonChooseTFIDFFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonChooseTFIDFFolderActionPerformed
         jTextFieldTFIDF.setText(GuiUtilities.chooseFolderJChooser("Choose folder save TFIDF files"));
     }//GEN-LAST:event_jButtonChooseTFIDFFolderActionPerformed
