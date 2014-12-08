@@ -172,7 +172,7 @@ public class DialogBuildTFIDF extends javax.swing.JDialog {
                     .addComponent(jButtonClose)
                     .addComponent(jButtonOpenResultFolder)
                     .addComponent(jButtonCreateTFIDF))
-                .addGap(0, 9, Short.MAX_VALUE))
+                .addGap(0, 10, Short.MAX_VALUE))
         );
 
         pack();

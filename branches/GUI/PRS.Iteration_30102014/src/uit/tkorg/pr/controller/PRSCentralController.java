@@ -248,7 +248,7 @@ public class PRSCentralController {
                     System.out.println("End reading paper list.");
                     // Step 3: 
                     // Compute TF-IDF for MAS papers.
-                    //CBFPaperFVComputation.computeTFIDFFromPaperAbstract(papers, dirPapers, dirPreProcessedPaper, sequenceDir, vectorDir);
+                    CBFPaperFVComputation.computeTFIDFFromPaperAbstract(papers, dirPapers, dirPreProcessedPaper, sequenceDir, vectorDir);
                     CBFPaperFVComputation.readTFIDFFromMahoutFile(papers, vectorDir);
                     // Clear no longer in use objects.
                     // Always clear abstract.
