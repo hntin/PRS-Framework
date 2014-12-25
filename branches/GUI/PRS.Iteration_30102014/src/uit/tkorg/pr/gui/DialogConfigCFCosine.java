@@ -52,7 +52,7 @@ public class DialogConfigCFCosine extends javax.swing.JDialog {
 
         jLabel1.setText("k_Neighbor:");
 
-        kNeighbourhood_TextField.setText("8");
+        kNeighbourhood_TextField.setText("70");
         kNeighbourhood_TextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 kNeighbourhood_TextFieldKeyReleased(evt);

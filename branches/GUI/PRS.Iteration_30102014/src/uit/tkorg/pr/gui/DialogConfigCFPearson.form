@@ -41,7 +41,7 @@
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="ok_Button" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="62" max="32767" attributes="0"/>
+              <EmptySpace pref="20" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -88,7 +88,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="kNeighbourhood_TextField">
           <Properties>
-            <Property name="text" type="java.lang.String" value="8"/>
+            <Property name="text" type="java.lang.String" value="70"/>
           </Properties>
           <Events>
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="kNeighbourhood_TextFieldKeyReleased"/>

@@ -36,7 +36,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.mahout.cf.taste.common.TasteException;
 import uit.tkorg.pr.constant.ImportFiles;
 import uit.tkorg.pr.constant.Options;
-import uit.tkorg.pr.controller.PRSCentralController;
+import uit.tkorg.pr.controller.PRGUICentralController;
 import uit.tkorg.pr.method.cbf.FeatureVectorSimilarity;
 import uit.tkorg.pr.method.cf.CF;
 import uit.tkorg.pr.method.hybrid.CBFCF;
@@ -52,7 +52,7 @@ public class MainFramePRS extends javax.swing.JFrame {
     /**
      * Creates new form MainFramePRS
      */
-    private PRSCentralController controller;
+    private PRGUICentralController controller;
     //private String[] response;
     private List evaluationList = new ArrayList<String>();
     int backNext = 0;
@@ -76,7 +76,7 @@ public class MainFramePRS extends javax.swing.JFrame {
 
     public MainFramePRS() {
         initComponents();
-        controller = new PRSCentralController();
+        controller = new PRGUICentralController();
 //        redirectSystemStreams();
     }
 

@@ -72,7 +72,7 @@ public class DialogConfigTrustBased extends javax.swing.JDialog {
             }
         });
 
-        alpha_jTextField.setText("0.0");
+        alpha_jTextField.setText("0.3");
         alpha_jTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 alpha_jTextFieldKeyReleased(evt);

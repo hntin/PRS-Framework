@@ -26,9 +26,9 @@ import uit.tkorg.pr.model.Paper;
  *
  * @author Zoe
  */
-public class PRSCentralController {
+public class PRGUICentralController {
 
-    //<editor-fold defaultstate="collapsed" desc="Parameters of PRSCentralController">
+    //<editor-fold defaultstate="collapsed" desc="Parameters of PRGUICentralController">
     //paths of dataset files
     public String fileNameAuthors;// File 1
     public String fileNameAuthorPaper;// File 2
@@ -135,7 +135,7 @@ public class PRSCentralController {
     
     //</editor-fold>
     
-    public PRSCentralController() {
+    public PRGUICentralController() {
         algorithm_Recommendation = 1; //1: CBF, 2: CF, 3: Hybrid, 
 
         //<editor-fold defaultstate="collapsed" desc="init CB">
@@ -248,7 +248,7 @@ public class PRSCentralController {
                     System.out.println("End reading paper list.");
                     // Step 3: 
                     // Compute TF-IDF for MAS papers.
-                    CBFPaperFVComputation.computeTFIDFFromPaperAbstract(papers, dirPapers, dirPreProcessedPaper, sequenceDir, vectorDir);
+                    //CBFPaperFVComputation.computeTFIDFFromPaperAbstract(papers, dirPapers, dirPreProcessedPaper, sequenceDir, vectorDir);
                     CBFPaperFVComputation.readTFIDFFromMahoutFile(papers, vectorDir);
                     // Clear no longer in use objects.
                     // Always clear abstract.

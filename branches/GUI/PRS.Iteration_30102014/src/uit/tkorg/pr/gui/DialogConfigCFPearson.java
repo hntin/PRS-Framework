@@ -49,7 +49,7 @@ public class DialogConfigCFPearson extends javax.swing.JDialog {
 
         jLabel1.setText("k_Neighbor:");
 
-        kNeighbourhood_TextField.setText("8");
+        kNeighbourhood_TextField.setText("70");
         kNeighbourhood_TextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 kNeighbourhood_TextFieldKeyReleased(evt);
@@ -124,7 +124,7 @@ public class DialogConfigCFPearson extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(ok_Button)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
