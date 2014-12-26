@@ -157,9 +157,9 @@ public class TextPreprocessUtility {
     }
     
     public static void main(String[] args) throws Exception {
-        new TextPreprocessUtility().parallelProcess(PRConstant.FOLDER_MAS_DATASET1 
+        new TextPreprocessUtility().parallelProcess(PRConstant.FOLDER_MAS_DATASET 
                 + "Test Compute TFIDF\\text", 
-                PRConstant.FOLDER_MAS_DATASET1 
+                PRConstant.FOLDER_MAS_DATASET 
                 + "Test Compute TFIDF\\Removed stopword and stemming text", true, true);
     }
 }

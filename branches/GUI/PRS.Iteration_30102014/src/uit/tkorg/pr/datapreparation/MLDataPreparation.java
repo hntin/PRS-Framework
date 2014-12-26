@@ -39,24 +39,24 @@ public class MLDataPreparation {
             System.out.println("START EXPORTING THE TRAINING SET");
             runExportClassificationMatrix(
                     // For CBF
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Training] Paper_Before_2006.csv",
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Training] Paper_Cite_Paper_Before_2006.csv",
+                    PRConstant.FOLDER_MAS_DATASET + "T0-T1\\[Training] Paper_Before_2006.csv",
+                    PRConstant.FOLDER_MAS_DATASET + "T0-T1\\[Training] Paper_Cite_Paper_Before_2006.csv",
                     // Testing data
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Testing] 1000Authors.csv",
-                    //PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Testing] Ground_Truth_2006_2008.csv",
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Testing] Ground_Truth_2006_2008_New_Citation.csv",
+                    PRConstant.FOLDER_MAS_DATASET + "T0-T1\\[Testing] 1000Authors.csv",
+                    //PRConstant.FOLDER_MAS_DATASET + "T0-T1\\[Testing] Ground_Truth_2006_2008.csv",
+                    PRConstant.FOLDER_MAS_DATASET + "T0-T1\\[Testing] Ground_Truth_2006_2008_New_Citation.csv",
                     // Author Profile
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Training] Author_Paper_Before_2006.csv",
+                    PRConstant.FOLDER_MAS_DATASET + "T0-T1\\[Training] Author_Paper_Before_2006.csv",
                     // For CF
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Training] Author_Cite_Paper_Before_2006.csv", 
+                    PRConstant.FOLDER_MAS_DATASET + "T0-T1\\[Training] Author_Cite_Paper_Before_2006.csv", 
                     // Mahout
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\TF-IDF\\Text",
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\TF-IDF\\PreProcessedPaper",
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\TF-IDF\\Sequence",
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\TF-IDF\\Vector",
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\MahoutCF",
+                    PRConstant.FOLDER_MAS_DATASET + "T0-T1\\TF-IDF\\Text",
+                    PRConstant.FOLDER_MAS_DATASET + "T0-T1\\TF-IDF\\PreProcessedPaper",
+                    PRConstant.FOLDER_MAS_DATASET + "T0-T1\\TF-IDF\\Sequence",
+                    PRConstant.FOLDER_MAS_DATASET + "T0-T1\\TF-IDF\\Vector",
+                    PRConstant.FOLDER_MAS_DATASET + "T0-T1\\MahoutCF",
                     // Result
-                    PRConstant.FOLDER_MAS_DATASET1 + "ML\\MLMatrixTrainingSet.csv",
+                    PRConstant.FOLDER_MAS_DATASET + "ML\\MLMatrixTrainingSet.csv",
                     // Filename for Testset with 10 Papers for each author
                     null,
                     1);
@@ -66,24 +66,24 @@ public class MLDataPreparation {
             System.out.println("START EXPORTING THE TESTING SET");
             runExportClassificationMatrix(
                     // For CBF
-                    PRConstant.FOLDER_MAS_DATASET1 + "T1-T2\\[Training] Paper_Before_2009.csv",
-                    PRConstant.FOLDER_MAS_DATASET1 + "T1-T2\\[Training] Paper_Cite_Paper_Before_2009.csv",
+                    PRConstant.FOLDER_MAS_DATASET + "T1-T2\\[Training] Paper_Before_2009.csv",
+                    PRConstant.FOLDER_MAS_DATASET + "T1-T2\\[Training] Paper_Cite_Paper_Before_2009.csv",
                     // Testing data
-                    PRConstant.FOLDER_MAS_DATASET1 + "T1-T2\\[Testing] 1000Authors.csv",
-                    //PRConstant.FOLDER_MAS_DATASET1 + "T1-T2\\[Testing] Ground_Truth_2009_2010.csv",
-                    PRConstant.FOLDER_MAS_DATASET1 + "T1-T2\\[Testing] Ground_Truth_2009_2010_New_Citation.csv",
+                    PRConstant.FOLDER_MAS_DATASET + "T1-T2\\[Testing] 1000Authors.csv",
+                    //PRConstant.FOLDER_MAS_DATASET + "T1-T2\\[Testing] Ground_Truth_2009_2010.csv",
+                    PRConstant.FOLDER_MAS_DATASET + "T1-T2\\[Testing] Ground_Truth_2009_2010_New_Citation.csv",
                     // Author Profile
-                    PRConstant.FOLDER_MAS_DATASET1 + "T1-T2\\[Training] Author_Paper_Before_2009.csv",
+                    PRConstant.FOLDER_MAS_DATASET + "T1-T2\\[Training] Author_Paper_Before_2009.csv",
                     // For CF
-                    PRConstant.FOLDER_MAS_DATASET1 + "T1-T2\\[Training] Author_Cite_Paper_Before_2009.csv", 
+                    PRConstant.FOLDER_MAS_DATASET + "T1-T2\\[Training] Author_Cite_Paper_Before_2009.csv", 
                     // Mahout
-                    PRConstant.FOLDER_MAS_DATASET1 + "T1-T2\\TF-IDF\\Text",
-                    PRConstant.FOLDER_MAS_DATASET1 + "T1-T2\\TF-IDF\\PreProcessedPaper",
-                    PRConstant.FOLDER_MAS_DATASET1 + "T1-T2\\TF-IDF\\Sequence",
-                    PRConstant.FOLDER_MAS_DATASET1 + "T1-T2\\TF-IDF\\Vector",
-                    PRConstant.FOLDER_MAS_DATASET1 + "T1-T2\\MahoutCF",
+                    PRConstant.FOLDER_MAS_DATASET + "T1-T2\\TF-IDF\\Text",
+                    PRConstant.FOLDER_MAS_DATASET + "T1-T2\\TF-IDF\\PreProcessedPaper",
+                    PRConstant.FOLDER_MAS_DATASET + "T1-T2\\TF-IDF\\Sequence",
+                    PRConstant.FOLDER_MAS_DATASET + "T1-T2\\TF-IDF\\Vector",
+                    PRConstant.FOLDER_MAS_DATASET + "T1-T2\\MahoutCF",
                     // Result
-                    PRConstant.FOLDER_MAS_DATASET1 + "ML\\MLMatrixTestSet.csv",
+                    PRConstant.FOLDER_MAS_DATASET + "ML\\MLMatrixTestSet.csv",
                     // Filename for Testset with 10 Papers for each author
                     null,
                     1);

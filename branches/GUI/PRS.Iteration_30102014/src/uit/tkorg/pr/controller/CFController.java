@@ -37,7 +37,8 @@ public class CFController {
         
         // Step 1: Prepare CF matrix.
         String MahoutCFFileOriginalFile = MahoutCFDir + "\\CFRatingMatrixOriginal.txt";
-        cfPrepareMatrix(fileNameAuthorCitePaper, MahoutCFFileOriginalFile);
+        // Notice: Only run once.
+        //cfPrepareMatrix(fileNameAuthorCitePaper, MahoutCFFileOriginalFile);
         
         // Step 2: Predict ratings.
         if ((cfMethod == 1) || (cfMethod == 2)) {
@@ -56,9 +57,9 @@ public class CFController {
         } else if (cfMethod == 3) {
             // SVD ALSWRFactorizer.
             // f features, normalize by l, i iterations.
-            int f = 5;
+            int f = 8;
             double l = 0.001;
-            int i = 100;
+            int i = 20;
             algorithmName = "CF SVD ALSWRFactorizer " + "f" + f + "l" + l + "i" + i;
             // Recommend for authors in author test set.
             System.out.println("Begin calculating CF-SVD Recommending Score");
@@ -71,6 +72,8 @@ public class CFController {
     
 
     public static void cfPrepareMatrix(String fileNameAuthorCitePaper, String MahoutCFFileOriginalFile) throws Exception {
+        System.out.println("Begin preparing CF Matrix...");
+        long startTime = System.nanoTime();
 
         // Read Raw rating matrix
         System.out.println("Begin Reading raw rating matrix");
@@ -86,6 +89,10 @@ public class CFController {
         System.out.println("Begin writeCFRatingToMahoutFormatFile");
         CFRatingMatrixComputation.writeCFRatingToMahoutFormatFile(authorPaperRating, MahoutCFFileOriginalFile);
         System.out.println("End writeCFRatingToMahoutFormatFile");
+
+        long estimatedTime = System.nanoTime() - startTime;
+        System.out.println("Preparing CF Matrix elapsed time: " + estimatedTime / 1000000000 + " seconds");
+        System.out.println("End preparing CF Matrix.");
     }
     
     /**

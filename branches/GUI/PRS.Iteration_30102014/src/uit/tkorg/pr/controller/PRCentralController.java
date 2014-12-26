@@ -85,25 +85,24 @@ public class PRCentralController {
                     PRConstant.FOLDER_NUS_DATASET1,
                     PRConstant.FOLDER_NUS_DATASET2,
                     // For CBF
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Training] Paper_Before_2006.csv",
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Training] Paper_Cite_Paper_Before_2006.csv",
+                    PRConstant.FOLDER_MAS_DATASET + "PAPER_BEFORE_T2.csv",
+                    PRConstant.FOLDER_MAS_DATASET + "PAPER_CITE_PAPER_BEFORE_T2.csv",
                     // Testing data
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Testing] 1000Authors.csv",
-                    //PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Testing] Ground_Truth_2006_2008.csv",
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Testing] Ground_Truth_2006_2008_New_Citation.csv",
+                    PRConstant.FOLDER_MAS_DATASET + "JUNIOR100.csv",
+                    PRConstant.FOLDER_MAS_DATASET + "GROUND_TRUTH_JUNIOR100_T2_NEW.csv",
                     // Author Profile
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Training] Author_Paper_Before_2006.csv",
+                    PRConstant.FOLDER_MAS_DATASET + "AUTHOR_PAPER_BEFORE_T2.csv",
                     // For CF
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\[Training] Author_Cite_Paper_Before_2006.csv", 
+                    PRConstant.FOLDER_MAS_DATASET + "AUTHOR_CITE_PAPER_BEFORE_T2.csv", 
                     // Mahout
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\TF-IDF\\Text",
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\TF-IDF\\PreProcessedPaper",
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\TF-IDF\\Sequence",
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\TF-IDF\\Vector",
-                    PRConstant.FOLDER_MAS_DATASET1 + "T0-T1\\MahoutCF",
+                    PRConstant.FOLDER_MAS_DATASET + "TF-IDF\\Text",
+                    PRConstant.FOLDER_MAS_DATASET + "TF-IDF\\PreProcessedPaper",
+                    PRConstant.FOLDER_MAS_DATASET + "TF-IDF\\Sequence",
+                    PRConstant.FOLDER_MAS_DATASET + "TF-IDF\\Vector",
+                    PRConstant.FOLDER_MAS_DATASET + "MahoutCF",
                     // Result
-                    "EvaluationResult\\EvaluationResult_NewCitation_070814.xls",
-                    1);
+                    "EvaluationResult\\EvaluationResult_Junior100_NewCitation_251214.xls",
+                    5);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -176,7 +175,7 @@ public class PRCentralController {
             // Not yet implement.
         } else if (DatasetToUse == 3) {
             datasetName = "MAS Dataset";
-            fileNameEvaluationResult = PRConstant.FOLDER_MAS_DATASET1 + fileNameEvaluationResult;
+            fileNameEvaluationResult = PRConstant.FOLDER_MAS_DATASET + fileNameEvaluationResult;
             // Step 1: read list 1000 authors for test set.
             System.out.println("Begin reading author test set...");
             startTime = System.nanoTime();
@@ -197,6 +196,7 @@ public class PRCentralController {
                 System.out.println("End reading paper list.");
                 // Step 3: 
                 // Compute TF-IDF for MAS papers.
+                // Notice: Only run once.
                 //CBFPaperFVComputation.computeTFIDFFromPaperAbstract(papers, dirPapers, dirPreProcessedPaper, sequenceDir, vectorDir);
                 CBFPaperFVComputation.readTFIDFFromMahoutFile(papers, vectorDir);
                 // Clear no longer in use objects.
@@ -213,18 +213,18 @@ public class PRCentralController {
         // parameters for CBF methods.
         // combiningSchemePaperOfAuthor: 0: itself, 1: itself + ref; 2: itself + citations; 
         // 3: itself + refs + citations.
-        int combiningSchemePaperOfAuthor = 1;
+        int combiningSchemePaperOfAuthor = 3;
         // weightingSchemePaperOfAuthor: 0: linear; 1: cosine; 2: rpy.
-        int weightingSchemePaperOfAuthor = 0;
+        int weightingSchemePaperOfAuthor = 2;
         // timeAwareScheme: 0: unaware; 1: aware.
-        int timeAwareScheme = 0;
-        // gamma: forgetting factor when aware of time.
-        double gamma = 0.0;
+        int timeAwareScheme = 1;
+        // gamma: forgetting factor when aware of time. gamma = 0 => timeAware = 0.
+        double gamma = 0.2;
         int combiningSchemePaperTestSet = combiningSchemePaperOfAuthor;
         int weightingSchemePaperTestSet = weightingSchemePaperOfAuthor;
         // similarityScheme: 0: cosine
         int similarityScheme = 0;
-        // Threshold to prune citation and reference paper when combining.
+        // Min Threshold to prune citation and reference paper when combining.
         double pruning = 0.0;
 
         // parameters for cf method: 1: KNN Pearson, 2: KNN Cosine, 3: SVD
@@ -232,7 +232,7 @@ public class PRCentralController {
         
         // parameters for hybrid method
         // combinationScheme: 1: combine linear, 2: combine based on confidence, 
-        // 3: combine based on confidence and linear
+        // 3: combine based on confidence and linear, 4: confidence v2, 5: confidence and linear v2.
         int combinationScheme;
         // weighting when combine linear.
         float alpha;
@@ -257,9 +257,9 @@ public class PRCentralController {
                     combiningSchemePaperTestSet, weightingSchemePaperTestSet, similarityScheme,
                     pruning);
             
-            // Filter old paper.
+            /*// Filter old paper.
             int cutYear = 2003;
-            PaperFilterUtility.filterOldPaper(authorTestSet, papers, cutYear);
+            PaperFilterUtility.filterOldPaper(authorTestSet, papers, cutYear);*/
             
             FeatureVectorSimilarity.generateRecommendationForAuthorList(authorTestSet, topNRecommend);
 
@@ -290,8 +290,10 @@ public class PRCentralController {
                     pruning);
             CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir,
                     cfMethod, authorTestSet, paperIdsInTestSet);
-            combinationScheme = 1;
-            alpha = (float) 0.9;
+            
+            combinationScheme = 1; // 5 options.
+            alpha = 0.9f;
+            
             CBFCF.computeCBFCFCombinationAndPutIntoModelForAuthorList(authorTestSet, alpha, combinationScheme);
             CBFCF.cbfcfHybridRecommendToAuthorList(authorTestSet, topNRecommend);
             algorithmName = "CBF-CF LINEAR COMBINATION:"
@@ -302,16 +304,22 @@ public class PRCentralController {
             //<editor-fold defaultstate="collapsed" desc="TRUST BASED">
             TrustDataModelPreparation.computeCoAuthorRSSHM(authorTestSet, fileNameAuthorship, fileNamePapers);
             HashMap<String, HashMap<String, Float>> referenceRSSNet = new HashMap<>();
-            TrustDataModelPreparation.computeCitationAuthorRSSHM(authorTestSet, fileNameAuthorship, fileNamePaperCitePaper, referenceRSSNet);
+            TrustDataModelPreparation.computeCitationAuthorRSSHM(authorTestSet, 
+                    fileNameAuthorship, fileNamePaperCitePaper, referenceRSSNet);
             
-            combinationScheme = 1;
-            alpha = 0f;
+            combinationScheme = 1; // 5 options.
+            alpha = 0.5f;
+            
             howToTrustAuthor = 1;
             howToTrustPaper = 2;
             
             if (howToTrustAuthor == 1) {
+                // When how to trust author = 1, means COMBINE LINEAR COAUTHOR AND CITED AUTHOR
+                // we have 5 OPTIONS for COMBINATION SCHEME.
                 TrustHybrid.computeTrustedAuthorHMLinearCombinationAndPutIntoModelForAuthorList(authorTestSet, alpha, combinationScheme);
             } else if (howToTrustAuthor == 2) {
+                // When how to trust author = 2, 3 
+                // only 1 OPTION for combination linear: simple linear combine, DEFAULT COMBINATION SCHEME = 1.
                 int metaTrustType = 1;
                 TrustHybrid.computeMetaTrustedAuthorHMAndPutIntoModelForAuthorList(authorTestSet, referenceRSSNet, metaTrustType, alpha);
             } else if (howToTrustAuthor == 3) {
@@ -330,18 +338,23 @@ public class PRCentralController {
             //</editor-fold>
         } else if (recommendationMethod == 5) {
             //<editor-fold defaultstate="collapsed" desc="TRUST BASED LINEAR COMBINATION">           
+            
+            // CBF:
             CBFController.cbfComputeRecommendingScore(authorTestSet, papers,
                     paperIdsOfAuthorTestSet, paperIdsInTestSet,
                     combiningSchemePaperOfAuthor, weightingSchemePaperOfAuthor,
                     timeAwareScheme, gamma,
                     combiningSchemePaperTestSet, weightingSchemePaperTestSet, similarityScheme,
                     pruning);
+            
+            // Trust:
             TrustDataModelPreparation.computeCoAuthorRSSHM(authorTestSet, fileNameAuthorship, fileNamePapers);
             HashMap<String, HashMap<String, Float>> referenceRSSNet = new HashMap<>();
             TrustDataModelPreparation.computeCitationAuthorRSSHM(authorTestSet, fileNameAuthorship, fileNamePaperCitePaper, referenceRSSNet);
 
-            combinationScheme = 1;
-            alpha = 0f;
+            combinationScheme = 1; // 5 options.
+            alpha = 0.5f;
+            
             howToTrustAuthor = 1;
             howToTrustPaper = 2;
             
@@ -357,16 +370,22 @@ public class PRCentralController {
             
             TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authorTestSet, howToTrustPaper);
 
-            combinationScheme = 1;
-            alpha = (float) 0.3;
+            algorithmName = "CBF-Trust Based Combination:"
+                    + " Trust combinationScheme = " + combinationScheme 
+                    + " Trust alpha = " + alpha
+                    + " howToTrustAuthor = " + howToTrustAuthor
+                    + " howToTrustPaper = " + howToTrustPaper;
+
+            // Combine CBF and Trust:
+            combinationScheme = 1; // 5 options.
+            alpha = 0.5f;
+            
             TrustHybrid.computeCBFTrustLinearCombinationAndPutIntoModelForAuthorList(authorTestSet, alpha, combinationScheme);
 
             TrustHybrid.trustHybridRecommendToAuthorList(authorTestSet, topNRecommend);
-            algorithmName = "Trust Based combined with CBF:"
-                    + " howToTrustAuthor = " + howToTrustAuthor
-                    + " howToTrustPaper = " + howToTrustPaper
-                    + " combinationScheme = " + combinationScheme 
-                    + " alpha = " + alpha;
+            algorithmName = algorithmName 
+                    + " CBF-TB combinationScheme = " + combinationScheme 
+                    + " CBF-TB alpha = " + alpha;
             //</editor-fold>
         }
 
@@ -385,10 +404,10 @@ public class PRCentralController {
         System.out.println("Begin error analysis...");
         startTime = System.nanoTime();
 
-        String partFileNameWithDataset = PRConstant.FOLDER_MAS_DATASET1
+        String partFileNameWithDataset = PRConstant.FOLDER_MAS_DATASET
                 + "ErrorAnalysis\\Dataset" + DatasetToUse;
         String partFileNameWithMethod = " Method" + recommendationMethod
-                + " Customed file name ending" + ".xls";
+                + " Junior100 251214" + ".xls";
 
         // EachAuthorEvaluationResults
         String fileNameErrorAnalysis = partFileNameWithDataset

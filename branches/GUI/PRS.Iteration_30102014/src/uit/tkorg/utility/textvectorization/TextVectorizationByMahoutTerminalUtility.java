@@ -52,8 +52,8 @@ public class TextVectorizationByMahoutTerminalUtility {
 
     public static void main(String[] args) throws Exception {
         // Prepare input documents in text folder, each document in a .txt file, file name is document id.
-        textVectorizeFiles(PRConstant.FOLDER_MAS_DATASET1 + "Test Compute TFIDF\\Removed stopword and stemming text", PRConstant.FOLDER_MAS_DATASET1 + "Test Compute TFIDF\\sequence", PRConstant.FOLDER_MAS_DATASET1 + "Test Compute TFIDF\\vector");
-        HashMap<Integer, String> dictionary = MahoutFile.readMahoutDictionaryFiles(PRConstant.FOLDER_MAS_DATASET1 + "Test Compute TFIDF\\vector");
-        HashMap<String, HashMapVector> vectorizedDocuments = MahoutFile.readMahoutVectorFiles(PRConstant.FOLDER_MAS_DATASET1 + "Test Compute TFIDF\\vector");
+        textVectorizeFiles(PRConstant.FOLDER_MAS_DATASET + "Test Compute TFIDF\\Removed stopword and stemming text", PRConstant.FOLDER_MAS_DATASET + "Test Compute TFIDF\\sequence", PRConstant.FOLDER_MAS_DATASET + "Test Compute TFIDF\\vector");
+        HashMap<Integer, String> dictionary = MahoutFile.readMahoutDictionaryFiles(PRConstant.FOLDER_MAS_DATASET + "Test Compute TFIDF\\vector");
+        HashMap<String, HashMapVector> vectorizedDocuments = MahoutFile.readMahoutVectorFiles(PRConstant.FOLDER_MAS_DATASET + "Test Compute TFIDF\\vector");
     }
 }

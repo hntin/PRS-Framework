@@ -319,16 +319,16 @@ public class MASDataset1 {
      * @throws Exception 
      */
     public static void main(String[] args) throws Exception {
-        HashMap<String, Paper> papers = readPaperList(PRConstant.FOLDER_MAS_DATASET1 
-                + "[Training] Paper_Before_2006.csv", PRConstant.FOLDER_MAS_DATASET1 
+        HashMap<String, Paper> papers = readPaperList(PRConstant.FOLDER_MAS_DATASET 
+                + "[Training] Paper_Before_2006.csv", PRConstant.FOLDER_MAS_DATASET 
                 + "[Training] Paper_Cite_Paper_Before_2006.csv");
-        HashMap<String, Author> authors = readAuthorList(PRConstant.FOLDER_MAS_DATASET1 
+        HashMap<String, Author> authors = readAuthorList(PRConstant.FOLDER_MAS_DATASET 
                 + "[Training] Author_Paper_Before_2006.csv");
-        HashMap<String, Author> authorsTestSet = readAuthorListTestSet(PRConstant.FOLDER_MAS_DATASET1 
-                + "[Training] 1000Authors.csv", PRConstant.FOLDER_MAS_DATASET1 
-                + "[Validation] Ground_Truth_2006_2008.csv", PRConstant.FOLDER_MAS_DATASET1 
+        HashMap<String, Author> authorsTestSet = readAuthorListTestSet(PRConstant.FOLDER_MAS_DATASET 
+                + "[Training] 1000Authors.csv", PRConstant.FOLDER_MAS_DATASET 
+                + "[Validation] Ground_Truth_2006_2008.csv", PRConstant.FOLDER_MAS_DATASET 
                 + "[Training] Author_Paper_Before_2006.csv");
-        HashMap<String, HashMap<String, Double>> authorPaperRating = readAuthorCitePaperMatrix(PRConstant.FOLDER_MAS_DATASET1 
+        HashMap<String, HashMap<String, Double>> authorPaperRating = readAuthorCitePaperMatrix(PRConstant.FOLDER_MAS_DATASET 
                 + "[Training] Author_Cite_Paper_Before_2006.csv");
     }
 }

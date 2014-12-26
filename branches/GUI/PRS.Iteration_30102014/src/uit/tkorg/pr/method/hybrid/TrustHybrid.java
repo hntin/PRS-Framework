@@ -120,6 +120,7 @@ public class TrustHybrid {
                         final HashMap<String, Float> metaTrustAuthorHM = new HashMap<>();
                         computeMetaTrustedAuthorsForOneAuthor(referenceRSSNet, authorObj, metaTrustAuthorHM, metaTrustType);
                         HashMapUtility.minNormalizeHashMap(metaTrustAuthorHM);
+                        // With 2 types of meta trust: only COMBINE LINEAR citation author with meta trusted author.
                         HashMapUtility.combineLinearTwoHashMap(authorObj.getCitationAuthorRSSHM(), 
                                 metaTrustAuthorHM, alpha, authorObj.getTrustedAuthorHM());
                     } catch (Exception ex) {
