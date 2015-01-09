@@ -29,7 +29,11 @@ public class GenericRecommender {
      * 
      * @param authors
      * @param topNRecommend
-     * @param method: 0: cbf, 1: cf, 2: cbf and cf linear combination, 3: cbf, cf, and trust hybrid
+     * @param method: 0: cbf, 1: cf, 
+     * 2: cbf and cf linear combination, 
+     * 3: trust,
+     * 4: cbf-trust hybrid linear combination,
+     * 5: cbf-trust hybrid V2 2 layer.
      * @throws Exception 
      */
     public static void generateRecommendationForAuthorList(final HashMap<String, Author> authors, 
@@ -72,9 +76,11 @@ public class GenericRecommender {
         } else if (method == 2) {
             recommendingScoreHM = author.getCbfCfHybridHM();
         } else if (method == 3) {
-            recommendingScoreHM = author.getCbfTrustHybridHM();
-        } else if (method == 4) {
             recommendingScoreHM = author.getTrustedPaperHM();
+        } else if (method == 4) {
+            recommendingScoreHM = author.getCbfTrustHybridHM();
+        } else if (method == 5) {
+            recommendingScoreHM = author.getCbfTrustHybridV2HM();
         }
 
         // Sort papers descending based on recommending score.

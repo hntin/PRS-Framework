@@ -49,7 +49,8 @@ public class TrustHybrid {
      * @param combinationScheme 1: linear, 2: basedOnConfidence, 3: basedOnConfidence and linear.
      * @throws Exception 
      */
-    public static void computeTrustedAuthorHMLinearCombinationAndPutIntoModelForAuthorList(HashMap<String, Author> authors, 
+    public static void computeTrustedAuthorHMLinearCombinationAndPutIntoModelForAuthorList(
+            HashMap<String, Author> authors, 
             final float alpha, final int combinationScheme) throws Exception {
         Runtime runtime = Runtime.getRuntime();
         int numOfProcessors = runtime.availableProcessors();
@@ -100,7 +101,8 @@ public class TrustHybrid {
         }
     }
 
-    public static void computeMetaTrustedAuthorHMAndPutIntoModelForAuthorList(HashMap<String, Author> authors, 
+    public static void computeMetaTrustedAuthorHMAndPutIntoModelForAuthorList(
+            HashMap<String, Author> authors, 
             final HashMap<String, HashMap<String, Float>> referenceRSSNet, 
             final int metaTrustType,
             final float alpha) throws Exception {
@@ -119,6 +121,7 @@ public class TrustHybrid {
                     try {
                         final HashMap<String, Float> metaTrustAuthorHM = new HashMap<>();
                         computeMetaTrustedAuthorsForOneAuthor(referenceRSSNet, authorObj, metaTrustAuthorHM, metaTrustType);
+                        // metaTrustAuthorHM is temp here, so normalize here.
                         HashMapUtility.minNormalizeHashMap(metaTrustAuthorHM);
                         // With 2 types of meta trust: only COMBINE LINEAR citation author with meta trusted author.
                         HashMapUtility.combineLinearTwoHashMap(authorObj.getCitationAuthorRSSHM(), 
@@ -135,7 +138,8 @@ public class TrustHybrid {
         }
     }
 
-    public static void computeMetaTrustedAuthorsForOneAuthor(HashMap<String, HashMap<String, Float>> referenceRSSNet, 
+    public static void computeMetaTrustedAuthorsForOneAuthor(
+            HashMap<String, HashMap<String, Float>> referenceRSSNet, 
             Author ai, 
             HashMap<String, Float> outputHM,
             int metaTrustType) throws Exception {
@@ -186,7 +190,8 @@ public class TrustHybrid {
         }
     }
 
-    public static void computeTrustedPaperHMAndPutIntoModelForAuthorList(final HashMap<String, Author> authors, 
+    public static void computeTrustedPaperHMAndPutIntoModelForAuthorList(
+            final HashMap<String, Author> authors, 
             final int howToTrustPaper) throws Exception {
         Runtime runtime = Runtime.getRuntime();
         int numOfProcessors = runtime.availableProcessors();
@@ -220,7 +225,8 @@ public class TrustHybrid {
      * @param howToTrustPaper 1: average trusted author, 2: max trusted author.
      * @throws Exception 
      */
-    private static void computeTrustedPaperHM(HashMap<String, Author> authors, Author author, int howToTrustPaper) throws Exception {
+    private static void computeTrustedPaperHM(HashMap<String, Author> authors, 
+            Author author, int howToTrustPaper) throws Exception {
 
         HashMap<String, Integer> paperTrustedAuthorCount = new HashMap<>();
         
@@ -265,7 +271,8 @@ public class TrustHybrid {
      * @param combinationScheme 1: linear, 2: basedOnConfidence, 3: basedOnConfidence and linear.
      * @throws Exception 
      */
-    public static void computeCBFTrustLinearCombinationAndPutIntoModelForAuthorList(HashMap<String, Author> authors, 
+    public static void computeCBFTrustLinearCombinationAndPutIntoModelForAuthorList(
+            HashMap<String, Author> authors, 
             final float alpha, final int combinationScheme) throws Exception {
         Runtime runtime = Runtime.getRuntime();
         int numOfProcessors = runtime.availableProcessors();
@@ -315,12 +322,58 @@ public class TrustHybrid {
         while (!executor.isTerminated()) {
         }
     }
-    
-    public static void trustHybridRecommendToAuthorList(HashMap<String, Author> authorTestSet, int topNRecommend) throws IOException, TasteException, Exception {
+
+    /**
+     * 
+     * @param authors
+     * @throws Exception 
+     */
+    public static void computeCBFTrustHybridV2AndPutIntoModelForAuthorList(HashMap<String, Author> authors) throws Exception {
+        Runtime runtime = Runtime.getRuntime();
+        int numOfProcessors = runtime.availableProcessors();
+        ExecutorService executor = Executors.newFixedThreadPool(numOfProcessors - 1);
+
+        System.out.println("NUM OF AUTHOR: " + authors.size());
+
+        HashMapUtility.setCountThread(0);
+        for (String authorId : authors.keySet()) {
+            final Author authorObj = authors.get(authorId);
+            executor.submit(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        authorObj.setCbfTrustHybridV2HM(authorObj.getTrustedPaperHM());
+                        for (String paperId : authorObj.getCbfTrustHybridV2HM().keySet()) {
+                            authorObj.getCbfTrustHybridV2HM()
+                                    .put(paperId, authorObj.getCbfSimHM().get(paperId));
+                        }
+                    } catch (Exception ex) {
+                        Logger.getLogger(FeatureVectorSimilarity.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            });
+        }
+
+        executor.shutdown();
+        while (!executor.isTerminated()) {
+        }
+    }
+
+    public static void trustRecommendToAuthorList(HashMap<String, Author> authorTestSet, 
+            int topNRecommend) 
+            throws IOException, TasteException, Exception {
         GenericRecommender.generateRecommendationForAuthorList(authorTestSet, topNRecommend, 3);
     }
     
-    public static void trustRecommendToAuthorList(HashMap<String, Author> authorTestSet, int topNRecommend) throws IOException, TasteException, Exception {
+    public static void trustHybridRecommendToAuthorList(
+            HashMap<String, Author> authorTestSet, int topNRecommend) 
+            throws IOException, TasteException, Exception {
         GenericRecommender.generateRecommendationForAuthorList(authorTestSet, topNRecommend, 4);
+    }
+    
+    public static void trustHybridRecommendToAuthorListV2(
+            HashMap<String, Author> authorTestSet, int topNRecommend) 
+            throws IOException, TasteException, Exception {
+        GenericRecommender.generateRecommendationForAuthorList(authorTestSet, topNRecommend, 5);
     }
 }

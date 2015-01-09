@@ -102,7 +102,7 @@ public class PRCentralController {
                     PRConstant.FOLDER_MAS_DATASET + "MahoutCF",
                     // Result
                     "EvaluationResult\\EvaluationResult_Junior100_NewCitation_251214.xls",
-                    5);
+                    6);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -125,8 +125,8 @@ public class PRCentralController {
      * @param MahoutCFDir
      * @param fileNameEvaluationResult
      * @param recommendationMethod: 1: CBF, 2: CF, 3: CBF CF Hybrid Linear, 
-     * 4: Trust, 5: Trust Hybrid, 10: ML Hybrid
-     * Combination.
+     * 4: Trust, 5: Trust Hybrid, 6: New Trust Hybrid (get trusted papers then sort by content.), 
+     * 10: ML Hybrid Combination.
      * @throws Exception
      */
     public static void recommendationFlowController(int DatasetToUse, int DatasetByResearcherType,
@@ -274,6 +274,7 @@ public class PRCentralController {
 
             algorithmName = CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod,
                     authorTestSet, paperIdsInTestSet);
+            
             CF.cfRecommendToAuthorList(authorTestSet, topNRecommend);
 
             estimatedTime = System.nanoTime() - startTime;
@@ -281,7 +282,7 @@ public class PRCentralController {
             System.out.println("End CF recommendation.");
             //</editor-fold>
         } else if (recommendationMethod == 3) {
-            //<editor-fold defaultstate="collapsed" desc="LINEAR COMBINATION">
+            //<editor-fold defaultstate="collapsed" desc="CBF-CF LINEAR COMBINATION">
             CBFController.cbfComputeRecommendingScore(authorTestSet, papers,
                     paperIdsOfAuthorTestSet, paperIdsInTestSet,
                     combiningSchemePaperOfAuthor, weightingSchemePaperOfAuthor,
@@ -295,6 +296,7 @@ public class PRCentralController {
             alpha = 0.9f;
             
             CBFCF.computeCBFCFCombinationAndPutIntoModelForAuthorList(authorTestSet, alpha, combinationScheme);
+            
             CBFCF.cbfcfHybridRecommendToAuthorList(authorTestSet, topNRecommend);
             algorithmName = "CBF-CF LINEAR COMBINATION:"
                     + " combinationScheme = " + combinationScheme
@@ -337,7 +339,7 @@ public class PRCentralController {
                     + " howToTrustPaper = " + howToTrustPaper;
             //</editor-fold>
         } else if (recommendationMethod == 5) {
-            //<editor-fold defaultstate="collapsed" desc="TRUST BASED LINEAR COMBINATION">           
+            //<editor-fold defaultstate="collapsed" desc="CBF-TRUST LINEAR COMBINATION">           
             
             // CBF:
             CBFController.cbfComputeRecommendingScore(authorTestSet, papers,
@@ -386,6 +388,37 @@ public class PRCentralController {
             algorithmName = algorithmName 
                     + " CBF-TB combinationScheme = " + combinationScheme 
                     + " CBF-TB alpha = " + alpha;
+            //</editor-fold>
+        } else if (recommendationMethod == 6) {
+            //<editor-fold defaultstate="collapsed" desc="NEW CBF-TRUST COMBINATION">           
+            
+            // CBF:
+            CBFController.cbfComputeRecommendingScore(authorTestSet, papers,
+                    paperIdsOfAuthorTestSet, paperIdsInTestSet,
+                    combiningSchemePaperOfAuthor, weightingSchemePaperOfAuthor,
+                    timeAwareScheme, gamma,
+                    combiningSchemePaperTestSet, weightingSchemePaperTestSet, similarityScheme,
+                    pruning);
+            
+            // Trust:
+            TrustDataModelPreparation.computeCoAuthorRSSHM(authorTestSet, fileNameAuthorship, fileNamePapers);
+            HashMap<String, HashMap<String, Float>> referenceRSSNet = new HashMap<>();
+            TrustDataModelPreparation.computeCitationAuthorRSSHM(authorTestSet, fileNameAuthorship, fileNamePaperCitePaper, referenceRSSNet);
+
+            combinationScheme = 1; // 5 options.
+            alpha = 0.5f;
+            howToTrustPaper = 2;
+            // Merge coauthor and citedauthor.
+            TrustHybrid.computeTrustedAuthorHMLinearCombinationAndPutIntoModelForAuthorList(authorTestSet, alpha, combinationScheme);
+            // Get list of social related papers, score is not relevant.
+            TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authorTestSet, howToTrustPaper);
+
+            // Compute CBF and Trust Hybrid value and put into author model:
+            TrustHybrid.computeCBFTrustHybridV2AndPutIntoModelForAuthorList(authorTestSet);
+
+            TrustHybrid.trustHybridRecommendToAuthorListV2(authorTestSet, topNRecommend);
+
+            algorithmName = "CBF-Trust Based Hybrid V2";
             //</editor-fold>
         }
 
