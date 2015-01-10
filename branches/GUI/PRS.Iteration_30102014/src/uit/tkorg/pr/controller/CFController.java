@@ -13,6 +13,7 @@ import uit.tkorg.pr.datapreparation.CFRatingMatrixComputation;
 import uit.tkorg.pr.method.cf.KNNCF;
 import uit.tkorg.pr.method.cf.SVDCF;
 import uit.tkorg.pr.model.Author;
+import uit.tkorg.utility.general.HashMapUtility;
 
 /**
  *
@@ -67,6 +68,11 @@ public class CFController {
             System.out.println("End calculating CF-SVD Recommending Score");
         }
         
+        // Normalize
+        for (Author author : authorTestSet.values()) {
+            HashMapUtility.minNormalizeHashMap(author.getCfRatingHM());
+        }
+
         return algorithmName;
     }
     

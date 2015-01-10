@@ -54,8 +54,8 @@ public class KNNCF {
 
         // Create a generic user based recommender with the dataModel, the userNeighborhood and the userSimilarity
         Recommender genericRecommender = new GenericUserBasedRecommender(dataModel, userNeighborhood, userSimilarity);
-        StringBuffer buff = new StringBuffer();
-        //BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile));
+        //StringBuffer buff = new StringBuffer();
+        BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile));
 
         // Recommend n items for each user
         int count = 0;
@@ -70,14 +70,14 @@ public class KNNCF {
             if (!itemRecommendations.isEmpty()) {
                 // Display the list of recommendations
                 for (RecommendedItem recommendedItem : itemRecommendations) {
-                    buff.append(userId + "," + recommendedItem.getItemID() + "," + recommendedItem.getValue() + "\r\n");
-                    //bw.write(userId + "," + recommendedItem.getItemID() + "," + recommendedItem.getValue() + "\r\n");
+                    //buff.append(userId + "," + recommendedItem.getItemID() + "," + recommendedItem.getValue() + "\r\n");
+                    bw.write(userId + "," + recommendedItem.getItemID() + "," + recommendedItem.getValue() + "\r\n");
                 }
             }
             count++;
         }
-        //bw.close();
-        FileUtils.writeStringToFile(new File(outputFile), buff.toString(), "UTF8", true);
+        bw.close();
+        //FileUtils.writeStringToFile(new File(outputFile), buff.toString(), "UTF8", true);
     }
 
     public static void CosineRecommend(String inputFile, int k, int n, String outputFile) throws IOException, TasteException {

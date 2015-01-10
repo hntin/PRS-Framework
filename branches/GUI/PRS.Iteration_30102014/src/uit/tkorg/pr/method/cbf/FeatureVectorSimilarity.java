@@ -54,6 +54,8 @@ public class FeatureVectorSimilarity {
                         // So may be the authorId and authorObj are different.
                         // So may be can not set value outside of method call.
                         computeCBFSim(authorObj, papers, similarityScheme);
+                        // Normalize
+                        HashMapUtility.minNormalizeHashMap(authorObj.getCbfSimHM());
                     } catch (Exception ex) {
                         Logger.getLogger(FeatureVectorSimilarity.class.getName()).log(Level.SEVERE, null, ex);
                     }

@@ -29,6 +29,7 @@ public class PaperFilterUtility {
                     authors.get(idAuthor).getCbfCfHybridHM().remove(idPaper);
                     authors.get(idAuthor).getTrustedPaperHM().remove(idPaper);
                     authors.get(idAuthor).getCbfTrustHybridHM().remove(idPaper);
+                    authors.get(idAuthor).getCbfTrustHybridV2HM().remove(idPaper);
                     authors.get(idAuthor).getFinalRecommendingScoreHM().remove(idPaper);
                 }
             }
