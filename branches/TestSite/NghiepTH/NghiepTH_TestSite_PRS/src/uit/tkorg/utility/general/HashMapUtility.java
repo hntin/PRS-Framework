@@ -102,6 +102,7 @@ public class HashMapUtility {
             outputHM.put(key, combinedValue);
         }
 
+        // This method could be call in a parallel runable, so this part will count number of threads.
         synchronized (getCountThread()) {
             System.out.println("Thread No. " + countThread++ + " Done. " + (new Date(System.currentTimeMillis()).toString()));
         }
@@ -249,10 +250,6 @@ public class HashMapUtility {
         
         for (String id : hm.keySet()) {
             hm.put(id, (hm.get(id) - min) / (max - min));
-        }
-
-        synchronized (getCountThread()) {
-            System.out.println("Thread No. " + countThread++ + " Done. " + (new Date(System.currentTimeMillis()).toString()));
         }
     }
 }

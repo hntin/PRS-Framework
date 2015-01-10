@@ -8,6 +8,7 @@ import java.util.HashMap;
 import uit.tkorg.pr.model.Author;
 import uit.tkorg.pr.model.CitationAuthorNet;
 import uit.tkorg.pr.model.CoAuthorNet;
+import uit.tkorg.utility.general.HashMapUtility;
 
 /**
  *
@@ -32,6 +33,11 @@ public class TrustDataModelPreparation {
                         CoAuthorNet.getInstance().getRssNet().get(authorId));
             }
         }
+        
+        // Normalize
+        for (Author author : authors.values()) {
+            HashMapUtility.minNormalizeHashMap(author.getCoAuthorRSSHM());
+        }
     }
 
     public static void computeCitationAuthorRSSHM(HashMap<String, Author> authors,
@@ -43,12 +49,20 @@ public class TrustDataModelPreparation {
         CitationAuthorNet.getInstance().buildRefRSSGraph();
 
         referenceRSSNet = CitationAuthorNet.getInstance().getReferenceRSSNet();
+        // Normalize
+        for (HashMap<String, Float> hm : referenceRSSNet.values()) {
+            HashMapUtility.minNormalizeHashMap(hm);
+        }
 
         for (String authorId : CitationAuthorNet.getInstance().getReferenceRSSNet().keySet()) {
             if (authors.containsKey(authorId)) {
                 authors.get(authorId).setCitationAuthorRSSHM(
                         CitationAuthorNet.getInstance().getReferenceRSSNet().get(authorId));
             }
+        }
+        // Normalize
+        for (Author author : authors.values()) {
+            HashMapUtility.minNormalizeHashMap(author.getCitationAuthorRSSHM());
         }
     }
 }

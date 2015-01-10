@@ -74,6 +74,8 @@ public class CBFCF {
                                     alpha, 
                                     authorObj.getCbfCfHybridHM());
                         }
+                        // Normalize.
+                        HashMapUtility.minNormalizeHashMap(authorObj.getCbfCfHybridHM());
                     } catch (Exception ex) {
                         Logger.getLogger(FeatureVectorSimilarity.class.getName()).log(Level.SEVERE, null, ex);
                     }

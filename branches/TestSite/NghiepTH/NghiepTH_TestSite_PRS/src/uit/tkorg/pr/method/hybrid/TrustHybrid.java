@@ -89,6 +89,8 @@ public class TrustHybrid {
                                     alpha, 
                                     authorObj.getTrustedAuthorHM());
                         }
+                        // Normalize
+                        HashMapUtility.minNormalizeHashMap(authorObj.getTrustedAuthorHM());
                     } catch (Exception ex) {
                         Logger.getLogger(FeatureVectorSimilarity.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -126,6 +128,8 @@ public class TrustHybrid {
                         // With 2 types of meta trust: only COMBINE LINEAR citation author with meta trusted author.
                         HashMapUtility.combineLinearTwoHashMap(authorObj.getCitationAuthorRSSHM(), 
                                 metaTrustAuthorHM, alpha, authorObj.getTrustedAuthorHM());
+                        // Normalize
+                        HashMapUtility.minNormalizeHashMap(authorObj.getTrustedAuthorHM());
                     } catch (Exception ex) {
                         Logger.getLogger(FeatureVectorSimilarity.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -206,6 +210,8 @@ public class TrustHybrid {
                 public void run() {
                     try {
                         computeTrustedPaperHM(authors, authorObj, howToTrustPaper);
+                        // Normalize
+                        HashMapUtility.minNormalizeHashMap(authorObj.getTrustedPaperHM());
                     } catch (Exception ex) {
                         Logger.getLogger(FeatureVectorSimilarity.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -311,6 +317,8 @@ public class TrustHybrid {
                                     alpha, 
                                     authorObj.getCbfTrustHybridHM());
                         }
+                        // Normalize
+                        HashMapUtility.minNormalizeHashMap(authorObj.getCbfTrustHybridHM());
                     } catch (Exception ex) {
                         Logger.getLogger(FeatureVectorSimilarity.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -347,6 +355,8 @@ public class TrustHybrid {
                             authorObj.getCbfTrustHybridV2HM()
                                     .put(paperId, authorObj.getCbfSimHM().get(paperId));
                         }
+                        // Normalize
+                        HashMapUtility.minNormalizeHashMap(authorObj.getCbfTrustHybridV2HM());
                     } catch (Exception ex) {
                         Logger.getLogger(FeatureVectorSimilarity.class.getName()).log(Level.SEVERE, null, ex);
                     }
