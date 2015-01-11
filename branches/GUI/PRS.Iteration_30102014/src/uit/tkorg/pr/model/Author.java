@@ -90,6 +90,7 @@ public class Author implements Serializable {
         this.trustedAuthorHM = new HashMap<>();
         this.trustedPaperHM = new HashMap<>();
         this.cbfTrustHybridHM = new HashMap<>();
+        this.cbfTrustHybridV2HM = new HashMap<>();
         this.finalRecommendingScoreHM = new HashMap<>();
     }
 
