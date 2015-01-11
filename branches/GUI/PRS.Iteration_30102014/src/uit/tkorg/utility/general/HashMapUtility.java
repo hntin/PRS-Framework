@@ -14,6 +14,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import uit.tkorg.pr.model.Author;
 
@@ -30,7 +31,10 @@ public class HashMapUtility {
      * @param map
      * @return
      */
-    public static LinkedHashMap getSortedMapAscending(HashMap map) {
+    public static LinkedHashMap getSortedMapAscending(HashMap map) throws Exception {
+        if (map == null) {
+            return null;
+        }
         List list = new LinkedList(map.entrySet());
         Collections.sort(list, new Comparator() {
             @Override
@@ -42,7 +46,7 @@ public class HashMapUtility {
 
         LinkedHashMap result = new LinkedHashMap();
         for (Iterator it = list.iterator(); it.hasNext();) {
-            Map.Entry entry = (Map.Entry)it.next();
+            Map.Entry entry = (Map.Entry) it.next();
             result.put(entry.getKey(), entry.getValue());
         }
 
@@ -54,7 +58,10 @@ public class HashMapUtility {
      * @param map
      * @return
      */
-    public static LinkedHashMap getSortedMapDescending(HashMap map) {
+    public static LinkedHashMap getSortedMapDescending(HashMap map) throws Exception {
+        if (map == null) {
+            return null;
+        }
         List list = new LinkedList(map.entrySet());
         Collections.sort(list, new Comparator() {
             @Override
@@ -66,7 +73,7 @@ public class HashMapUtility {
 
         LinkedHashMap result = new LinkedHashMap();
         for (Iterator it = list.iterator(); it.hasNext();) {
-            Map.Entry entry = (Map.Entry)it.next();
+            Map.Entry entry = (Map.Entry) it.next();
             result.put(entry.getKey(), entry.getValue());
         }
 
@@ -248,8 +255,14 @@ public class HashMapUtility {
         Float min = Collections.min(hm.values());
         Float max = Collections.max(hm.values());
         
-        for (String id : hm.keySet()) {
-            hm.put(id, (hm.get(id) - min) / (max - min));
+        if (Objects.equals(min, max)) {
+            for (String id : hm.keySet()) {
+                hm.put(id, 0.5f);
+            }
+        } else {
+            for (String id : hm.keySet()) {
+                hm.put(id, (hm.get(id) - min) / (max - min));
+            }
         }
     }
 }

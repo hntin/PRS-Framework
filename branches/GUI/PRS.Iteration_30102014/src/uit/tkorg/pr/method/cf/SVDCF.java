@@ -88,13 +88,12 @@ public class SVDCF {
                     System.out.println("Computing CF rating value for user no. " + count);
                     List<RecommendedItem> recommendationList = svdRecommender.recommend(userId, dataModel.getNumItems());
                     if (!recommendationList.isEmpty()) {
-                        // Display the list of recommendations
                         for (RecommendedItem recommendedItem : recommendationList) {
                             String authorId = String.valueOf(userId).trim();
                             String paperId = String.valueOf(recommendedItem.getItemID()).trim();
                             if (paperIdsInTestSet.contains(paperId)) {
                                 authorTestSet.get(authorId).getCfRatingHM()
-                                        .put(paperId, Float.valueOf(recommendedItem.getValue()));
+                                        .put(paperId, recommendedItem.getValue());
                                 bw.write(userId + "," + recommendedItem.getItemID() + "," + recommendedItem.getValue() + "\r\n");
                             }
                         }

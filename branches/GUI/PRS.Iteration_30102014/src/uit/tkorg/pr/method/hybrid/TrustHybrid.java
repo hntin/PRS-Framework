@@ -7,6 +7,7 @@ package uit.tkorg.pr.method.hybrid;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -196,7 +197,7 @@ public class TrustHybrid {
 
     public static void computeTrustedPaperHMAndPutIntoModelForAuthorList(
             final HashMap<String, Author> authors, 
-            final int howToTrustPaper) throws Exception {
+            final int howToTrustPaper, final HashSet<String> paperIdsInTestSet) throws Exception {
         Runtime runtime = Runtime.getRuntime();
         int numOfProcessors = runtime.availableProcessors();
         ExecutorService executor = Executors.newFixedThreadPool(numOfProcessors - 1);
@@ -210,6 +211,11 @@ public class TrustHybrid {
                 public void run() {
                     try {
                         computeTrustedPaperHM(authors, authorObj, howToTrustPaper);
+                        for (String idPaper : authorObj.getTrustedPaperHM().keySet()) {
+                            if (!paperIdsInTestSet.contains(idPaper)) {
+                                authorObj.getTrustedPaperHM().remove(idPaper);
+                            }
+                        }
                         // Normalize
                         HashMapUtility.minNormalizeHashMap(authorObj.getTrustedPaperHM());
                     } catch (Exception ex) {
@@ -350,10 +356,14 @@ public class TrustHybrid {
                 @Override
                 public void run() {
                     try {
-                        authorObj.setCbfTrustHybridV2HM(authorObj.getTrustedPaperHM());
-                        for (String paperId : authorObj.getCbfTrustHybridV2HM().keySet()) {
-                            authorObj.getCbfTrustHybridV2HM()
-                                    .put(paperId, authorObj.getCbfSimHM().get(paperId));
+                        for (String paperId : authorObj.getTrustedPaperHM().keySet()) {
+                            Float cbfSim = authorObj.getCbfSimHM().get(paperId);
+                            if (cbfSim == null) {
+                                cbfSim = new Float(0);
+                            } else {
+                                cbfSim = new Float(cbfSim);
+                            }
+                            authorObj.getCbfTrustHybridV2HM().put(paperId, cbfSim);
                         }
                         // Normalize
                         HashMapUtility.minNormalizeHashMap(authorObj.getCbfTrustHybridV2HM());

@@ -114,6 +114,7 @@ public class KNNCF {
      * @param similarityScheme: 1: CoPearson, 2: Cosine.
      * @param k
      * @param authorTestSet
+     * @param paperIdsInTestSet
      * @param outputFile
      * @throws IOException
      * @throws TasteException 
@@ -133,6 +134,7 @@ public class KNNCF {
 
         // Create a generic user based recommender with the dataModel, the userNeighborhood and the userSimilarity
         Recommender genericRecommender = new GenericUserBasedRecommender(dataModel, userNeighborhood, userSimilarity);
+        
         FileUtils.deleteQuietly(new File(outputFile));
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile))) {
             int count = 0;
@@ -144,13 +146,12 @@ public class KNNCF {
                     System.out.println("Computing CF rating value for user no. " + count);
                     List<RecommendedItem> recommendationList = genericRecommender.recommend(userId, dataModel.getNumItems());
                     if (!recommendationList.isEmpty()) {
-                        // Display the list of recommendations
                         for (RecommendedItem recommendedItem : recommendationList) {
                             String authorId = String.valueOf(userId).trim();
                             String paperId = String.valueOf(recommendedItem.getItemID()).trim();
                             if (paperIdsInTestSet.contains(paperId)) {
                                 authorTestSet.get(authorId).getCfRatingHM()
-                                        .put(paperId, Float.valueOf(recommendedItem.getValue()));
+                                        .put(paperId, recommendedItem.getValue());
                                 bw.write(userId + "," + recommendedItem.getItemID() + "," + recommendedItem.getValue() + "\r\n");
                             }
                         }
