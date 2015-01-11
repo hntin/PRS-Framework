@@ -6,9 +6,9 @@ package uit.tkorg.pr.utility;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import uit.tkorg.pr.model.Author;
 import uit.tkorg.pr.model.Paper;
-import uit.tkorg.utility.general.WeightingUtility;
 
 /**
  *
@@ -40,15 +40,18 @@ public class PaperFilterUtility {
     public static void filterPaperRatingListByTestSet(HashMap<String, Author> authors, 
             HashSet<String> paperIdsInTestSet) throws Exception {
 
+        Iterator<String> iter;
         for (Author authorObj : authors.values()) {
-            for (String idPaper : authorObj.getCbfSimHM().keySet()) {
-                if (!paperIdsInTestSet.contains(idPaper)) {
-                    authorObj.getCbfSimHM().remove(idPaper);
+            iter = authorObj.getCbfSimHM().keySet().iterator();
+            while (iter.hasNext()) {
+                if (!paperIdsInTestSet.contains(iter.next())) {
+                    iter.remove();
                 }
             }
-            for (String idPaper : authorObj.getCfRatingHM().keySet()) {
-                if (!paperIdsInTestSet.contains(idPaper)) {
-                    authorObj.getCfRatingHM().remove(idPaper);
+            iter = authorObj.getCfRatingHM().keySet().iterator();
+            while (iter.hasNext()) {
+                if (!paperIdsInTestSet.contains(iter.next())) {
+                    iter.remove();
                 }
             }
             for (String idPaper : authorObj.getCbfCfHybridHM().keySet()) {
@@ -56,24 +59,28 @@ public class PaperFilterUtility {
                     authorObj.getCbfCfHybridHM().remove(idPaper);
                 }
             }
-            for (String idPaper : authorObj.getTrustedPaperHM().keySet()) {
-                if (!paperIdsInTestSet.contains(idPaper)) {
-                    authorObj.getTrustedPaperHM().remove(idPaper);
+            iter = authorObj.getTrustedPaperHM().keySet().iterator();
+            while (iter.hasNext()) {
+                if (!paperIdsInTestSet.contains(iter.next())) {
+                    iter.remove();
                 }
             }
-            for (String idPaper : authorObj.getCbfTrustHybridHM().keySet()) {
-                if (!paperIdsInTestSet.contains(idPaper)) {
-                    authorObj.getCbfTrustHybridHM().remove(idPaper);
+            iter = authorObj.getCbfTrustHybridHM().keySet().iterator();
+            while (iter.hasNext()) {
+                if (!paperIdsInTestSet.contains(iter.next())) {
+                    iter.remove();
                 }
             }
-            for (String idPaper : authorObj.getCbfTrustHybridV2HM().keySet()) {
-                if (!paperIdsInTestSet.contains(idPaper)) {
-                    authorObj.getCbfTrustHybridV2HM().remove(idPaper);
+            iter = authorObj.getCbfTrustHybridV2HM().keySet().iterator();
+            while (iter.hasNext()) {
+                if (!paperIdsInTestSet.contains(iter.next())) {
+                    iter.remove();
                 }
             }
-            for (String idPaper : authorObj.getFinalRecommendingScoreHM().keySet()) {
-                if (!paperIdsInTestSet.contains(idPaper)) {
-                    authorObj.getFinalRecommendingScoreHM().remove(idPaper);
+            iter = authorObj.getFinalRecommendingScoreHM().keySet().iterator();
+            while (iter.hasNext()) {
+                if (!paperIdsInTestSet.contains(iter.next())) {
+                    iter.remove();
                 }
             }
         }

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -211,9 +212,10 @@ public class TrustHybrid {
                 public void run() {
                     try {
                         computeTrustedPaperHM(authors, authorObj, howToTrustPaper);
-                        for (String idPaper : authorObj.getTrustedPaperHM().keySet()) {
-                            if (!paperIdsInTestSet.contains(idPaper)) {
-                                authorObj.getTrustedPaperHM().remove(idPaper);
+                        Iterator<String> iter = authorObj.getTrustedPaperHM().keySet().iterator();
+                        while (iter.hasNext()) {
+                            if (!paperIdsInTestSet.contains(iter.next())) {
+                                iter.remove();
                             }
                         }
                         // Normalize

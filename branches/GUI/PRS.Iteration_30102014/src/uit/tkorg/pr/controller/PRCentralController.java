@@ -102,7 +102,7 @@ public class PRCentralController {
                     PRConstant.FOLDER_MAS_DATASET + "MahoutCF",
                     // Result
                     "EvaluationResult\\EvaluationResult_Junior100_NewCitation_251214.xls",
-                    5);
+                    6);
         } catch (Exception e) {
             e.printStackTrace();
         }
