@@ -377,6 +377,9 @@ public class TrustHybrid {
                                 // Mutable value, create new one.
                                 cbfSim = new Float(cbfSim);
                             }
+                            // Note: If all trusted papers are filtered out by paper in test set,
+                            // nothing will be put into cbfTrustHybridV2HM.
+                            // HM has been initialized with Author, so empty list, not null.
                             authorObj.getCbfTrustHybridV2HM().put(paperId, cbfSim);
                         }
                         // Normalize
