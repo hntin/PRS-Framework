@@ -76,8 +76,8 @@ public class FeatureVectorSimilarity {
         // Compute similarities between current author and all papers.
         if (similarityScheme == 0) {
             for (String key : papers.keySet()) {
-                Double similarity = new Double(WeightingUtility.computeCosine(author.getFeatureVector(), papers.get(key).getFeatureVector()));
-                paperSimilarityHM.put(key, similarity.floatValue());
+                double similarity = WeightingUtility.computeCosine(author.getFeatureVector(), papers.get(key).getFeatureVector());
+                paperSimilarityHM.put(key, new Float(similarity));
             }
         }
         

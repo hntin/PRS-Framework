@@ -148,7 +148,7 @@ public class CBFPaperFVComputation {
         for (String paperId : paperIds) {
             // Print current paper number.
             if (count % 1000 == 0) {
-                System.out.println("Compting FV for paper No. " + (count + 1));
+                System.out.println("Computing FV for paper No. " + (count + 1));
             }
             count++;
 

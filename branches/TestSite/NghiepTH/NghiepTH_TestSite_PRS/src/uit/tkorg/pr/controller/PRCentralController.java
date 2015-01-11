@@ -329,7 +329,7 @@ public class PRCentralController {
                 TrustHybrid.computeMetaTrustedAuthorHMAndPutIntoModelForAuthorList(authorTestSet, referenceRSSNet, metaTrustType, alpha);
             }
             
-            TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authorTestSet, howToTrustPaper);
+            TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authorTestSet, howToTrustPaper, paperIdsInTestSet);
 
             TrustHybrid.trustRecommendToAuthorList(authorTestSet, topNRecommend);
             algorithmName = "Trust Based Method:"
@@ -370,7 +370,7 @@ public class PRCentralController {
                 TrustHybrid.computeMetaTrustedAuthorHMAndPutIntoModelForAuthorList(authorTestSet, referenceRSSNet, metaTrustType, alpha);
             }
             
-            TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authorTestSet, howToTrustPaper);
+            TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authorTestSet, howToTrustPaper, paperIdsInTestSet);
 
             algorithmName = "CBF-Trust Based Combination:"
                     + " Trust combinationScheme = " + combinationScheme 
@@ -411,7 +411,7 @@ public class PRCentralController {
             // Merge coauthor and citedauthor.
             TrustHybrid.computeTrustedAuthorHMLinearCombinationAndPutIntoModelForAuthorList(authorTestSet, alpha, combinationScheme);
             // Get list of social related papers, score is not relevant.
-            TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authorTestSet, howToTrustPaper);
+            TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authorTestSet, howToTrustPaper, paperIdsInTestSet);
 
             // Compute CBF and Trust Hybrid value and put into author model:
             TrustHybrid.computeCBFTrustHybridV2AndPutIntoModelForAuthorList(authorTestSet);

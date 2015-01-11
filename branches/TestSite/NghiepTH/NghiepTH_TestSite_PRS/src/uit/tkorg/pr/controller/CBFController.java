@@ -72,7 +72,7 @@ public class CBFController {
         startTime = System.nanoTime();
         FeatureVectorSimilarity.computeCBFSimAndPutIntoModelForAuthorList(authorTestSet, paperTestSet, similarityScheme);
         estimatedTime = System.nanoTime() - startTime;
-        System.out.println("CBF Recommending elapsed time: " + estimatedTime / 1000000000 + " seconds");
+        System.out.println("Computing CBF Score elapsed time: " + estimatedTime / 1000000000 + " seconds");
         System.out.println("End Computing CBF Score and put into DataModel ...");
 
         return algorithmName;

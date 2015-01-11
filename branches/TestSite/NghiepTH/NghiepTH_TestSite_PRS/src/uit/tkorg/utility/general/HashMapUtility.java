@@ -14,6 +14,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import uit.tkorg.pr.model.Author;
 
@@ -30,11 +31,17 @@ public class HashMapUtility {
      * @param map
      * @return
      */
-    public static LinkedHashMap getSortedMapAscending(HashMap map) {
+    public static LinkedHashMap getSortedMapAscending(HashMap map) throws Exception {
+        if (map == null) {
+            return null;
+        }
         List list = new LinkedList(map.entrySet());
         Collections.sort(list, new Comparator() {
             @Override
             public int compare(Object o1, Object o2) {
+                // If there is map entry with null value, value.compareTo() raise Null Pointer Exception.
+                // Only raise exception, not modify data 
+                // -> have to guarantee that data is not null beforehand.
                 return ((Comparable) ((Map.Entry) (o1)).getValue())
                     .compareTo(((Map.Entry) (o2)).getValue());
             }
@@ -42,7 +49,7 @@ public class HashMapUtility {
 
         LinkedHashMap result = new LinkedHashMap();
         for (Iterator it = list.iterator(); it.hasNext();) {
-            Map.Entry entry = (Map.Entry)it.next();
+            Map.Entry entry = (Map.Entry) it.next();
             result.put(entry.getKey(), entry.getValue());
         }
 
@@ -54,7 +61,10 @@ public class HashMapUtility {
      * @param map
      * @return
      */
-    public static LinkedHashMap getSortedMapDescending(HashMap map) {
+    public static LinkedHashMap getSortedMapDescending(HashMap map) throws Exception {
+        if (map == null) {
+            return null;
+        }
         List list = new LinkedList(map.entrySet());
         Collections.sort(list, new Comparator() {
             @Override
@@ -66,7 +76,7 @@ public class HashMapUtility {
 
         LinkedHashMap result = new LinkedHashMap();
         for (Iterator it = list.iterator(); it.hasNext();) {
-            Map.Entry entry = (Map.Entry)it.next();
+            Map.Entry entry = (Map.Entry) it.next();
             result.put(entry.getKey(), entry.getValue());
         }
 
@@ -89,6 +99,13 @@ public class HashMapUtility {
         Set<String> keys = new HashSet<> (inputHM1.keySet());
         keys.addAll(new HashSet<> (inputHM2.keySet()));
         for (String key : keys) {
+            // If there is key not in one HashMap or null element in one HashMap, 
+            // auto convert it to 0, not raise exception.
+            // E.g. 1: CF list contains paper cited before 2006 by everyone, then filtered by paper in testset, 
+            // E.g. 2: Trusted paper list contains paper written or cited by related author before 2006, then filtered by paper in testset, 
+            // While, CBF list contains all paper cited from 2006 (uncited before 2006) by authors in testset.
+            // -> So CBF list has some items not present in CF and trusted paper list.
+            // -> auto converting to 0 means the result depends on f(CBFSim value).
             Float value1 = inputHM1.get(key);
             if (value1 == null) {
                 value1 = Float.valueOf(0);
@@ -248,8 +265,14 @@ public class HashMapUtility {
         Float min = Collections.min(hm.values());
         Float max = Collections.max(hm.values());
         
-        for (String id : hm.keySet()) {
-            hm.put(id, (hm.get(id) - min) / (max - min));
+        if (Objects.equals(min, max)) {
+            for (String id : hm.keySet()) {
+                hm.put(id, 0.5f);
+            }
+        } else {
+            for (String id : hm.keySet()) {
+                hm.put(id, (hm.get(id) - min) / (max - min));
+            }
         }
     }
 }
