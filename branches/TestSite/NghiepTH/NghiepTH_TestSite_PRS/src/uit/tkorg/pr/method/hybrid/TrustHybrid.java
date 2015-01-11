@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -212,9 +213,18 @@ public class TrustHybrid {
                     try {
                         computeTrustedPaperHM(authors, authorObj, howToTrustPaper);
                         // Filter out: Only consider paper in testset (ground truth).
-                        for (String idPaper : authorObj.getTrustedPaperHM().keySet()) {
-                            if (!paperIdsInTestSet.contains(idPaper)) {
-                                authorObj.getTrustedPaperHM().remove(idPaper);
+                        // Can not iterate over key set and remove entry at the same time
+                        // -> Concurrent Modification Exception.
+                        // => Use explicit iterator.
+                        Iterator<String> iter = authorObj.getTrustedPaperHM().keySet().iterator();
+                        while (iter.hasNext()) {
+                            // Note:
+                            // 1. Can not call iter.remove() before iter.next().
+                            // 2. Can not call hm.remove while iterating, have to call from iterator.
+                            if (!paperIdsInTestSet.contains(iter.next())) {
+                                // Remove current item in iter, 
+                                // which is specified by the only previous next()
+                                iter.remove();
                             }
                         }
                         // Normalize
