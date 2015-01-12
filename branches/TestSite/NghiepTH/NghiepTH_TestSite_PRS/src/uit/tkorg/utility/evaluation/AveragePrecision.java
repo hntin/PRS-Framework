@@ -47,6 +47,10 @@ public class AveragePrecision {
         // sum of precision at k.
         int num_hits = 0;
         for (int i = 0; i < nK; i++) {
+            // Only interate to nK = real ranklist size
+            // => if list is too small, the result is not changed when k changes.
+            // E.g., if nK == 3 and all 3 item is in ground truth, MAP@5, 10, 15... = 1.
+            // This is correct, according to the definition of MAP (https://www.kaggle.com/wiki/MeanAveragePrecision)
             if (groundTruth.contains(rankList.get(i))) {
                 num_hits += 1;
                 apk += (double) num_hits / (i + 1);

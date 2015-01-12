@@ -85,14 +85,14 @@ public class MASDataset1 {
                     continue;
                 }
                 String[] str = line.split("\\|\\|\\|");
-                String paperId1 = getAcceptedFieldValue(str[0]);
+                String paperId1 = getAcceptedFieldValue(str[0]); // paperId1 cite to (reference) paperId2.
                 String paperId2 = getAcceptedFieldValue(str[1]);
                 
                 if (papers.containsKey(paperId1)) {
-                    papers.get(paperId1).getReferenceList().add(paperId2); // reference is mutable.
+                    papers.get(paperId1).getReferenceList().add(paperId2); // mutable.
                 }
                 if (papers.containsKey(paperId2)) {
-                    papers.get(paperId2).getCitationList().add(paperId1);
+                    papers.get(paperId2).getCitationList().add(paperId1); // mutable.
                 }
             }
         } catch (IOException e) {

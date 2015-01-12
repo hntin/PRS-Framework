@@ -106,6 +106,7 @@ public class PRGUICentralController {
     public int combinationScheme_TB = 1;
     public float alpha_TB=0f;
     public int howToTrustAuthor_TB = 1;
+    public int howToGetTrustedPaper_TB = 2;
     public int howToTrustPaper_TB = 2;
     //</editor-fold>
     
@@ -121,6 +122,7 @@ public class PRGUICentralController {
     public int combinationScheme_HTB = 1;
     public float alpha_HTB=0f;
     public int howToTrustAuthor_HTB = 1;
+    public int howToGetTrustedPaper_HTB = 2;
     public int howToTrustPaper_HTB = 2;
     
     public float alpha_HTB1;
@@ -179,6 +181,7 @@ public class PRGUICentralController {
         combinationScheme_TB = 1;
         alpha_TB=0f;
         howToTrustAuthor_TB = 1;
+        howToGetTrustedPaper_TB = 2;
         howToTrustPaper_TB = 2;
         //</editor-fold>
         
@@ -194,6 +197,7 @@ public class PRGUICentralController {
         combinationScheme_HTB = 1;
         alpha_HTB=0.5f;
         howToTrustAuthor_HTB = 1;
+        howToGetTrustedPaper_HTB = 2;
         howToTrustPaper_HTB = 2;
         
         alpha_HTB1=0.3f;
@@ -394,7 +398,7 @@ public class PRGUICentralController {
                 TrustHybrid.computeMetaTrustedAuthorHMAndPutIntoModelForAuthorList(authors, referenceRSSNet, metaTrustType, alpha_temp);
             }
             
-            TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authors, howToTrustPaper_TB, paperIdsInTestSet);
+            TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authors, papers, howToGetTrustedPaper_TB, howToTrustPaper_TB, paperIdsInTestSet);
 
             TrustHybrid.trustRecommendToAuthorList(authors, topRecommend);
             //System.out.println();
@@ -428,7 +432,7 @@ public class PRGUICentralController {
                 TrustHybrid.computeMetaTrustedAuthorHMAndPutIntoModelForAuthorList(authors, referenceRSSNet, metaTrustType, alpha_temp);
             }
             
-            TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authors, howToTrustPaper_HTB, paperIdsInTestSet);
+            TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authors, papers, howToGetTrustedPaper_HTB, howToTrustPaper_HTB, paperIdsInTestSet);
 
             
             TrustHybrid.computeCBFTrustLinearCombinationAndPutIntoModelForAuthorList(authors, alpha_HTB1, combineHybrid_HTB);

@@ -147,6 +147,7 @@ public class MLDataPreparation {
         float alpha;
 
         // parameters for trust based method
+        int howToGetTrustedPaper;
         int howToTrust;
 
         //<editor-fold defaultstate="collapsed" desc="ML HYBRID">
@@ -169,9 +170,10 @@ public class MLDataPreparation {
                 fileNameAuthorship, fileNamePaperCitePaper, referenceRSSNet);
         combinationScheme = 1;
         alpha = (float) 0.5;
+        howToGetTrustedPaper = 2;
         howToTrust = 2; // Max of trusted author.
         TrustHybrid.computeTrustedAuthorHMLinearCombinationAndPutIntoModelForAuthorList(authorTestSet, alpha, combinationScheme);
-        TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authorTestSet, howToTrust, paperIdsInTestSet);
+        TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authorTestSet, papers, howToGetTrustedPaper, howToTrust, paperIdsInTestSet);
         // Compute paper quality.
         HashMap<String, Paper> paperTestSet = CBFPaperFVComputation.extractPapers(papers, paperIdsInTestSet);
         PaperQualityComputation.computeQualityValueForAllPapers(paperTestSet);

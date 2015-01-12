@@ -59,10 +59,13 @@ public class CBFController {
         startTime = System.nanoTime();
         CBFPaperFVComputation.computeFeatureVectorForAllPapers(papers, paperIdsInTestSet,
                 combiningSchemePaperTestSet, weightingSchemePaperTestSet, pruning);
+        // Separate paper test set.
+        // Note: still share the same Paper Objects.
         HashMap<String, Paper> paperTestSet = CBFPaperFVComputation.extractPapers(papers, paperIdsInTestSet);
         // Clear no longer in use objects.
-        papers = null;
-        CBFPaperFVComputation.clearTFIDF(paperTestSet);
+        // Keep papers HM for citation list.
+        // Keep FV for paperTestSet. Note: only paper in TestSet is computed FV, so no need to clear.
+        CBFPaperFVComputation.clearTFIDF(papers);
         estimatedTime = System.nanoTime() - startTime;
         System.out.println("Computing FV for all papers elapsed time: " + estimatedTime / 1000000000 + " seconds");
         System.out.println("End computing FV for all papers.");
