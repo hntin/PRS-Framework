@@ -147,6 +147,11 @@ public class KNNCF {
         // but the accuracy is worst.
         // Note 5: LogLikelihoodSimilarity is good for hasRating or noRating, and don't have many issues of others.
         // suggested to used as default by (https://stackoverflow.com/a/2796019/1259561)
+        // => Basically, LogLikelihood similarity seems to solve the problem:
+        // - Recommendation lists are almost full for all authors.
+        // - Accuracy is still good, even better than Pearson.
+        // But CBF-CF combination is still worse than CBF: 
+        // -> Explain: CBF is too good, CF is just a part of CBF?
         UserNeighborhood userNeighborhood = new NearestNUserNeighborhood(k, userSimilarity, dataModel);
 
         // Create a generic user based recommender with the dataModel, the userNeighborhood and the userSimilarity

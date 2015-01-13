@@ -298,7 +298,7 @@ public class PRCentralController {
                     cfMethod, knnSimilarityScheme, authorTestSet, paperIdsInTestSet);
             
             combinationScheme = 1; // 5 options.
-            alpha = 0.5f;
+            alpha = 0.8f;
             
             CBFCF.computeCBFCFCombinationAndPutIntoModelForAuthorList(authorTestSet, alpha, combinationScheme);
             
