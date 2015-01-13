@@ -61,6 +61,11 @@ public class GenericRecommender {
         executor.shutdown();
         while (!executor.isTerminated()) {
         }
+
+        System.err.println("No. Recommended items for each author:");
+        for (String authorId : authors.keySet()) {
+            System.err.println(authors.get(authorId).getRecommendationList().size());
+        }
     }
 
     private static void generateRecommendation(Author author, int topNRecommend, 

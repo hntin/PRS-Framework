@@ -24,16 +24,19 @@ public class CFController {
      * 
      * @param fileNameAuthorCitePaper
      * @param MahoutCFDir
-     * @param cfMethod: 1: KNN Pearson, 2: KNN Cosine, 3: SVD
+     * @param cfMethod: 1: KNN , 2: MF SVD
+     * @param knnSimilarityScheme: 1: Pearson, 2: cosine, 3: log likelihood
      * @param authorTestSet
-     * @param topNRecommend
+     * @param paperIdsInTestSet
+     * @return algorithmName
      * @throws Exception 
      */
     public static String cfComputeRecommendingScore(
             String fileNameAuthorCitePaper, 
             String MahoutCFDir, 
-            int cfMethod,
+            int cfMethod, int knnSimilarityScheme,
             HashMap<String, Author> authorTestSet, HashSet<String> paperIdsInTestSet) throws Exception {
+
         String algorithmName = null;
         
         // Step 1: Prepare CF matrix.
@@ -43,20 +46,24 @@ public class CFController {
         //cfPrepareMatrix(fileNameAuthorCitePaper, MahoutCFFileOriginalFile, noRating);
         
         // Step 2: Predict ratings.
-        if ((cfMethod == 1) || (cfMethod == 2)) {
-            // KNN. k neighbors.
+        if (cfMethod == 1) {
+            // KNN. 
+            // k neighbors.
             int k = 8;
-            if (cfMethod == 1) {
-                // kNNCF co-pearson.
+            if (knnSimilarityScheme == 1) {
+                // co-pearson.
                 algorithmName = "CF KNN Pearson " + "k" + k;
-            } else if (cfMethod == 2) {
-                // kNNCF cosine.
+            } else if (knnSimilarityScheme == 2) {
+                // cosine.
                 algorithmName = "CF KNN Cosine " + "k" + k;
+            } else if (knnSimilarityScheme == 3) {
+                // likelihood.
+                algorithmName = "CF KNN Likelihood " + "k" + k;
             }
             System.out.println("Begin calculating CF-KNN Recommending Score");
-            cfKNNComputeRecommendingScore(MahoutCFDir, MahoutCFFileOriginalFile, cfMethod, authorTestSet, paperIdsInTestSet, k);
+            cfKNNComputeRecommendingScore(MahoutCFDir, MahoutCFFileOriginalFile, knnSimilarityScheme, authorTestSet, paperIdsInTestSet, k);
             System.out.println("End calculating CF-KNN Recommending Score");
-        } else if (cfMethod == 3) {
+        } else if (cfMethod == 2) {
             // SVD ALSWRFactorizer.
             // f features, normalize by l, i iterations.
             int f = 8;

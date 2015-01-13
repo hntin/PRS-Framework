@@ -227,8 +227,11 @@ public class PRCentralController {
         // Min Threshold to prune citation and reference paper when combining.
         double pruning = 0.0;
 
-        // parameters for cf method: 1: KNN Pearson, 2: KNN Cosine, 3: SVD
+        // parameters for cf method.
+        // 1: KNN, 2: MF SVD
         int cfMethod = 1;
+        // 1: Pearson, 2: Cosine, 3: Log likelihood
+        int knnSimilarityScheme = 3;
         
         // parameters for hybrid method
         // combinationScheme: 1: combine linear, 2: combine based on confidence, 
@@ -274,8 +277,8 @@ public class PRCentralController {
             System.out.println("Begin CF recommendation...");
             startTime = System.nanoTime();
 
-            algorithmName = CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod,
-                    authorTestSet, paperIdsInTestSet);
+            algorithmName = CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, 
+                    cfMethod, knnSimilarityScheme, authorTestSet, paperIdsInTestSet);
             
             CF.cfRecommendToAuthorList(authorTestSet, topNRecommend);
 
@@ -292,10 +295,10 @@ public class PRCentralController {
                     combiningSchemePaperTestSet, weightingSchemePaperTestSet, similarityScheme,
                     pruning);
             CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir,
-                    cfMethod, authorTestSet, paperIdsInTestSet);
+                    cfMethod, knnSimilarityScheme, authorTestSet, paperIdsInTestSet);
             
             combinationScheme = 1; // 5 options.
-            alpha = 0.9f;
+            alpha = 0.5f;
             
             CBFCF.computeCBFCFCombinationAndPutIntoModelForAuthorList(authorTestSet, alpha, combinationScheme);
             

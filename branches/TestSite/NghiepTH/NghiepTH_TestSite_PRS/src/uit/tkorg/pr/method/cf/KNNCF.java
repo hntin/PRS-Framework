@@ -18,6 +18,7 @@ import org.apache.mahout.cf.taste.impl.common.LongPrimitiveIterator;
 import org.apache.mahout.cf.taste.impl.model.file.FileDataModel;
 import org.apache.mahout.cf.taste.impl.neighborhood.NearestNUserNeighborhood;
 import org.apache.mahout.cf.taste.impl.recommender.GenericUserBasedRecommender;
+import org.apache.mahout.cf.taste.impl.similarity.LogLikelihoodSimilarity;
 import org.apache.mahout.cf.taste.impl.similarity.PearsonCorrelationSimilarity;
 import org.apache.mahout.cf.taste.impl.similarity.UncenteredCosineSimilarity;
 import org.apache.mahout.cf.taste.model.DataModel;
@@ -129,7 +130,23 @@ public class KNNCF {
             userSimilarity = new PearsonCorrelationSimilarity(dataModel);
         } else if (similarityScheme == 2) {
             userSimilarity = new UncenteredCosineSimilarity(dataModel);
+        } else if (similarityScheme == 3) {
+            // For no rating Binary CF and beyond: http://kickstarthadoop.blogspot.jp/2011/05/generating-recommendations-with-mahout_26.html
+            userSimilarity = new LogLikelihoodSimilarity(dataModel);
         }
+
+        // Note: recommendation is drawn from neighbor's rated items.
+        // So, if the number of neighbor k is too small, there is not enough information about items
+        // --> Thus, some users will have no recommendation.
+        // Note 2: Cosine (Uncentered Cosine) has more recommendation than Pearson, 
+        // but less accuracy.
+        // (explain: With Pearson, many authors have no recommendation, accuracy is not computed for author with no recommendation)
+        // Note 3: Pearson is Cosine with data centered to 0 
+        // (http://archive.cloudera.com/cdh4/cdh/4/mahout-0.7-cdh4.1.5/mahout-core/org/apache/mahout/cf/taste/impl/similarity/PearsonCorrelationSimilarity.html)
+        // Note 4: SVD has most recommendation. All items are computed,
+        // but the accuracy is worst.
+        // Note 5: LogLikelihoodSimilarity is good for hasRating or noRating, and don't have many issues of others.
+        // suggested to used as default by (https://stackoverflow.com/a/2796019/1259561)
         UserNeighborhood userNeighborhood = new NearestNUserNeighborhood(k, userSimilarity, dataModel);
 
         // Create a generic user based recommender with the dataModel, the userNeighborhood and the userSimilarity
