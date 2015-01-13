@@ -115,25 +115,28 @@ public class CFController {
      * 
      * @param MahoutCFDir
      * @param MahoutCFFileOriginalFile
-     * @param similarityMethod: 1: Pearson, 2: Cosine.
+     * @param knnSimilarityScheme: 1: Pearson, 2: Cosine, 3: log likelihood.
      * @param authorTestSet
      * @param paperIdsInTestSet
      * @param k
      * @throws Exception 
      */
-    public static void cfKNNComputeRecommendingScore(String MahoutCFDir, String MahoutCFFileOriginalFile, int similarityMethod,
+    public static void cfKNNComputeRecommendingScore(String MahoutCFDir, String MahoutCFFileOriginalFile, 
+            int knnSimilarityScheme,
             HashMap<String, Author> authorTestSet, HashSet<String> paperIdsInTestSet,
             int k) throws Exception {
 
-        String MahoutCFRatingMatrixPredictionFile;
-        if (similarityMethod == 1) {
+        String MahoutCFRatingMatrixPredictionFile = null;
+        if (knnSimilarityScheme == 1) {
             MahoutCFRatingMatrixPredictionFile = MahoutCFDir + "\\CFRatingMatrixPredictionByCoPearson" + "k" + k + ".txt";
-        } else {
+        } else if (knnSimilarityScheme == 2) {
             MahoutCFRatingMatrixPredictionFile = MahoutCFDir + "\\CFRatingMatrixPredictionByCosine" + "k" + k + ".txt";
+        } else if (knnSimilarityScheme == 3) {
+            MahoutCFRatingMatrixPredictionFile = MahoutCFDir + "\\CFRatingMatrixPredictionByLogLikelihood" + "k" + k + ".txt";
         }
 
         // Predict ratings by kNNCF.
-        KNNCF.computeCFRatingAndPutIntoModelForAuthorList(MahoutCFFileOriginalFile, similarityMethod, k, authorTestSet, paperIdsInTestSet, MahoutCFRatingMatrixPredictionFile);
+        KNNCF.computeCFRatingAndPutIntoModelForAuthorList(MahoutCFFileOriginalFile, knnSimilarityScheme, k, authorTestSet, paperIdsInTestSet, MahoutCFRatingMatrixPredictionFile);
     }
     
     public static void cfSVDComputeRecommendingScore(String MahoutCFDir, String MahoutCFFileOriginalFile, 
