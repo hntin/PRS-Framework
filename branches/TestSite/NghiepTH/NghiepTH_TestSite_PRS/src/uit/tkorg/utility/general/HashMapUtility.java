@@ -14,9 +14,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
-import uit.tkorg.pr.model.Author;
 
 /**
  *
@@ -262,10 +260,12 @@ public class HashMapUtility {
             return;
         }
         
-        Float min = Collections.min(hm.values());
-        Float max = Collections.max(hm.values());
+        // Avoid mutable.
+        // Have to guarantee that data is not null beforehand.
+        float min = Collections.min(hm.values());
+        float max = Collections.max(hm.values());
         
-        if (Objects.equals(min, max)) {
+        if (min == max) {
             for (String id : hm.keySet()) {
                 hm.put(id, 0.5f);
             }

@@ -240,8 +240,11 @@ public class MASDataset1 {
      * @throws Exception 
      */
     public static HashMap<String, HashMap<String, Double>> readAuthorCitePaperMatrix(String fileNameAuthorCitePaperMatrix) throws Exception {
+        // HashMap<Author Id, HashMap<Paper Id, HashMap<Year Cite, Raw Rating>>>. Unused.
 //        HashMap<String, HashMap<String, HashMap<String, Integer>>> authorCitePaperYear = new HashMap<>();
-        HashMap<String, HashMap<String, Double>> authorPaperRating = new HashMap<>(); // HashMap<Author ID, HashMap<Paper Id, Raw Rating>>.
+        
+        // HashMap<Author Id, HashMap<Paper Id, Raw Rating>>.
+        HashMap<String, HashMap<String, Double>> authorPaperRating = new HashMap<>(); 
         
         try (BufferedReader br = new BufferedReader(new FileReader(fileNameAuthorCitePaperMatrix))) {
             String line;
@@ -255,9 +258,8 @@ public class MASDataset1 {
                 String paperId = getAcceptedFieldValue(str[1]);
                 String year = getAcceptedFieldValue(str[2]);
                 
+                // Unused: put into authorCitePaperYear
                 //<editor-fold defaultstate="collapsed" desc="authorCitePaperYear">
-                // put into authorCitePaperYear
-                // Reserved for using later.
                 /*if (authorCitePaperYear.containsKey(authorId)) {
                     if (authorCitePaperYear.get(authorId).containsKey(paperId)) {
                         if (authorCitePaperYear.get(authorId).get(paperId).containsKey(year)) {
@@ -281,19 +283,16 @@ public class MASDataset1 {
                 //</editor-fold>
 
                 // put into authorPaperRating
-                Double rating = null;
                 if (!authorPaperRating.containsKey(authorId)) {
-                    HashMap<String, Double> paperRating = new HashMap<>();
-                    authorPaperRating.put(authorId, paperRating);
-                    rating = Double.valueOf(1);
+                    authorPaperRating.put(authorId, new HashMap<String, Double>());
+                    authorPaperRating.get(authorId).put(paperId, 1.0);
                 } else {
                     if (!authorPaperRating.get(authorId).containsKey(paperId)) {
-                        rating = Double.valueOf(1);
+                        authorPaperRating.get(authorId).put(paperId, 1.0);
                     } else {
-                        rating = authorPaperRating.get(authorId).get(paperId) + 1;
+                        authorPaperRating.get(authorId).put(paperId, authorPaperRating.get(authorId).get(paperId) + 1);
                     }
                 }
-                authorPaperRating.get(authorId).put(paperId, rating);
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());

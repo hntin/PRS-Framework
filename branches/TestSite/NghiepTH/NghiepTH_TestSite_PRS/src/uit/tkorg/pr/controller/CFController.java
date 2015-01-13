@@ -39,7 +39,8 @@ public class CFController {
         // Step 1: Prepare CF matrix.
         String MahoutCFFileOriginalFile = MahoutCFDir + "\\CFRatingMatrixOriginal.txt";
         // Notice: Only run once.
-        //cfPrepareMatrix(fileNameAuthorCitePaper, MahoutCFFileOriginalFile);
+        //boolean noRating = false;
+        //cfPrepareMatrix(fileNameAuthorCitePaper, MahoutCFFileOriginalFile, noRating);
         
         // Step 2: Predict ratings.
         if ((cfMethod == 1) || (cfMethod == 2)) {
@@ -77,7 +78,7 @@ public class CFController {
     }
     
 
-    public static void cfPrepareMatrix(String fileNameAuthorCitePaper, String MahoutCFFileOriginalFile) throws Exception {
+    public static void cfPrepareMatrix(String fileNameAuthorCitePaper, String MahoutCFFileOriginalFile, boolean noRating) throws Exception {
         System.out.println("Begin preparing CF Matrix...");
         long startTime = System.nanoTime();
 
@@ -87,13 +88,15 @@ public class CFController {
         System.out.println("End Reading raw rating matrix");
 
         // Normalize
-        System.out.println("Begin Normalize reating values in Citation Matrix");
-        CFRatingMatrixComputation.normalizeAuthorRatingVector(authorPaperRating);
-        System.out.println("End Normalize reating values in Citation Matrix");
+        if (!noRating) {
+            System.out.println("Begin Normalize reating values in Citation Matrix");
+            CFRatingMatrixComputation.normalizeAuthorRatingVector(authorPaperRating);
+            System.out.println("End Normalize reating values in Citation Matrix");
+        }
 
         // Write to Mahout file
         System.out.println("Begin writeCFRatingToMahoutFormatFile");
-        CFRatingMatrixComputation.writeCFRatingToMahoutFormatFile(authorPaperRating, MahoutCFFileOriginalFile);
+        CFRatingMatrixComputation.writeCFRatingToMahoutFormatFile(authorPaperRating, MahoutCFFileOriginalFile, noRating);
         System.out.println("End writeCFRatingToMahoutFormatFile");
 
         long estimatedTime = System.nanoTime() - startTime;
@@ -107,7 +110,7 @@ public class CFController {
      * @param MahoutCFFileOriginalFile
      * @param similarityMethod: 1: Pearson, 2: Cosine.
      * @param authorTestSet
-     * @param topNRecommend
+     * @param paperIdsInTestSet
      * @param k
      * @throws Exception 
      */
@@ -115,7 +118,12 @@ public class CFController {
             HashMap<String, Author> authorTestSet, HashSet<String> paperIdsInTestSet,
             int k) throws Exception {
 
-        String MahoutCFRatingMatrixPredictionFile = MahoutCFDir + "\\CFRatingMatrixPredictionByCoPearson" + "k" + k + ".txt";
+        String MahoutCFRatingMatrixPredictionFile;
+        if (similarityMethod == 1) {
+            MahoutCFRatingMatrixPredictionFile = MahoutCFDir + "\\CFRatingMatrixPredictionByCoPearson" + "k" + k + ".txt";
+        } else {
+            MahoutCFRatingMatrixPredictionFile = MahoutCFDir + "\\CFRatingMatrixPredictionByCosine" + "k" + k + ".txt";
+        }
 
         // Predict ratings by kNNCF.
         KNNCF.computeCFRatingAndPutIntoModelForAuthorList(MahoutCFFileOriginalFile, similarityMethod, k, authorTestSet, paperIdsInTestSet, MahoutCFRatingMatrixPredictionFile);

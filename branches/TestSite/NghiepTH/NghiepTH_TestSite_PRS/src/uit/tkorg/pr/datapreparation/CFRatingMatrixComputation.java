@@ -19,18 +19,28 @@ public class CFRatingMatrixComputation {
     private CFRatingMatrixComputation() {
     }
 
+    /**
+     * Old Idea is: 
+     * - data have the form of general rec data, such as movie rec data, rating 1, 2, ... 5
+     * - 0 is not rating, can not normalized to 0.
+     * - preference can be empty: only yes/no. -> implement more option param.
+     * @param authorPaperRating
+     * @throws Exception 
+     */
     public static void normalizeAuthorRatingVector(HashMap<String, HashMap<String, Double>> authorPaperRating) throws Exception {
+        
         HashMap<String, Double> numAllAuthorCite = computeNumAllAuthorCite(authorPaperRating);
 
         for (String authorId : authorPaperRating.keySet()) {
             for (String paperId : authorPaperRating.get(authorId).keySet()) {
-                Double normalizedRating = authorPaperRating.get(authorId).get(paperId) / numAllAuthorCite.get(authorId);
+                double normalizedRating = authorPaperRating.get(authorId).get(paperId) / numAllAuthorCite.get(authorId);
                 authorPaperRating.get(authorId).put(paperId, normalizedRating);
             }
         }
     }
 
     private static HashMap<String, Double> computeNumAllAuthorCite(HashMap<String, HashMap<String, Double>> authorPaperRating) throws Exception {
+        
         HashMap<String, Double> numAllAuthorCite = new HashMap<>();
 
         for (String authorId : authorPaperRating.keySet()) {
@@ -38,21 +48,29 @@ public class CFRatingMatrixComputation {
             for (String paperId : authorPaperRating.get(authorId).keySet()) {
                 numAuthorCite += authorPaperRating.get(authorId).get(paperId);
             }
-            numAllAuthorCite.put(authorId, new Double(numAuthorCite));
+            numAllAuthorCite.put(authorId, numAuthorCite);
         }
 
         return numAllAuthorCite;
     }
 
-    public static void writeCFRatingToMahoutFormatFile(HashMap<String, HashMap<String, Double>> authorPaperRating, String fileNameCFRatingMahoutFormatFile) throws Exception {
+    public static void writeCFRatingToMahoutFormatFile(HashMap<String, HashMap<String, Double>> authorPaperRating, 
+            String fileNameCFRatingMahoutFormatFile, boolean noRating) throws Exception {
         FileUtils.deleteQuietly(new File(fileNameCFRatingMahoutFormatFile));
         StringBuilder content = new StringBuilder();
-        for (String authorId : authorPaperRating.keySet()) {
-            for (String paperId : authorPaperRating.get(authorId).keySet()) {
-                content.append(authorId).append(",")
-                        .append(paperId).append(",")
-                        .append(authorPaperRating.get(authorId).get(paperId).toString())
-                        .append("\r\n");
+        if (noRating) {
+            for (String authorId : authorPaperRating.keySet()) {
+                for (String paperId : authorPaperRating.get(authorId).keySet()) {
+                    content.append(authorId).append(",").append(paperId).append("\r\n");
+                }
+            }
+        } else {
+            for (String authorId : authorPaperRating.keySet()) {
+                for (String paperId : authorPaperRating.get(authorId).keySet()) {
+                    content.append(authorId).append(",").append(paperId).append(",")
+                            .append(authorPaperRating.get(authorId).get(paperId).toString())
+                            .append("\r\n");
+                }
             }
         }
         FileUtils.writeStringToFile(new File(fileNameCFRatingMahoutFormatFile), content.toString(), "UTF8", true);
