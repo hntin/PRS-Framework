@@ -275,4 +275,28 @@ public class HashMapUtility {
             }
         }
     }
+
+    public static void scaleToRangeABHashMap(HashMap<String, Float> hm, float a, float b) throws Exception {
+        if ((hm == null) || (hm.isEmpty()) || (a > b)) {
+            return;
+        }
+        
+        // Avoid mutable.
+        // Have to guarantee that data is not null beforehand.
+        float min = Collections.min(hm.values());
+        float max = Collections.max(hm.values());
+        if ((min == a) && (max == b)) {
+            return;
+        }
+        
+        if (min == max) {
+            for (String id : hm.keySet()) {
+                hm.put(id, (a + b) / 2);
+            }
+        } else {
+            for (String id : hm.keySet()) {
+                hm.put(id, (hm.get(id) - min) / (max - min) * (b - a) + a);
+            }
+        }
+    }
 }

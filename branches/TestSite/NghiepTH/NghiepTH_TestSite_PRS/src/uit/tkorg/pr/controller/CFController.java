@@ -84,13 +84,13 @@ public class CFController {
 
         // Read Raw rating matrix
         System.out.println("Begin Reading raw rating matrix");
-        HashMap<String, HashMap<String, Double>> authorPaperRating = MASDataset1.readAuthorCitePaperMatrix(fileNameAuthorCitePaper);
+        HashMap<String, HashMap<String, Float>> authorPaperRating = MASDataset1.readAuthorCitePaperMatrix(fileNameAuthorCitePaper);
         System.out.println("End Reading raw rating matrix");
 
         // Normalize
         if (!noRating) {
             System.out.println("Begin Normalize reating values in Citation Matrix");
-            CFRatingMatrixComputation.normalizeAuthorRatingVector(authorPaperRating);
+            CFRatingMatrixComputation.normalizeAuthorRatingVectorV2(authorPaperRating);
             System.out.println("End Normalize reating values in Citation Matrix");
         }
 
