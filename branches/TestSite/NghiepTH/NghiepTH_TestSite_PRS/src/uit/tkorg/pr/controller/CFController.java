@@ -40,10 +40,17 @@ public class CFController {
         String algorithmName = null;
         
         // Step 1: Prepare CF matrix.
-        String MahoutCFFileOriginalFile = MahoutCFDir + "\\CFRatingMatrixOriginal.txt";
+        String MahoutCFFileOriginalFile = null;
+        // Just experiment here, check if binary rating is better. 
+        // Result with LogLikelihood K=8, binary rating is worse.
+        boolean binaryRating = false;
+        if (binaryRating) {
+            MahoutCFFileOriginalFile = MahoutCFDir + "\\CFRatingMatrixOriginalBinaryRating.txt";
+        } else {
+            MahoutCFFileOriginalFile = MahoutCFDir + "\\CFRatingMatrixOriginalNumericRating.txt";
+        }
         // Notice: Only run once.
-        //boolean noRating = false;
-        //cfPrepareMatrix(fileNameAuthorCitePaper, MahoutCFFileOriginalFile, noRating);
+        //cfPrepareMatrix(fileNameAuthorCitePaper, MahoutCFFileOriginalFile, binaryRating);
         
         // Step 2: Predict ratings.
         if (cfMethod == 1) {
@@ -58,7 +65,7 @@ public class CFController {
                 algorithmName = "CF KNN Cosine " + "k" + k;
             } else if (knnSimilarityScheme == 3) {
                 // likelihood.
-                algorithmName = "CF KNN Likelihood " + "k" + k;
+                algorithmName = "CF KNN Log Likelihood " + "k" + k;
             }
             System.out.println("Begin calculating CF-KNN Recommending Score");
             cfKNNComputeRecommendingScore(MahoutCFDir, MahoutCFFileOriginalFile, knnSimilarityScheme, authorTestSet, paperIdsInTestSet, k);
@@ -69,11 +76,11 @@ public class CFController {
             int f = 8;
             double l = 0.001;
             int i = 20;
-            algorithmName = "CF SVD ALSWRFactorizer " + "f" + f + "l" + l + "i" + i;
+            algorithmName = "CF MF SVD ALSWRFactorizer " + "f" + f + "l" + l + "i" + i;
             // Recommend for authors in author test set.
-            System.out.println("Begin calculating CF-SVD Recommending Score");
+            System.out.println("Begin calculating CF-MF-SVD Recommending Score");
             cfSVDComputeRecommendingScore(MahoutCFDir, MahoutCFFileOriginalFile, authorTestSet, paperIdsInTestSet, f, l, i);
-            System.out.println("End calculating CF-SVD Recommending Score");
+            System.out.println("End calculating CF-MF-SVD Recommending Score");
         }
 
         // Normalize
@@ -85,7 +92,7 @@ public class CFController {
     }
     
 
-    public static void cfPrepareMatrix(String fileNameAuthorCitePaper, String MahoutCFFileOriginalFile, boolean noRating) throws Exception {
+    public static void cfPrepareMatrix(String fileNameAuthorCitePaper, String MahoutCFFileOriginalFile, boolean binaryRating) throws Exception {
         System.out.println("Begin preparing CF Matrix...");
         long startTime = System.nanoTime();
 
@@ -95,7 +102,7 @@ public class CFController {
         System.out.println("End Reading raw rating matrix");
 
         // Normalize
-        if (!noRating) {
+        if (!binaryRating) {
             System.out.println("Begin Normalize reating values in Citation Matrix");
             CFRatingMatrixComputation.normalizeAuthorRatingVectorV2(authorPaperRating);
             System.out.println("End Normalize reating values in Citation Matrix");
@@ -103,7 +110,7 @@ public class CFController {
 
         // Write to Mahout file
         System.out.println("Begin writeCFRatingToMahoutFormatFile");
-        CFRatingMatrixComputation.writeCFRatingToMahoutFormatFile(authorPaperRating, MahoutCFFileOriginalFile, noRating);
+        CFRatingMatrixComputation.writeCFRatingToMahoutFormatFile(authorPaperRating, MahoutCFFileOriginalFile, binaryRating);
         System.out.println("End writeCFRatingToMahoutFormatFile");
 
         long estimatedTime = System.nanoTime() - startTime;
