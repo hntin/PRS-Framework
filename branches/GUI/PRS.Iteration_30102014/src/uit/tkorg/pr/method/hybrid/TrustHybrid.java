@@ -18,6 +18,7 @@ import org.apache.mahout.cf.taste.common.TasteException;
 import uit.tkorg.pr.method.GenericRecommender;
 import uit.tkorg.pr.method.cbf.FeatureVectorSimilarity;
 import uit.tkorg.pr.model.Author;
+import uit.tkorg.pr.model.Paper;
 import uit.tkorg.utility.general.HashMapUtility;
 
 /**
@@ -125,9 +126,7 @@ public class TrustHybrid {
                     try {
                         final HashMap<String, Float> metaTrustAuthorHM = new HashMap<>();
                         computeMetaTrustedAuthorsForOneAuthor(referenceRSSNet, authorObj, metaTrustAuthorHM, metaTrustType);
-                        // metaTrustAuthorHM is temp here, so normalize here.
                         HashMapUtility.minNormalizeHashMap(metaTrustAuthorHM);
-                        // With 2 types of meta trust: only COMBINE LINEAR citation author with meta trusted author.
                         HashMapUtility.combineLinearTwoHashMap(authorObj.getCitationAuthorRSSHM(), 
                                 metaTrustAuthorHM, alpha, authorObj.getTrustedAuthorHM());
                         // Normalize
@@ -197,8 +196,9 @@ public class TrustHybrid {
     }
 
     public static void computeTrustedPaperHMAndPutIntoModelForAuthorList(
-            final HashMap<String, Author> authors, 
-            final int howToTrustPaper, final HashSet<String> paperIdsInTestSet) throws Exception {
+            final HashMap<String, Author> authors, final HashMap<String, Paper> papers,
+            final int howToGetTrustedPaper, final int howToTrustPaper, 
+            final HashSet<String> paperIdsInTestSet) throws Exception {
         Runtime runtime = Runtime.getRuntime();
         int numOfProcessors = runtime.availableProcessors();
         ExecutorService executor = Executors.newFixedThreadPool(numOfProcessors - 1);
@@ -211,7 +211,7 @@ public class TrustHybrid {
                 @Override
                 public void run() {
                     try {
-                        computeTrustedPaperHM(authors, authorObj, howToTrustPaper);
+                        computeTrustedPaperHM(authors, authorObj, papers, howToGetTrustedPaper, howToTrustPaper);
                         Iterator<String> iter = authorObj.getTrustedPaperHM().keySet().iterator();
                         while (iter.hasNext()) {
                             if (!paperIdsInTestSet.contains(iter.next())) {
@@ -237,35 +237,60 @@ public class TrustHybrid {
      * @param authors
      * @param author
      * @param howToTrustPaper 1: average trusted author, 2: max trusted author.
+     * @param howToGetTrustedPaper 1: written by trusted author, 2: written and cited by trusted author.
      * @throws Exception 
      */
-    private static void computeTrustedPaperHM(HashMap<String, Author> authors, 
-            Author author, int howToTrustPaper) throws Exception {
+    private static void computeTrustedPaperHM(HashMap<String, Author> authors, Author author, 
+            HashMap<String, Paper> papers,
+            int howToGetTrustedPaper, int howToTrustPaper) throws Exception {
 
         HashMap<String, Integer> paperTrustedAuthorCount = new HashMap<>();
         
         for (String authorId : author.getTrustedAuthorHM().keySet()) {
             if (authors.containsKey(authorId)) {
-                for (String paperId : (List<String>) authors.get(authorId).getPaperList()) {
-                    if (author.getTrustedPaperHM().containsKey(paperId)) {
-                        if (howToTrustPaper == 1) {
-                            author.getTrustedPaperHM().put(paperId, 
-                                    author.getTrustedPaperHM().get(paperId) + author.getTrustedAuthorHM().get(authorId));
-                            paperTrustedAuthorCount.put(paperId, 
-                                    paperTrustedAuthorCount.get(paperId) + 1);
-                        } else if (howToTrustPaper == 2) {
-                            if (author.getTrustedPaperHM().get(paperId) < author.getTrustedAuthorHM().get(authorId)) {
-                                author.getTrustedPaperHM().put(paperId, author.getTrustedAuthorHM().get(authorId));
+                if ((howToGetTrustedPaper == 1) || (howToGetTrustedPaper == 2)) {
+                    for (String paperId : (List<String>) authors.get(authorId).getPaperList()) {
+                        if (author.getTrustedPaperHM().containsKey(paperId)) { // If already put in trusted paper HM.
+                            if (howToTrustPaper == 1) { // Average: sum then divide.
+                                author.getTrustedPaperHM().put(paperId, 
+                                        author.getTrustedPaperHM().get(paperId) + author.getTrustedAuthorHM().get(authorId));
+                                paperTrustedAuthorCount.put(paperId, 
+                                        paperTrustedAuthorCount.get(paperId) + 1);
+                            } else if (howToTrustPaper == 2) { // Max.
+                                if (author.getTrustedPaperHM().get(paperId) < author.getTrustedAuthorHM().get(authorId)) {
+                                    author.getTrustedPaperHM().put(paperId, author.getTrustedAuthorHM().get(authorId));
+                                }
+                            }
+                        } else { // If not yet put in trusted paper HM.
+                            author.getTrustedPaperHM().put(paperId, author.getTrustedAuthorHM().get(authorId));
+                            paperTrustedAuthorCount.put(paperId, 1);
+                        }
+
+                        if (howToGetTrustedPaper == 2) {
+                            for (String paperId2 : (List<String>) papers.get(paperId).getReferenceList()) {
+                                if (author.getTrustedPaperHM().containsKey(paperId2)) { // If already put in trusted paper HM.
+                                    if (howToTrustPaper == 1) { // Average: sum then divide.
+                                        author.getTrustedPaperHM()
+                                                .put(paperId2, author.getTrustedPaperHM().get(paperId2) 
+                                                        + author.getTrustedAuthorHM().get(authorId));
+                                        paperTrustedAuthorCount.put(paperId2, paperTrustedAuthorCount.get(paperId2) + 1);
+                                    } else if (howToTrustPaper == 2) { // Max.
+                                        if (author.getTrustedPaperHM().get(paperId2) < author.getTrustedAuthorHM().get(authorId)) {
+                                            author.getTrustedPaperHM().put(paperId2, author.getTrustedAuthorHM().get(authorId));
+                                        }
+                                    }
+                                } else { // If not yet put in trusted paper HM.
+                                    author.getTrustedPaperHM().put(paperId2, author.getTrustedAuthorHM().get(authorId));
+                                    paperTrustedAuthorCount.put(paperId2, 1);
+                                }
                             }
                         }
-                    } else {
-                        author.getTrustedPaperHM().put(paperId, author.getTrustedAuthorHM().get(authorId));
-                        paperTrustedAuthorCount.put(paperId, 1);
                     }
                 }
             }
         }
         
+        // If trust paper = average trust author, divide by trust author count of each paper.
         if (howToTrustPaper == 1) {
             for (String paperId : author.getTrustedPaperHM().keySet()) {
                 author.getTrustedPaperHM().put(paperId, 

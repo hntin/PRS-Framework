@@ -76,7 +76,8 @@ public class PRGUICentralController {
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Parameters of collaborative filtering algorithm">
-    public int cfMethod_CF;//1: KNN Pearson, 2: KNN Cosine, 3: SVD
+    public int cfMethod_CF;
+    public int knnSimilarityScheme_CF;
     public int kNeighbourhood_CF;
     public int f_CF;
     public float l_CF;
@@ -92,7 +93,8 @@ public class PRGUICentralController {
     public int weightingCandidatePaper_HB;
     public float pruning_HB;
     
-    public int cfMethod_HB;//1: KNN Pearson, 2: KNN Cosine, 3: SVD
+    public int cfMethod_HB;
+    public int knnSimilarityScheme_HB;
     public int kNeighbourhood_HB;
     public int f_HB;
     public float l_HB;
@@ -106,6 +108,7 @@ public class PRGUICentralController {
     public int combinationScheme_TB = 1;
     public float alpha_TB=0f;
     public int howToTrustAuthor_TB = 1;
+    public int howToGetTrustedPaper_TB = 2;
     public int howToTrustPaper_TB = 2;
     //</editor-fold>
     
@@ -121,6 +124,7 @@ public class PRGUICentralController {
     public int combinationScheme_HTB = 1;
     public float alpha_HTB=0f;
     public int howToTrustAuthor_HTB = 1;
+    public int howToGetTrustedPaper_HTB = 2;
     public int howToTrustPaper_HTB = 2;
     
     public float alpha_HTB1;
@@ -149,7 +153,8 @@ public class PRGUICentralController {
         //</editor-fold>
         
         //<editor-fold defaultstate="collapsed" desc="init CF">
-        cfMethod_CF = 1;//1: KNN Pearson, 2: KNN Cosine, 3: SVD
+        cfMethod_CF = 1;
+        knnSimilarityScheme_CF = 3;
         kNeighbourhood_CF = 8;// number of neighbhood
         f_CF = 5;//SVD
         l_CF = 0.001f;//SVD
@@ -165,7 +170,8 @@ public class PRGUICentralController {
         weightingCandidatePaper_HB = 0;// weighting combine candiate paper
         pruning_HB = 0f;// pruning citation or preference paper for all paper
         
-        cfMethod_HB = 1;//1: KNN Pearson, 2: KNN Cosine, 3: SVD
+        cfMethod_HB = 1;
+        knnSimilarityScheme_HB = 3;
         kNeighbourhood_HB = 8;// number of neighbhood
         f_HB = 5;//SVD
         l_HB = 0.001f;//SVD
@@ -179,6 +185,7 @@ public class PRGUICentralController {
         combinationScheme_TB = 1;
         alpha_TB=0f;
         howToTrustAuthor_TB = 1;
+        howToGetTrustedPaper_TB = 2;
         howToTrustPaper_TB = 2;
         //</editor-fold>
         
@@ -194,6 +201,7 @@ public class PRGUICentralController {
         combinationScheme_HTB = 1;
         alpha_HTB=0.5f;
         howToTrustAuthor_HTB = 1;
+        howToGetTrustedPaper_HTB = 2;
         howToTrustPaper_HTB = 2;
         
         alpha_HTB1=0.3f;
@@ -331,8 +339,8 @@ public class PRGUICentralController {
                 authors.get(authorId).getCfRatingHM().clear();
             }
 
-            CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, cfMethod_CF,
-                    authors, paperIdsInTestSet);
+            CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, 
+                    cfMethod_CF, knnSimilarityScheme_CF, authors, paperIdsInTestSet);
             CF.cfRecommendToAuthorList(authors, topRecommend);
 
             estimatedTime = System.nanoTime() - startTime;
@@ -362,7 +370,7 @@ public class PRGUICentralController {
                     pruning_HB);
             
             CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir,
-                    cfMethod_HB, authors, paperIdsInTestSet);
+                    cfMethod_HB, knnSimilarityScheme_HB, authors, paperIdsInTestSet);
             
             CBFCF.computeCBFCFCombinationAndPutIntoModelForAuthorList(authors, alpha_temp, combineHybrid_HB);
             CBFCF.cbfcfHybridRecommendToAuthorList(authors, topRecommend);
@@ -394,7 +402,7 @@ public class PRGUICentralController {
                 TrustHybrid.computeMetaTrustedAuthorHMAndPutIntoModelForAuthorList(authors, referenceRSSNet, metaTrustType, alpha_temp);
             }
             
-            TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authors, howToTrustPaper_TB, paperIdsInTestSet);
+            TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authors, papers, howToGetTrustedPaper_TB, howToTrustPaper_TB, paperIdsInTestSet);
 
             TrustHybrid.trustRecommendToAuthorList(authors, topRecommend);
             //System.out.println();
@@ -428,7 +436,7 @@ public class PRGUICentralController {
                 TrustHybrid.computeMetaTrustedAuthorHMAndPutIntoModelForAuthorList(authors, referenceRSSNet, metaTrustType, alpha_temp);
             }
             
-            TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authors, howToTrustPaper_HTB, paperIdsInTestSet);
+            TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authors, papers, howToGetTrustedPaper_HTB, howToTrustPaper_HTB, paperIdsInTestSet);
 
             
             TrustHybrid.computeCBFTrustLinearCombinationAndPutIntoModelForAuthorList(authors, alpha_HTB1, combineHybrid_HTB);

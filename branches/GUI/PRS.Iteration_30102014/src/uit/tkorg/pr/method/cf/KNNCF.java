@@ -18,6 +18,7 @@ import org.apache.mahout.cf.taste.impl.common.LongPrimitiveIterator;
 import org.apache.mahout.cf.taste.impl.model.file.FileDataModel;
 import org.apache.mahout.cf.taste.impl.neighborhood.NearestNUserNeighborhood;
 import org.apache.mahout.cf.taste.impl.recommender.GenericUserBasedRecommender;
+import org.apache.mahout.cf.taste.impl.similarity.LogLikelihoodSimilarity;
 import org.apache.mahout.cf.taste.impl.similarity.PearsonCorrelationSimilarity;
 import org.apache.mahout.cf.taste.impl.similarity.UncenteredCosineSimilarity;
 import org.apache.mahout.cf.taste.model.DataModel;
@@ -129,7 +130,10 @@ public class KNNCF {
             userSimilarity = new PearsonCorrelationSimilarity(dataModel);
         } else if (similarityScheme == 2) {
             userSimilarity = new UncenteredCosineSimilarity(dataModel);
+        } else if (similarityScheme == 3) {
+            userSimilarity = new LogLikelihoodSimilarity(dataModel);
         }
+
         UserNeighborhood userNeighborhood = new NearestNUserNeighborhood(k, userSimilarity, dataModel);
 
         // Create a generic user based recommender with the dataModel, the userNeighborhood and the userSimilarity

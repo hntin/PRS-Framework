@@ -138,8 +138,9 @@ public class MLDataPreparation {
         int similarityScheme = 0;
         double pruning = 0.0;
 
-        // parameters for cf method: 1: KNN Pearson, 2: KNN Cosine, 3: SVD
+        // parameters for cf method.
         int cfMethod = 1;
+        int knnSimilarityScheme = 3;
 
         // parameters for hybrid method: 1: combine linear, 2: combine based on confidence, 
         // 3: combine based on confidence and linear
@@ -147,6 +148,7 @@ public class MLDataPreparation {
         float alpha;
 
         // parameters for trust based method
+        int howToGetTrustedPaper;
         int howToTrust;
 
         //<editor-fold defaultstate="collapsed" desc="ML HYBRID">
@@ -159,8 +161,7 @@ public class MLDataPreparation {
                 pruning);
         // Compute CF value
         CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir,
-                cfMethod,
-                authorTestSet, paperIdsInTestSet);
+                cfMethod, knnSimilarityScheme, authorTestSet, paperIdsInTestSet);
         // Compute Trust paper value.
         TrustDataModelPreparation.computeCoAuthorRSSHM(authorTestSet,
                 fileNameAuthorship, fileNamePapers);
@@ -169,9 +170,10 @@ public class MLDataPreparation {
                 fileNameAuthorship, fileNamePaperCitePaper, referenceRSSNet);
         combinationScheme = 1;
         alpha = (float) 0.5;
+        howToGetTrustedPaper = 2;
         howToTrust = 2; // Max of trusted author.
         TrustHybrid.computeTrustedAuthorHMLinearCombinationAndPutIntoModelForAuthorList(authorTestSet, alpha, combinationScheme);
-        TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authorTestSet, howToTrust, paperIdsInTestSet);
+        TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authorTestSet, papers, howToGetTrustedPaper, howToTrust, paperIdsInTestSet);
         // Compute paper quality.
         HashMap<String, Paper> paperTestSet = CBFPaperFVComputation.extractPapers(papers, paperIdsInTestSet);
         PaperQualityComputation.computeQualityValueForAllPapers(paperTestSet);
@@ -225,6 +227,7 @@ public class MLDataPreparation {
                         groundTruth = 1;
                     }
                     
+                    // Reset StringBuilder.
                     content.setLength(0);
                     content.append(authorId).append("\t")
                             .append(paperId).append("\t")

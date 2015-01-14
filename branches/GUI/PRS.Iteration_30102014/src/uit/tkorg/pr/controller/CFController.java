@@ -24,48 +24,61 @@ public class CFController {
      * 
      * @param fileNameAuthorCitePaper
      * @param MahoutCFDir
-     * @param cfMethod: 1: KNN Pearson, 2: KNN Cosine, 3: SVD
+     * @param cfMethod: 1: KNN , 2: MF SVD
+     * @param knnSimilarityScheme: 1: Pearson, 2: cosine, 3: log likelihood
      * @param authorTestSet
-     * @param topNRecommend
+     * @param paperIdsInTestSet
+     * @return algorithmName
      * @throws Exception 
      */
     public static String cfComputeRecommendingScore(
             String fileNameAuthorCitePaper, 
             String MahoutCFDir, 
-            int cfMethod,
+            int cfMethod, int knnSimilarityScheme,
             HashMap<String, Author> authorTestSet, HashSet<String> paperIdsInTestSet) throws Exception {
+
         String algorithmName = null;
         
         // Step 1: Prepare CF matrix.
-        String MahoutCFFileOriginalFile = MahoutCFDir + "\\CFRatingMatrixOriginal.txt";
+        String MahoutCFFileOriginalFile = null;
+        boolean binaryRating = false;
+        if (binaryRating) {
+            MahoutCFFileOriginalFile = MahoutCFDir + "\\CFRatingMatrixOriginalBinaryRating.txt";
+        } else {
+            MahoutCFFileOriginalFile = MahoutCFDir + "\\CFRatingMatrixOriginalNumericRating.txt";
+        }
         // Notice: Only run once.
-        //cfPrepareMatrix(fileNameAuthorCitePaper, MahoutCFFileOriginalFile);
+        //cfPrepareMatrix(fileNameAuthorCitePaper, MahoutCFFileOriginalFile, binaryRating);
         
         // Step 2: Predict ratings.
-        if ((cfMethod == 1) || (cfMethod == 2)) {
-            // KNN. k neighbors.
+        if (cfMethod == 1) {
+            // KNN. 
+            // k neighbors.
             int k = 8;
-            if (cfMethod == 1) {
-                // kNNCF co-pearson.
+            if (knnSimilarityScheme == 1) {
+                // co-pearson.
                 algorithmName = "CF KNN Pearson " + "k" + k;
-            } else if (cfMethod == 2) {
-                // kNNCF cosine.
+            } else if (knnSimilarityScheme == 2) {
+                // cosine.
                 algorithmName = "CF KNN Cosine " + "k" + k;
+            } else if (knnSimilarityScheme == 3) {
+                // likelihood.
+                algorithmName = "CF KNN Log Likelihood " + "k" + k;
             }
             System.out.println("Begin calculating CF-KNN Recommending Score");
-            cfKNNComputeRecommendingScore(MahoutCFDir, MahoutCFFileOriginalFile, cfMethod, authorTestSet, paperIdsInTestSet, k);
+            cfKNNComputeRecommendingScore(MahoutCFDir, MahoutCFFileOriginalFile, knnSimilarityScheme, authorTestSet, paperIdsInTestSet, k);
             System.out.println("End calculating CF-KNN Recommending Score");
-        } else if (cfMethod == 3) {
+        } else if (cfMethod == 2) {
             // SVD ALSWRFactorizer.
             // f features, normalize by l, i iterations.
             int f = 8;
             double l = 0.001;
             int i = 20;
-            algorithmName = "CF SVD ALSWRFactorizer " + "f" + f + "l" + l + "i" + i;
+            algorithmName = "CF MF SVD ALSWRFactorizer " + "f" + f + "l" + l + "i" + i;
             // Recommend for authors in author test set.
-            System.out.println("Begin calculating CF-SVD Recommending Score");
+            System.out.println("Begin calculating CF-MF-SVD Recommending Score");
             cfSVDComputeRecommendingScore(MahoutCFDir, MahoutCFFileOriginalFile, authorTestSet, paperIdsInTestSet, f, l, i);
-            System.out.println("End calculating CF-SVD Recommending Score");
+            System.out.println("End calculating CF-MF-SVD Recommending Score");
         }
         
         // Normalize
@@ -77,23 +90,25 @@ public class CFController {
     }
     
 
-    public static void cfPrepareMatrix(String fileNameAuthorCitePaper, String MahoutCFFileOriginalFile) throws Exception {
+    public static void cfPrepareMatrix(String fileNameAuthorCitePaper, String MahoutCFFileOriginalFile, boolean binaryRating) throws Exception {
         System.out.println("Begin preparing CF Matrix...");
         long startTime = System.nanoTime();
 
         // Read Raw rating matrix
         System.out.println("Begin Reading raw rating matrix");
-        HashMap<String, HashMap<String, Double>> authorPaperRating = MASDataset1.readAuthorCitePaperMatrix(fileNameAuthorCitePaper);
+        HashMap<String, HashMap<String, Float>> authorPaperRating = MASDataset1.readAuthorCitePaperMatrix(fileNameAuthorCitePaper);
         System.out.println("End Reading raw rating matrix");
 
         // Normalize
-        System.out.println("Begin Normalize reating values in Citation Matrix");
-        CFRatingMatrixComputation.normalizeAuthorRatingVector(authorPaperRating);
-        System.out.println("End Normalize reating values in Citation Matrix");
+        if (!binaryRating) {
+            System.out.println("Begin Normalize reating values in Citation Matrix");
+            CFRatingMatrixComputation.normalizeAuthorRatingVectorV2(authorPaperRating);
+            System.out.println("End Normalize reating values in Citation Matrix");
+        }
 
         // Write to Mahout file
         System.out.println("Begin writeCFRatingToMahoutFormatFile");
-        CFRatingMatrixComputation.writeCFRatingToMahoutFormatFile(authorPaperRating, MahoutCFFileOriginalFile);
+        CFRatingMatrixComputation.writeCFRatingToMahoutFormatFile(authorPaperRating, MahoutCFFileOriginalFile, binaryRating);
         System.out.println("End writeCFRatingToMahoutFormatFile");
 
         long estimatedTime = System.nanoTime() - startTime;
@@ -105,20 +120,28 @@ public class CFController {
      * 
      * @param MahoutCFDir
      * @param MahoutCFFileOriginalFile
-     * @param similarityMethod: 1: Pearson, 2: Cosine.
+     * @param knnSimilarityScheme: 1: Pearson, 2: Cosine, 3: log likelihood.
      * @param authorTestSet
-     * @param topNRecommend
+     * @param paperIdsInTestSet
      * @param k
      * @throws Exception 
      */
-    public static void cfKNNComputeRecommendingScore(String MahoutCFDir, String MahoutCFFileOriginalFile, int similarityMethod,
+    public static void cfKNNComputeRecommendingScore(String MahoutCFDir, String MahoutCFFileOriginalFile, 
+            int knnSimilarityScheme,
             HashMap<String, Author> authorTestSet, HashSet<String> paperIdsInTestSet,
             int k) throws Exception {
 
-        String MahoutCFRatingMatrixPredictionFile = MahoutCFDir + "\\CFRatingMatrixPredictionByCoPearson" + "k" + k + ".txt";
+        String MahoutCFRatingMatrixPredictionFile = null;
+        if (knnSimilarityScheme == 1) {
+            MahoutCFRatingMatrixPredictionFile = MahoutCFDir + "\\CFRatingMatrixPredictionByCoPearson" + "k" + k + ".txt";
+        } else if (knnSimilarityScheme == 2) {
+            MahoutCFRatingMatrixPredictionFile = MahoutCFDir + "\\CFRatingMatrixPredictionByCosine" + "k" + k + ".txt";
+        } else if (knnSimilarityScheme == 3) {
+            MahoutCFRatingMatrixPredictionFile = MahoutCFDir + "\\CFRatingMatrixPredictionByLogLikelihood" + "k" + k + ".txt";
+        }
 
         // Predict ratings by kNNCF.
-        KNNCF.computeCFRatingAndPutIntoModelForAuthorList(MahoutCFFileOriginalFile, similarityMethod, k, authorTestSet, paperIdsInTestSet, MahoutCFRatingMatrixPredictionFile);
+        KNNCF.computeCFRatingAndPutIntoModelForAuthorList(MahoutCFFileOriginalFile, knnSimilarityScheme, k, authorTestSet, paperIdsInTestSet, MahoutCFRatingMatrixPredictionFile);
     }
     
     public static void cfSVDComputeRecommendingScore(String MahoutCFDir, String MahoutCFFileOriginalFile, 

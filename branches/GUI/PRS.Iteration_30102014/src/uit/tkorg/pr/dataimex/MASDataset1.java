@@ -85,14 +85,14 @@ public class MASDataset1 {
                     continue;
                 }
                 String[] str = line.split("\\|\\|\\|");
-                String paperId1 = getAcceptedFieldValue(str[0]);
+                String paperId1 = getAcceptedFieldValue(str[0]); // paperId1 cite to (reference) paperId2.
                 String paperId2 = getAcceptedFieldValue(str[1]);
                 
                 if (papers.containsKey(paperId1)) {
-                    papers.get(paperId1).getReferenceList().add(paperId2); // reference is mutable.
+                    papers.get(paperId1).getReferenceList().add(paperId2); // mutable.
                 }
                 if (papers.containsKey(paperId2)) {
-                    papers.get(paperId2).getCitationList().add(paperId1);
+                    papers.get(paperId2).getCitationList().add(paperId1); // mutable.
                 }
             }
         } catch (IOException e) {
@@ -239,9 +239,12 @@ public class MASDataset1 {
      * @return
      * @throws Exception 
      */
-    public static HashMap<String, HashMap<String, Double>> readAuthorCitePaperMatrix(String fileNameAuthorCitePaperMatrix) throws Exception {
+    public static HashMap<String, HashMap<String, Float>> readAuthorCitePaperMatrix(String fileNameAuthorCitePaperMatrix) throws Exception {
+        // HashMap<Author Id, HashMap<Paper Id, HashMap<Year Cite, Raw Rating>>>. Unused.
 //        HashMap<String, HashMap<String, HashMap<String, Integer>>> authorCitePaperYear = new HashMap<>();
-        HashMap<String, HashMap<String, Double>> authorPaperRating = new HashMap<>(); // HashMap<Author ID, HashMap<Paper Id, Raw Rating>>.
+        
+        // HashMap<Author Id, HashMap<Paper Id, Raw Rating>>.
+        HashMap<String, HashMap<String, Float>> authorPaperRating = new HashMap<>(); 
         
         try (BufferedReader br = new BufferedReader(new FileReader(fileNameAuthorCitePaperMatrix))) {
             String line;
@@ -255,9 +258,8 @@ public class MASDataset1 {
                 String paperId = getAcceptedFieldValue(str[1]);
                 String year = getAcceptedFieldValue(str[2]);
                 
+                // Unused: put into authorCitePaperYear
                 //<editor-fold defaultstate="collapsed" desc="authorCitePaperYear">
-                // put into authorCitePaperYear
-                // Reserved for using later.
                 /*if (authorCitePaperYear.containsKey(authorId)) {
                     if (authorCitePaperYear.get(authorId).containsKey(paperId)) {
                         if (authorCitePaperYear.get(authorId).get(paperId).containsKey(year)) {
@@ -281,19 +283,16 @@ public class MASDataset1 {
                 //</editor-fold>
 
                 // put into authorPaperRating
-                Double rating = null;
                 if (!authorPaperRating.containsKey(authorId)) {
-                    HashMap<String, Double> paperRating = new HashMap<>();
-                    authorPaperRating.put(authorId, paperRating);
-                    rating = Double.valueOf(1);
+                    authorPaperRating.put(authorId, new HashMap<String, Float>());
+                    authorPaperRating.get(authorId).put(paperId, 1.0f);
                 } else {
                     if (!authorPaperRating.get(authorId).containsKey(paperId)) {
-                        rating = Double.valueOf(1);
+                        authorPaperRating.get(authorId).put(paperId, 1.0f);
                     } else {
-                        rating = authorPaperRating.get(authorId).get(paperId) + 1;
+                        authorPaperRating.get(authorId).put(paperId, authorPaperRating.get(authorId).get(paperId) + 1);
                     }
                 }
-                authorPaperRating.get(authorId).put(paperId, rating);
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -328,7 +327,7 @@ public class MASDataset1 {
                 + "[Training] 1000Authors.csv", PRConstant.FOLDER_MAS_DATASET 
                 + "[Validation] Ground_Truth_2006_2008.csv", PRConstant.FOLDER_MAS_DATASET 
                 + "[Training] Author_Paper_Before_2006.csv");
-        HashMap<String, HashMap<String, Double>> authorPaperRating = readAuthorCitePaperMatrix(PRConstant.FOLDER_MAS_DATASET 
+        HashMap<String, HashMap<String, Float>> authorPaperRating = readAuthorCitePaperMatrix(PRConstant.FOLDER_MAS_DATASET 
                 + "[Training] Author_Cite_Paper_Before_2006.csv");
     }
 }

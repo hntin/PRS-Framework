@@ -14,9 +14,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
-import uit.tkorg.pr.model.Author;
 
 /**
  *
@@ -252,16 +250,38 @@ public class HashMapUtility {
             return;
         }
         
-        Float min = Collections.min(hm.values());
-        Float max = Collections.max(hm.values());
+        float min = Collections.min(hm.values());
+        float max = Collections.max(hm.values());
         
-        if (Objects.equals(min, max)) {
+        if (min == max) {
             for (String id : hm.keySet()) {
                 hm.put(id, 0.5f);
             }
         } else {
             for (String id : hm.keySet()) {
                 hm.put(id, (hm.get(id) - min) / (max - min));
+            }
+        }
+    }
+
+    public static void scaleToRangeABHashMap(HashMap<String, Float> hm, float a, float b) throws Exception {
+        if ((hm == null) || (hm.isEmpty()) || (a > b)) {
+            return;
+        }
+        
+        float min = Collections.min(hm.values());
+        float max = Collections.max(hm.values());
+        if ((min == a) && (max == b)) {
+            return;
+        }
+        
+        if (min == max) {
+            for (String id : hm.keySet()) {
+                hm.put(id, (a + b) / 2);
+            }
+        } else {
+            for (String id : hm.keySet()) {
+                hm.put(id, (hm.get(id) - min) / (max - min) * (b - a) + a);
             }
         }
     }

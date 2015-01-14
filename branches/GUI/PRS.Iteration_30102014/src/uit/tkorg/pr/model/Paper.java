@@ -12,15 +12,6 @@ import java.util.List;
 /**
  *
  * @author THNghiep
- This class represents a paper.
- Data: 
- paper id, paperTitle, year, paper type,
- tfidfVector in keywords' tf-idf list (ir's hashmapvector: cần xem kĩ lại class này, dùng như thế nào cho đúng),
- and the full feature vector of the paper (hashmapvector computed by combining other paper with weighting scheme linear or cosine or rpy).
- - if the paper is paper to recommend: list<String> of citationList, referenceList (paper id).
- * - if the paper is paper of author: List<Paper> of citationList, referenceList (Paper object, this class).
- * - if the paper is citationList or referenceList paper of author: no list of citationList, referenceList.
- * Note: For a specific paper type, some data are absent.
  */
 public class Paper implements Serializable {
     private String paperId;
@@ -29,8 +20,8 @@ public class Paper implements Serializable {
     private int year;
     private String paperType;
     private HashMapVector tfidfVector;
-    private List citationList; // cited by those papers.
-    private List referenceList; // citing those papers.
+    private List citationList; // this paper is cited by this list.
+    private List referenceList; // this paper is citing this list.
     private HashMapVector featureVector;
     private Float qualityValue;
 

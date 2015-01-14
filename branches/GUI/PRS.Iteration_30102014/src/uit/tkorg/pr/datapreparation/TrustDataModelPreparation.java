@@ -43,26 +43,23 @@ public class TrustDataModelPreparation {
     public static void computeCitationAuthorRSSHM(HashMap<String, Author> authors,
             String file_All_AuthorID_PaperID, String file_PaperID_RefID,
             HashMap<String, HashMap<String, Float>> referenceRSSNet) throws Exception {
+        
         CitationAuthorNet.getInstance().load_AuthorID_PaperID(file_All_AuthorID_PaperID);
         CitationAuthorNet.getInstance().load_PaperID_RefID(file_PaperID_RefID);
         CitationAuthorNet.getInstance().buildRefGraph();
         CitationAuthorNet.getInstance().buildRefRSSGraph();
 
+        // <String, <String, Float>> : <AuthorID, <AuthorID of citation author, Score>>
         referenceRSSNet = CitationAuthorNet.getInstance().getReferenceRSSNet();
         // Normalize
         for (HashMap<String, Float> hm : referenceRSSNet.values()) {
             HashMapUtility.minNormalizeHashMap(hm);
         }
 
-        for (String authorId : CitationAuthorNet.getInstance().getReferenceRSSNet().keySet()) {
+        for (String authorId : referenceRSSNet.keySet()) {
             if (authors.containsKey(authorId)) {
-                authors.get(authorId).setCitationAuthorRSSHM(
-                        CitationAuthorNet.getInstance().getReferenceRSSNet().get(authorId));
+                authors.get(authorId).setCitationAuthorRSSHM(referenceRSSNet.get(authorId));
             }
-        }
-        // Normalize
-        for (Author author : authors.values()) {
-            HashMapUtility.minNormalizeHashMap(author.getCitationAuthorRSSHM());
         }
     }
 }
