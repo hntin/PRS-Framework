@@ -23,8 +23,8 @@ public class CoAuthorNet {
     public static void setInstance(CoAuthorNet aInstance) {
         _instance = aInstance;
     }
-    private HashMap<String, HashMap<String, Integer>> _coAuthorNet;
-    private HashMap<String, HashMap<String, Float>> _rssNet; //weighted, directed graph
+    private HashMap<String, HashMap<String, Integer>> _coAuthorNet; // <Author, <Coauthor, count coauthored paper>>
+    private HashMap<String, HashMap<String, Float>> _rssNet; //weighted, directed graph: <Author, <Coauthor, RSS>>
     private HashMap<String, HashMap<String, Float>> _rtbvsNet; //weighted, directed graph
     private HashMap<String, Integer> _paperID_Year;
     private HashMap<String, ArrayList<String>> _authorID_PaperID;
@@ -51,13 +51,11 @@ public class CoAuthorNet {
      */
     public void LoadTrainingData(String file_AuthorID_PaperID, String file_PaperID_Year) {
         try {
-            System.err.println(file_AuthorID_PaperID);
             _paperID_Year = new HashMap<>();
             FileInputStream fis = new FileInputStream(file_PaperID_Year);
             Reader reader = new InputStreamReader(fis, "UTF8");
             BufferedReader bufferReader = new BufferedReader(reader);
-            bufferReader.readLine();
-            String line = null;
+            String line;
             String[] tokens;
             String paperId;
             Integer year;
@@ -89,8 +87,7 @@ public class CoAuthorNet {
             FileInputStream fis = new FileInputStream(file_AuthorID_PaperID);
             Reader reader = new InputStreamReader(fis, "UTF8");
             BufferedReader bufferReader = new BufferedReader(reader);
-            bufferReader.readLine();
-            String line = null;
+            String line;
             String[] tokens;
             String authorId;
             String paperId;
@@ -235,26 +232,23 @@ public class CoAuthorNet {
         return found;
     }
 
-//    // Testing Functions of AuthorGraph
-//    public static void main(String args[]) {
-//        System.out.println("START LOADING TRAINING DATA");
-//        AuthorGraph _graph = AuthorGraph.getInstance();
-//        
-//        _graph.LoadTrainingData("C:\\CRS-Experiment\\Sampledata\\[Training]AuthorId_PaperID.txt", 
-//                "C:\\CRS-Experiment\\Sampledata\\[Training]PaperID_Year.txt");
-//
-//        // Building Graphs
-//        _graph.BuidCoAuthorGraph();
-//        _graph.BuildingRSSGraph();
-//        
-//        HashMap temp1 = _graph.coAuthorGraph;
-//        HashMap temp2 = _graph.rssGraph;
-//        
-//        PageRank pr = new PageRank();
-//        HashMap<Integer, HashMap<Integer, Float>> inLinkHM = pr.initInLinkHMFromGraph(temp2);
-//        
-//        System.out.println("DONE");
-//    }
+    // Testing Functions of AuthorGraph
+    public static void main(String args[]) {
+        System.out.println("START LOADING TRAINING DATA");
+        CoAuthorNet _graph = CoAuthorNet.getInstance();
+        
+        _graph.LoadTrainingData("E:\\! Research\\Research Topics\\3. Recommendation Systems\\PRS\\Experiment\\1. Data\\Sample Data\\CSV\\Sample 3\\AUTHOR_PAPER_BEFORE_T2.csv", 
+                "E:\\! Research\\Research Topics\\3. Recommendation Systems\\PRS\\Experiment\\1. Data\\Sample Data\\CSV\\Sample 3\\PAPER_BEFORE_T2.csv");
+
+        // Building Graphs
+        _graph.BuildCoAuthorGraph();
+        _graph.BuildingRSSGraph();
+        
+        HashMap temp1 = _graph.getCoAuthorNet();
+        HashMap temp2 = _graph.getRssNet();
+        
+        System.out.println("DONE");
+    }
 
     /**
      * @return the _coAuthorNet

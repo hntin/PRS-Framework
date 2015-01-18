@@ -51,13 +51,18 @@ public class TrustDataModelPreparation {
         CitationAuthorNet.getInstance().buildRefGraph();
         CitationAuthorNet.getInstance().buildRefRSSGraph();
 
-        // <String, <String, Float>> : <AuthorID, <AuthorID of citation author, Score>>
-        referenceRSSNet = CitationAuthorNet.getInstance().getReferenceRSSNet();
+        // NOTE: reference type parameter only work when the pointer is not changed.
+        // -> Have to modify the content of reference parameter. 
+        // -> Can not assign the whole new value (which is assign new pointer).
+        // E.g.: WRONG: referenceRSSNet = CitationAuthorNet.getInstance().getReferenceRSSNet();
+        referenceRSSNet.putAll(CitationAuthorNet.getInstance().getReferenceRSSNet());
+
         // Normalize
         for (HashMap<String, Float> hm : referenceRSSNet.values()) {
             HashMapUtility.minNormalizeHashMap(hm);
         }
 
+        // Put into author model.
         for (String authorId : referenceRSSNet.keySet()) {
             if (authors.containsKey(authorId)) {
                 authors.get(authorId).setCitationAuthorRSSHM(referenceRSSNet.get(authorId));

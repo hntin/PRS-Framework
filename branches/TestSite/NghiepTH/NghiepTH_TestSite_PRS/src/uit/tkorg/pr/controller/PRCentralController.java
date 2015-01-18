@@ -102,7 +102,7 @@ public class PRCentralController {
                     PRConstant.FOLDER_MAS_DATASET + "MahoutCF",
                     // Result
                     "EvaluationResult\\EvaluationResult_Junior100_NewCitation_251214.xls",
-                    6);
+                    4);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -310,6 +310,7 @@ public class PRCentralController {
         } else if (recommendationMethod == 4) {
             //<editor-fold defaultstate="collapsed" desc="TRUST BASED">
             TrustDataModelPreparation.computeCoAuthorRSSHM(authorTestSet, fileNameAuthorship, fileNamePapers);
+            // <AuthorID, <AuthorID of citation author, Score>>
             HashMap<String, HashMap<String, Float>> referenceRSSNet = new HashMap<>();
             TrustDataModelPreparation.computeCitationAuthorRSSHM(authorTestSet, 
                     fileNameAuthorship, fileNamePaperCitePaper, referenceRSSNet);

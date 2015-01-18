@@ -104,6 +104,7 @@ public class HashMapUtility {
             // While, CBF list contains all paper cited from 2006 (uncited before 2006) by authors in testset.
             // -> So CBF list has some items not present in CF and trusted paper list.
             // -> auto converting to 0 means the result depends on f(CBFSim value).
+            // E.g. 3: Coauthor is not Citationauthor and vice versa.
             Float value1 = inputHM1.get(key);
             if (value1 == null) {
                 value1 = Float.valueOf(0);
