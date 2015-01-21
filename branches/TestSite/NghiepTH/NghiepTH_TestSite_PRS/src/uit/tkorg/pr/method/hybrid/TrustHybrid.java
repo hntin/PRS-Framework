@@ -5,6 +5,7 @@
 package uit.tkorg.pr.method.hybrid;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -198,7 +199,9 @@ public class TrustHybrid {
     }
 
     public static void computeTrustedPaperHMAndPutIntoModelForAuthorList(
-            final HashMap<String, Author> authors, final HashMap<String, Paper> papers,
+            final HashMap<String, Author> authors, 
+            final HashMap<String, ArrayList<String>> authorPaperHM, 
+            final HashMap<String, Paper> papers,
             final int howToGetTrustedPaper, final int howToTrustPaper, 
             final HashSet<String> paperIdsInTestSet) throws Exception {
         Runtime runtime = Runtime.getRuntime();
@@ -213,7 +216,7 @@ public class TrustHybrid {
                 @Override
                 public void run() {
                     try {
-                        computeTrustedPaperHM(authors, authorObj, papers, howToGetTrustedPaper, howToTrustPaper);
+                        computeTrustedPaperHM(authorPaperHM, authorObj, papers, howToGetTrustedPaper, howToTrustPaper);
                         // Filter out: Only consider paper in testset (ground truth).
                         // Can not iterate over key set and remove entry at the same time
                         // -> Concurrent Modification Exception.
@@ -251,7 +254,7 @@ public class TrustHybrid {
      * @param howToGetTrustedPaper 1: written by trusted author, 2: written and cited by trusted author.
      * @throws Exception 
      */
-    private static void computeTrustedPaperHM(HashMap<String, Author> authors, Author author, 
+    private static void computeTrustedPaperHM(HashMap<String, ArrayList<String>> authorPaperHM, Author author, 
             HashMap<String, Paper> papers,
             int howToGetTrustedPaper, int howToTrustPaper) throws Exception {
 
@@ -260,17 +263,16 @@ public class TrustHybrid {
         
         // Iterate over trusted author.
         for (String authorId : author.getTrustedAuthorHM().keySet()) {
-            if (authors.containsKey(authorId)) {
+            // Not in authorPaperHM, means have no paper.
+            if (authorPaperHM.containsKey(authorId)) {
                 if ((howToGetTrustedPaper == 1) || (howToGetTrustedPaper == 2)) {
                     // Iterate over paper WRITTEN by trusted author (default: paper before T2).
-                    for (String paperId : (List<String>) authors.get(authorId).getPaperList()) {
+                    for (String paperId : authorPaperHM.get(authorId)) {
                         // This part adds written paper, used in both get paper 1 and 2.
                         if (author.getTrustedPaperHM().containsKey(paperId)) { // If already put in trusted paper HM.
                             if (howToTrustPaper == 1) { // Average: sum then divide.
-                                author.getTrustedPaperHM().put(paperId, 
-                                        author.getTrustedPaperHM().get(paperId) + author.getTrustedAuthorHM().get(authorId));
-                                paperTrustedAuthorCount.put(paperId, 
-                                        paperTrustedAuthorCount.get(paperId) + 1);
+                                author.getTrustedPaperHM().put(paperId, author.getTrustedPaperHM().get(paperId) + author.getTrustedAuthorHM().get(authorId));
+                                paperTrustedAuthorCount.put(paperId, paperTrustedAuthorCount.get(paperId) + 1);
                             } else if (howToTrustPaper == 2) { // Max.
                                 if (author.getTrustedPaperHM().get(paperId) < author.getTrustedAuthorHM().get(authorId)) {
                                     author.getTrustedPaperHM().put(paperId, author.getTrustedAuthorHM().get(authorId));

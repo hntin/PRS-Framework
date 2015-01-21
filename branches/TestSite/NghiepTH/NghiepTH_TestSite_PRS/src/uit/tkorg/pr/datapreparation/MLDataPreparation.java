@@ -7,6 +7,7 @@ package uit.tkorg.pr.datapreparation;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import org.apache.commons.io.FileUtils;
@@ -166,14 +167,14 @@ public class MLDataPreparation {
         TrustDataModelPreparation.computeCoAuthorRSSHM(authorTestSet,
                 fileNameAuthorship, fileNamePapers);
         HashMap<String, HashMap<String, Float>> referenceRSSNet = new HashMap<>();
-        TrustDataModelPreparation.computeCitationAuthorRSSHM(authorTestSet,
-                fileNameAuthorship, fileNamePaperCitePaper, referenceRSSNet);
+        HashMap<String, ArrayList<String>> authorPaperHM = new HashMap<>();
+        TrustDataModelPreparation.computeCitationAuthorRSSHM(authorTestSet, fileNameAuthorship, fileNamePaperCitePaper, referenceRSSNet, authorPaperHM);
         combinationScheme = 1;
         alpha = (float) 0.5;
         howToGetTrustedPaper = 2;
         howToTrust = 2; // Max of trusted author.
         TrustHybrid.computeTrustedAuthorHMLinearCombinationAndPutIntoModelForAuthorList(authorTestSet, alpha, combinationScheme);
-        TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authorTestSet, papers, howToGetTrustedPaper, howToTrust, paperIdsInTestSet);
+        TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authorTestSet, authorPaperHM, papers, howToGetTrustedPaper, howToTrust, paperIdsInTestSet);
         // Compute paper quality.
         HashMap<String, Paper> paperTestSet = CBFPaperFVComputation.extractPapers(papers, paperIdsInTestSet);
         PaperQualityComputation.computeQualityValueForAllPapers(paperTestSet);

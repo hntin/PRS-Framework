@@ -1,6 +1,7 @@
 package uit.tkorg.pr.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,7 +20,6 @@ import uit.tkorg.pr.method.hybrid.CBFCF;
 import uit.tkorg.pr.method.hybrid.TrustHybrid;
 import uit.tkorg.pr.model.Author;
 import uit.tkorg.pr.model.Paper;
-import uit.tkorg.pr.utility.PaperFilterUtility;
 import uit.tkorg.utility.general.BinaryFileUtility;
 
 /**
@@ -310,10 +310,18 @@ public class PRCentralController {
         } else if (recommendationMethod == 4) {
             //<editor-fold defaultstate="collapsed" desc="TRUST BASED">
             TrustDataModelPreparation.computeCoAuthorRSSHM(authorTestSet, fileNameAuthorship, fileNamePapers);
+            
+            // Note: 
+            // Need to go 2 step over citation network in metaTrust, 
+            // so maybe need citation information of author outside authorTestSet,
+            // so need to store the whole referenceRSSNet.
             // <AuthorID, <AuthorID of citation author, Score>>
             HashMap<String, HashMap<String, Float>> referenceRSSNet = new HashMap<>();
+            // Also need to go 2 step over publication list in computeTrustedPaper,
+            // so need to store the whole authorPaper list.
+            HashMap<String, ArrayList<String>> authorPaperHM = new HashMap<>();
             TrustDataModelPreparation.computeCitationAuthorRSSHM(authorTestSet, 
-                    fileNameAuthorship, fileNamePaperCitePaper, referenceRSSNet);
+                    fileNameAuthorship, fileNamePaperCitePaper, referenceRSSNet, authorPaperHM);
             
             combinationScheme = 1; // 5 options.
             alpha = 0.5f;
@@ -336,7 +344,7 @@ public class PRCentralController {
                 TrustHybrid.computeMetaTrustedAuthorHMAndPutIntoModelForAuthorList(authorTestSet, referenceRSSNet, metaTrustType, alpha);
             }
             
-            TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authorTestSet, papers, howToGetTrustedPaper, howToTrustPaper, paperIdsInTestSet);
+            TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authorTestSet, authorPaperHM, papers, howToGetTrustedPaper, howToTrustPaper, paperIdsInTestSet);
 
             TrustHybrid.trustRecommendToAuthorList(authorTestSet, topNRecommend);
             algorithmName = "Trust Based Method:"
@@ -359,7 +367,8 @@ public class PRCentralController {
             // Trust:
             TrustDataModelPreparation.computeCoAuthorRSSHM(authorTestSet, fileNameAuthorship, fileNamePapers);
             HashMap<String, HashMap<String, Float>> referenceRSSNet = new HashMap<>();
-            TrustDataModelPreparation.computeCitationAuthorRSSHM(authorTestSet, fileNameAuthorship, fileNamePaperCitePaper, referenceRSSNet);
+            HashMap<String, ArrayList<String>> authorPaperHM = new HashMap<>();
+            TrustDataModelPreparation.computeCitationAuthorRSSHM(authorTestSet, fileNameAuthorship, fileNamePaperCitePaper, referenceRSSNet, authorPaperHM);
 
             combinationScheme = 1; // 5 options.
             alpha = 0.5f;
@@ -378,7 +387,7 @@ public class PRCentralController {
                 TrustHybrid.computeMetaTrustedAuthorHMAndPutIntoModelForAuthorList(authorTestSet, referenceRSSNet, metaTrustType, alpha);
             }
             
-            TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authorTestSet, papers, howToGetTrustedPaper, howToTrustPaper, paperIdsInTestSet);
+            TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authorTestSet, authorPaperHM, papers, howToGetTrustedPaper, howToTrustPaper, paperIdsInTestSet);
 
             algorithmName = "CBF-Trust Based Combination:"
                     + " Trust combinationScheme = " + combinationScheme 
@@ -411,7 +420,8 @@ public class PRCentralController {
             // Trust:
             TrustDataModelPreparation.computeCoAuthorRSSHM(authorTestSet, fileNameAuthorship, fileNamePapers);
             HashMap<String, HashMap<String, Float>> referenceRSSNet = new HashMap<>();
-            TrustDataModelPreparation.computeCitationAuthorRSSHM(authorTestSet, fileNameAuthorship, fileNamePaperCitePaper, referenceRSSNet);
+            HashMap<String, ArrayList<String>> authorPaperHM = new HashMap<>();
+            TrustDataModelPreparation.computeCitationAuthorRSSHM(authorTestSet, fileNameAuthorship, fileNamePaperCitePaper, referenceRSSNet, authorPaperHM);
 
             combinationScheme = 1; // 5 options.
             alpha = 0.5f;
@@ -420,7 +430,7 @@ public class PRCentralController {
             // Merge coauthor and citedauthor.
             TrustHybrid.computeTrustedAuthorHMLinearCombinationAndPutIntoModelForAuthorList(authorTestSet, alpha, combinationScheme);
             // Get list of social related papers, score is not relevant.
-            TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authorTestSet, papers, howToGetTrustedPaper, howToTrustPaper, paperIdsInTestSet);
+            TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authorTestSet, authorPaperHM, papers, howToGetTrustedPaper, howToTrustPaper, paperIdsInTestSet);
 
             // Compute CBF and Trust Hybrid value and put into author model:
             TrustHybrid.computeCBFTrustHybridV2AndPutIntoModelForAuthorList(authorTestSet);

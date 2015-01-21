@@ -6,6 +6,7 @@
 package uit.tkorg.pr.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import org.apache.commons.io.FileUtils;
@@ -383,7 +384,8 @@ public class PRGUICentralController {
             //<editor-fold defaultstate="collapsed" desc="TRUST BASED">
             TrustDataModelPreparation.computeCoAuthorRSSHM(authors, fileNameAuthorPaper, fileNamePapers);
             HashMap<String, HashMap<String, Float>> referenceRSSNet = new HashMap<>();
-            TrustDataModelPreparation.computeCitationAuthorRSSHM(authors, fileNameAuthorPaper, fileNamePaperCitePaper, referenceRSSNet);
+            HashMap<String, ArrayList<String>> authorPaperHM = new HashMap<>();
+            TrustDataModelPreparation.computeCitationAuthorRSSHM(authors, fileNameAuthorPaper, fileNamePaperCitePaper, referenceRSSNet, authorPaperHM);
             
             //int combinationScheme = 1;
             
@@ -402,7 +404,7 @@ public class PRGUICentralController {
                 TrustHybrid.computeMetaTrustedAuthorHMAndPutIntoModelForAuthorList(authors, referenceRSSNet, metaTrustType, alpha_temp);
             }
             
-            TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authors, papers, howToGetTrustedPaper_TB, howToTrustPaper_TB, paperIdsInTestSet);
+            TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authors, authorPaperHM, papers, howToGetTrustedPaper_TB, howToTrustPaper_TB, paperIdsInTestSet);
 
             TrustHybrid.trustRecommendToAuthorList(authors, topRecommend);
             //System.out.println();
@@ -417,7 +419,8 @@ public class PRGUICentralController {
                     pruning_HTB);
             TrustDataModelPreparation.computeCoAuthorRSSHM(authors, fileNameAuthors, fileNamePapers);
             HashMap<String, HashMap<String, Float>> referenceRSSNet = new HashMap<>();
-            TrustDataModelPreparation.computeCitationAuthorRSSHM(authors, fileNameAuthors, fileNamePaperCitePaper, referenceRSSNet);
+            HashMap<String, ArrayList<String>> authorPaperHM = new HashMap<>();
+            TrustDataModelPreparation.computeCitationAuthorRSSHM(authors, fileNameAuthorPaper, fileNamePaperCitePaper, referenceRSSNet, authorPaperHM);
 
             //int combinationScheme = 1;
             float alpha_temp = (float) alpha_HTB;
@@ -436,7 +439,7 @@ public class PRGUICentralController {
                 TrustHybrid.computeMetaTrustedAuthorHMAndPutIntoModelForAuthorList(authors, referenceRSSNet, metaTrustType, alpha_temp);
             }
             
-            TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authors, papers, howToGetTrustedPaper_HTB, howToTrustPaper_HTB, paperIdsInTestSet);
+            TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authors, authorPaperHM, papers, howToGetTrustedPaper_HTB, howToTrustPaper_HTB, paperIdsInTestSet);
 
             
             TrustHybrid.computeCBFTrustLinearCombinationAndPutIntoModelForAuthorList(authors, alpha_HTB1, combineHybrid_HTB);
