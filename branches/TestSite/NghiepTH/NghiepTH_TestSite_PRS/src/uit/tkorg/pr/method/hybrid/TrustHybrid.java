@@ -432,6 +432,44 @@ public class TrustHybrid {
         }
     }
 
+    public static void computeCBFTrustHybridV3AndPutIntoModelForAuthorList(HashMap<String, Author> authors) throws Exception {
+        Runtime runtime = Runtime.getRuntime();
+        int numOfProcessors = runtime.availableProcessors();
+        ExecutorService executor = Executors.newFixedThreadPool(numOfProcessors - 1);
+
+        System.out.println("NUM OF AUTHOR: " + authors.size());
+
+        HashMapUtility.setCountThread(0);
+        for (String authorId : authors.keySet()) {
+            final Author authorObj = authors.get(authorId);
+            executor.submit(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        // getRecommendationValue() has topN items, commonly 1000 items.
+                        for (String paperId : authorObj.getRecommendationValue().keySet()) {
+                            Float trustScore = authorObj.getTrustedPaperHM().get(paperId);
+                            if (trustScore == null) {
+                                trustScore = new Float(0);
+                            } else {
+                                trustScore = new Float(trustScore);
+                            }
+                            authorObj.getCbfTrustHybridV3HM().put(paperId, trustScore);
+                        }
+                        // Normalize
+                        HashMapUtility.minNormalizeHashMap(authorObj.getCbfTrustHybridV3HM());
+                    } catch (Exception ex) {
+                        Logger.getLogger(FeatureVectorSimilarity.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            });
+        }
+
+        executor.shutdown();
+        while (!executor.isTerminated()) {
+        }
+    }
+
     public static void trustRecommendToAuthorList(HashMap<String, Author> authorTestSet, 
             int topNRecommend) 
             throws IOException, TasteException, Exception {
@@ -448,5 +486,11 @@ public class TrustHybrid {
             HashMap<String, Author> authorTestSet, int topNRecommend) 
             throws IOException, TasteException, Exception {
         GenericRecommender.generateRecommendationForAuthorList(authorTestSet, topNRecommend, 5);
+    }
+
+    public static void trustHybridRecommendToAuthorListV3(
+            HashMap<String, Author> authorTestSet, int topNRecommend) 
+            throws IOException, TasteException, Exception {
+        GenericRecommender.generateRecommendationForAuthorList(authorTestSet, topNRecommend, 6);
     }
 }

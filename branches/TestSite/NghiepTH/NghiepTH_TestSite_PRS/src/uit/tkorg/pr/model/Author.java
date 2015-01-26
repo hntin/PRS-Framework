@@ -52,6 +52,7 @@ public class Author implements Serializable {
     private HashMap<String, Float> trustedPaperHM;
     private HashMap<String, Float> cbfTrustHybridHM;
     private HashMap<String, Float> cbfTrustHybridV2HM;
+    private HashMap<String, Float> cbfTrustHybridV3HM;
     private HashMap<String, Float> finalRecommendingScoreHM;
 
     /**
@@ -91,6 +92,7 @@ public class Author implements Serializable {
         this.trustedPaperHM = new HashMap<>();
         this.cbfTrustHybridHM = new HashMap<>();
         this.cbfTrustHybridV2HM = new HashMap<>();
+        this.cbfTrustHybridV3HM = new HashMap<>();
         this.finalRecommendingScoreHM = new HashMap<>();
     }
 
@@ -571,5 +573,19 @@ public class Author implements Serializable {
      */
     public void setCbfTrustHybridV2HM(HashMap<String, Float> cbfTrustHybridV2HM) {
         this.cbfTrustHybridV2HM = cbfTrustHybridV2HM;
+    }
+
+    /**
+     * @return the cbfTrustHybridV3HM
+     */
+    public HashMap<String, Float> getCbfTrustHybridV3HM() {
+        return cbfTrustHybridV3HM;
+    }
+
+    /**
+     * @param cbfTrustHybridV3HM the cbfTrustHybridV3HM to set
+     */
+    public void setCbfTrustHybridV3HM(HashMap<String, Float> cbfTrustHybridV3HM) {
+        this.cbfTrustHybridV3HM = cbfTrustHybridV3HM;
     }
 }
