@@ -4,6 +4,7 @@
  */
 package uit.tkorg.pr.datapreparation;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import uit.tkorg.pr.model.Author;
 import uit.tkorg.pr.model.CitationAuthorNet;
@@ -42,24 +43,29 @@ public class TrustDataModelPreparation {
 
     public static void computeCitationAuthorRSSHM(HashMap<String, Author> authors,
             String file_All_AuthorID_PaperID, String file_PaperID_RefID,
-            HashMap<String, HashMap<String, Float>> referenceRSSNet) throws Exception {
+            HashMap<String, HashMap<String, Float>> referenceRSSNet, 
+            HashMap<String, ArrayList<String>> authorPaperHM) throws Exception {
         
         CitationAuthorNet.getInstance().load_AuthorID_PaperID(file_All_AuthorID_PaperID);
         CitationAuthorNet.getInstance().load_PaperID_RefID(file_PaperID_RefID);
         CitationAuthorNet.getInstance().buildRefGraph();
         CitationAuthorNet.getInstance().buildRefRSSGraph();
 
-        // <String, <String, Float>> : <AuthorID, <AuthorID of citation author, Score>>
-        referenceRSSNet = CitationAuthorNet.getInstance().getReferenceRSSNet();
+        referenceRSSNet.putAll(CitationAuthorNet.getInstance().getReferenceRSSNet());
+        
         // Normalize
         for (HashMap<String, Float> hm : referenceRSSNet.values()) {
             HashMapUtility.minNormalizeHashMap(hm);
         }
 
+        // Put into author model.
         for (String authorId : referenceRSSNet.keySet()) {
             if (authors.containsKey(authorId)) {
                 authors.get(authorId).setCitationAuthorRSSHM(referenceRSSNet.get(authorId));
             }
         }
+        
+        // Get authorPaper.
+        authorPaperHM.putAll(CitationAuthorNet.getInstance().getAuthorID_PaperID_List());
     }
 }

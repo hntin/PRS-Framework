@@ -134,8 +134,7 @@ public class CitationAuthorNet {
             FileInputStream fis = new FileInputStream(file_All_AuthorID_PaperID);
             Reader reader = new InputStreamReader(fis, "UTF8");
             BufferedReader bufferReader = new BufferedReader(reader);
-            bufferReader.readLine();
-            String line = null;
+            String line;
             String[] tokens;
             String authorId;
             String paperId;
@@ -176,11 +175,10 @@ public class CitationAuthorNet {
             FileInputStream fis = new FileInputStream(file_PaperID_RefID);
             Reader reader = new InputStreamReader(fis, "UTF8");
             BufferedReader bufferReader = new BufferedReader(reader);
-            bufferReader.readLine();
-            String line = null;
+            String line;
             String[] tokens;
             String paperId;
-            int year;
+//            int year;
             String refId;
             while ((line = bufferReader.readLine()) != null) {
                 if ((line == null) || (line.equals(""))) {
