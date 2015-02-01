@@ -46,6 +46,8 @@ public class Author implements Serializable {
     private HashMap<String, Float> cbfSimHM;
     private HashMap<String, Float> cfRatingHM;
     private HashMap<String, Float> cbfCfHybridHM;
+    private HashMap<String, Float> cbfCfHybridV2HM;
+    private HashMap<String, Float> cbfCfHybridV3HM;
     private HashMap<String, Float> coAuthorRSSHM;
     private HashMap<String, Float> citationAuthorRSSHM;
     private HashMap<String, Float> trustedAuthorHM;
@@ -86,6 +88,8 @@ public class Author implements Serializable {
         this.cbfSimHM = new HashMap<>();
         this.cfRatingHM = new HashMap<>();
         this.cbfCfHybridHM = new HashMap<>();
+        this.cbfCfHybridV2HM = new HashMap<>();
+        this.cbfCfHybridV3HM = new HashMap<>();
         this.coAuthorRSSHM = new HashMap<>();
         this.citationAuthorRSSHM = new HashMap<>();
         this.trustedAuthorHM = new HashMap<>();
@@ -587,5 +591,33 @@ public class Author implements Serializable {
      */
     public void setCbfTrustHybridV3HM(HashMap<String, Float> cbfTrustHybridV3HM) {
         this.cbfTrustHybridV3HM = cbfTrustHybridV3HM;
+    }
+
+    /**
+     * @return the cbfCfHybridV2HM
+     */
+    public HashMap<String, Float> getCbfCfHybridV2HM() {
+        return cbfCfHybridV2HM;
+    }
+
+    /**
+     * @param cbfCfHybridV2HM the cbfCfHybridV2HM to set
+     */
+    public void setCbfCfHybridV2HM(HashMap<String, Float> cbfCfHybridV2HM) {
+        this.cbfCfHybridV2HM = cbfCfHybridV2HM;
+    }
+
+    /**
+     * @return the cbfCfHybridV3HM
+     */
+    public HashMap<String, Float> getCbfCfHybridV3HM() {
+        return cbfCfHybridV3HM;
+    }
+
+    /**
+     * @param cbfCfHybridV3HM the cbfCfHybridV3HM to set
+     */
+    public void setCbfCfHybridV3HM(HashMap<String, Float> cbfCfHybridV3HM) {
+        this.cbfCfHybridV3HM = cbfCfHybridV3HM;
     }
 }

@@ -285,4 +285,24 @@ public class HashMapUtility {
             }
         }
     }
+
+    public static void filterHashMap(HashMap<String, Float> inputHM, 
+            HashMap<String, Float> filteringHM, 
+            HashMap<String, Float> outputHM) throws Exception {
+
+        for (String paperId : filteringHM.keySet()) {
+            Float score = inputHM.get(paperId);
+            if (score == null) {
+                score = new Float(0);
+            } else {
+                score = new Float(score);
+            }
+            outputHM.put(paperId, score);
+        }
+
+        // This method could be call in a parallel runable, so this part will count number of threads.
+        synchronized (getCountThread()) {
+            System.out.println("Thread No. " + countThread++ + " Done. " + (new Date(System.currentTimeMillis()).toString()));
+        }
+    }
 }

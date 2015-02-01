@@ -29,12 +29,7 @@ public class GenericRecommender {
      * 
      * @param authors
      * @param topNRecommend
-     * @param method: 0: cbf, 1: cf, 
-     * 2: cbf and cf linear combination, 
-     * 3: trust,
-     * 4: cbf-trust hybrid linear combination,
-     * 5: cbf-trust hybrid V2, Trust filtered by CBF, or sort Trust by CBF.
-     * 6: cbf-trust hybrid V3, CBF filtered by Trust.
+     * @param method
      * @throws Exception 
      */
     public static void generateRecommendationForAuthorList(final HashMap<String, Author> authors, 
@@ -70,20 +65,24 @@ public class GenericRecommender {
         author.getRecommendationList().clear();
         
         HashMap<String, Float> recommendingScoreHM = null;
-        if (method == 0) {
+        if (method == 1) {
             recommendingScoreHM = author.getCbfSimHM();
-        } else if (method == 1) {
-            recommendingScoreHM = author.getCfRatingHM();
         } else if (method == 2) {
-            recommendingScoreHM = author.getCbfCfHybridHM();
+            recommendingScoreHM = author.getCfRatingHM();
         } else if (method == 3) {
-            recommendingScoreHM = author.getTrustedPaperHM();
+            recommendingScoreHM = author.getCbfCfHybridHM();
         } else if (method == 4) {
-            recommendingScoreHM = author.getCbfTrustHybridHM();
+            recommendingScoreHM = author.getTrustedPaperHM();
         } else if (method == 5) {
-            recommendingScoreHM = author.getCbfTrustHybridV2HM();
+            recommendingScoreHM = author.getCbfTrustHybridHM();
         } else if (method == 6) {
+            recommendingScoreHM = author.getCbfTrustHybridV2HM();
+        } else if (method == 7) {
             recommendingScoreHM = author.getCbfTrustHybridV3HM();
+        } else if (method == 8) {
+            recommendingScoreHM = author.getCbfCfHybridV2HM();
+        } else if (method == 9) {
+            recommendingScoreHM = author.getCbfCfHybridV3HM();
         }
 
         // Sort papers descending based on recommending score.

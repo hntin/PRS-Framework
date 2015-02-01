@@ -90,12 +90,13 @@ public class FeatureVectorSimilarity {
      * @param authors: all authors in the test set.
      * @param topNRecommend: top n item to recommend.
      *
-     * - For each author: + Compute similarity with all papers. + Sort list of
-     * papers, based on similarity. + Take top n papers with highest similarity
-     * for the recommendation list. + Save recommendation list into current
-     * author.
+     * - For each author: 
+     * + Compute similarity with all papers. 
+     * + Sort list of papers, based on similarity. 
+     * + Take top n papers with highest similarity for the recommendation list. 
+     * + Save recommendation list into current author.
      */
     public static void generateRecommendationForAuthorList(final HashMap<String, Author> authors, final int topNRecommend) throws Exception {
-        GenericRecommender.generateRecommendationForAuthorList(authors, topNRecommend, 0);
+        GenericRecommender.generateRecommendationForAuthorList(authors, topNRecommend, 1);
     }
 }

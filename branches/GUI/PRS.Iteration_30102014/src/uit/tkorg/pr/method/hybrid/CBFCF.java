@@ -88,7 +88,75 @@ public class CBFCF {
         }
     }
 
+    public static void computeCBFCFHybridV2AndPutIntoModelForAuthorList(HashMap<String, Author> authors) throws Exception {
+        Runtime runtime = Runtime.getRuntime();
+        int numOfProcessors = runtime.availableProcessors();
+        ExecutorService executor = Executors.newFixedThreadPool(numOfProcessors - 1);
+
+        System.out.println("NUM OF AUTHOR: " + authors.size());
+
+        HashMapUtility.setCountThread(0);
+        for (String authorId : authors.keySet()) {
+            final Author authorObj = authors.get(authorId);
+            executor.submit(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        // Filter
+                        HashMapUtility.filterHashMap(authorObj.getCbfSimHM(), authorObj.getCfRatingHM(), authorObj.getCbfCfHybridV2HM());
+                        // Normalize.
+                        HashMapUtility.minNormalizeHashMap(authorObj.getCbfCfHybridV2HM());
+                    } catch (Exception ex) {
+                        Logger.getLogger(FeatureVectorSimilarity.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            });
+        }
+
+        executor.shutdown();
+        while (!executor.isTerminated()) {
+        }
+    }
+
+    public static void computeCBFCFHybridV3AndPutIntoModelForAuthorList(HashMap<String, Author> authors) throws Exception {
+        Runtime runtime = Runtime.getRuntime();
+        int numOfProcessors = runtime.availableProcessors();
+        ExecutorService executor = Executors.newFixedThreadPool(numOfProcessors - 1);
+
+        System.out.println("NUM OF AUTHOR: " + authors.size());
+
+        HashMapUtility.setCountThread(0);
+        for (String authorId : authors.keySet()) {
+            final Author authorObj = authors.get(authorId);
+            executor.submit(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        // Filter
+                        HashMapUtility.filterHashMap(authorObj.getCfRatingHM(), authorObj.getRecommendationValue(), authorObj.getCbfCfHybridV3HM());
+                        // Normalize.
+                        HashMapUtility.minNormalizeHashMap(authorObj.getCbfCfHybridV3HM());
+                    } catch (Exception ex) {
+                        Logger.getLogger(FeatureVectorSimilarity.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            });
+        }
+
+        executor.shutdown();
+        while (!executor.isTerminated()) {
+        }
+    }
+
     public static void cbfcfHybridRecommendToAuthorList(HashMap<String, Author> authorTestSet, int topNRecommend) throws IOException, TasteException, Exception {
-        GenericRecommender.generateRecommendationForAuthorList(authorTestSet, topNRecommend, 2);
+        GenericRecommender.generateRecommendationForAuthorList(authorTestSet, topNRecommend, 3);
+    }
+
+    public static void cbfcfHybridRecommendToAuthorListV2(HashMap<String, Author> authorTestSet, int topNRecommend) throws IOException, TasteException, Exception {
+        GenericRecommender.generateRecommendationForAuthorList(authorTestSet, topNRecommend, 8);
+    }
+
+    public static void cbfcfHybridRecommendToAuthorListV3(HashMap<String, Author> authorTestSet, int topNRecommend) throws IOException, TasteException, Exception {
+        GenericRecommender.generateRecommendationForAuthorList(authorTestSet, topNRecommend, 9);
     }
 }

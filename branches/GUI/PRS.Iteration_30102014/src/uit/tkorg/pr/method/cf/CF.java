@@ -18,6 +18,6 @@ public class CF {
     public CF() {}
     
     public static void cfRecommendToAuthorList(HashMap<String, Author> authorTestSet, int topNRecommend) throws IOException, TasteException, Exception {
-        GenericRecommender.generateRecommendationForAuthorList(authorTestSet, topNRecommend, 1);
+        GenericRecommender.generateRecommendationForAuthorList(authorTestSet, topNRecommend, 2);
     }
 }
