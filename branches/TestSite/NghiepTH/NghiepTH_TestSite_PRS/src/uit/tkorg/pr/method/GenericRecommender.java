@@ -29,12 +29,18 @@ public class GenericRecommender {
      * 
      * @param authors
      * @param topNRecommend
-     * @param method: 0: cbf, 1: cf, 
-     * 2: cbf and cf linear combination, 
-     * 3: trust,
-     * 4: cbf-trust hybrid linear combination,
-     * 5: cbf-trust hybrid V2, Trust filtered by CBF, or sort Trust by CBF.
-     * 6: cbf-trust hybrid V3, CBF filtered by Trust.
+     * @param method: 
+     * 1: CBF, 
+     * 2: CF, 
+     * 3: CBF-CF Linear, 
+     * 4: Trust, 
+     * 5: CBF-Trust Linear, 
+     * 6: New CBF-Trust Hybrid V2 (get trust list then sort by cbf, or filter cbf by trust), 
+     * 7: New CBF-Trust Hybrid V3 (get cbf list then sort by trust), 
+     * 8: New CBF-CF Hybrid V2 (get cf list then sort by cbf), 
+     * 9: New CBF-CF Hybrid V3 (get cbf list then sort by cf), 
+     * 10: New CBF-Trust Hybrid V4 (get trust list then sort by cbf, fill short trust list by cbf), 
+     * 100: ML Hybrid Combination.
      * @throws Exception 
      */
     public static void generateRecommendationForAuthorList(final HashMap<String, Author> authors, 
@@ -75,20 +81,24 @@ public class GenericRecommender {
         author.getRecommendationList().clear();
         
         HashMap<String, Float> recommendingScoreHM = null;
-        if (method == 0) {
+        if (method == 1) {
             recommendingScoreHM = author.getCbfSimHM();
-        } else if (method == 1) {
-            recommendingScoreHM = author.getCfRatingHM();
         } else if (method == 2) {
-            recommendingScoreHM = author.getCbfCfHybridHM();
+            recommendingScoreHM = author.getCfRatingHM();
         } else if (method == 3) {
-            recommendingScoreHM = author.getTrustedPaperHM();
+            recommendingScoreHM = author.getCbfCfHybridHM();
         } else if (method == 4) {
-            recommendingScoreHM = author.getCbfTrustHybridHM();
+            recommendingScoreHM = author.getTrustedPaperHM();
         } else if (method == 5) {
-            recommendingScoreHM = author.getCbfTrustHybridV2HM();
+            recommendingScoreHM = author.getCbfTrustHybridHM();
         } else if (method == 6) {
+            recommendingScoreHM = author.getCbfTrustHybridV2HM();
+        } else if (method == 7) {
             recommendingScoreHM = author.getCbfTrustHybridV3HM();
+        } else if (method == 8) {
+            recommendingScoreHM = author.getCbfCfHybridV2HM();
+        } else if (method == 9) {
+            recommendingScoreHM = author.getCbfCfHybridV3HM();
         }
 
         // Sort papers descending based on recommending score.

@@ -277,6 +277,7 @@ public class HashMapUtility {
         }
     }
 
+    // Start range is auto dertermined by [min, max]
     public static void scaleToRangeABHashMap(HashMap<String, Float> hm, float a, float b) throws Exception {
         if ((hm == null) || (hm.isEmpty()) || (a > b)) {
             return;
@@ -298,6 +299,34 @@ public class HashMapUtility {
             for (String id : hm.keySet()) {
                 hm.put(id, (hm.get(id) - min) / (max - min) * (b - a) + a);
             }
+        }
+    }
+
+    public static void filterHashMap(HashMap<String, Float> inputHM, 
+            HashMap<String, Float> filteringHM, 
+            HashMap<String, Float> outputHM) throws Exception {
+
+        // e.g., filter trust list by cbf, or re-sort cbf by trust:
+        // filteringHM = trustedPaperHM
+        // inputHM = cbfSimHM
+        for (String paperId : filteringHM.keySet()) {
+            Float score = inputHM.get(paperId);
+            if (score == null) {
+                // Also accept item in filteringHM but not in inputHM.
+                // Set score to 0, so that it is behind items in inputHM.
+                // e.g., trustedPaper not in testset.
+                score = new Float(0);
+            } else {
+                // Mutable value, create new one.
+                score = new Float(score);
+            }
+            // Only put items in filteringHM, so outputHM may be empty (initialized, not null).
+            outputHM.put(paperId, score);
+        }
+
+        // This method could be call in a parallel runable, so this part will count number of threads.
+        synchronized (getCountThread()) {
+            System.out.println("Thread No. " + countThread++ + " Done. " + (new Date(System.currentTimeMillis()).toString()));
         }
     }
 }

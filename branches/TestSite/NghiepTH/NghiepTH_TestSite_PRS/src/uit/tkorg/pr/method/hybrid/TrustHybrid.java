@@ -402,22 +402,8 @@ public class TrustHybrid {
                 @Override
                 public void run() {
                     try {
-                        for (String paperId : authorObj.getTrustedPaperHM().keySet()) {
-                            Float cbfSim = authorObj.getCbfSimHM().get(paperId);
-                            if (cbfSim == null) {
-                                // Check for trusted paper not in testset.
-                                // Although not needed, because trusted paper 
-                                // has been filtered out by testset beforehand.
-                                cbfSim = new Float(0);
-                            } else {
-                                // Mutable value, create new one.
-                                cbfSim = new Float(cbfSim);
-                            }
-                            // Note: If all trusted papers are filtered out by paper in test set,
-                            // nothing will be put into cbfTrustHybridV2HM.
-                            // HM has been initialized with Author, so not null, but empty list.
-                            authorObj.getCbfTrustHybridV2HM().put(paperId, cbfSim);
-                        }
+                        // Filter
+                        HashMapUtility.filterHashMap(authorObj.getCbfSimHM(), authorObj.getTrustedPaperHM(), authorObj.getCbfTrustHybridV2HM());
                         // Normalize
                         HashMapUtility.minNormalizeHashMap(authorObj.getCbfTrustHybridV2HM());
                     } catch (Exception ex) {
@@ -446,16 +432,9 @@ public class TrustHybrid {
                 @Override
                 public void run() {
                     try {
-                        // getRecommendationValue() has topN items, commonly 1000 items.
-                        for (String paperId : authorObj.getRecommendationValue().keySet()) {
-                            Float trustScore = authorObj.getTrustedPaperHM().get(paperId);
-                            if (trustScore == null) {
-                                trustScore = new Float(0);
-                            } else {
-                                trustScore = new Float(trustScore);
-                            }
-                            authorObj.getCbfTrustHybridV3HM().put(paperId, trustScore);
-                        }
+                        // Filter
+                        // getRecommendationValue() has topN items, typically 1000 items.
+                        HashMapUtility.filterHashMap(authorObj.getTrustedPaperHM(), authorObj.getRecommendationValue(), authorObj.getCbfTrustHybridV3HM());
                         // Normalize
                         HashMapUtility.minNormalizeHashMap(authorObj.getCbfTrustHybridV3HM());
                     } catch (Exception ex) {
@@ -473,24 +452,24 @@ public class TrustHybrid {
     public static void trustRecommendToAuthorList(HashMap<String, Author> authorTestSet, 
             int topNRecommend) 
             throws IOException, TasteException, Exception {
-        GenericRecommender.generateRecommendationForAuthorList(authorTestSet, topNRecommend, 3);
+        GenericRecommender.generateRecommendationForAuthorList(authorTestSet, topNRecommend, 4);
     }
     
     public static void trustHybridRecommendToAuthorList(
             HashMap<String, Author> authorTestSet, int topNRecommend) 
             throws IOException, TasteException, Exception {
-        GenericRecommender.generateRecommendationForAuthorList(authorTestSet, topNRecommend, 4);
+        GenericRecommender.generateRecommendationForAuthorList(authorTestSet, topNRecommend, 5);
     }
     
     public static void trustHybridRecommendToAuthorListV2(
             HashMap<String, Author> authorTestSet, int topNRecommend) 
             throws IOException, TasteException, Exception {
-        GenericRecommender.generateRecommendationForAuthorList(authorTestSet, topNRecommend, 5);
+        GenericRecommender.generateRecommendationForAuthorList(authorTestSet, topNRecommend, 6);
     }
 
     public static void trustHybridRecommendToAuthorListV3(
             HashMap<String, Author> authorTestSet, int topNRecommend) 
             throws IOException, TasteException, Exception {
-        GenericRecommender.generateRecommendationForAuthorList(authorTestSet, topNRecommend, 6);
+        GenericRecommender.generateRecommendationForAuthorList(authorTestSet, topNRecommend, 7);
     }
 }

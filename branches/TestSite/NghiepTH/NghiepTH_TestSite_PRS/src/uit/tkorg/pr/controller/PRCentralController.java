@@ -124,9 +124,18 @@ public class PRCentralController {
      * @param vectorDir
      * @param MahoutCFDir
      * @param fileNameEvaluationResult
-     * @param recommendationMethod: 1: CBF, 2: CF, 3: CBF CF Hybrid Linear, 
-     * 4: Trust, 5: Trust Hybrid, 6: New Trust Hybrid (get trusted papers then sort by content.), 
-     * 10: ML Hybrid Combination.
+     * @param recommendationMethod: 
+     * 1: CBF, 
+     * 2: CF, 
+     * 3: CBF-CF Linear, 
+     * 4: Trust, 
+     * 5: CBF-Trust Linear, 
+     * 6: New CBF-Trust Hybrid V2 (get trust list then sort by cbf, or filter cbf by trust), 
+     * 7: New CBF-Trust Hybrid V3 (get cbf list then sort by trust), 
+     * 8: New CBF-CF Hybrid V2 (get cf list then sort by cbf), 
+     * 9: New CBF-CF Hybrid V3 (get cbf list then sort by cf), 
+     * 10: New CBF-Trust Hybrid V4 (get trust list then sort by cbf, fill short trust list by cbf), 
+     * 100: ML Hybrid Combination.
      * @throws Exception
      */
     public static void recommendationFlowController(int DatasetToUse, int DatasetByResearcherType,
@@ -473,6 +482,41 @@ public class PRCentralController {
             TrustHybrid.trustHybridRecommendToAuthorListV3(authorTestSet, topNRecommend);
 
             algorithmName = "CBF-Trust Based Hybrid V3";
+            //</editor-fold>
+        } else if (recommendationMethod == 8) {
+            //<editor-fold defaultstate="collapsed" desc="CBF-CF HYBRID V2">
+            CBFController.cbfComputeRecommendingScore(authorTestSet, papers,
+                    paperIdsOfAuthorTestSet, paperIdsInTestSet,
+                    combiningSchemePaperOfAuthor, weightingSchemePaperOfAuthor,
+                    timeAwareScheme, gamma,
+                    combiningSchemePaperTestSet, weightingSchemePaperTestSet, similarityScheme,
+                    pruning);
+            CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir,
+                    cfMethod, knnSimilarityScheme, authorTestSet, paperIdsInTestSet);
+            
+            CBFCF.computeCBFCFHybridV2AndPutIntoModelForAuthorList(authorTestSet);
+            
+            CBFCF.cbfcfHybridRecommendToAuthorListV2(authorTestSet, topNRecommend);
+            
+            algorithmName = "CBF-CF HYBRID V2";
+            //</editor-fold>
+        } else if (recommendationMethod == 8) {
+            //<editor-fold defaultstate="collapsed" desc="CBF-CF HYBRID V3">
+            CBFController.cbfComputeRecommendingScore(authorTestSet, papers,
+                    paperIdsOfAuthorTestSet, paperIdsInTestSet,
+                    combiningSchemePaperOfAuthor, weightingSchemePaperOfAuthor,
+                    timeAwareScheme, gamma,
+                    combiningSchemePaperTestSet, weightingSchemePaperTestSet, similarityScheme,
+                    pruning);
+            FeatureVectorSimilarity.generateRecommendationForAuthorList(authorTestSet, topNRecommend);
+            CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir,
+                    cfMethod, knnSimilarityScheme, authorTestSet, paperIdsInTestSet);
+            
+            CBFCF.computeCBFCFHybridV3AndPutIntoModelForAuthorList(authorTestSet);
+            
+            CBFCF.cbfcfHybridRecommendToAuthorListV3(authorTestSet, topNRecommend);
+            
+            algorithmName = "CBF-CF HYBRID V3";
             //</editor-fold>
         }
 
