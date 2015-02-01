@@ -398,7 +398,7 @@ public class PRCentralController {
             
             TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authorTestSet, authorPaperHM, papers, howToGetTrustedPaper, howToTrustPaper, paperIdsInTestSet);
 
-            algorithmName = "CBF-Trust Based Combination:"
+            algorithmName = "CBF-Trust Linear Combination:"
                     + " Trust combinationScheme = " + combinationScheme 
                     + " Trust alpha = " + alpha
                     + " howToTrustAuthor = " + howToTrustAuthor
@@ -447,7 +447,7 @@ public class PRCentralController {
 
             TrustHybrid.trustHybridRecommendToAuthorListV2(authorTestSet, topNRecommend);
 
-            algorithmName = "CBF-Trust Based Hybrid V2";
+            algorithmName = "CBF-Trust Hybrid V2";
             //</editor-fold>
         } else if (recommendationMethod == 7) {
             //<editor-fold defaultstate="collapsed" desc="NEW CBF-TRUST COMBINATION V3">           
@@ -481,7 +481,7 @@ public class PRCentralController {
 
             TrustHybrid.trustHybridRecommendToAuthorListV3(authorTestSet, topNRecommend);
 
-            algorithmName = "CBF-Trust Based Hybrid V3";
+            algorithmName = "CBF-Trust Hybrid V3";
             //</editor-fold>
         } else if (recommendationMethod == 8) {
             //<editor-fold defaultstate="collapsed" desc="CBF-CF HYBRID V2">
@@ -500,7 +500,7 @@ public class PRCentralController {
             
             algorithmName = "CBF-CF HYBRID V2";
             //</editor-fold>
-        } else if (recommendationMethod == 8) {
+        } else if (recommendationMethod == 9) {
             //<editor-fold defaultstate="collapsed" desc="CBF-CF HYBRID V3">
             CBFController.cbfComputeRecommendingScore(authorTestSet, papers,
                     paperIdsOfAuthorTestSet, paperIdsInTestSet,
