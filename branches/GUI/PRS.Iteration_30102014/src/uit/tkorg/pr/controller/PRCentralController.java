@@ -381,6 +381,7 @@ public class PRCentralController {
                     + " Trust combinationScheme = " + combinationScheme 
                     + " Trust alpha = " + alpha
                     + " howToTrustAuthor = " + howToTrustAuthor
+                    + " howToGetTrustedPaper = " + howToGetTrustedPaper
                     + " howToTrustPaper = " + howToTrustPaper;
 
             // Combine CBF and Trust:
@@ -395,7 +396,7 @@ public class PRCentralController {
                     + " CBF-TB alpha = " + alpha;
             //</editor-fold>
         } else if (recommendationMethod == 6) {
-            //<editor-fold defaultstate="collapsed" desc="NEW CBF-TRUST COMBINATION">           
+            //<editor-fold defaultstate="collapsed" desc="NEW CBF-TRUST COMBINATION V2">           
             
             // CBF:
             CBFController.cbfComputeRecommendingScore(authorTestSet, papers,
@@ -423,6 +424,37 @@ public class PRCentralController {
             TrustHybrid.trustHybridRecommendToAuthorListV2(authorTestSet, topNRecommend);
 
             algorithmName = "CBF-Trust Based Hybrid V2";
+            //</editor-fold>
+        } else if (recommendationMethod == 7) {
+            //<editor-fold defaultstate="collapsed" desc="NEW CBF-TRUST COMBINATION V3">           
+            
+            // CBF:
+            CBFController.cbfComputeRecommendingScore(authorTestSet, papers,
+                    paperIdsOfAuthorTestSet, paperIdsInTestSet,
+                    combiningSchemePaperOfAuthor, weightingSchemePaperOfAuthor,
+                    timeAwareScheme, gamma,
+                    combiningSchemePaperTestSet, weightingSchemePaperTestSet, similarityScheme,
+                    pruning);
+            FeatureVectorSimilarity.generateRecommendationForAuthorList(authorTestSet, topNRecommend);
+            
+            // Trust:
+            TrustDataModelPreparation.computeCoAuthorRSSHM(authorTestSet, fileNameAuthorship, fileNamePapers);
+            HashMap<String, HashMap<String, Float>> referenceRSSNet = new HashMap<>();
+            HashMap<String, ArrayList<String>> authorPaperHM = new HashMap<>();
+            TrustDataModelPreparation.computeCitationAuthorRSSHM(authorTestSet, fileNameAuthorship, fileNamePaperCitePaper, referenceRSSNet, authorPaperHM);
+
+            combinationScheme = 1; // 5 options.
+            alpha = 0.5f;
+            howToGetTrustedPaper = 2;
+            howToTrustPaper = 2;
+            TrustHybrid.computeTrustedAuthorHMLinearCombinationAndPutIntoModelForAuthorList(authorTestSet, alpha, combinationScheme);
+            TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authorTestSet, authorPaperHM, papers, howToGetTrustedPaper, howToTrustPaper, paperIdsInTestSet);
+
+            TrustHybrid.computeCBFTrustHybridV3AndPutIntoModelForAuthorList(authorTestSet);
+
+            TrustHybrid.trustHybridRecommendToAuthorListV3(authorTestSet, topNRecommend);
+
+            algorithmName = "CBF-Trust Based Hybrid V3";
             //</editor-fold>
         }
 

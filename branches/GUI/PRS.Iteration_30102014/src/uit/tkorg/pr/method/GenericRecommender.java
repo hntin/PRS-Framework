@@ -33,7 +33,8 @@ public class GenericRecommender {
      * 2: cbf and cf linear combination, 
      * 3: trust,
      * 4: cbf-trust hybrid linear combination,
-     * 5: cbf-trust hybrid V2 2 layer.
+     * 5: cbf-trust hybrid V2, Trust filtered by CBF, or sort Trust by CBF.
+     * 6: cbf-trust hybrid V3, CBF filtered by Trust.
      * @throws Exception 
      */
     public static void generateRecommendationForAuthorList(final HashMap<String, Author> authors, 
@@ -81,6 +82,8 @@ public class GenericRecommender {
             recommendingScoreHM = author.getCbfTrustHybridHM();
         } else if (method == 5) {
             recommendingScoreHM = author.getCbfTrustHybridV2HM();
+        } else if (method == 6) {
+            recommendingScoreHM = author.getCbfTrustHybridV3HM();
         }
 
         // Sort papers descending based on recommending score.
