@@ -101,8 +101,8 @@ public class PRCentralController {
                     PRConstant.FOLDER_MAS_DATASET + "TF-IDF\\Vector",
                     PRConstant.FOLDER_MAS_DATASET + "MahoutCF",
                     // Result
-                    "EvaluationResult\\EvaluationResult_Junior100_NewCitation_251214.xls",
-                    4);
+                    "EvaluationResult\\EvaluationResult_Junior100_NewCitation_120215.xls",
+                    1);
         } catch (Exception e) {
             e.printStackTrace();
         }
