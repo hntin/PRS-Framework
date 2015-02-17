@@ -55,9 +55,9 @@ public class PRCentralController {
                     PRConstant.FOLDER_MAS_DATASET + "TF-IDF\\Vector",
                     PRConstant.FOLDER_MAS_DATASET + "MahoutCF",
                     // Result
-                    "EvaluationResult\\EvaluationResult_Junior100_NewCitation_251214.xls",
+                    "EvaluationResult\\EvaluationResult_Junior100_NewCitation_150215.xls",
                     // Method
-                    4);
+                    1);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -188,7 +188,7 @@ public class PRCentralController {
         int weightingSchemePaperOfAuthor = 2;
         // timeAwareScheme: 0: unaware; 1: aware.
         int timeAwareScheme = 1;
-        // gamma: forgetting factor when aware of time. gamma = 0 => timeAware = 0.
+        // gamma: forgetting factor when timeAwareScheme = 1.
         double gamma = 0.2;
         int combiningSchemePaperTestSet = combiningSchemePaperOfAuthor;
         int weightingSchemePaperTestSet = weightingSchemePaperOfAuthor;
@@ -212,11 +212,11 @@ public class PRCentralController {
         // parameters for TRUST-BASED method
         // howToTrustAuthor: 1: combine linear citation author and coauthor, 2: meta trust citation author of coauthor
         // 3: meta trust citation author of citation author.
-        int howToTrustAuthor;
+        int howToTrustAuthor = 1;
         // howToGetTrustedPaper: 1: written by trusted author, 2: written and cited by trusted author
-        int howToGetTrustedPaper;
+        int howToGetTrustedPaper = 2;
         // howToTrustPaper: 1: average trust value of authors, 2: max trust value of authors.
-        int howToTrustPaper;
+        int howToTrustPaper = 2;
 
         // parameters for HYBRID method
         // combinationScheme: 1: combine linear, 2: combine based on confidence, 
@@ -296,10 +296,6 @@ public class PRCentralController {
             combinationScheme = 1; // 5 options.
             alpha = 0.5f;
             
-            howToTrustAuthor = 1;
-            howToGetTrustedPaper = 2;
-            howToTrustPaper = 2;
-            
             if (howToTrustAuthor == 1) {
                 TrustHybrid.computeTrustedAuthorHMLinearCombinationAndPutIntoModelForAuthorList(authorTestSet, alpha, combinationScheme);
             } else if (howToTrustAuthor == 2) {
@@ -339,10 +335,6 @@ public class PRCentralController {
             combinationScheme = 1; // 5 options.
             alpha = 0.5f;
             
-            howToTrustAuthor = 1;
-            howToGetTrustedPaper = 2;
-            howToTrustPaper = 2;
-            
             if (howToTrustAuthor == 1) {
                 TrustHybrid.computeTrustedAuthorHMLinearCombinationAndPutIntoModelForAuthorList(authorTestSet, alpha, combinationScheme);
             } else if (howToTrustAuthor == 2) {
@@ -374,7 +366,7 @@ public class PRCentralController {
                     + " CBF-TB alpha = " + alpha;
             //</editor-fold>
         } else if (recommendationMethod == 6) {
-            //<editor-fold defaultstate="collapsed" desc="NEW CBF-TRUST COMBINATION V2">           
+            //<editor-fold defaultstate="collapsed" desc="CBF-TRUST COMBINATION V2">           
             
             // CBF:
             CBFController.cbfComputeRecommendingScore(authorTestSet, papers,
@@ -392,8 +384,6 @@ public class PRCentralController {
 
             combinationScheme = 1; // 5 options.
             alpha = 0.5f;
-            howToGetTrustedPaper = 2;
-            howToTrustPaper = 2;
             TrustHybrid.computeTrustedAuthorHMLinearCombinationAndPutIntoModelForAuthorList(authorTestSet, alpha, combinationScheme);
             TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authorTestSet, authorPaperHM, papers, howToGetTrustedPaper, howToTrustPaper, paperIdsInTestSet);
 
@@ -404,7 +394,7 @@ public class PRCentralController {
             algorithmName = "CBF-Trust Hybrid V2";
             //</editor-fold>
         } else if (recommendationMethod == 7) {
-            //<editor-fold defaultstate="collapsed" desc="NEW CBF-TRUST COMBINATION V3">           
+            //<editor-fold defaultstate="collapsed" desc="CBF-TRUST COMBINATION V3">           
             
             // CBF:
             CBFController.cbfComputeRecommendingScore(authorTestSet, papers,
@@ -423,8 +413,6 @@ public class PRCentralController {
 
             combinationScheme = 1; // 5 options.
             alpha = 0.5f;
-            howToGetTrustedPaper = 2;
-            howToTrustPaper = 2;
             TrustHybrid.computeTrustedAuthorHMLinearCombinationAndPutIntoModelForAuthorList(authorTestSet, alpha, combinationScheme);
             TrustHybrid.computeTrustedPaperHMAndPutIntoModelForAuthorList(authorTestSet, authorPaperHM, papers, howToGetTrustedPaper, howToTrustPaper, paperIdsInTestSet);
 
