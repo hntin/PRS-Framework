@@ -158,11 +158,12 @@ public class MLDataPreparation {
                 paperIdsOfAuthorTestSet, paperIdsInTestSet,
                 combiningSchemePaperOfAuthor, weightingSchemePaperOfAuthor,
                 timeAwareScheme, gamma,
-                combiningSchemePaperTestSet, weightingSchemePaperTestSet, similarityScheme,
-                pruning);
+                combiningSchemePaperTestSet, weightingSchemePaperTestSet,
+                pruning, similarityScheme);
         // Compute CF value
         CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir,
-                cfMethod, knnSimilarityScheme, authorTestSet, paperIdsInTestSet);
+                cfMethod, knnSimilarityScheme, authorTestSet, paperIdsInTestSet,
+                    true, 8, 8, 0.001, 100);
         // Compute Trust paper value.
         TrustDataModelPreparation.computeCoAuthorRSSHM(authorTestSet,
                 fileNameAuthorship, fileNamePapers);

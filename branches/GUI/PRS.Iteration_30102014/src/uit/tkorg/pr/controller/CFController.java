@@ -35,7 +35,8 @@ public class CFController {
             String fileNameAuthorCitePaper, 
             String MahoutCFDir, 
             int cfMethod, int knnSimilarityScheme,
-            HashMap<String, Author> authorTestSet, HashSet<String> paperIdsInTestSet) throws Exception {
+            HashMap<String, Author> authorTestSet, HashSet<String> paperIdsInTestSet,
+            boolean runningFirstTime, int k, int f, double l, int i) throws Exception {
 
         String algorithmName = null;
         
@@ -48,13 +49,13 @@ public class CFController {
             MahoutCFFileOriginalFile = MahoutCFDir + "\\CFRatingMatrixOriginalNumericRating.txt";
         }
         // Notice: Only run once.
-        //cfPrepareMatrix(fileNameAuthorCitePaper, MahoutCFFileOriginalFile, binaryRating);
+        if (runningFirstTime) {
+            cfPrepareMatrix(fileNameAuthorCitePaper, MahoutCFFileOriginalFile, binaryRating);
+        }
         
         // Step 2: Predict ratings.
         if (cfMethod == 1) {
             // KNN. 
-            // k neighbors.
-            int k = 8;
             if (knnSimilarityScheme == 1) {
                 // co-pearson.
                 algorithmName = "CF KNN Pearson " + "k" + k;
@@ -70,10 +71,6 @@ public class CFController {
             System.out.println("End calculating CF-KNN Recommending Score");
         } else if (cfMethod == 2) {
             // SVD ALSWRFactorizer.
-            // f features, normalize by l, i iterations.
-            int f = 8;
-            double l = 0.001;
-            int i = 20;
             algorithmName = "CF MF SVD ALSWRFactorizer " + "f" + f + "l" + l + "i" + i;
             // Recommend for authors in author test set.
             System.out.println("Begin calculating CF-MF-SVD Recommending Score");

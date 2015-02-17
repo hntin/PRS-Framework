@@ -320,8 +320,8 @@ public class PRGUICentralController {
                     paperIdsOfAuthorTestSet, paperIdsInTestSet,
                     combinePaperOfAuthor_CB, weightingPaperOfAuthor_CB,
                     timeAware_CB, gamma_CB,
-                    combineCandiatePaper_CB, weightingCandidatePaper_CB, 0,
-                    pruning_CB);
+                    combineCandiatePaper_CB, weightingCandidatePaper_CB, 
+                    pruning_CB, 0);
             FeatureVectorSimilarity.generateRecommendationForAuthorList(authors, topRecommend);
             
             estimatedTime = System.nanoTime() - startTime;
@@ -341,7 +341,8 @@ public class PRGUICentralController {
             }
 
             CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, 
-                    cfMethod_CF, knnSimilarityScheme_CF, authors, paperIdsInTestSet);
+                    cfMethod_CF, knnSimilarityScheme_CF, authors, paperIdsInTestSet,
+                    true, 8, 8, 0.001, 100);
             CF.cfRecommendToAuthorList(authors, topRecommend);
 
             estimatedTime = System.nanoTime() - startTime;
@@ -367,11 +368,12 @@ public class PRGUICentralController {
                     paperIdsOfAuthorTestSet, paperIdsInTestSet,
                     combinePaperOfAuthor_HB, weightingPaperOfAuthor_HB,
                     timeAware_HB, gamma_HB,
-                    combineCandiatePaper_HB, weightingCandidatePaper_HB, 0,
-                    pruning_HB);
+                    combineCandiatePaper_HB, weightingCandidatePaper_HB, 
+                    pruning_HB, 0);
             
             CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir,
-                    cfMethod_HB, knnSimilarityScheme_HB, authors, paperIdsInTestSet);
+                    cfMethod_HB, knnSimilarityScheme_HB, authors, paperIdsInTestSet,
+                    true, 8, 8, 0.001, 100);
             
             CBFCF.computeCBFCFCombinationAndPutIntoModelForAuthorList(authors, alpha_temp, combineHybrid_HB);
             CBFCF.cbfcfHybridRecommendToAuthorList(authors, topRecommend);
@@ -415,8 +417,8 @@ public class PRGUICentralController {
                     paperIdsOfAuthorTestSet, paperIdsInTestSet,
                     combinePaperOfAuthor_HTB, weightingPaperOfAuthor_HTB,
                     timeAware_HTB, gamma_HTB,
-                    combineCandiatePaper_HTB, weightingCandidatePaper_HTB, 0,
-                    pruning_HTB);
+                    combineCandiatePaper_HTB, weightingCandidatePaper_HTB, 
+                    pruning_HTB, 0);
             TrustDataModelPreparation.computeCoAuthorRSSHM(authors, fileNameAuthors, fileNamePapers);
             HashMap<String, HashMap<String, Float>> referenceRSSNet = new HashMap<>();
             HashMap<String, ArrayList<String>> authorPaperHM = new HashMap<>();
