@@ -26,8 +26,8 @@ public class CBFController {
             int combiningSchemePaperOfAuthor, int weightingSchemePaperOfAuthor,
             int timeAwareScheme, double gamma,
             int combiningSchemePaperTestSet, int weightingSchemePaperTestSet,
-            int similarityScheme,
-            double pruning) throws Exception {
+            double pruning,
+            int similarityScheme) throws Exception {
 
         String algorithmName = "CBF with FV_PaperOfAuthor("
                 + combiningSchemePaperOfAuthor + "," + weightingSchemePaperOfAuthor + ")"

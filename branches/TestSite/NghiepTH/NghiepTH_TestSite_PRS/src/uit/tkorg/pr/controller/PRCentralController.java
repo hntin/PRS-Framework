@@ -29,61 +29,15 @@ import uit.tkorg.utility.general.BinaryFileUtility;
  */
 public class PRCentralController {
 
-    //<editor-fold defaultstate="collapsed" desc="Parameters for PRCentralController">
-    int _DatasetToUse; // 1: NUS Dataset 1, 2: NUS Dataset 2, 3: MAS Dataset.
-    int _DatasetByResearcherType; // 0: Both, 1: Junior, 2: Senior.
-    String _NUSDataset1Dir;
-    String _NUSDataset2Dir;
-    String _fileNamePapers;
-    String _fileNamePaperCitePaper;
-    String _fileNameAuthorTestSet;
-    String _fileNameGroundTruth;
-    String _fileNameAuthorship;
-    String _fileNameAuthorCitePaper;
-    String _dirPapers;
-    String _dirPreProcessedPaper;
-    String _sequenceDir;
-    String _vectorDir;
-    String _MahoutCFDir;
-    String _fileNameEvaluationResult;
-    int _recommendationMethod;
-    //</editor-fold>
-
     public PRCentralController(){
     }
     
-    public PRCentralController(int DatasetToUse, int DatasetByResearcherType,
-            String NUSDataset1Dir, String NUSDataset2Dir,
-            String fileNamePapers, String fileNamePaperCitePaper, String fileNameAuthorTestSet,
-            String fileNameGroundTruth, String fileNameAuthorship, String fileNameAuthorCitePaper,
-            String dirPapers, String dirPreProcessedPaper, String sequenceDir, String vectorDir,
-            String MahoutCFDir, String fileNameEvaluationResult,
-            int recommendationMethod) {
-        
-        _DatasetToUse = DatasetToUse;
-        _DatasetByResearcherType = DatasetByResearcherType;
-        _NUSDataset1Dir = NUSDataset1Dir;
-        _NUSDataset2Dir = NUSDataset2Dir;
-        _fileNamePapers = fileNamePapers;
-        _fileNamePaperCitePaper = fileNamePaperCitePaper;
-        _fileNameAuthorTestSet = fileNameAuthorTestSet;
-        _fileNameGroundTruth = fileNameGroundTruth;
-        _fileNameAuthorship = fileNameAuthorship;
-        _fileNameAuthorCitePaper = fileNameAuthorCitePaper;
-        _dirPapers = dirPapers;
-        _dirPreProcessedPaper = dirPreProcessedPaper;
-        _sequenceDir = sequenceDir;
-        _vectorDir = vectorDir;
-        _MahoutCFDir = MahoutCFDir;
-        _fileNameEvaluationResult = fileNameEvaluationResult;
-        _recommendationMethod = recommendationMethod;
-    }
-
     public static void main(String[] args) {
         try {
             recommendationFlowController(3, 0,
                     PRConstant.FOLDER_NUS_DATASET1,
                     PRConstant.FOLDER_NUS_DATASET2,
+                    PRConstant.FOLDER_MAS_DATASET,
                     // For CBF
                     PRConstant.FOLDER_MAS_DATASET + "PAPER_BEFORE_T2.csv",
                     PRConstant.FOLDER_MAS_DATASET + "PAPER_CITE_PAPER_BEFORE_T2.csv",
@@ -102,6 +56,7 @@ public class PRCentralController {
                     PRConstant.FOLDER_MAS_DATASET + "MahoutCF",
                     // Result
                     "EvaluationResult\\EvaluationResult_Junior100_NewCitation_251214.xls",
+                    // Method
                     4);
         } catch (Exception e) {
             e.printStackTrace();
@@ -112,6 +67,9 @@ public class PRCentralController {
      *
      * @param DatasetToUse : 1: NUS Dataset 1, 2: NUS Dataset 2, 3: MAS Dataset.
      * @param DatasetByResearcherType 0: Both, 1: Junior, 2: Senior.
+     * @param NUSDataset1Dir
+     * @param NUSDataset2Dir
+     * @param MASDatasetDir
      * @param fileNamePapers
      * @param fileNamePaperCitePaper
      * @param fileNameAuthorTestSet
@@ -139,7 +97,7 @@ public class PRCentralController {
      * @throws Exception
      */
     public static void recommendationFlowController(int DatasetToUse, int DatasetByResearcherType,
-            String NUSDataset1Dir, String NUSDataset2Dir,
+            String NUSDataset1Dir, String NUSDataset2Dir, String MASDatasetDir,
             String fileNamePapers, String fileNamePaperCitePaper, String fileNameAuthorTestSet,
             String fileNameGroundTruth, String fileNameAuthorship, String fileNameAuthorCitePaper,
             String dirPapers, String dirPreProcessedPaper, String sequenceDir, String vectorDir,
@@ -152,6 +110,8 @@ public class PRCentralController {
         long estimatedTime;
 
         int topNRecommend = 1000;
+        boolean runningFirstTime = false;        
+        
         String datasetName = null;
         String algorithmName = null;
 
@@ -168,7 +128,7 @@ public class PRCentralController {
             } else if (DatasetByResearcherType == 2) {
                 datasetName += " Senior";
             }
-            fileNameEvaluationResult = PRConstant.FOLDER_NUS_DATASET1 + "\\" + fileNameEvaluationResult;
+            fileNameEvaluationResult = NUSDataset1Dir + "\\" + fileNameEvaluationResult;
             // Read authors and their papers from data folder.
             authorTestSet = NUSDataset1.buildListOfAuthors(NUSDataset1Dir, DatasetByResearcherType);
             // Read papers (test set) from data folder.
@@ -184,7 +144,7 @@ public class PRCentralController {
             // Not yet implement.
         } else if (DatasetToUse == 3) {
             datasetName = "MAS Dataset";
-            fileNameEvaluationResult = PRConstant.FOLDER_MAS_DATASET + fileNameEvaluationResult;
+            fileNameEvaluationResult = MASDatasetDir + fileNameEvaluationResult;
             // Step 1: read list 1000 authors for test set.
             System.out.println("Begin reading author test set...");
             startTime = System.nanoTime();
@@ -206,7 +166,9 @@ public class PRCentralController {
                 // Step 3: 
                 // Compute TF-IDF for MAS papers.
                 // Notice: Only run once.
-                //CBFPaperFVComputation.computeTFIDFFromPaperAbstract(papers, dirPapers, dirPreProcessedPaper, sequenceDir, vectorDir);
+                if (runningFirstTime) {
+                    CBFPaperFVComputation.computeTFIDFFromPaperAbstract(papers, dirPapers, dirPreProcessedPaper, sequenceDir, vectorDir);
+                }
                 CBFPaperFVComputation.readTFIDFFromMahoutFile(papers, vectorDir);
                 // Clear no longer in use objects.
                 // Always clear abstract.
@@ -231,25 +193,24 @@ public class PRCentralController {
         double gamma = 0.2;
         int combiningSchemePaperTestSet = combiningSchemePaperOfAuthor;
         int weightingSchemePaperTestSet = weightingSchemePaperOfAuthor;
-        // similarityScheme: 0: cosine
-        int similarityScheme = 0;
         // Min Threshold to prune citation and reference paper when combining.
         double pruning = 0.0;
+        // similarityScheme: 0: cosine
+        int similarityScheme = 0;
 
-        // parameters for cf method.
+        // parameters for CF method.
         // 1: KNN, 2: MF SVD
         int cfMethod = 1;
         // 1: Pearson, 2: Cosine, 3: Log likelihood
         int knnSimilarityScheme = 3;
+        // KNN: k neighbors.
+        int k = 8;
+        // SVD: f features, normalize by l, i iterations.
+        int f = 8;
+        double l = 0.001;
+        int i = 20;
         
-        // parameters for hybrid method
-        // combinationScheme: 1: combine linear, 2: combine based on confidence, 
-        // 3: combine based on confidence and linear, 4: confidence v2, 5: confidence and linear v2.
-        int combinationScheme;
-        // weighting when combine linear.
-        float alpha;
-        
-        // parameters for trust based method
+        // parameters for TRUST-BASED method
         // howToTrustAuthor: 1: combine linear citation author and coauthor, 2: meta trust citation author of coauthor
         // 3: meta trust citation author of citation author.
         int howToTrustAuthor;
@@ -258,6 +219,13 @@ public class PRCentralController {
         // howToTrustPaper: 1: average trust value of authors, 2: max trust value of authors.
         int howToTrustPaper;
 
+        // parameters for HYBRID method
+        // combinationScheme: 1: combine linear, 2: combine based on confidence, 
+        // 3: combine based on confidence and linear, 4: confidence v2, 5: confidence and linear v2.
+        int combinationScheme;
+        // weighting when combine linear.
+        float alpha;
+        
         // Recommendation.
         if (recommendationMethod == 1) {
             //<editor-fold defaultstate="collapsed" desc="CONTENT BASED METHOD">
@@ -268,8 +236,8 @@ public class PRCentralController {
                     paperIdsOfAuthorTestSet, paperIdsInTestSet,
                     combiningSchemePaperOfAuthor, weightingSchemePaperOfAuthor,
                     timeAwareScheme, gamma,
-                    combiningSchemePaperTestSet, weightingSchemePaperTestSet, similarityScheme,
-                    pruning);
+                    combiningSchemePaperTestSet, weightingSchemePaperTestSet, 
+                    pruning, similarityScheme);
             
             /*// Filter old paper.
             int cutYear = 2003;
@@ -287,7 +255,8 @@ public class PRCentralController {
             startTime = System.nanoTime();
 
             algorithmName = CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir, 
-                    cfMethod, knnSimilarityScheme, authorTestSet, paperIdsInTestSet);
+                    cfMethod, knnSimilarityScheme, authorTestSet, paperIdsInTestSet,
+                    runningFirstTime, k, f, l, i);
             
             CF.cfRecommendToAuthorList(authorTestSet, topNRecommend);
 
@@ -301,10 +270,11 @@ public class PRCentralController {
                     paperIdsOfAuthorTestSet, paperIdsInTestSet,
                     combiningSchemePaperOfAuthor, weightingSchemePaperOfAuthor,
                     timeAwareScheme, gamma,
-                    combiningSchemePaperTestSet, weightingSchemePaperTestSet, similarityScheme,
-                    pruning);
+                    combiningSchemePaperTestSet, weightingSchemePaperTestSet,
+                    pruning, similarityScheme);
             CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir,
-                    cfMethod, knnSimilarityScheme, authorTestSet, paperIdsInTestSet);
+                    cfMethod, knnSimilarityScheme, authorTestSet, paperIdsInTestSet,
+                    runningFirstTime, k, f, l, i);
             
             combinationScheme = 1; // 5 options.
             alpha = 0.8f;
@@ -370,8 +340,8 @@ public class PRCentralController {
                     paperIdsOfAuthorTestSet, paperIdsInTestSet,
                     combiningSchemePaperOfAuthor, weightingSchemePaperOfAuthor,
                     timeAwareScheme, gamma,
-                    combiningSchemePaperTestSet, weightingSchemePaperTestSet, similarityScheme,
-                    pruning);
+                    combiningSchemePaperTestSet, weightingSchemePaperTestSet,
+                    pruning, similarityScheme);
             
             // Trust:
             TrustDataModelPreparation.computeCoAuthorRSSHM(authorTestSet, fileNameAuthorship, fileNamePapers);
@@ -424,8 +394,8 @@ public class PRCentralController {
                     paperIdsOfAuthorTestSet, paperIdsInTestSet,
                     combiningSchemePaperOfAuthor, weightingSchemePaperOfAuthor,
                     timeAwareScheme, gamma,
-                    combiningSchemePaperTestSet, weightingSchemePaperTestSet, similarityScheme,
-                    pruning);
+                    combiningSchemePaperTestSet, weightingSchemePaperTestSet,
+                    pruning, similarityScheme);
             
             // Trust:
             TrustDataModelPreparation.computeCoAuthorRSSHM(authorTestSet, fileNameAuthorship, fileNamePapers);
@@ -457,8 +427,8 @@ public class PRCentralController {
                     paperIdsOfAuthorTestSet, paperIdsInTestSet,
                     combiningSchemePaperOfAuthor, weightingSchemePaperOfAuthor,
                     timeAwareScheme, gamma,
-                    combiningSchemePaperTestSet, weightingSchemePaperTestSet, similarityScheme,
-                    pruning);
+                    combiningSchemePaperTestSet, weightingSchemePaperTestSet,
+                    pruning, similarityScheme);
             FeatureVectorSimilarity.generateRecommendationForAuthorList(authorTestSet, topNRecommend);
             
             // Trust:
@@ -489,10 +459,11 @@ public class PRCentralController {
                     paperIdsOfAuthorTestSet, paperIdsInTestSet,
                     combiningSchemePaperOfAuthor, weightingSchemePaperOfAuthor,
                     timeAwareScheme, gamma,
-                    combiningSchemePaperTestSet, weightingSchemePaperTestSet, similarityScheme,
-                    pruning);
+                    combiningSchemePaperTestSet, weightingSchemePaperTestSet,
+                    pruning, similarityScheme);
             CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir,
-                    cfMethod, knnSimilarityScheme, authorTestSet, paperIdsInTestSet);
+                    cfMethod, knnSimilarityScheme, authorTestSet, paperIdsInTestSet,
+                    runningFirstTime, k, f, l, i);
             
             CBFCF.computeCBFCFHybridV2AndPutIntoModelForAuthorList(authorTestSet);
             
@@ -506,11 +477,12 @@ public class PRCentralController {
                     paperIdsOfAuthorTestSet, paperIdsInTestSet,
                     combiningSchemePaperOfAuthor, weightingSchemePaperOfAuthor,
                     timeAwareScheme, gamma,
-                    combiningSchemePaperTestSet, weightingSchemePaperTestSet, similarityScheme,
-                    pruning);
+                    combiningSchemePaperTestSet, weightingSchemePaperTestSet,
+                    pruning, similarityScheme);
             FeatureVectorSimilarity.generateRecommendationForAuthorList(authorTestSet, topNRecommend);
             CFController.cfComputeRecommendingScore(fileNameAuthorCitePaper, MahoutCFDir,
-                    cfMethod, knnSimilarityScheme, authorTestSet, paperIdsInTestSet);
+                    cfMethod, knnSimilarityScheme, authorTestSet, paperIdsInTestSet,
+                    runningFirstTime, k, f, l, i);
             
             CBFCF.computeCBFCFHybridV3AndPutIntoModelForAuthorList(authorTestSet);
             

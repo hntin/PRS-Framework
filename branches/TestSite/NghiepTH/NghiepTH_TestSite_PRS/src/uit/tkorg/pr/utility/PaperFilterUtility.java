@@ -28,9 +28,12 @@ public class PaperFilterUtility {
                     authors.get(idAuthor).getCbfSimHM().remove(idPaper);
                     authors.get(idAuthor).getCfRatingHM().remove(idPaper);
                     authors.get(idAuthor).getCbfCfHybridHM().remove(idPaper);
+                    authors.get(idAuthor).getCbfCfHybridV2HM().remove(idPaper);
+                    authors.get(idAuthor).getCbfCfHybridV3HM().remove(idPaper);
                     authors.get(idAuthor).getTrustedPaperHM().remove(idPaper);
                     authors.get(idAuthor).getCbfTrustHybridHM().remove(idPaper);
                     authors.get(idAuthor).getCbfTrustHybridV2HM().remove(idPaper);
+                    authors.get(idAuthor).getCbfTrustHybridV3HM().remove(idPaper);
                     authors.get(idAuthor).getFinalRecommendingScoreHM().remove(idPaper);
                 }
             }
@@ -59,9 +62,22 @@ public class PaperFilterUtility {
                     iter.remove();
                 }
             }
-            for (String idPaper : authorObj.getCbfCfHybridHM().keySet()) {
-                if (!paperIdsInTestSet.contains(idPaper)) {
-                    authorObj.getCbfCfHybridHM().remove(idPaper);
+            iter = authorObj.getCbfCfHybridHM().keySet().iterator();
+            while (iter.hasNext()) {
+                if (!paperIdsInTestSet.contains(iter.next())) {
+                    iter.remove();
+                }
+            }
+            iter = authorObj.getCbfCfHybridV2HM().keySet().iterator();
+            while (iter.hasNext()) {
+                if (!paperIdsInTestSet.contains(iter.next())) {
+                    iter.remove();
+                }
+            }
+            iter = authorObj.getCbfCfHybridV3HM().keySet().iterator();
+            while (iter.hasNext()) {
+                if (!paperIdsInTestSet.contains(iter.next())) {
+                    iter.remove();
                 }
             }
             iter = authorObj.getTrustedPaperHM().keySet().iterator();
@@ -77,6 +93,12 @@ public class PaperFilterUtility {
                 }
             }
             iter = authorObj.getCbfTrustHybridV2HM().keySet().iterator();
+            while (iter.hasNext()) {
+                if (!paperIdsInTestSet.contains(iter.next())) {
+                    iter.remove();
+                }
+            }
+            iter = authorObj.getCbfTrustHybridV3HM().keySet().iterator();
             while (iter.hasNext()) {
                 if (!paperIdsInTestSet.contains(iter.next())) {
                     iter.remove();
