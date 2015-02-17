@@ -239,9 +239,9 @@ public class PRCentralController {
                     combiningSchemePaperTestSet, weightingSchemePaperTestSet, 
                     pruning, similarityScheme);
             
-            /*// Filter old paper.
-            int cutYear = 2003;
-            PaperFilterUtility.filterOldPaper(authorTestSet, papers, cutYear);*/
+//            // Filter old paper.
+//            int cutYear = 2000; // Inclusive, not null year.
+//            PaperFilterUtility.filterOldPaper(authorTestSet, papers, cutYear);
             
             FeatureVectorSimilarity.generateRecommendationForAuthorList(authorTestSet, topNRecommend);
 
