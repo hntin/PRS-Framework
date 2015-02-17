@@ -379,7 +379,7 @@ public class PRCentralController {
                     + " CBF-TB alpha = " + alpha;
             //</editor-fold>
         } else if (recommendationMethod == 6) {
-            //<editor-fold defaultstate="collapsed" desc="NEW CBF-TRUST COMBINATION V2">           
+            //<editor-fold defaultstate="collapsed" desc="CBF-TRUST COMBINATION V2">           
             
             // CBF:
             CBFController.cbfComputeRecommendingScore(authorTestSet, papers,
@@ -410,7 +410,7 @@ public class PRCentralController {
             algorithmName = "CBF-Trust Hybrid V2";
             //</editor-fold>
         } else if (recommendationMethod == 7) {
-            //<editor-fold defaultstate="collapsed" desc="NEW CBF-TRUST COMBINATION V3">           
+            //<editor-fold defaultstate="collapsed" desc="CBF-TRUST COMBINATION V3">           
             
             // CBF:
             CBFController.cbfComputeRecommendingScore(authorTestSet, papers,
