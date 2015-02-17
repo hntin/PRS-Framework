@@ -189,7 +189,7 @@ public class PRCentralController {
         int weightingSchemePaperOfAuthor = 2;
         // timeAwareScheme: 0: unaware; 1: aware.
         int timeAwareScheme = 1;
-        // gamma: forgetting factor when aware of time. gamma = 0 => timeAware = 0.
+        // gamma: forgetting factor when timeAwareScheme = 1. gamma = 0 <=> timeAwareScheme = 0.
         double gamma = 0.2;
         int combiningSchemePaperTestSet = combiningSchemePaperOfAuthor;
         int weightingSchemePaperTestSet = weightingSchemePaperOfAuthor;
@@ -213,11 +213,11 @@ public class PRCentralController {
         // parameters for TRUST-BASED method
         // howToTrustAuthor: 1: combine linear citation author and coauthor, 2: meta trust citation author of coauthor
         // 3: meta trust citation author of citation author.
-        int howToTrustAuthor;
+        int howToTrustAuthor = 1;
         // howToGetTrustedPaper: 1: written by trusted author, 2: written and cited by trusted author
-        int howToGetTrustedPaper;
+        int howToGetTrustedPaper = 2;
         // howToTrustPaper: 1: average trust value of authors, 2: max trust value of authors.
-        int howToTrustPaper;
+        int howToTrustPaper = 2;
 
         // parameters for HYBRID method
         // combinationScheme: 1: combine linear, 2: combine based on confidence, 
@@ -305,10 +305,6 @@ public class PRCentralController {
             combinationScheme = 1; // 5 options.
             alpha = 0.5f;
             
-            howToTrustAuthor = 1;
-            howToGetTrustedPaper = 2;
-            howToTrustPaper = 2;
-            
             if (howToTrustAuthor == 1) {
                 // When how to trust author = 1, means COMBINE LINEAR COAUTHOR AND CITED AUTHOR
                 // we have 5 OPTIONS for COMBINATION SCHEME.
@@ -351,10 +347,6 @@ public class PRCentralController {
 
             combinationScheme = 1; // 5 options.
             alpha = 0.5f;
-            
-            howToTrustAuthor = 1;
-            howToGetTrustedPaper = 2;
-            howToTrustPaper = 2;
             
             if (howToTrustAuthor == 1) {
                 TrustHybrid.computeTrustedAuthorHMLinearCombinationAndPutIntoModelForAuthorList(authorTestSet, alpha, combinationScheme);
@@ -405,8 +397,6 @@ public class PRCentralController {
 
             combinationScheme = 1; // 5 options.
             alpha = 0.5f;
-            howToGetTrustedPaper = 2;
-            howToTrustPaper = 2;
             // Merge coauthor and citedauthor.
             TrustHybrid.computeTrustedAuthorHMLinearCombinationAndPutIntoModelForAuthorList(authorTestSet, alpha, combinationScheme);
             // Get list of social related papers, score is not relevant.
@@ -439,8 +429,6 @@ public class PRCentralController {
 
             combinationScheme = 1; // 5 options.
             alpha = 0.5f;
-            howToGetTrustedPaper = 2;
-            howToTrustPaper = 2;
             // Merge coauthor and citedauthor.
             TrustHybrid.computeTrustedAuthorHMLinearCombinationAndPutIntoModelForAuthorList(authorTestSet, alpha, combinationScheme);
             // Get list of social related papers, score is not relevant.
