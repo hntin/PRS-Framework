@@ -15,6 +15,7 @@ import uit.tkorg.pr.datapreparation.TrustDataModelPreparation;
 import uit.tkorg.pr.evaluation.ErrorAnalysis;
 import uit.tkorg.pr.evaluation.Evaluator;
 import uit.tkorg.pr.method.cbf.FeatureVectorSimilarity;
+import static uit.tkorg.pr.method.cbf.FeatureVectorSimilarity.computeCBFSim;
 import uit.tkorg.pr.method.cf.CF;
 import uit.tkorg.pr.method.hybrid.CBFCF;
 import uit.tkorg.pr.method.hybrid.TrustHybrid;
@@ -178,6 +179,30 @@ public class PRCentralController {
             // Get list of papers to process.
             paperIdsOfAuthorTestSet = CBFAuthorFVComputation.getPaperIdsOfAuthors(authorTestSet);
             paperIdsInTestSet = CBFAuthorFVComputation.getPaperIdsTestSet(authorTestSet);
+        }
+        //</editor-fold>
+
+        //<editor-fold defaultstate="collapsed" desc="PP PRS dataset: Exp 1: compute relevancy.">
+        CBFPaperFVComputation.computeFeatureVectorForAllPapers(papers, paperIdsOfAuthorTestSet, 0, 0, 0);
+        CBFAuthorFVComputation.computeFVForAllAuthors(authorTestSet, papers, 0, 0);
+        CBFPaperFVComputation.computeFeatureVectorForAllPapers(papers, paperIdsInTestSet, 0, 0, 0);
+
+        String fileNameRelevancy = null;
+        if (DatasetToUse == 1) {
+            fileNameRelevancy = NUSDataset1Dir + "/rel.csv";
+        } else if (DatasetToUse == 3) {
+            fileNameRelevancy = MASDatasetDir + "/rel.csv";
+        }
+        for (Author r : authorTestSet.values()) {
+            HashMap<String, Paper> rGroundTruthPapers = CBFPaperFVComputation.extractPapers(papers, 
+                    new HashSet<String>(r.getGroundTruth()));
+            computeCBFSim(r, rGroundTruthPapers, 0);
+            Float rel_r = 0f;
+            for (Float sim : r.getCbfSimHM().values()) {
+                rel_r += sim;
+            }
+            rel_r /= r.getCbfSimHM().size();
+            FileUtils.writeStringToFile(new File(fileNameRelevancy), rel_r.toString() + "\n", "UTF8", true);
         }
         //</editor-fold>
 
