@@ -57,14 +57,27 @@ public class CBFPaperFVComputation {
         System.out.println("End setting tf-idf to papers.");
     }
     
-    public static void computeTFIDFFromPaperAbstract(HashMap<String, Paper> papers, 
-            String dirPapers, String dirPreProcessedPaper, String sequenceDir, String vectorDir) throws Exception {
+    /**
+     * 
+     * @param papers
+     * @param dirPapers
+     * @param dirPreProcessedPaper
+     * @param sequenceDir
+     * @param vectorDir
+     * @param contentType: content of paper to compute tf-idf: 1: abstract, 2: title and abstract, 3: full-text.
+     * @throws Exception 
+     */
+    public static void computeTFIDF(HashMap<String, Paper> papers, 
+            String dirPapers, String dirPreProcessedPaper, String sequenceDir, String vectorDir, int contentType) throws Exception {
         // Step 1:
         // - Writing abstract of all papers to text files. One file for each paper in 'dirPapers' directory.
-        // - Clear abstract of all papers.
         System.out.println("Begin writing abstract to file...");
         long startTime = System.nanoTime();
-        PRGeneralFile.writePaperAbstractToTextFile(papers, dirPapers);
+        if (contentType == 1) {
+            PRGeneralFile.writePaperAbstractToTextFile(papers, dirPapers);
+        } else if (contentType == 2) {
+            PRGeneralFile.writePaperTitleAbstractToTextFile(papers, dirPapers);
+        }
         long estimatedTime = System.nanoTime() - startTime;
         System.out.println("Writing abstract to file elapsed time: " + estimatedTime / 1000000000 + " seconds");
         System.out.println("End writing abstract to file.");

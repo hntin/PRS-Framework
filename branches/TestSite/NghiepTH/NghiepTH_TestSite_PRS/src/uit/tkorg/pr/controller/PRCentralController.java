@@ -35,7 +35,7 @@ public class PRCentralController {
     
     public static void main(String[] args) {
         try {
-            recommendationFlowController(3, 0,
+            recommendationFlowController(3, 1,
                     PRConstant.FOLDER_NUS_DATASET1,
                     PRConstant.FOLDER_NUS_DATASET2,
                     PRConstant.FOLDER_MAS_DATASET,
@@ -43,22 +43,22 @@ public class PRCentralController {
                     PRConstant.FOLDER_MAS_DATASET + "PAPER_BEFORE_T2.csv",
                     PRConstant.FOLDER_MAS_DATASET + "PAPER_CITE_PAPER_BEFORE_T2.csv",
                     // Testing data
-                    PRConstant.FOLDER_MAS_DATASET + "JUNIOR100.csv",
-                    PRConstant.FOLDER_MAS_DATASET + "GROUND_TRUTH_JUNIOR100_T2_NEW.csv",
+                    PRConstant.FOLDER_MAS_DATASET + "JUNIOR100_FILTER_V2_OLD.csv",
+                    PRConstant.FOLDER_MAS_DATASET + "GROUND_TRUTH_JUNIOR100_T2_FILTER_V2.csv",
                     // Author Profile
                     PRConstant.FOLDER_MAS_DATASET + "AUTHOR_PAPER_BEFORE_T2.csv",
                     // For CF
                     PRConstant.FOLDER_MAS_DATASET + "AUTHOR_CITE_PAPER_BEFORE_T2.csv", 
                     // Mahout
-                    PRConstant.FOLDER_MAS_DATASET + "TF-IDF\\Text",
-                    PRConstant.FOLDER_MAS_DATASET + "TF-IDF\\PreProcessedPaper",
-                    PRConstant.FOLDER_MAS_DATASET + "TF-IDF\\Sequence",
-                    PRConstant.FOLDER_MAS_DATASET + "TF-IDF\\Vector",
+                    PRConstant.FOLDER_MAS_DATASET + "TF-IDF_TitleAbstract\\Text",
+                    PRConstant.FOLDER_MAS_DATASET + "TF-IDF_TitleAbstract\\PreProcessedPaper",
+                    PRConstant.FOLDER_MAS_DATASET + "TF-IDF_TitleAbstract\\Sequence",
+                    PRConstant.FOLDER_MAS_DATASET + "TF-IDF_TitleAbstract\\Vector",
                     PRConstant.FOLDER_MAS_DATASET + "MahoutCF",
                     // Result
-                    "EvaluationResult\\EvaluationResult_Junior100_NewCitation_251214.xls",
+                    "EvaluationResult\\EvaluationResult_PPPRSDataset_250515_FILTER_V2_OLD_TitleAbstract.xls",
                     // Method
-                    4);
+                    1);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -168,7 +168,7 @@ public class PRCentralController {
                 // Compute TF-IDF for MAS papers.
                 // Notice: Only run once.
                 if (runningFirstTime) {
-                    CBFPaperFVComputation.computeTFIDFFromPaperAbstract(papers, dirPapers, dirPreProcessedPaper, sequenceDir, vectorDir);
+                    CBFPaperFVComputation.computeTFIDF(papers, dirPapers, dirPreProcessedPaper, sequenceDir, vectorDir, 2);
                 }
                 CBFPaperFVComputation.readTFIDFFromMahoutFile(papers, vectorDir);
                 // Clear no longer in use objects.
@@ -183,6 +183,7 @@ public class PRCentralController {
         //</editor-fold>
 
         //<editor-fold defaultstate="collapsed" desc="PP PRS dataset: Exp 1: compute relevancy.">
+/*      
         CBFPaperFVComputation.computeFeatureVectorForAllPapers(papers, paperIdsOfAuthorTestSet, 0, 0, 0);
         CBFAuthorFVComputation.computeFVForAllAuthors(authorTestSet, papers, 0, 0);
         CBFPaperFVComputation.computeFeatureVectorForAllPapers(papers, paperIdsInTestSet, 0, 0, 0);
@@ -202,22 +203,23 @@ public class PRCentralController {
                 rel_r += sim;
             }
             rel_r /= r.getCbfSimHM().size();
-            FileUtils.writeStringToFile(new File(fileNameRelevancy), rel_r.toString() + "\n", "UTF8", true);
+            FileUtils.writeStringToFile(new File(fileNameRelevancy), r.getAuthorId() + "\t" + rel_r.toString() + "\n", "UTF8", true);
         }
+        */
         //</editor-fold>
 
         // parameters for CBF methods.
         // combiningSchemePaperOfAuthor: 0: itself, 1: itself + ref; 2: itself + citations; 
         // 3: itself + refs + citations.
-        int combiningSchemePaperOfAuthor = 3;
+        int combiningSchemePaperOfAuthor = 0;
         // weightingSchemePaperOfAuthor: 0: linear; 1: cosine; 2: rpy.
-        int weightingSchemePaperOfAuthor = 2;
+        int weightingSchemePaperOfAuthor = 0;
         // timeAwareScheme: 0: unaware; 1: aware.
-        int timeAwareScheme = 1;
+        int timeAwareScheme = 0;
         // gamma: forgetting factor when timeAwareScheme = 1. gamma = 0 <=> timeAwareScheme = 0.
-        double gamma = 0.2;
-        int combiningSchemePaperTestSet = combiningSchemePaperOfAuthor;
-        int weightingSchemePaperTestSet = weightingSchemePaperOfAuthor;
+        double gamma = 0;
+        int combiningSchemePaperTestSet = 0;
+        int weightingSchemePaperTestSet = 0;
         // Min Threshold to prune citation and reference paper when combining.
         double pruning = 0.0;
         // similarityScheme: 0: cosine

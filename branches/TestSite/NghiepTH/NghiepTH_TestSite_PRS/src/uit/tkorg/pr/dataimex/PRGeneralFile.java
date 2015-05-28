@@ -44,4 +44,27 @@ public class PRGeneralFile {
             i++;
         }
     }
+
+    public static void writePaperTitleAbstractToTextFile(HashMap<String, Paper> papers, String textDir) throws Exception {
+        Set<String> paperIdSet = papers.keySet();
+        List<String> paperIdList = new ArrayList<>(paperIdSet);
+        
+        Collections.sort(paperIdList, new Comparator() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                return Integer.valueOf((String) o1).compareTo(Integer.valueOf((String) o2));
+            }
+        });
+        
+        String subFolder = null;
+        int i = 0;
+        for (String key : paperIdList) {
+            if (i % 1000 == 0) {
+                subFolder = "Papers " + String.valueOf(i + 1) + " - " + String.valueOf(i + 1000);
+            }
+            String fileName = textDir + "\\" + subFolder + "\\" + key + ".txt";
+            FileUtils.writeStringToFile(new File(fileName), papers.get(key).getPaperTitle() + " " + papers.get(key).getPaperAbstract(), "UTF8", false);
+            i++;
+        }
+    }
 }

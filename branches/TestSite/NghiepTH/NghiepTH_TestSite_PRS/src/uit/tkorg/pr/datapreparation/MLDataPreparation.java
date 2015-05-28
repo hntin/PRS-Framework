@@ -118,7 +118,7 @@ public class MLDataPreparation {
         papers = MASDataset1.readPaperList(fileNamePapers, fileNamePaperCitePaper);
         // Step 3: 
         // Compute TF-IDF for MAS papers.
-        CBFPaperFVComputation.computeTFIDFFromPaperAbstract(papers, dirPapers, dirPreProcessedPaper, sequenceDir, vectorDir);
+        CBFPaperFVComputation.computeTFIDF(papers, dirPapers, dirPreProcessedPaper, sequenceDir, vectorDir, 2);
         CBFPaperFVComputation.readTFIDFFromMahoutFile(papers, vectorDir);
         // Clear no longer in use objects.
         // Always clear abstract.
